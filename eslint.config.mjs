@@ -82,7 +82,6 @@ export default createConfigForNuxt(
 			overrides: {
 				'vue/html-quotes': ['error', 'single', { avoidEscape: true }],
 				'vue/component-name-in-template-casing': ['error', 'PascalCase'],
-				'vue/html-indent': ['error', 'tab'],
 			},
 		},
 	}),
