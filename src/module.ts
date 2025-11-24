@@ -44,6 +44,49 @@ export default defineNuxtModule<ModuleOptions>({
 				dataValue: 'mantine-color-scheme',
 			},
 		},
+		'@nuxtjs/icon': {
+			version: '>=4.0.0',
+			defaults: {
+				mode: 'svg',
+				class: '',
+				clientBundle: {
+					scan: {
+						globInclude: ['src/**/*.vue', 'src/**/*.ts'],
+						globExclude: [
+							'node_modules',
+							'.idea',
+							'.output',
+							'.data',
+							'.nuxt',
+							'.nitro',
+							'.cache',
+							'dist',
+							'server',
+						],
+					},
+					includeCustomCollections: true,
+					sizeLimitKb: 256,
+				},
+			},
+		},
+		'postcss': {
+			defaults: {
+				plugins: {
+					'postcss-import': {},
+					'postcss-preset-mantine': {},
+					'postcss-simple-vars': {
+						variables: {
+							'breakpoint-xs': '36em',
+							'breakpoint-sm': '48em',
+							'breakpoint-md': '62em',
+							'breakpoint-lg': '75em',
+							'breakpoint-xl': '88em',
+						},
+					},
+					'autoprefixer': {},
+				},
+			},
+		},
 	},
 	// Default configuration options of the Nuxt module
 	defaults: defaultConfig,

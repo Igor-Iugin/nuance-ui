@@ -8,9 +8,27 @@ importers:
 
   .:
     dependencies:
+      '@nuxt/icon':
+        specifier: ^2.1.0
+        version: 2.1.0(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@nuxt/kit':
         specifier: ^4.2.1
         version: 4.2.1(magicast@0.5.1)
+      '@nuxtjs/color-mode':
+        specifier: ^4.0.0
+        version: 4.0.0(magicast@0.5.1)
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      postcss-preset-mantine:
+        specifier: ^1.18.0
+        version: 1.18.0(postcss@8.5.6)
+      postcss-simple-vars:
+        specifier: ^7.0.1
+        version: 7.0.1(postcss@8.5.6)
+      vue:
+        specifier: ^3.3.0
+        version: 3.5.24(typescript@5.9.3)
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^6.2.0
@@ -24,9 +42,6 @@ importers:
       '@nuxt/eslint-config':
         specifier: ^1.10.0
         version: 1.10.0(@typescript-eslint/utils@8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.24)(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
-      '@nuxt/icon':
-        specifier: 2.1.0
-        version: 2.1.0(magicast@0.5.1)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@nuxt/module-builder':
         specifier: ^1.0.2
         version: 1.0.2(@nuxt/cli@3.30.0(magicast@0.5.1))(@vue/compiler-core@3.5.24)(esbuild@0.27.0)(typescript@5.9.3)(vue-tsc@3.1.4(typescript@5.9.3))(vue@3.5.24(typescript@5.9.3))
@@ -36,9 +51,6 @@ importers:
       '@nuxt/test-utils':
         specifier: ^3.20.1
         version: 3.20.1(magicast@0.5.1)(typescript@5.9.3)(vitest@4.0.13(@types/debug@4.1.12)(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(yaml@2.8.1))
-      '@nuxtjs/color-mode':
-        specifier: 4.0.0
-        version: 4.0.0(magicast@0.5.1)
       '@nuxtjs/stylelint-module':
         specifier: ^5.2.1
         version: 5.2.1(magicast@0.5.1)(postcss@8.5.6)(rollup@4.53.3)(stylelint@16.26.0(typescript@5.9.3))(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(yaml@2.8.1))(webpack@5.103.0(esbuild@0.27.0))
@@ -54,15 +66,6 @@ importers:
       nuxt:
         specifier: ^4.2.1
         version: 4.2.1(@parcel/watcher@2.5.1)(@types/node@24.10.1)(@vue/compiler-sfc@3.5.24)(db0@0.3.4)(eslint@9.39.1(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup@4.53.3)(stylelint@16.26.0(typescript@5.9.3))(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(typescript@5.9.3)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(terser@5.44.1)(yaml@2.8.1))(vue-tsc@3.1.4(typescript@5.9.3))(yaml@2.8.1)
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
-      postcss-preset-mantine:
-        specifier: ^1.18.0
-        version: 1.18.0(postcss@8.5.6)
-      postcss-simple-vars:
-        specifier: ^7.0.1
-        version: 7.0.1(postcss@8.5.6)
       stylelint:
         specifier: ^16.26.0
         version: 16.26.0(typescript@5.9.3)
