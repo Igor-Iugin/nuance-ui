@@ -1,8 +1,11 @@
 {
 	"name": "nuance-ui",
 	"version": "1.0.0",
-	"description": "My new Nuxt module",
-	"repository": "your-org/my-module",
+	"description": "A UI Library for Modern Web Apps, powered by Vue.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Igor-Iugin/nuance-ui.git"
+	},
 	"license": "MIT",
 	"type": "module",
 	"exports": {
@@ -45,10 +48,20 @@
 		"@nuxt/module-builder": "^1.0.2",
 		"@nuxt/schema": "^4.2.1",
 		"@nuxt/test-utils": "^3.20.1",
+		"@nuxtjs/color-mode": "4.0.0",
+		"@nuxtjs/stylelint-module": "^5.2.1",
 		"@types/node": "latest",
 		"changelogen": "^0.6.2",
 		"eslint": "^9.39.1",
 		"nuxt": "^4.2.1",
+		"postcss": "^8.5.6",
+		"postcss-preset-mantine": "^1.18.0",
+		"postcss-simple-vars": "^7.0.1",
+		"stylelint": "^16.26.0",
+		"stylelint-config-clean-order": "^8.0.0",
+		"stylelint-config-recommended-vue": "^1.6.1",
+		"stylelint-config-standard": "^39.0.1",
+		"stylelint-order": "^7.0.0",
 		"typescript": "~5.9.3",
 		"vitest": "^4.0.10",
 		"vue-tsc": "^3.1.4"
