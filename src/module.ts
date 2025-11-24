@@ -101,13 +101,12 @@ export default defineNuxtModule<ModuleOptions>({
 				path: resolve('./runtime/components'),
 				prefix: options.prefix,
 				pathPrefix: false,
-				ignore: ['color-mode/**'],
 			})
 
 			addImportsDir(resolve('./runtime/composables'))
 		}
 
 		// Add global styles
-		nuxt.options.css.push(resolve('./runtime/assets/css/main.css'))
+		nuxt.options.css.push(resolve('./runtime/styles/global.css'))
 	},
 })

@@ -1,0 +1,67 @@
+@import url(./baseline.css);
+@import url(./const.css);
+@import url(./colors.css);
+@import url(./dark-theme.css);
+@import url(./light-theme.css);
+
+/* ----- Global styles ----- */
+.light-hidden {
+	@mixin light {
+		display: none;
+	}
+}
+
+.dark-hidden {
+	@mixin dark {
+		display: none;
+	}
+}
+
+.focus-auto {
+	&:focus-visible {
+		outline: 2px solid var(--color-primary-filled);
+		outline-offset: 2px;
+	}
+}
+
+.focus-always {
+	&:focus {
+		outline: 2px solid var(--color-primary-filled);
+		outline-offset: 2px;
+	}
+}
+
+.focus-never {
+	&:focus {
+		outline: none;
+	}
+}
+
+.active {
+	&:active {
+		transform: translateY(rem(1px));
+	}
+
+	fieldset:disabled &:active {
+		transform: none;
+	}
+}
+
+.rotate-rtl {
+	@mixin where-rtl {
+		transform: rotate(180deg);
+	}
+}
+
+/* Visually Hidden */
+[data-v-hidden] {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+}

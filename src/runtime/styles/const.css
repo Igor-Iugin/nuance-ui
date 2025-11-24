@@ -1,0 +1,66 @@
+:root {
+	--mantine-scale: 1;
+
+	--font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+	--font-family-headings: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica;
+	--font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+	--heading-text-wrap: wrap;
+
+	--font-size-xs: .75rem;
+	--font-size-sm: .875rem;
+	--font-size-md: 1rem;
+	--font-size-lg: 1.125rem;
+	--font-size-xl: 1.25rem;
+
+	--font-size-h1: calc(2.125rem * var(--mantine-scale));
+	--line-height-h1: 1.3;
+	--font-weight-h1: 700;
+	--font-size-h2: calc(1.625rem * var(--mantine-scale));
+	--line-height-h2: 1.35;
+	--font-weight-h2: 700;
+	--font-size-h3: calc(1.375rem * var(--mantine-scale));
+	--line-height-h3: 1.4;
+	--font-weight-h3: 700;
+	--font-size-h4: calc(1.125rem * var(--mantine-scale));
+	--line-height-h4: 1.45;
+	--font-weight-h4: 700;
+	--font-size-h5: calc(1rem * var(--mantine-scale));
+	--line-height-h5: 1.5;
+	--font-weight-h5: 700;
+	--font-size-h6: calc(0.875rem * var(--mantine-scale));
+	--line-height-h6: 1.5;
+	--font-weight-h6: 700;
+
+	--spacing-xs: 0.625rem;
+	--spacing-sm: 0.75rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.25rem;
+	--spacing-xl: 2rem;
+
+	--radius-xs: 0.125rem;
+	--radius-sm: 0.25rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 1rem;
+	--radius-xl: 2rem;
+	--radius-default: var(--radius-sm);
+
+	--line-height: 1.55;
+	--line-height-xs: 1.4;
+	--line-height-sm: 1.45;
+	--line-height-md: 1.55;
+	--line-height-lg: 1.6;
+	--line-height-xl: 1.65;
+
+	--shadow-xs: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05), 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
+	--shadow-sm: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 0.625rem 0.9375rem -0.3125rem, rgba(0, 0, 0, 0.04) 0 0.4375rem 0.4375rem -0.3125rem;
+	--shadow-md: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 1.25rem 1.5625rem -0.3125rem, rgba(0, 0, 0, 0.04) 0 0.625rem 0.625rem -0.3125rem;
+	--shadow-lg: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 1.75rem 1.4375rem -0.4375rem, rgba(0, 0, 0, 0.04) 0 0.75rem 0.75rem -0.4375rem;
+	--shadow-xl: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 2.25rem 1.75rem -0.4375rem, rgba(0, 0, 0, 0.04) 0 1.0625rem 1.0625rem -0.4375rem;
+
+	--breakpoint-xs: 36em;
+	--breakpoint-sm: 48em;
+	--breakpoint-md: 62em;
+	--breakpoint-lg: 75em;
+	--breakpoint-xl: 88em;
+}

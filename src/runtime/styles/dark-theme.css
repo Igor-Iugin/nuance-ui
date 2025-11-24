@@ -1,0 +1,160 @@
+:root {
+	@mixin dark-root {
+		--primary-color-contrast: var(--color-white);
+		--color-bright: var(--color-white);
+
+		--color-text: var(--color-slate-3);
+		--color-body: var(--color-slate-9);
+		--color-aside: var(--color-slate-7);
+		--color-header: var(--color-slate-8);
+
+		--color-error: var(--color-red-7);
+		--color-placeholder: var(--color-dark-3);
+		--color-anchor: var(--color-blue-4);
+
+		--color-default: var(--color-dark-6);
+		--color-default-hover: var(--color-dark-5);
+		--color-default-color: var(--color-white);
+		--color-default-border: var(--color-dark-4);
+
+		--color-dimmed: var(--color-slate-5);
+
+		--color-disabled: var(--color-dark-6);
+		--color-disabled-text: var(--color-dark-3);
+		--color-disabled-border: var(--color-gray-6);
+
+		--color-dark-color: var(--color-dark-4);
+		--color-dark-filled: var(--color-dark-8);
+		--color-dark-filled-hover: var(--color-dark-9);
+		--color-dark-light: rgba(46, 46, 46, 0.15);
+		--color-dark-light-hover: rgba(46, 46, 46, 0.2);
+		--color-dark-light-color: var(--color-dark-3);
+		--color-dark-outline: var(--color-dark-4);
+		--color-dark-outline-hover: rgba(66, 66, 66, 0.05);
+
+		--color-slate-filled: var(--color-slate-6);
+		--color-slate-filled-hover: var(--color-slate-7);
+		--color-slate-light: alpha(var(--color-slate-3), .15);
+		--color-slate-light-hover: var(--color-slate-2);
+		--color-slate-light-color: var(--color-slate-8);
+		--color-slate-outline: var(--color-slate-5);
+		--color-slate-outline-hover: alpha(var(--color-slate-5), .1);
+
+		--color-gray-color: var(--color-gray-4);
+		--color-gray-filled: var(--color-gray-8);
+		--color-gray-filled-hover: var(--color-gray-9);
+		--color-gray-light: rgba(134, 142, 150, 0.15);
+		--color-gray-light-hover: rgba(134, 142, 150, 0.2);
+		--color-gray-light-color: var(--color-gray-3);
+		--color-gray-outline: var(--color-gray-4);
+		--color-gray-outline-hover: rgba(206, 212, 218, 0.05);
+
+		--color-red-color: var(--color-red-4);
+		--color-red-filled: var(--color-red-8);
+		--color-red-filled-hover: var(--color-red-9);
+		--color-red-light: rgba(250, 82, 82, 0.15);
+		--color-red-light-hover: rgba(250, 82, 82, 0.2);
+		--color-red-light-color: var(--color-red-3);
+		--color-red-outline: var(--color-red-4);
+		--color-red-outline-hover: rgba(255, 135, 135, 0.05);
+
+		--color-pink-color: var(--color-pink-4);
+		--color-pink-filled: var(--color-pink-8);
+		--color-pink-filled-hover: var(--color-pink-9);
+		--color-pink-light: rgba(230, 73, 128, 0.15);
+		--color-pink-light-hover: rgba(230, 73, 128, 0.2);
+		--color-pink-light-color: var(--color-pink-3);
+		--color-pink-outline: var(--color-pink-4);
+		--color-pink-outline-hover: rgba(247, 131, 172, 0.05);
+
+		--color-grape-color: var(--color-grape-4);
+		--color-grape-filled: var(--color-grape-8);
+		--color-grape-filled-hover: var(--color-grape-9);
+		--color-grape-light: rgba(190, 75, 219, 0.15);
+		--color-grape-light-hover: rgba(190, 75, 219, 0.2);
+		--color-grape-light-color: var(--color-grape-3);
+		--color-grape-outline: var(--color-grape-4);
+		--color-grape-outline-hover: rgba(218, 119, 242, 0.05);
+
+		--color-violet-color: var(--color-violet-4);
+		--color-violet-filled: var(--color-violet-8);
+		--color-violet-filled-hover: var(--color-violet-9);
+		--color-violet-light: rgba(121, 80, 242, 0.15);
+		--color-violet-light-hover: rgba(121, 80, 242, 0.2);
+		--color-violet-light-color: var(--color-violet-3);
+		--color-violet-outline: var(--color-violet-4);
+		--color-violet-outline-hover: rgba(151, 117, 250, 0.05);
+
+		--color-indigo-color: var(--color-indigo-4);
+		--color-indigo-filled: var(--color-indigo-8);
+		--color-indigo-filled-hover: var(--color-indigo-9);
+		--color-indigo-light: rgba(76, 110, 245, 0.15);
+		--color-indigo-light-hover: rgba(76, 110, 245, 0.2);
+		--color-indigo-light-color: var(--color-indigo-3);
+		--color-indigo-outline: var(--color-indigo-4);
+		--color-indigo-outline-hover: rgba(116, 143, 252, 0.05);
+
+		--color-blue-color: var(--color-blue-4);
+		--color-blue-filled: var(--color-blue-8);
+		--color-blue-filled-hover: var(--color-blue-9);
+		--color-blue-light: rgba(34, 139, 230, 0.15);
+		--color-blue-light-hover: rgba(34, 139, 230, 0.2);
+		--color-blue-light-color: var(--color-blue-3);
+		--color-blue-outline: var(--color-blue-4);
+		--color-blue-outline-hover: rgba(77, 171, 247, 0.05);
+
+		--color-cyan-color: var(--color-cyan-4);
+		--color-cyan-filled: var(--color-cyan-8);
+		--color-cyan-filled-hover: var(--color-cyan-9);
+		--color-cyan-light: rgba(21, 170, 191, 0.15);
+		--color-cyan-light-hover: rgba(21, 170, 191, 0.2);
+		--color-cyan-light-color: var(--color-cyan-3);
+		--color-cyan-outline: var(--color-cyan-4);
+		--color-cyan-outline-hover: rgba(59, 201, 219, 0.05);
+
+		--color-teal-color: var(--color-teal-4);
+		--color-teal-filled: var(--color-teal-8);
+		--color-teal-filled-hover: var(--color-teal-9);
+		--color-teal-light: rgba(18, 184, 134, 0.15);
+		--color-teal-light-hover: rgba(18, 184, 134, 0.2);
+		--color-teal-light-color: var(--color-teal-3);
+		--color-teal-outline: var(--color-teal-4);
+		--color-teal-outline-hover: rgba(56, 217, 169, 0.05);
+
+		--color-green-color: var(--color-green-4);
+		--color-green-filled: var(--color-green-8);
+		--color-green-filled-hover: var(--color-green-9);
+		--color-green-light: rgba(64, 192, 87, 0.15);
+		--color-green-light-hover: rgba(64, 192, 87, 0.2);
+		--color-green-light-color: var(--color-green-3);
+		--color-green-outline: var(--color-green-4);
+		--color-green-outline-hover: rgba(105, 219, 124, 0.05);
+
+		--color-lime-color: var(--color-lime-4);
+		--color-lime-filled: var(--color-lime-8);
+		--color-lime-filled-hover: var(--color-lime-9);
+		--color-lime-light: rgba(130, 201, 30, 0.15);
+		--color-lime-light-hover: rgba(130, 201, 30, 0.2);
+		--color-lime-light-color: var(--color-lime-3);
+		--color-lime-outline: var(--color-lime-4);
+		--color-lime-outline-hover: rgba(169, 227, 75, 0.05);
+
+		--color-yellow-color: var(--color-yellow-4);
+		--color-yellow-filled: var(--color-yellow-8);
+		--color-yellow-filled-hover: var(--color-yellow-9);
+		--color-yellow-light: rgba(250, 176, 5, 0.15);
+		--color-yellow-light-hover: rgba(250, 176, 5, 0.2);
+		--color-yellow-light-color: var(--color-yellow-3);
+		--color-yellow-outline: var(--color-yellow-4);
+		--color-yellow-outline-hover: rgba(255, 212, 59, 0.05);
+
+		--color-orange-color: var(--color-orange-4);
+		--color-orange-filled: var(--color-orange-8);
+		--color-orange-filled-hover: var(--color-orange-9);
+		--color-orange-light: rgba(253, 126, 20, 0.15);
+		--color-orange-light-hover: rgba(253, 126, 20, 0.2);
+		--color-orange-light-color: var(--color-orange-3);
+		--color-orange-outline: var(--color-orange-4);
+		--color-orange-outline-hover: rgba(255, 169, 77, 0.05);
+	}
+}
