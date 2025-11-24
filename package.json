@@ -65,5 +65,17 @@
 		"typescript": "~5.9.3",
 		"vitest": "^4.0.10",
 		"vue-tsc": "^3.1.4"
-	}
+	},
+	"keywords": [
+		"nuance-ui",
+		"nuxt",
+		"vue3",
+		"component library",
+		"vue",
+		"vuejs",
+		"vue.js",
+		"typescript",
+		"vue-components",
+		"ui"
+	]
 }
