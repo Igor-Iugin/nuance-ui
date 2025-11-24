@@ -29,7 +29,7 @@ My new Nuxt module for doing amazing things.
 - 🚠 &nbsp;Bar
 - 🌲 &nbsp;Baz
 
-## Quick Setup
+## Quick Setup 1
 
 Install the module to your Nuxt application with one command:
 
