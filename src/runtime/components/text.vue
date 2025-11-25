@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitGradient, UiKitSize } from '@types'
+import type { UiKitColor, UiKitGradient, UiKitSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { useStyleResolver } from '@composals'
-import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@utils'
+import { useStyleResolver } from '@nui/composals'
+import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'

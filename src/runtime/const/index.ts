@@ -1,4 +1,4 @@
-import type { UiKitGradient } from '@types'
+import type { UiKitGradient } from '@nui/types'
 
 
 export const DEFAULT_GRADIENT: UiKitGradient = {

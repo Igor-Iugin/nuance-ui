@@ -1,4 +1,4 @@
-import { createStrictInjection } from '@helpers'
+import { createStrictInjection } from '@nui/helpers'
 
 
 const injectionKey = Symbol('DrawerState')

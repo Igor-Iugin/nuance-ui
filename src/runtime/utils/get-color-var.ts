@@ -1,4 +1,4 @@
-import type { UiKitColor, UiKitColorShade } from '@types'
+import type { UiKitColor, UiKitColorShade } from '@nui/types'
 
 
 export function getColorVar(color: UiKitColor, shade: UiKitColorShade = 4) {

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { UiKitSpacing } from '@types'
+import type { UiKitSpacing } from '@nui/types'
 
-import { getSpacing } from '@utils'
+import { getSpacing } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { PaperProps } from '../paper.vue'

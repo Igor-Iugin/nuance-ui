@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import type { Component } from 'vue'
 
-import { getFontSize, getRadius, getSize } from '@utils'
+import { getFontSize, getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'

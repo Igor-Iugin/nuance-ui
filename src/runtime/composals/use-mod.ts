@@ -1,4 +1,4 @@
-import { isFalsy } from '@utils'
+import { isFalsy } from '@nui/utils'
 
 
 export type Mod = Record<string, any>

@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import type { Mod } from '@composals'
+import type { Mod } from '@nui/composals'
 import type { Component } from 'vue'
 
-import { useMod } from '@composals'
+import { useMod } from '@nui/composals'
 import { computed } from 'vue'
 
 

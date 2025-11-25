@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitGradient, UiKitRadius, UiKitSize } from '@types'
+import type { UiKitColor, UiKitGradient, UiKitRadius, UiKitSize } from '@nui/types'
 
-import { useStyleResolver } from '@composals'
-import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@utils'
+import { useStyleResolver } from '@nui/composals'
+import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'

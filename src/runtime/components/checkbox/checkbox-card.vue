@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import type { Mod } from '@composals'
-import type { UiKitRadius } from '@types'
+import type { Mod } from '@nui/composals'
+import type { UiKitRadius } from '@nui/types'
 
-import { getRadius } from '@utils'
+import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
 
 import { UnstyledButton } from '../button'

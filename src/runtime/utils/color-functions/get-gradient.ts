@@ -1,4 +1,4 @@
-import type { UiKitGradient, UiKitTheme } from '@types'
+import type { UiKitGradient, UiKitTheme } from '@nui/types'
 
 import { DEFAULT_GRADIENT } from '../../const'
 import { parseThemeColor } from '../parse-theme-color/parse-theme-color'

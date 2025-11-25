@@ -1,4 +1,4 @@
-import type { UiKitTheme } from '@types'
+import type { UiKitTheme } from '@nui/types'
 
 import { useState } from '#imports'
 

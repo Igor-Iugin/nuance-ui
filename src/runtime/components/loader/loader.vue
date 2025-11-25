@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitSize } from '@types'
+import type { UiKitColor, UiKitSize } from '@nui/types'
 import type { Component } from 'vue'
 
-import { useStyleResolver } from '@composals'
-import { getSize, parseThemeColor } from '@utils'
+import { useStyleResolver } from '@nui/composals'
+import { getSize, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
 import BarsLoader from './_loaders/bars-loader.vue'

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { UiKitRadius } from '@types'
+import type { UiKitRadius } from '@nui/types'
 
-import { getRadius } from '@utils'
+import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'

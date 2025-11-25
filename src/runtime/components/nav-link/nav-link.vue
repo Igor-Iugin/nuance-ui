@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { UiKitColor } from '@types'
+import type { UiKitColor } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
-import { useActiveLink, useStyleResolver } from '@composals'
-import { createVariantColorResolver } from '@utils'
+import { useActiveLink, useStyleResolver } from '@nui/composals'
+import { createVariantColorResolver } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'

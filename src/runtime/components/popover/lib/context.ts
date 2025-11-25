@@ -1,6 +1,6 @@
-import type { UiKitRadius, UiKitShadow } from '@types'
+import type { UiKitRadius, UiKitShadow } from '@nui/types'
 
-import { createStrictInjection } from '@helpers'
+import { createStrictInjection } from '@nui/helpers'
 
 import type { UsePopoverReturn } from './use-popover'
 

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import type { PopoverProps } from '../popover'

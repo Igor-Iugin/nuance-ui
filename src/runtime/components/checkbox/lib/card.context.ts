@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 
-import { createStrictInjection } from '@helpers'
+import { createStrictInjection } from '@nui/helpers'
 
 
 export interface CheckboxCardState {

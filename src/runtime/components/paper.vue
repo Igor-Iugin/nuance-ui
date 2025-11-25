@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { UiKitRadius, UiKitShadow } from '@types'
+import type { UiKitRadius, UiKitShadow } from '@nui/types'
 
-import { getRadius, getShadow } from '@utils'
+import { getRadius, getShadow } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'

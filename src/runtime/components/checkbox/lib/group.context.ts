@@ -1,7 +1,7 @@
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 import type { ModelRef } from 'vue'
 
-import { createStrictInjection } from '@helpers'
+import { createStrictInjection } from '@nui/helpers'
 
 
 export interface CheckboxGroupState {

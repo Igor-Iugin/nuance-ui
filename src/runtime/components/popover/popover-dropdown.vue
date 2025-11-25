@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { getRadius, getShadow } from '@utils'
+import { getRadius, getShadow } from '@nui/utils'
 import { computed } from 'vue'
 
 import { usePopoverState } from './lib/context'

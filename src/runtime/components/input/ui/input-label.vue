@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 
-import { getFontSize } from '@utils'
+import { getFontSize } from '@nui/utils'
 import { computed } from 'vue'
 
 

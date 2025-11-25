@@ -1,4 +1,4 @@
-import type { UiKitColor, UiKitGradient, UiKitTheme } from '@types'
+import type { UiKitColor, UiKitGradient, UiKitTheme } from '@nui/types'
 
 import { DEFAULT_GRADIENT } from '../../const'
 import { getGradient, getGradientOutline } from '../color-functions/get-gradient'

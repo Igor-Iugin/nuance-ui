@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 
 import { useId } from 'vue'
 

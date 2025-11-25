@@ -75,8 +75,33 @@ export default defineNuxtModule<ModuleOptions>({
 	setup(options, nuxt) {
 		const { resolve } = createResolver(import.meta.url)
 
-		nuxt.options.alias['#nuance-ui'] = resolve('./runtime')
+		nuxt.options.alias['@nui'] = resolve('./runtime')
+		nuxt.options.alias['@nui/composals'] = resolve('./runtime/composals')
+		nuxt.options.alias['@nui/components'] = resolve('./runtime/components')
+		nuxt.options.alias['@nui/utils'] = resolve('./runtime/utils')
+		nuxt.options.alias['@nui/helpers'] = resolve('./runtime/helpers')
+		nuxt.options.alias['@nui/types'] = resolve('./runtime/types')
 		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
+
+
+		// PostCSS конфигурация
+		nuxt.options.postcss = nuxt.options.postcss || {}
+		nuxt.options.postcss.plugins = nuxt.options.postcss.plugins || {}
+
+		nuxt.options.postcss.plugins = defu(nuxt.options.postcss.plugins, {
+			'postcss-import': {},
+			'postcss-preset-mantine': {},
+			'postcss-simple-vars': {
+				variables: {
+					'breakpoint-xs': '36em',
+					'breakpoint-sm': '48em',
+					'breakpoint-md': '62em',
+					'breakpoint-lg': '75em',
+					'breakpoint-xl': '88em',
+				},
+			},
+			'autoprefixer': {},
+		})
 
 		// Регистрируем компоненты с префиксом
 		if (options.autoImport) {
@@ -90,11 +115,11 @@ export default defineNuxtModule<ModuleOptions>({
 					'**/lib.ts',
 					'**/_*/**',
 					'**/types/**',
-					'**/index.ts',
 					'**/*.module.css',
 				],
 			})
 
+			addImportsDir(resolve('./runtime/components'))
 			addImportsDir(resolve('./runtime/composals'))
 			addImportsDir(resolve('./runtime/helpers'))
 		}

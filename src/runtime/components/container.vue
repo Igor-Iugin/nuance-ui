@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 
-import { getSize } from '@utils'
+import { getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'

@@ -1,5 +1,5 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
-import type { Mod } from '@composals'
+import type { Mod } from '@nui/composals'
 
 import { computed } from 'vue'
 

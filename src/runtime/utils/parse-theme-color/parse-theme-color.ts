@@ -1,4 +1,4 @@
-import type { UiKitColor, UiKitColorShade, UiKitDefaultThemeColor, UiKitTheme } from '@types'
+import type { UiKitColor, UiKitColorShade, UiKitDefaultThemeColor, UiKitTheme } from '@nui/types'
 
 import { getColorVar } from '../../utils/get-color-var'
 

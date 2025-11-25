@@ -1,8 +1,8 @@
 <script lang='ts' setup>
-import type { UiKitRadius, UiKitShadow, UiKitSize, UiKitSpacing } from '@types'
+import type { UiKitRadius, UiKitShadow, UiKitSize, UiKitSpacing } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { getRadius, getShadow, getSize, getSpacing, rem } from '@utils'
+import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
 import { onClickOutside, unrefElement } from '@vueuse/core'
 import { computed, onMounted, shallowRef, watch } from 'vue'
 

@@ -1,7 +1,7 @@
-import type { UiKitSize } from '@types'
+import type { UiKitSize } from '@nui/types'
 import type { CSSProperties, ModelRef } from 'vue'
 
-import { createStrictInjection } from '@helpers'
+import { createStrictInjection } from '@nui/helpers'
 
 import type { ComboboxItem } from '../model'
 import type { ComboboxStore } from './use-combobox/use-combobox'
