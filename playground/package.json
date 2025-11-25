@@ -9,5 +9,11 @@
 	},
 	"dependencies": {
 		"nuxt": "^4.2.1"
+	},
+	"devDependencies": {
+		"@nuxt/icon": "^2.1.0",
+		"@nuxtjs/color-mode": "^4.0.0",
+		"@vueuse/core": "^14.0.0",
+		"@floating-ui/vue": "^1.1.9"
 	}
 }
