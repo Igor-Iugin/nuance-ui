@@ -1,4 +1,13 @@
+import { fileURLToPath } from 'node:url'
+
+
 export default defineNuxtConfig({
+	alias: {
+		'@helpers': fileURLToPath(new URL('src/runtime/helpers', import.meta.url)),
+		'@composals': fileURLToPath(new URL('src/runtime/composals', import.meta.url)),
+		'@types': fileURLToPath(new URL('src/runtime/types', import.meta.url)),
+		'@utils': fileURLToPath(new URL('src/runtime/utils', import.meta.url)),
+	},
 	modules: [
 		'@nuxt/eslint',
 		'@nuxt/icon',

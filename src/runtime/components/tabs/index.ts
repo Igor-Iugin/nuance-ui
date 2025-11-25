@@ -1,0 +1,1 @@
+export { useTabsState } from './lib'

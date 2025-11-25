@@ -1,0 +1,215 @@
+.root {
+	--ai-size-xs: rem(18px);
+	--ai-size-sm: rem(22px);
+	--ai-size-md: rem(28px);
+	--ai-size-lg: rem(34px);
+	--ai-size-xl: rem(44px);
+
+	--ai-size-input-xs: rem(30px);
+	--ai-size-input-sm: rem(36px);
+	--ai-size-input-md: rem(42px);
+	--ai-size-input-lg: rem(50px);
+	--ai-size-input-xl: rem(60px);
+
+	--ai-size: var(--ai-size-md);
+	--ai-color: var(--color-white);
+	--ai-radius: var(--radius-default);
+	--ai-bg: var(--color-primary-filled);
+	--ai-hover: var(--color-primary-filled-hover);
+
+	cursor: pointer;
+	user-select: none;
+
+	position: relative;
+
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 0;
+
+	width: var(--ai-size);
+	min-width: var(--ai-size);
+	height: var(--ai-size);
+	min-height: var(--ai-size);
+
+	line-height: 1;
+	color: var(--ai-color, var(--color-white));
+
+	background: var(--ai-bg, var(--color-primary-filled));
+	border: var(--ai-bd, rem(1px) solid transparent);
+	border-radius: var(--ai-radius, var(--radius-default));
+
+	&[data-loading] {
+		cursor: not-allowed;
+
+		& .icon {
+			transform: translateY(100%);
+
+			opacity: 0;
+		}
+	}
+
+	&:where(:disabled:not([data-loading]), [data-disabled]:not([data-loading])) {
+		cursor: not-allowed;
+
+		border: 1px solid transparent;
+
+		&:active {
+			transform: none;
+		}
+
+		@mixin where-light {
+			color: var(--color-gray-5);
+
+			background-color: var(--color-gray-1);
+		}
+
+		@mixin where-dark {
+			color: var(--color-dark-3);
+
+			background-color: var(--color-dark-6);
+		}
+	}
+
+	@mixin hover {
+		&:where(:not([data-loading], :disabled, [data-disabled])) {
+			color: var(--ai-color);
+
+			background-color: var(--ai-hover);
+		}
+	}
+}
+
+.loader {
+	position: absolute;
+	top: calc(50% - var(--loader-size) / 2);
+	left: calc(50% - var(--loader-size) / 2);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: var(--ai-radius, var(--radius-default));
+
+	@mixin where-light {
+		background-color: rgba(255, 255, 255, 0.15);
+	}
+
+	@mixin where-dark {
+		background-color: rgba(0, 0, 0, 0.15);
+	}
+}
+
+.icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: 100%;
+
+	transition: transform 150ms ease,
+	opacity 100ms ease;
+}
+
+.group {
+	--ai-border-width: 1px;
+	display: flex;
+
+	& :where(*) {
+		&:focus {
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	&[data-orientation='horizontal'] {
+		flex-direction: row;
+
+		& .root,
+		& .groupSection {
+			&:not(:only-child):first-child {
+				border-end-end-radius: 0;
+				border-start-end-radius: 0;
+				border-inline-end-width: calc(var(--ai-border-width) / 2);
+			}
+
+			&:not(:only-child):last-child {
+				border-end-start-radius: 0;
+				border-start-start-radius: 0;
+				border-inline-start-width: calc(var(--ai-border-width) / 2);
+			}
+
+			&:not(:only-child):not(:first-child):not(:last-child) {
+				border-radius: 0;
+				border-inline-width: calc(var(--ai-border-width) / 2);
+			}
+		}
+	}
+
+	&[data-orientation='vertical'] {
+		flex-direction: column;
+
+		& .root,
+		& .groupSection {
+			&:not(:only-child):first-child {
+				border-end-start-radius: 0;
+				border-end-end-radius: 0;
+				border-bottom-width: calc(var(--ai-border-width) / 2);
+			}
+
+			&:not(:only-child):last-child {
+				border-start-start-radius: 0;
+				border-start-end-radius: 0;
+				border-top-width: calc(var(--ai-border-width) / 2);
+			}
+
+			&:not(:only-child):not(:first-child):not(:last-child) {
+				border-radius: 0;
+				border-bottom-width: calc(var(--ai-border-width) / 2);
+				border-top-width: calc(var(--ai-border-width) / 2);
+			}
+		}
+	}
+}
+
+.section {
+	--section-height-xs: var(--ai-size-xs);
+	--section-height-sm: var(--ai-size-sm);
+	--section-height-md: var(--ai-size-md);
+	--section-height-lg: var(--ai-size-lg);
+	--section-height-xl: var(--ai-size-xl);
+
+	--section-height-input-xs: var(--ai-size-input-xs);
+	--section-height-input-sm: var(--ai-size-input-sm);
+	--section-height-input-md: var(--ai-size-input-md);
+	--section-height-input-lg: var(--ai-size-input-lg);
+	--section-height-input-xl: var(--ai-size-input-xl);
+
+	--section-padding-x-xs: rem(6px);
+	--section-padding-x-sm: rem(8px);
+	--section-padding-x-md: rem(10px);
+	--section-padding-x-lg: rem(12px);
+	--section-padding-x-xl: rem(16px);
+
+	--section-height: var(--section-height-sm);
+	--section-padding-x: var(--section-padding-x-sm);
+	--section-color: var(--color-white);
+
+	font-weight: 600;
+	width: auto;
+	border-radius: var(--section-radius, var(--mantine-radius-default));
+	font-size: var(--section-fz, var(--mantine-font-size-sm));
+	background: var(--section-bg, var(--color-primary-filled));
+	border: var(--section-bd, rem(1px) solid transparent);
+	color: var(--section-color, var(--color-white));
+	height: var(--section-height, var(--section-height-sm));
+	padding-inline: var(--section-padding-x, var(--section-padding-x-sm));
+	vertical-align: middle;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}

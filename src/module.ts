@@ -44,8 +44,8 @@ export default defineNuxtModule<ModuleOptions>({
 				dataValue: 'mantine-color-scheme',
 			},
 		},
-		'@nuxtjs/icon': {
-			version: '>=4.0.0',
+		'@nuxt/icon': {
+			version: '>=2.1.0',
 			defaults: {
 				mode: 'svg',
 				class: '',
@@ -69,31 +69,14 @@ export default defineNuxtModule<ModuleOptions>({
 				},
 			},
 		},
-		'postcss': {
-			defaults: {
-				plugins: {
-					'postcss-import': {},
-					'postcss-preset-mantine': {},
-					'postcss-simple-vars': {
-						variables: {
-							'breakpoint-xs': '36em',
-							'breakpoint-sm': '48em',
-							'breakpoint-md': '62em',
-							'breakpoint-lg': '75em',
-							'breakpoint-xl': '88em',
-						},
-					},
-					'autoprefixer': {},
-				},
-			},
-		},
 	},
 	// Default configuration options of the Nuxt module
 	defaults: defaultConfig,
 	setup(options, nuxt) {
 		const { resolve } = createResolver(import.meta.url)
 
-		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.ui || {}, defaultConfig)
+		nuxt.options.alias['#nuance-ui'] = resolve('./runtime')
+		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
 
 		// Регистрируем компоненты с префиксом
 		if (options.autoImport) {
@@ -101,9 +84,19 @@ export default defineNuxtModule<ModuleOptions>({
 				path: resolve('./runtime/components'),
 				prefix: options.prefix,
 				pathPrefix: false,
+				extensions: ['.vue'],
+				ignore: [
+					'**/lib/**',
+					'**/lib.ts',
+					'**/_*/**',
+					'**/types/**',
+					'**/index.ts',
+					'**/*.module.css',
+				],
 			})
 
-			addImportsDir(resolve('./runtime/composables'))
+			addImportsDir(resolve('./runtime/composals'))
+			addImportsDir(resolve('./runtime/helpers'))
 		}
 
 		// Add global styles

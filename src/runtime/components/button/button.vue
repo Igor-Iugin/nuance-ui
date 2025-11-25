@@ -1,0 +1,133 @@
+<script lang='ts' setup>
+import type { UiKitColor, UiKitGradient, UiKitRadius, UiKitSize } from '@types'
+import type { HTMLAttributes } from 'vue'
+import { computed, useSlots } from 'vue'
+
+import { useStyleResolver } from '@composals'
+import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@utils'
+
+import type { BoxProps } from '../box.vue'
+import Box from '../box.vue'
+import Loader from '../loader/loader.vue'
+import css from './button.module.css'
+
+
+export interface ButtonProps extends BoxProps {
+	size?: UiKitSize | `compact-${UiKitSize}`
+	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	gradient?: UiKitGradient
+	loading?: boolean
+	color?: UiKitColor
+	radius?: UiKitRadius
+	classes?: {
+		root?: string
+		inner?: string
+		label?: string
+		section?: string
+	}
+	/** section pointer-events */
+	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
+	leftSectionProps?: HTMLAttributes
+	/** section pointer-events */
+	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
+	rightSectionProps?: HTMLAttributes
+}
+
+const {
+	color,
+	size = 'sm',
+	variant = 'default',
+	gradient,
+	loading,
+	classes,
+	leftSectionPE = 'none',
+	leftSectionProps,
+	rightSectionPE = 'all',
+	rightSectionProps,
+	is = 'button',
+	radius,
+	mod: _mod,
+} = defineProps<ButtonProps>()
+
+const style = computed(() => useStyleResolver(theme => {
+	const {
+		background,
+		border,
+		hover,
+		text,
+	} = createVariantColorResolver({ variant, color, theme, gradient })
+
+	return {
+		root: {
+			'--button-height': getSize(size, 'button-height'),
+			'--button-padding-x': getSize(size, 'button-padding-x'),
+			'--button-fz': size?.includes('compact')
+				? getFontSize(size.replace('compact-', ''))
+				: getFontSize(size),
+			'--button-bg': background,
+			'--button-hover': hover,
+			'--button-color': text,
+			'--button-bd': border,
+			'--button-radius': getRadius(radius),
+		},
+		leftSection: {
+			'--section-pointer-events': leftSectionPE,
+		},
+		rightSection: {
+			'--section-pointer-events': rightSectionPE,
+		},
+	}
+}))
+
+const slots = useSlots()
+
+const mod = computed(() => [
+	{
+		loading,
+		'data-with-left-section': !!slots?.leftSection,
+		'data-with-right-section': !!slots?.rightSection,
+		variant,
+	},
+	_mod,
+])
+</script>
+
+<template>
+	<Box
+		:is
+		:mod
+		:style='style.root'
+		:class='[css.root, classes?.root]'
+		:disabled='loading'
+	>
+		<Transition name='fade-down'>
+			<Loader v-show='loading' :class='css.loader' :color :size/>
+		</Transition>
+
+		<span :class='[css.inner, classes?.inner]'>
+			<span
+				v-if='$slots.leftSection'
+				:class='[css.section, classes?.section]'
+				data-position='left'
+				v-bind='leftSectionProps'
+				:style='style.leftSection'
+			>
+				<slot name='leftSection'/>
+			</span>
+
+			<span :class='[css.label, classes?.label]'>
+				<slot/>
+			</span>
+
+			<span
+				v-if='$slots.rightSection'
+				data-position='right'
+				:class='[css.section, classes?.section]'
+				v-bind='rightSectionProps'
+				:style='style.rightSection'
+			>
+				<slot name='rightSection'/>
+			</span>
+		</span>
+	</Box>
+</template>

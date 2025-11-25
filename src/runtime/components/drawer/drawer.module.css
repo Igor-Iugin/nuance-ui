@@ -1,0 +1,40 @@
+.root {
+	height: 100%;
+	overflow-y: auto;
+
+	&[data-position='left'] {
+		.content {
+			border-radius: 0 var(--dialog-radius) var(--dialog-radius) 0;
+		}
+	}
+
+	&[data-position='right'] {
+		left: unset;
+		right: var(--dialog-x-offset);
+
+		.content {
+			border-radius: var(--dialog-radius) 0 0 var(--dialog-radius);
+		}
+	}
+
+	&[data-position='top'] {
+		width: 100%;
+		height: var(--dialog-size);
+		top: var(--dialog-y-offset);
+
+		.content {
+			border-radius: 0 0 var(--dialog-radius) var(--dialog-radius);
+		}
+	}
+
+	&[data-position='bottom'] {
+		top: unset;
+		bottom: var(--dialog-y-offset);
+		width: 100%;
+		height: var(--dialog-size);
+
+		.content {
+			border-radius: var(--dialog-radius) var(--dialog-radius) 0 0;
+		}
+	}
+}

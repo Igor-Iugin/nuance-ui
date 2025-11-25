@@ -1,0 +1,22 @@
+.root {
+	--dialog-y-offset: 5dvh;
+	--dialog-x-offset: 50%;
+
+	transform: translateX(-50%);
+
+	&[data-centered] {
+		--dialog-x-offset: 50%;
+		--dialog-y-offset: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&[data-full-screen] {
+		--dialog-y-offset: 0;
+		--dialog-x-offset: 0;
+		--dialog-radius: 0;
+
+		width: 100%;
+		height: 100%;
+	}
+
+}
