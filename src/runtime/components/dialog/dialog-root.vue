@@ -1,15 +1,16 @@
 <script lang='ts' setup>
 import type { UiKitRadius, UiKitShadow, UiKitSize, UiKitSpacing } from '@types'
 import type { CSSProperties } from 'vue'
-import { computed, onMounted, shallowRef, watch } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@utils'
 import { onClickOutside, unrefElement } from '@vueuse/core'
+import { computed, onMounted, shallowRef, watch } from 'vue'
 
 import type { BoxProps } from '../box.vue'
-import NBox from '../box.vue'
 import type { TransitionName } from '../transition'
 import type { DialogEmits, DialogModel } from './types'
+
+import NBox from '../box.vue'
 import NTransition from '../transition/transition.vue'
 import css from './dialog.module.css'
 import { useProvideDialogState } from './lib'
@@ -127,7 +128,7 @@ const style = computed(() => ({
 		>
 			<NTransition :name='transition'>
 				<NBox is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
-					<slot/>
+					<slot />
 				</NBox>
 			</NTransition>
 		</NBox>

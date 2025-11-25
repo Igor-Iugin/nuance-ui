@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import type { DialogEmits, DialogModel, DialogRootProps } from '../dialog'
+
 import { DialogRoot } from '../dialog'
 import css from './modal.module.css'
 
@@ -35,6 +36,6 @@ const opened = defineModel<DialogModel['open']>('open', { default: false })
 		@open='$emit("open")'
 		@close='$emit("close")'
 	>
-		<slot/>
+		<slot />
 	</DialogRoot>
 </template>

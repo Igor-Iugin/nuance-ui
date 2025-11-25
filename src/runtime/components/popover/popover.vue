@@ -47,7 +47,8 @@ function sync(value: boolean, emitting: boolean = true) {
 	if (value) {
 		unrefElement(store.dropdownRef)?.showPopover()
 		emitting && emit('open')
-	} else {
+	}
+	else {
 		unrefElement(store.dropdownRef)?.hidePopover()
 		emitting && emit('close')
 	}
@@ -75,5 +76,5 @@ useProvidePopoverState({
 </script>
 
 <template>
-	<slot/>
+	<slot />
 </template>

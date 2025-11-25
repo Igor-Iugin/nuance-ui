@@ -5,6 +5,7 @@ import { getRadius } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
+
 import NBox from './box.vue'
 
 
@@ -27,7 +28,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<NBox :style :class='$style.root' v-bind='rest'/>
+	<NBox :style :class='$style.root' v-bind='rest' />
 </template>
 
 <style module lang='postcss'>

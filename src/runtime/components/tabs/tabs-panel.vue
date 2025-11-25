@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../../q-box.vue'
+
 import UiBox from '../../q-box.vue'
 import { useTabsState } from '../lib'
 import css from './tabs.module.css'
@@ -23,6 +24,6 @@ const ctx = useTabsState()
 		role='tabpanel'
 		:aria-labelledby='ctx?.getTabId(value)'
 	>
-		<slot/>
+		<slot />
 	</UiBox>
 </template>

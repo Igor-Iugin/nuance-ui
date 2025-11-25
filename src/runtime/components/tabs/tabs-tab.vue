@@ -36,13 +36,13 @@ const active = computed(() => value === ctx?.active.value)
 		@click='ctx?.onUpdate(value)'
 	>
 		<span v-if='$slots.leftSection' :class='css.tabSection' data-position='left'>
-			<slot name='leftSection'/>
+			<slot name='leftSection' />
 		</span>
 		<span v-if='$slots.default' :class='css.tabLabel'>
-			<slot/>
+			<slot />
 		</span>
 		<span v-if='$slots.rightSection' :class='css.tabSection' data-position='right'>
-			<slot name='rightSection'/>
+			<slot name='rightSection' />
 		</span>
 	</UnstyledButton>
 </template>

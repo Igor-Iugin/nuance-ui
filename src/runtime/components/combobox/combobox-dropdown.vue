@@ -24,7 +24,7 @@ const style = computed(() => ({
 			:style
 			v-bind='$attrs'
 		>
-			<slot/>
+			<slot />
 		</Box>
 	</PopoverDropdown>
 </template>

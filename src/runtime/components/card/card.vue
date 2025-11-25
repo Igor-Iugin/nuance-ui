@@ -5,6 +5,7 @@ import { getSpacing } from '@utils'
 import { computed } from 'vue'
 
 import type { PaperProps } from '../paper.vue'
+
 import Paper from '../paper.vue'
 import css from './card.module.css'
 
@@ -21,6 +22,6 @@ const style = computed(() => ({
 
 <template>
 	<Paper :is :style :class='css.root' v-bind='rest'>
-		<slot/>
+		<slot />
 	</Paper>
 </template>

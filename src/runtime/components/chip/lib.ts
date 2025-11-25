@@ -1,7 +1,7 @@
 import type { ModelRef } from 'vue'
-import { computed } from 'vue'
 
 import { createStrictInjection } from '@helpers'
+import { computed } from 'vue'
 
 
 export type ChipGroupValue<T extends boolean = false> = (T extends true ? string[] : string) | null
@@ -44,7 +44,8 @@ export function useChipState(
 					? ctx.value.value.filter(i => i !== value)
 					: [...ctx.value.value, value]
 				: ctx.value.value === value ? null : value
-		} else {
+		}
+		else {
 			state.value = !state.value
 		}
 	}

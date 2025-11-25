@@ -6,6 +6,7 @@ import { createVariantColorResolver, getRadius, getSize } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import Loader from '../loader/loader.vue'
 import css from './action-icon.module.css'
@@ -78,7 +79,7 @@ const _mod = computed(() => [{ loading }, mod])
 
 		<span :class='[css.icon, classes?.icon]'>
 			<slot>
-				<Icon v-if='icon' :name='icon'/>
+				<Icon v-if='icon' :name='icon' />
 			</slot>
 		</span>
 	</Box>

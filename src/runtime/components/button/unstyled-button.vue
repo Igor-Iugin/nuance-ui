@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
-import Box from '../box.vue'
 import type { InputBaseProps } from '../input'
+
+import Box from '../box.vue'
 
 
 const props = defineProps<InputBaseProps & Omit<BoxProps, 'is'>>()
@@ -9,7 +10,7 @@ const props = defineProps<InputBaseProps & Omit<BoxProps, 'is'>>()
 
 <template>
 	<Box is='button' v-bind='props' :class='$style.root' type='button'>
-		<slot/>
+		<slot />
 	</Box>
 </template>
 

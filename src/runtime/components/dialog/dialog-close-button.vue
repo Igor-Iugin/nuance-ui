@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import type { ActionIconProps } from '../action-icon'
+
 import { ActionIcon } from '../action-icon'
 import { useDialogState } from './lib'
 
@@ -16,6 +17,6 @@ const close = useDialogState()
 		v-bind='props'
 		@click='close'
 	>
-		<slot/>
+		<slot />
 	</ActionIcon>
 </template>

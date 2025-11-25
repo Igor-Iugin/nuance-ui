@@ -5,6 +5,7 @@ import { getFontSize, getSize } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../../box.vue'
+
 import NBox from '../../box.vue'
 
 

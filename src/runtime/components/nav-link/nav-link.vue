@@ -7,6 +7,7 @@ import { createVariantColorResolver } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+
 import NBox from '../box.vue'
 import { UnstyledButton } from '../button'
 import { extractNuxtLinkProps } from '../link'
@@ -80,12 +81,12 @@ const style = useStyleResolver(theme => {
 				:class='$style.section'
 				data-position='left'
 			>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</span>
 
 			<NBox :class='$style.body' :mod='{ "no-wrap": noWrap }'>
 				<span :class='$style.label'>
-					<slot/>
+					<slot />
 				</span>
 				<NBox :class='$style.description' :mod='{ active }'>
 					<slot name='description'>
@@ -99,7 +100,7 @@ const style = useStyleResolver(theme => {
 				:class='$style.section'
 				data-position='right'
 			>
-				<slot name='rightSection'/>
+				<slot name='rightSection' />
 			</span>
 		</UnstyledButton>
 	</NuxtLink>

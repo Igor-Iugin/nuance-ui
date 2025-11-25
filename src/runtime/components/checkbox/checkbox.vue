@@ -75,8 +75,8 @@ const style = computed(() => useStyleResolver(theme => {
 			>
 
 			<slot name='icon' :indeterminate='indeterminate' :class='$style.icon'>
-				<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon'/>
-				<Icon v-else name='gravity-ui:minus' :class='$style.icon'/>
+				<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' />
+				<Icon v-else name='gravity-ui:minus' :class='$style.icon' />
 			</slot>
 		</Box>
 	</InputInline>

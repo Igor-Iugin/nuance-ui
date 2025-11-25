@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './action-icon.module.css'
 
@@ -13,6 +14,6 @@ const { mod, orientation = 'horizontal', is } = defineProps<ActionIconGroupProps
 
 <template>
 	<Box :is :class='css.group' :mod='[mod, { orientation }]' role='group'>
-		<slot/>
+		<slot />
 	</Box>
 </template>

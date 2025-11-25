@@ -1,7 +1,7 @@
 import type { ModelRef, ShallowRef } from 'vue'
-import { nextTick, shallowRef } from 'vue'
 
 import { unrefElement } from '@vueuse/core'
+import { nextTick, shallowRef } from 'vue'
 
 import type { ComboboxDropdownEventSource } from '../model'
 import type { ComboboxAttrs } from './const'

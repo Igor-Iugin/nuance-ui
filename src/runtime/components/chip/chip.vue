@@ -84,10 +84,10 @@ const style = computed(() => useStyleResolver(theme => {
 		>
 		<Box is='label' :for='id' :class='$style.label' :mod='{ variant }'>
 			<span v-if='hideIcon && checked' :class='$style.iconWrapper'>
-				<Icon :name='icon' :class='$style.icon'/>
+				<Icon :name='icon' :class='$style.icon' />
 			</span>
 
-			<span><slot/></span>
+			<span><slot /></span>
 		</Box>
 	</Box>
 </template>

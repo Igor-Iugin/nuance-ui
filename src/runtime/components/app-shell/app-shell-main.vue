@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 
 
@@ -8,7 +9,7 @@ const { mod } = defineProps<BoxProps>()
 
 <template>
 	<Box is='main' :mod :class='$style.root'>
-		<slot/>
+		<slot />
 	</Box>
 </template>
 

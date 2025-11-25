@@ -5,6 +5,7 @@ import { getRadius, getShadow } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
+
 import NBox from './box.vue'
 
 
@@ -23,7 +24,7 @@ const style = computed(() => ({
 
 <template>
 	<NBox :is :style :class='$style.root' :mod='[mod, { "with-border": withBorder }]'>
-		<slot/>
+		<slot />
 	</NBox>
 </template>
 

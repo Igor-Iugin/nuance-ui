@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './card.module.css'
 
@@ -15,6 +16,6 @@ const { is = 'section', mod, inheritPadding, withBorder } = defineProps<CardSect
 
 <template>
 	<Box :is :class='css.section' :mod='[mod, { "with-border": withBorder, "inherit-padding": inheritPadding }]'>
-		<slot/>
+		<slot />
 	</Box>
 </template>

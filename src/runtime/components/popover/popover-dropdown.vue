@@ -29,7 +29,7 @@ const style = computed(() => ({
 		:class='$style.dropdown'
 		@toggle='onToggle'
 	>
-		<slot/>
+		<slot />
 		<span
 			v-if='withArrow'
 			ref='arrowRef'

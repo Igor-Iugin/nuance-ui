@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import type { BoxProps } from '../box.vue'
+
 import NBox from '../box.vue'
 import css from './dialog.module.css'
 

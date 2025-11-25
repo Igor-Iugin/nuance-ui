@@ -9,6 +9,6 @@ defineOptions({
 
 <template>
 	<Slot v-bind='$attrs'>
-		<slot/>
+		<slot />
 	</Slot>
 </template>

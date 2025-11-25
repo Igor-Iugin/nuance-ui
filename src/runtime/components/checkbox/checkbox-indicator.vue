@@ -55,8 +55,8 @@ const style = computed(() => useStyleResolver(theme => {
 <template>
 	<Box :style :class='$style.indicator' :mod='{ checked }'>
 		<slot :indeterminate='indeterminate' :class='$style.icon' :mod='{ checked }'>
-			<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' :mod='{ checked }'/>
-			<Icon v-else :class='$style.icon' name='gravity-ui:minus' :mod='{ checked }'/>
+			<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' :mod='{ checked }' />
+			<Icon v-else :class='$style.icon' name='gravity-ui:minus' :mod='{ checked }' />
 		</slot>
 	</Box>
 </template>

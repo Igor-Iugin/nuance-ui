@@ -6,6 +6,7 @@ import { useStyleResolver } from '@shared/ui-kit/lib/composals'
 import { getRadius, getSafeId, getThemeColor } from '@shared/ui-kit/lib/utils'
 
 import type { BoxProps } from '../../q-box.vue'
+
 import UiBox from '../../q-box.vue'
 import css from './tabs.module.css'
 

@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './combobox.module.css'
 

@@ -4,11 +4,11 @@ import type { CSSProperties } from 'vue'
 
 import type { PopoverProps } from '../popover'
 import type { ComboboxStore } from './lib/use-combobox'
-import { useCombobox } from './lib/use-combobox'
 import type { ComboboxRootEmits } from './model'
 
 import Popover from '../popover/popover.vue'
 import { useProvideComboboxState } from './lib/context'
+import { useCombobox } from './lib/use-combobox'
 
 
 export interface ComboboxProps extends PopoverProps {
@@ -65,6 +65,6 @@ useProvideComboboxState({
 
 <template>
 	<Popover v-bind='rest' v-model:open='opened'>
-		<slot/>
+		<slot />
 	</Popover>
 </template>

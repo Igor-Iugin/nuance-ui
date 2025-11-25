@@ -2,9 +2,9 @@
 import { useId } from 'vue'
 
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
-import InputWrapper from './ui/input-wrapper.vue'
 
 import BaseInput from './ui/input-base.vue'
+import InputWrapper from './ui/input-wrapper.vue'
 
 
 export type TextInputProps = Omit<InputWrapperProps, 'id' | 'multiline' | 'resize'>
@@ -21,9 +21,9 @@ const id = useId()
 
 <template>
 	<InputWrapper :id v-bind='props' :class='$attrs?.class'>
-		<slot name='label'/>
-		<slot name='error'/>
-		<slot name='description'/>
+		<slot name='label' />
+		<slot name='error' />
+		<slot name='description' />
 		<BaseInput
 			:id
 			v-model='model'
@@ -31,10 +31,10 @@ const id = useId()
 			:required
 		>
 			<template v-if='$slots.leftSection' #leftSection>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</template>
 			<template v-if='$slots.rightSection' #rightSection>
-				<slot name='rightSection'/>
+				<slot name='rightSection' />
 			</template>
 		</BaseInput>
 	</InputWrapper>

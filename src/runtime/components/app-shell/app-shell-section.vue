@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 
 
@@ -13,7 +14,7 @@ const { is = 'section', mod, grow } = defineProps<AppShellSectionProps>()
 
 <template>
 	<Box :is :class='$style.root' :mod='[mod, { grow }]'>
-		<slot/>
+		<slot />
 	</Box>
 </template>
 

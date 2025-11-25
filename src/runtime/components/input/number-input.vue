@@ -84,7 +84,7 @@ function handleBlur() {
 			@wheel.prevent='handleWheel'
 		>
 			<template v-if='$slots?.leftSection' #leftSection>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</template>
 			<template #rightSection>
 				<slot name='rightSection'>
@@ -94,14 +94,14 @@ function handleBlur() {
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(max) && value >= max!)'
 							@click='inc(step)'
 						>
-							<Icon name='gravity-ui:chevron-up'/>
+							<Icon name='gravity-ui:chevron-up' />
 						</UnstyledButton>
 						<UnstyledButton
 							:class='$style.control'
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(min) && value <= min!)'
 							@click='dec(step)'
 						>
-							<Icon name='gravity-ui:chevron-down'/>
+							<Icon name='gravity-ui:chevron-down' />
 						</UnstyledButton>
 					</div>
 				</slot>

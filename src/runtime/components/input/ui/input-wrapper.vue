@@ -3,8 +3,9 @@ import { getFontSize } from '@utils'
 import { computed, useId } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
-import { useProvideInputWrapper } from '../lib/input-wrapper.context'
 import type { InputLabelProps } from './input-label.vue'
+
+import { useProvideInputWrapper } from '../lib/input-wrapper.context'
 import InputLabel from './input-label.vue'
 
 
@@ -57,7 +58,7 @@ const style = computed(() => ({
 			</slot>
 		</InputLabel>
 
-		<slot/>
+		<slot />
 
 		<p v-if='error' :class='$style.error'>
 			<slot name='error'>

@@ -19,8 +19,8 @@ const password = ref<boolean>(true)
 	>
 		<template #rightSection>
 			<ActionIcon variant='subtle' @click='password = !password'>
-				<Icon v-if='password' name='gravity-ui:eye'/>
-				<Icon v-else name='gravity-ui:eye-slash'/>
+				<Icon v-if='password' name='gravity-ui:eye' />
+				<Icon v-else name='gravity-ui:eye-slash' />
 			</ActionIcon>
 		</template>
 	</UiTextInput>

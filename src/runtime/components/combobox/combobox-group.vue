@@ -2,8 +2,9 @@
 import { useId } from 'vue'
 
 import type { BoxProps } from '../box.vue'
-import Box from '../box.vue'
 import type { ComboboxItem, ComboboxItemExt, ComboboxItemGroup, ComboboxItemProps } from './model'
+
+import Box from '../box.vue'
 import ComboboxOption from './combobox-option.vue'
 import css from './combobox.module.css'
 import { isValueChecked } from './lib/utils'
@@ -51,7 +52,7 @@ const value = defineModel<ComboboxItem<Value, Ext> | ComboboxItem<Value, Ext>[] 
 			:checked='isValueChecked(value, item)'
 		>
 			<template v-if='$slots.option' #default='props'>
-				<slot name='option' v-bind='props'/>
+				<slot name='option' v-bind='props' />
 			</template>
 		</ComboboxOption>
 	</Box>

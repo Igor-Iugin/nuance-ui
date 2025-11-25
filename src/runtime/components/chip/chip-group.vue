@@ -1,8 +1,8 @@
 <script setup lang='ts' generic='T extends boolean = false'>
 import type { ChipGroupValue } from './lib'
-import { useProvideChipGroupState } from './lib'
 
 import VisuallyHiddenInput from '../visually-hidden/visually-hidden-input.vue'
+import { useProvideChipGroupState } from './lib'
 
 
 export interface ChipGroupProps<T extends boolean = false> {
@@ -22,6 +22,6 @@ useProvideChipGroupState({ multiple, value, disabled })
 </script>
 
 <template>
-	<slot/>
-	<VisuallyHiddenInput v-model='value' :name/>
+	<slot />
+	<VisuallyHiddenInput v-model='value' :name />
 </template>

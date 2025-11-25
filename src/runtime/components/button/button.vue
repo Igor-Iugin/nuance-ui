@@ -1,12 +1,13 @@
 <script lang='ts' setup>
 import type { UiKitColor, UiKitGradient, UiKitRadius, UiKitSize } from '@types'
 import type { HTMLAttributes } from 'vue'
-import { computed, useSlots } from 'vue'
 
 import { useStyleResolver } from '@composals'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@utils'
+import { computed, useSlots } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import Loader from '../loader/loader.vue'
 import css from './button.module.css'
@@ -101,7 +102,7 @@ const mod = computed(() => [
 		:disabled='loading'
 	>
 		<Transition name='fade-down'>
-			<Loader v-show='loading' :class='css.loader' :color :size/>
+			<Loader v-show='loading' :class='css.loader' :color :size />
 		</Transition>
 
 		<span :class='[css.inner, classes?.inner]'>
@@ -112,11 +113,11 @@ const mod = computed(() => [
 				v-bind='leftSectionProps'
 				:style='style.leftSection'
 			>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</span>
 
 			<span :class='[css.label, classes?.label]'>
-				<slot/>
+				<slot />
 			</span>
 
 			<span
@@ -126,7 +127,7 @@ const mod = computed(() => [
 				v-bind='rightSectionProps'
 				:style='style.rightSection'
 			>
-				<slot name='rightSection'/>
+				<slot name='rightSection' />
 			</span>
 		</span>
 	</Box>

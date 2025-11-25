@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 import type { TextProps } from './text.vue'
+
 import NText from './text.vue'
 
 
@@ -28,7 +29,7 @@ const style = computed(() => ({ '--title-text-wrap': textWrap }))
 		:class='$style.root'
 		:style
 	>
-		<slot/>
+		<slot />
 	</NText>
 </template>
 

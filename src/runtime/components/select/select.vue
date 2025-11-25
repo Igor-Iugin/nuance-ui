@@ -1,7 +1,8 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
 import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits, ComboboxTargetProps } from '../combobox'
-import { ComboboxOptionsDropdown, ComboboxRoot, ComboboxTarget, useCombobox, useComboboxData } from '../combobox'
 import type { InputProps } from '../input'
+
+import { ComboboxOptionsDropdown, ComboboxRoot, ComboboxTarget, useCombobox, useComboboxData } from '../combobox'
 import { InputBase } from '../input'
 
 
@@ -113,21 +114,21 @@ const id = useId()
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'
 			>
 				<template #label>
-					<slot name='label'/>
+					<slot name='label' />
 				</template>
 				<template #description>
-					<slot name='description'/>
+					<slot name='description' />
 				</template>
 				<template #error>
-					<slot name='error'/>
+					<slot name='error' />
 				</template>
 
 				<template v-if='$slots.leftSection' #leftSection>
-					<slot name='leftSection'/>
+					<slot name='leftSection' />
 				</template>
 				<template #rightSection>
 					<slot name='rightSection'>
-						<Icon name='gravity-ui:chevrons-expand-vertical'/>
+						<Icon name='gravity-ui:chevrons-expand-vertical' />
 					</slot>
 				</template>
 			</InputBase>

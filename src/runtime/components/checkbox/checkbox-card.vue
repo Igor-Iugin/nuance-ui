@@ -56,7 +56,7 @@ const style = computed(() => ({
 		:style
 		@click='onUpdate()'
 	>
-		<slot/>
+		<slot />
 	</UnstyledButton>
 </template>
 

@@ -1,12 +1,13 @@
 <script lang='ts' setup>
 import type { Component } from 'vue'
-import { computed } from 'vue'
 
 import { getFontSize, getRadius, getSize } from '@utils'
+import { computed } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
-import { useInputWrapperState } from '../lib/input-wrapper.context'
 import type { InputBaseProps } from '../model'
+
+import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
 export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'>, Required<Pick<WrapperContext, 'id'>> {
@@ -53,7 +54,7 @@ const style = computed(() => ({
 			:class='$style.section'
 			data-position='left'
 		>
-			<slot name='leftSection'/>
+			<slot name='leftSection' />
 		</span>
 
 		<component
@@ -72,7 +73,7 @@ const style = computed(() => ({
 			:class='$style.section'
 			data-position='right'
 		>
-			<slot name='rightSection'/>
+			<slot name='rightSection' />
 		</span>
 	</div>
 </template>

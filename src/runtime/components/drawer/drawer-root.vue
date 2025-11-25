@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 import type { DialogEmits, DialogModel, DialogRootProps } from '../dialog'
+
 import { DialogRoot } from '../dialog'
 import css from './drawer.module.css'
 
@@ -49,6 +50,6 @@ const transition = computed(() => {
 		@open='$emit("open")'
 		@close='$emit("close")'
 	>
-		<slot/>
+		<slot />
 	</DialogRoot>
 </template>

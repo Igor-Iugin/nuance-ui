@@ -26,19 +26,19 @@ useProvideCheckboxGroup({ value, size })
 <template>
 	<InputWrapper :id v-bind='rest'>
 		<template #label>
-			<slot name='label'/>
+			<slot name='label' />
 		</template>
 
-		<slot/>
+		<slot />
 
 		<template #description>
-			<slot name='description'/>
+			<slot name='description' />
 		</template>
 		<template #error>
-			<slot name='error'/>
+			<slot name='error' />
 		</template>
 
-		<VisuallyHiddenInput :id v-model='value' :name/>
+		<VisuallyHiddenInput :id v-model='value' :name />
 	</InputWrapper>
 </template>
 

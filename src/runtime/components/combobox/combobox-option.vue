@@ -4,8 +4,9 @@ import type { Mod } from '@composals'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
-import Box from '../box.vue'
 import type { ComboboxItem, ComboboxItemExt, ComboboxItemProps } from './model'
+
+import Box from '../box.vue'
 import css from './combobox.module.css'
 import { COMBOBOX_ATTRS } from './lib/const'
 import { useComboboxState } from './lib/context'

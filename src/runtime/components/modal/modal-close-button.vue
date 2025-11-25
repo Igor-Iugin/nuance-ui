@@ -9,6 +9,6 @@ const props = defineProps<ActionIconProps>()
 
 <template>
 	<DialogCloseButton v-bind='props'>
-		<slot/>
+		<slot />
 	</DialogCloseButton>
 </template>

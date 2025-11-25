@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 
 import type { FilterOptionsInput } from './lib/utils'
-import { defaultOptionsFilter, isEmptyComboboxData, isOptionsGroup, isValueChecked } from './lib/utils'
 import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from './model'
 
 import ComboboxDropdown from './combobox-dropdown.vue'
@@ -10,6 +9,7 @@ import ComboboxEmpty from './combobox-empty.vue'
 import ComboboxGroup from './combobox-group.vue'
 import ComboboxOptionList from './combobox-option-list.vue'
 import ComboboxOption from './combobox-option.vue'
+import { defaultOptionsFilter, isEmptyComboboxData, isOptionsGroup, isValueChecked } from './lib/utils'
 
 
 export interface ComboboxOptionsDropdownProps<

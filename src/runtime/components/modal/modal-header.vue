@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import type { DialogHeaderProps } from '../dialog'
+
 import { DialogHeader } from '../dialog'
 
 
@@ -11,6 +12,6 @@ const props = defineProps<ModalHeaderProps>()
 
 <template>
 	<DialogHeader v-bind='props'>
-		<slot/>
+		<slot />
 	</DialogHeader>
 </template>

@@ -1,12 +1,13 @@
 <script setup lang='ts'>
 import type { UiKitColor, UiKitGradient, UiKitSize } from '@types'
 import type { CSSProperties } from 'vue'
-import { computed } from 'vue'
 
 import { useStyleResolver } from '@composals'
 import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@utils'
+import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
+
 import NBox from './box.vue'
 
 
@@ -80,7 +81,7 @@ const style = computed(() => useStyleResolver(theme => ({
 
 <template>
 	<NBox :is v-bind='rest' :mod='_mod' :class='$style.root' :style>
-		<slot/>
+		<slot />
 	</NBox>
 </template>
 

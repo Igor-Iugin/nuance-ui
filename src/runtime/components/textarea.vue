@@ -3,6 +3,7 @@ import { useTextareaAutosize } from '@vueuse/core'
 import { useId } from 'vue'
 
 import type { InputWrapperProps } from './input'
+
 import { BaseInput, InputWrapper } from './input'
 
 
@@ -24,13 +25,13 @@ const id = useId()
 <template>
 	<InputWrapper :id v-bind='props' :multiline :class='$attrs?.class'>
 		<template #label>
-			<slot name='label'/>
+			<slot name='label' />
 		</template>
 		<template #error>
-			<slot name='error'/>
+			<slot name='error' />
 		</template>
 		<template #description>
-			<slot name='description'/>
+			<slot name='description' />
 		</template>
 
 		<BaseInput
@@ -41,10 +42,10 @@ const id = useId()
 			:required='props?.required'
 		>
 			<template #leftSection>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</template>
 			<template #rightSection>
-				<slot name='rightSection'/>
+				<slot name='rightSection' />
 			</template>
 		</BaseInput>
 	</InputWrapper>

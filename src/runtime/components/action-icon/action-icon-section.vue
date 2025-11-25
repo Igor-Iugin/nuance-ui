@@ -6,6 +6,7 @@ import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@ut
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './action-icon.module.css'
 
@@ -50,6 +51,6 @@ const style = computed(() => useStyleResolver(theme => {
 
 <template>
 	<Box :is :mod='[mod, { variant }]' :style :class='css.section'>
-		<slot/>
+		<slot />
 	</Box>
 </template>

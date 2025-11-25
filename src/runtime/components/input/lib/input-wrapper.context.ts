@@ -1,8 +1,8 @@
 import type { UiKitSize } from '@types'
 import type { CSSProperties } from 'vue'
-import { shallowRef } from 'vue'
 
 import { createStrictInjection } from '@helpers'
+import { shallowRef } from 'vue'
 
 import type { InputVariant } from '../model'
 

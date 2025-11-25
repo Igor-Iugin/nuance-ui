@@ -23,7 +23,7 @@ const style = computed(() => ({
 
 <template>
 	<label :style :class='$style.root'>
-		<slot/>
+		<slot />
 		<span v-if='required' :class='$style.required'> *</span>
 	</label>
 </template>

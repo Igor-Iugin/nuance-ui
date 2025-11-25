@@ -2,6 +2,7 @@
 import type { CSSProperties } from 'vue'
 
 import type { BoxProps } from '../../q-box.vue'
+
 import UiBox from '../../q-box.vue'
 import { useTabsState } from '../lib'
 import css from './tabs.module.css'
@@ -32,6 +33,6 @@ const style = computed(() => ({ '--tabs-justify': justify }))
 		}]'
 		:aria-orientation='ctx?.orientation'
 	>
-		<slot/>
+		<slot />
 	</UiBox>
 </template>

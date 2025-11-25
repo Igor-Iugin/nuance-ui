@@ -1,5 +1,6 @@
 <script setup lang='ts' generic='T'>
 import type { VisuallyHiddenProps } from './visually-hidden.vue'
+
 import VisuallyHidden from './visually-hidden.vue'
 
 
@@ -14,5 +15,5 @@ const value = defineModel<T>()
 </script>
 
 <template>
-	<VisuallyHidden v-bind='{ ...props, ...$attrs }' is='input' v-model='value'/>
+	<VisuallyHidden v-bind='{ ...props, ...$attrs }' is='input' v-model='value' />
 </template>

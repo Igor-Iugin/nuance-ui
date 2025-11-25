@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 
 
@@ -48,7 +49,7 @@ const style = computed(() => ({
 
 <template>
 	<Box :style :class='$style.root' :mod='[mod, { layout, "with-border": withBorder }]'>
-		<slot/>
+		<slot />
 	</Box>
 </template>
 

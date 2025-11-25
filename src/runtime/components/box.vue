@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 import type { Mod } from '@composals'
-import { useMod } from '@composals'
 import type { Component } from 'vue'
+
+import { useMod } from '@composals'
 import { computed } from 'vue'
 
 
@@ -17,6 +18,6 @@ const _mod = computed(() => useMod(mod))
 
 <template>
 	<component :is v-bind='_mod'>
-		<slot/>
+		<slot />
 	</component>
 </template>

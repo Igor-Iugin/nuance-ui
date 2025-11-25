@@ -1,10 +1,10 @@
 <script setup lang='ts'>
 import type { UiKitColor, UiKitSize } from '@types'
 import type { Component } from 'vue'
-import { computed } from 'vue'
 
 import { useStyleResolver } from '@composals'
 import { getSize, parseThemeColor } from '@utils'
+import { computed } from 'vue'
 
 import BarsLoader from './_loaders/bars-loader.vue'
 import DotsLoader from './_loaders/dots-loader.vue'
@@ -42,7 +42,7 @@ const style = computed(() => useStyleResolver(theme => {
 </script>
 
 <template>
-	<component :is='loaders[type]' :class='$style.root' :style/>
+	<component :is='loaders[type]' :class='$style.root' :style />
 </template>
 
 <style module>

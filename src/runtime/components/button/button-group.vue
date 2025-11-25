@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './button.module.css'
 
@@ -13,6 +14,6 @@ const { is, mod, orientation = 'horizontal' } = defineProps<ButtonGroupProps>()
 
 <template>
 	<Box :is :mod='[mod, { orientation }]' :class='css.group' role='group'>
-		<slot/>
+		<slot />
 	</Box>
 </template>

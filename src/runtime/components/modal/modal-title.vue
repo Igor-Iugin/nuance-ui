@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import type { DialogTitleProps } from '../dialog'
+
 import { DialogTitle } from '../dialog'
 
 
@@ -11,6 +12,6 @@ const props = defineProps<ModalTitleProps>()
 
 <template>
 	<DialogTitle v-bind='props'>
-		<slot/>
+		<slot />
 	</DialogTitle>
 </template>

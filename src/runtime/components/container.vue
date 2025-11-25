@@ -5,6 +5,7 @@ import { getSize } from '@utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
+
 import NBox from './box.vue'
 
 
@@ -34,7 +35,7 @@ const _mod = computed(() => [{ fluid }, mod])
 		:mod='_mod'
 		:class='$style.root'
 	>
-		<slot/>
+		<slot />
 	</NBox>
 </template>
 

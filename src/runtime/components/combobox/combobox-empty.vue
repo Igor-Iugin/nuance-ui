@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
+
 import Box from '../box.vue'
 import css from './combobox.module.css'
 
@@ -12,6 +13,6 @@ const { mod } = defineProps<ComboboxEmptyProps>()
 
 <template>
 	<Box :mod :class='css.empty'>
-		<slot/>
+		<slot />
 	</Box>
 </template>

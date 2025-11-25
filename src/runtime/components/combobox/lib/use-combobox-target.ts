@@ -38,7 +38,8 @@ export function useComboboxTarget({
 					ctx.store.openDropdown('keyboard')
 					selected.value = ctx.store.selectActiveOption()
 					ctx.store.updateSelectedOptionIx('selected', { scrollIntoView: true })
-				} else {
+				}
+				else {
 					selected.value = event.code === 'ArrowDown'
 						? ctx.store.selectNextOption()
 						: ctx.store.selectPrevOption()

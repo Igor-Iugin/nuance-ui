@@ -4,6 +4,7 @@ import type { NuxtLinkProps } from '#app'
 import { NuxtLink } from '#components'
 
 import type { TextProps } from '../text.vue'
+
 import NText from '../text.vue'
 import { extractNuxtLinkProps } from './lib'
 
@@ -34,7 +35,7 @@ const { link, rest } = extractNuxtLinkProps(props)
 			}'
 			@click='(e: MouseEvent) => navigate(e)'
 		>
-			<slot/>
+			<slot />
 		</NText>
 	</NuxtLink>
 </template>

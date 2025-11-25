@@ -2,6 +2,7 @@
 import type { NuxtLinkProps } from '#app'
 
 import type { ButtonProps } from '../button'
+
 import { QButton } from '../button'
 import { extractNuxtLinkProps } from './lib'
 
@@ -25,13 +26,13 @@ const { link, rest } = extractNuxtLinkProps(props)
 			@click='(e: MouseEvent) => navigate(e)'
 		>
 			<template #leftSection>
-				<slot name='leftSection'/>
+				<slot name='leftSection' />
 			</template>
 
-			<slot/>
+			<slot />
 
 			<template #rightSection>
-				<slot name='rightSection'/>
+				<slot name='rightSection' />
 			</template>
 		</QButton>
 	</NuxtLink>

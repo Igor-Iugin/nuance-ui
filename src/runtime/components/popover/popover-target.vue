@@ -8,6 +8,6 @@ const { id, store: { targetRef }, disabled } = usePopoverState()
 
 <template>
 	<Renderless ref='targetRef' :disabled :popovertarget='id'>
-		<slot/>
+		<slot />
 	</Renderless>
 </template>
