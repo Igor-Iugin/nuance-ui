@@ -5,7 +5,7 @@ import type {
 	ComboboxItemGroup,
 	ComboboxParsedItem,
 	ComboboxParsedItemGroup,
-} from '../../model'
+} from '../../types'
 
 import { isOptionsGroup } from '../utils'
 

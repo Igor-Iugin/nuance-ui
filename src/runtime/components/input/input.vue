@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { useId } from 'vue'
 
-import type { InputBaseProps } from './model'
+import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
 import BaseInput from './ui/input-base.vue'

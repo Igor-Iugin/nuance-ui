@@ -3,7 +3,7 @@ import { clamp, useCounter } from '@vueuse/core'
 import { shallowRef, useId, watch } from 'vue'
 
 import type { InputWrapperProps } from './index'
-import type { InputBaseProps } from './model'
+import type { InputBaseProps } from './types'
 
 import UnstyledButton from '../button/unstyled-button.vue'
 import BaseInput from './ui/input-base.vue'

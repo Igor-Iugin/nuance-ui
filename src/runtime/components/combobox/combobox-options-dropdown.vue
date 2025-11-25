@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 import type { FilterOptionsInput } from './lib/utils'
-import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from './model'
+import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from './types'
 
 import ComboboxDropdown from './combobox-dropdown.vue'
 import ComboboxEmpty from './combobox-empty.vue'

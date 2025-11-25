@@ -2,9 +2,11 @@
 import type { UiKitSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
+import { useId } from 'vue'
+
 import type { PopoverProps } from '../popover'
 import type { ComboboxStore } from './lib/use-combobox'
-import type { ComboboxRootEmits } from './model'
+import type { ComboboxRootEmits } from './types'
 
 import Popover from '../popover/popover.vue'
 import { useProvideComboboxState } from './lib/context'
@@ -43,8 +45,10 @@ const {
 const emit = defineEmits<ComboboxRootEmits>()
 const opened = defineModel<boolean>('open', { default: false })
 
+const id = useId()
 const store = _store ?? useCombobox({
 	loop,
+	listId: id,
 	scrollBehavior,
 	onSelect: ix => emit('select', ix),
 	onClear: () => emit('clear'),

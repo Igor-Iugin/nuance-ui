@@ -4,7 +4,7 @@ import type { Mod } from '@nui/composals'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
-import type { ComboboxItem, ComboboxItemExt, ComboboxItemProps } from './model'
+import type { ComboboxItem, ComboboxItemExt, ComboboxItemProps } from './types'
 
 import Box from '../box.vue'
 import css from './combobox.module.css'

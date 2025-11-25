@@ -2,7 +2,7 @@
 import { useId } from 'vue'
 
 import type { BoxProps } from '../box.vue'
-import type { ComboboxItem, ComboboxItemExt, ComboboxItemGroup, ComboboxItemProps } from './model'
+import type { ComboboxItem, ComboboxItemExt, ComboboxItemGroup, ComboboxItemProps } from './types'
 
 import Box from '../box.vue'
 import ComboboxOption from './combobox-option.vue'

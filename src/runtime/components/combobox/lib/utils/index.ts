@@ -1,4 +1,4 @@
-import type { ComboboxItem, ComboboxItemExt } from '../../model'
+import type { ComboboxItem, ComboboxItemExt } from '../../types'
 
 
 export * from './default-option-filter'

@@ -4,7 +4,7 @@ import type { CSSProperties } from 'vue'
 import { createStrictInjection } from '@nui/helpers'
 import { shallowRef } from 'vue'
 
-import type { InputVariant } from '../model'
+import type { InputVariant } from '../types'
 
 
 export interface WrapperContext {

@@ -1,4 +1,4 @@
-import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../model'
+import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../types'
 
 import { isOptionsGroup } from './is-options-group'
 

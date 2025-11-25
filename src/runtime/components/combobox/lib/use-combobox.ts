@@ -3,9 +3,10 @@ import type { ModelRef, ShallowRef } from 'vue'
 import { unrefElement } from '@vueuse/core'
 import { nextTick, shallowRef } from 'vue'
 
-import type { ComboboxDropdownEventSource } from '../model'
+import type { ComboboxDropdownEventSource } from '../types'
 import type { ComboboxAttrs } from './const'
 
+import { COMBOBOX_ATTRS } from './const'
 import {
 	clearSelected,
 	selectActiveOption,
@@ -91,7 +92,6 @@ export interface ComboboxStore {
 
 export function useCombobox({ onSelect, onClear, onCloseDropdown, onOpenDropdown, opened, ..._options }: {
 	listId: string
-	attrs: ComboboxAttrs
 	scrollBehavior: ScrollBehavior
 	loop: boolean
 	onSelect?: (ix: number) => void
@@ -125,7 +125,13 @@ export function useCombobox({ onSelect, onClear, onCloseDropdown, onOpenDropdown
 	}
 
 	// @ts-expect-error ignore
-	const options: typeof _options & { selectFn: (ix: number) => string | null } = _options
+	const options: typeof _options & {
+		selectFn: (ix: number) => string | null
+		attrs: ComboboxAttrs
+	} = {
+		..._options,
+		attrs: COMBOBOX_ATTRS,
+	}
 	let selectedOptionIx: number = -1
 	const getSelectedIx = () => selectedOptionIx
 

@@ -10,4 +10,4 @@ export type * from './combobox-target.vue'
 export { type ComboboxStore, useCombobox } from './lib/use-combobox'
 export { useComboboxData } from './lib/use-combobox-data'
 
-export type * from './model'
+export type * from './types'

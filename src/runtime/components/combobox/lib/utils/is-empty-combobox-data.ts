@@ -1,4 +1,4 @@
-import type { ComboboxParsedItem, ComboboxParsedItemGroup } from '../../model'
+import type { ComboboxParsedItem, ComboboxParsedItemGroup } from '../../types'
 
 
 export function isEmptyComboboxData(data: ComboboxParsedItem[]) {

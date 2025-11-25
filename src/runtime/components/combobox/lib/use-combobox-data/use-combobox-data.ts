@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../model'
+import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../types'
 
 import { getParsedComboboxData } from './get-parsed-combobox-data'
 

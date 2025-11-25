@@ -3,7 +3,7 @@ import type { ModelRef, ShallowRef } from 'vue'
 import { unrefElement } from '@vueuse/core'
 import { nextTick, shallowRef, useId } from 'vue'
 
-import type { ComboboxDropdownEventSource } from '../../model'
+import type { ComboboxDropdownEventSource } from '../../types'
 import type { ComboboxAttrs } from '../const'
 
 import { COMBOBOX_ATTRS } from '../const'

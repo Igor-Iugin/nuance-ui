@@ -1,7 +1,7 @@
 <script setup lang='ts'>
+import { getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import { getSize } from '../../lib/utils'
 import Box from '../box.vue'
 import PopoverDropdown from '../popover/popover-dropdown.vue'
 import css from './combobox.module.css'

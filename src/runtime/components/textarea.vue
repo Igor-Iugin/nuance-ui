@@ -1,10 +1,11 @@
 <script setup lang='ts'>
 import { useTextareaAutosize } from '@vueuse/core'
-import { useId } from 'vue'
+import { useId, useTemplateRef } from 'vue'
 
 import type { InputWrapperProps } from './input'
 
-import { BaseInput, InputWrapper } from './input'
+import InputBase from './input/ui/input-base.vue'
+import InputWrapper from './input/ui/input-wrapper.vue'
 
 
 export interface TextareaProps extends Omit<InputWrapperProps, 'id'> {
@@ -14,9 +15,11 @@ const props = defineProps<TextareaProps>()
 
 const modelValue = defineModel<string>()
 
-const { textarea, input } = useTextareaAutosize({
+const inputRef = useTemplateRef('inputRef')
+const { input } = useTextareaAutosize({
 	input: modelValue.value,
 	styleProp: 'minHeight',
+	element: inputRef.value?.ref as HTMLTextAreaElement,
 })
 
 const id = useId()
@@ -34,10 +37,10 @@ const id = useId()
 			<slot name='description' />
 		</template>
 
-		<BaseInput
+		<InputBase
 			is='textarea'
 			v-bind='{ ...$attrs, id, class: $style.input }'
-			ref='textarea'
+			ref='inputRef'
 			v-model='input'
 			:required='props?.required'
 		>
@@ -47,7 +50,7 @@ const id = useId()
 			<template #rightSection>
 				<slot name='rightSection' />
 			</template>
-		</BaseInput>
+		</InputBase>
 	</InputWrapper>
 </template>
 

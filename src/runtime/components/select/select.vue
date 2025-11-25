@@ -1,9 +1,15 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
+import { nextTick, useId, watch } from 'vue'
+
 import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits, ComboboxTargetProps } from '../combobox'
 import type { InputProps } from '../input'
 
-import { ComboboxOptionsDropdown, ComboboxRoot, ComboboxTarget, useCombobox, useComboboxData } from '../combobox'
-import { InputBase } from '../input'
+import Button from '../button/button.vue'
+import { useCombobox, useComboboxData } from '../combobox'
+import ComboboxOptionsDropdown from '../combobox/combobox-options-dropdown.vue'
+import ComboboxRoot from '../combobox/combobox-root.vue'
+import ComboboxTarget from '../combobox/combobox-target.vue'
+import Input from '../input/input.vue'
 
 
 export interface SelectProps<
@@ -57,7 +63,9 @@ const value = defineModel<ComboboxItem<Value, Ext> | null>({ default: null })
 
 const { parsed, options } = useComboboxData<Value, Ext>(data)
 
+const id = useId()
 const store = useCombobox({
+	listId: id,
 	opened,
 	loop: true,
 	scrollBehavior: 'instant',
@@ -75,8 +83,6 @@ const store = useCombobox({
 
 const search = defineModel<string>('search', { default: '' })
 watch(search, () => nextTick(() => store.resetSelectedOption()))
-
-const id = useId()
 </script>
 
 <template>
@@ -98,7 +104,8 @@ const id = useId()
 		}'
 	>
 		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
-			<InputBase
+			<component
+				:is='searchable ? Input : Button'
 				:id
 				v-bind='{ ...rest, ...$attrs }'
 				v-model='search'
@@ -113,6 +120,7 @@ const id = useId()
 				}'
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'
 			>
+				{{ value?.value ?? null }}
 				<template #label>
 					<slot name='label' />
 				</template>
@@ -123,15 +131,17 @@ const id = useId()
 					<slot name='error' />
 				</template>
 
-				<template v-if='$slots.leftSection' #leftSection>
-					<slot name='leftSection' />
+				<template v-if='$slots.leftSection || value?.icon' #leftSection>
+					<slot name='leftSection'>
+						<Icon v-if='value?.icon' :name='value?.icon' />
+					</slot>
 				</template>
 				<template #rightSection>
 					<slot name='rightSection'>
 						<Icon name='gravity-ui:chevrons-expand-vertical' />
 					</slot>
 				</template>
-			</InputBase>
+			</component>
 		</ComboboxTarget>
 		<ComboboxOptionsDropdown
 			v-model='value'

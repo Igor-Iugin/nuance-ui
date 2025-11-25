@@ -2,10 +2,10 @@
 import type { Component } from 'vue'
 
 import { getFontSize, getRadius, getSize } from '@nui/utils'
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
-import type { InputBaseProps } from '../model'
+import type { InputBaseProps } from '../types'
 
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
@@ -39,6 +39,9 @@ const style = computed(() => ({
 	'--input-right-section-pointer-events': api.value.rightSectionPE,
 	'--input-resize': api.value.resize,
 }))
+
+const ref = useTemplateRef('input')
+defineExpose({ ref })
 </script>
 
 <template>
@@ -60,8 +63,9 @@ const style = computed(() => ({
 		<component
 			:is
 			:id='api.id'
-			:class='$style.input'
 			v-bind='{ ...$attrs, class: undefined }'
+			ref='input'
+			:class='$style.input'
 			:value='modelValue'
 			:readonly
 			:disabled

@@ -3,7 +3,7 @@ import type { CSSProperties, ModelRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
 
-import type { ComboboxItem } from '../model'
+import type { ComboboxItem } from '../types'
 import type { ComboboxStore } from './use-combobox/use-combobox'
 
 

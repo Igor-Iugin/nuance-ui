@@ -111,15 +111,12 @@ export default defineNuxtModule<ModuleOptions>({
 				pathPrefix: false,
 				extensions: ['.vue'],
 				ignore: [
-					'**/lib/**',
-					'**/lib.ts',
 					'**/_*/**',
 					'**/types/**',
 					'**/*.module.css',
 				],
 			})
 
-			addImportsDir(resolve('./runtime/components'))
 			addImportsDir(resolve('./runtime/composals'))
 			addImportsDir(resolve('./runtime/helpers'))
 		}
