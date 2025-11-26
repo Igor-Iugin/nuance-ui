@@ -1,6 +1,6 @@
 {
 	"name": "nuance-ui",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "A UI Library for Modern Web Apps, powered by Vue.",
 	"repository": {
 		"type": "git",
