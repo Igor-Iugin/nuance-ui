@@ -28,7 +28,6 @@ export default defineNuxtConfig({
 Now you can use components in your application:
 
 ```vue
-
 <template>
 	<div>
 		<NButton variant='primary'>
