@@ -53,19 +53,17 @@ We welcome contributions! Please:
 
 ## Links
 
-- [Documentation](https://nuance-ui.dev)
-- [GitHub](https://github.com/yourusername/nuance-ui)
+- Documentation **WIP**
+- [GitHub](https://github.com/Igor-Iugin/nuance-ui)
 - [NPM](https://www.npmjs.com/package/nuance-ui)
-- [Examples](https://nuance-ui.dev/examples)
 
 ## Support
 
 If you have questions or issues:
 
-- [Create an Issue](https://github.com/yourusername/nuance-ui/issues)
-- [Discussions](https://github.com/yourusername/nuance-ui/discussions)
-- Email: support@nuance-ui.dev
+- [Create an Issue](https://github.com/Igor-Iugin/nuance-ui/issues)
+- [Discussions](https://github.com/Igor-Iugin/nuance-ui/discussions)
 
 ## License
 
-Licensed under the MIT license.
+Licensed under the [MIT license](https://github.com/Igor-Iugin/nuance-ui/blob/main/LICENSE.md).
