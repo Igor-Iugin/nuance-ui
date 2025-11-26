@@ -1,90 +1,72 @@
-<!--
-Get your module up and running quickly.
+# Nuance-UI
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
+A modern UI kit module for Nuxt 3 with thoughtfully designed components and subtle interaction details.
 
-# My Module
-
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
-
-## Features
-
-<!-- Highlight some of the features your module provide here -->
-
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
-
-## Quick Setup 1
-
-Install the module to your Nuxt application with one command:
+## 📦 Installation
 
 ```bash
-npx nuxi module add my-module
+# npm
+npm install nuance-ui
+
+# yarn
+yarn add nuance-ui
+
+# pnpm
+pnpm add nuance-ui
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+## Quick Start
 
-## Contribution
+Add `nuance-ui` to the `modules` section of your `nuxt.config.ts`:
 
-<details>
-  <summary>Local development</summary>
+```typescript
+export default defineNuxtConfig({
+	modules: ['nuance-ui'],
+})
+```
 
-  ```bash
-  # Install dependencies
-  npm install
+Now you can use components in your application:
 
-  # Generate type stubs
-  npm run dev:prepare
+```vue
 
-  # Develop with the playground
-  npm run dev
+<template>
+	<div>
+		<NButton variant='primary'>
+			Click me
+		</NButton>
 
-  # Build the playground
-  npm run dev:build
+		<NCard>
+			<p>Card content goes here</p>
+		</NCard>
+	</div>
+</template>
+```
 
-  # Run ESLint
-  npm run lint
+## Contributing
 
-  # Run Vitest
-  npm run test
-  npm run test:watch
+We welcome contributions! Please:
 
-  # Release new version
-  npm run release
-  ```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-</details>
+## Links
 
+- [Documentation](https://nuance-ui.dev)
+- [GitHub](https://github.com/yourusername/nuance-ui)
+- [NPM](https://www.npmjs.com/package/nuance-ui)
+- [Examples](https://nuance-ui.dev/examples)
 
-<!-- Badges -->
+## Support
 
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
+If you have questions or issues:
 
-[npm-version-href]: https://npmjs.com/package/my-module
+- [Create an Issue](https://github.com/yourusername/nuance-ui/issues)
+- [Discussions](https://github.com/yourusername/nuance-ui/discussions)
+- Email: support@nuance-ui.dev
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
+## License
 
-[npm-downloads-href]: https://npm.chart.dev/my-module
-
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-
-[license-href]: https://npmjs.com/package/my-module
-
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-
-[nuxt-href]: https://nuxt.com
+Licensed under the MIT license.
