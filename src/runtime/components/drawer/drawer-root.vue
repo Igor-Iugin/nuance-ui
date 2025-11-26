@@ -3,11 +3,11 @@ import { computed } from 'vue'
 
 import type { DialogEmits, DialogModel, DialogRootProps } from '../dialog'
 
-import { DialogRoot } from '../dialog'
+import DialogRoot from '../dialog/dialog-root.vue'
 import css from './drawer.module.css'
 
 
-export interface DrawerRootProps extends Omit<DialogRootProps, 'modal' | 'closeOnClickOutside' | 'rootClass' | 'transition'> {
+export interface DrawerRootProps extends /* @vue-ignore */ Omit<DialogRootProps, 'modal' | 'closeOnClickOutside' | 'rootClass' | 'transition'> {
 	/** Side of the screen on which drawer will be opened @default `'left'` */
 	position?: 'bottom' | 'left' | 'right' | 'top'
 }

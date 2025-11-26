@@ -8,7 +8,7 @@ import InputBase from './input/ui/input-base.vue'
 import InputWrapper from './input/ui/input-wrapper.vue'
 
 
-export interface TextareaProps extends Omit<InputWrapperProps, 'id'> {
+export interface TextareaProps extends /* @vue-ignore */ Omit<InputWrapperProps, 'id'> {
 }
 
 const props = defineProps<TextareaProps>()

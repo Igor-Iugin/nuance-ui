@@ -6,10 +6,10 @@ import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
-import NBox from './box.vue'
+import Box from './box.vue'
 
 
-export interface PaperProps extends BoxProps {
+export interface PaperProps extends /* @vue-ignore */ BoxProps {
 	shadow?: UiKitShadow
 	radius?: UiKitRadius
 	withBorder?: boolean
@@ -23,9 +23,9 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<NBox :is :style :class='$style.root' :mod='[mod, { "with-border": withBorder }]'>
+	<Box :is :style :class='$style.root' :mod='[mod, { "with-border": withBorder }]'>
 		<slot />
-	</NBox>
+	</Box>
 </template>
 
 <style module lang='postcss'>

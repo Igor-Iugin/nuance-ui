@@ -6,10 +6,10 @@ import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
-import NBox from './box.vue'
+import Box from './box.vue'
 
 
-export interface ContainerProps extends BoxProps {
+export interface ContainerProps extends /* @vue-ignore */ BoxProps {
 	size?: UiKitSize | string | number
 	fluid?: boolean
 }
@@ -29,14 +29,14 @@ const _mod = computed(() => [{ fluid }, mod])
 </script>
 
 <template>
-	<NBox
+	<Box
 		:is
 		:style
 		:mod='_mod'
 		:class='$style.root'
 	>
 		<slot />
-	</NBox>
+	</Box>
 </template>
 
 <style module>

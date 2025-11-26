@@ -5,7 +5,7 @@ import Box from '../box.vue'
 import css from './card.module.css'
 
 
-export interface CardSectionProps extends BoxProps {
+export interface CardSectionProps extends /* @vue-ignore */ BoxProps {
 	withBorder?: boolean
 	/** Determines whether the section should inherit padding from the parent `UiCard`, `false` by default */
 	inheritPadding?: boolean

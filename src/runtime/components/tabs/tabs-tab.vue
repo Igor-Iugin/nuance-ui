@@ -1,9 +1,10 @@
 <script setup lang='ts'>
-import type { Mod } from '@shared/ui-kit/lib/composals'
+import type { Mod } from '@nui/composals'
 
-import { UnstyledButton } from '@shared/ui-kit'
+import { computed } from 'vue'
 
-import { useTabsState } from '../lib'
+import UnstyledButton from '../button/unstyled-button.vue'
+import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
 

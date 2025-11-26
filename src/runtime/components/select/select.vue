@@ -15,7 +15,7 @@ import Input from '../input/input.vue'
 export interface SelectProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends Omit<InputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'>, Pick<ComboboxTargetProps, 'autoComplete'> {
+> extends /* @vue-ignore */ Omit<InputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'>, Pick<ComboboxTargetProps, 'autoComplete'> {
 	data: ComboboxData<Value, Ext>
 
 	/** Determines whether the select should be searchable @default `false` */

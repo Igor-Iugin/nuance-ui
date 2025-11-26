@@ -5,7 +5,7 @@ import type { UiKitRadius } from '@nui/types'
 import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
 
-import { UnstyledButton } from '../button'
+import UnstyledButton from '../button/unstyled-button.vue'
 import { useProvideCheckboxCard } from './lib/card.context'
 import { useCheckboxGroupState } from './lib/group.context'
 

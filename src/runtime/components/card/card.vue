@@ -10,7 +10,7 @@ import Paper from '../paper.vue'
 import css from './card.module.css'
 
 
-export interface CardProps extends PaperProps {
+export interface CardProps extends /* @vue-ignore */ PaperProps {
 	padding?: UiKitSpacing
 }
 

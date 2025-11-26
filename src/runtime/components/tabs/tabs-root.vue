@@ -1,17 +1,17 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitRadius } from '@shared/ui-kit/model/theme'
+import type { UiKitColor, UiKitRadius } from '@nui/types'
 
-import { useProvideTabsContext } from '@shared/ui-kit/components/tabs/lib'
-import { useStyleResolver } from '@shared/ui-kit/lib/composals'
-import { getRadius, getSafeId, getThemeColor } from '@shared/ui-kit/lib/utils'
+import { useStyleResolver } from '@nui/composals'
+import { getRadius, getSafeId, getThemeColor } from '@nui/utils'
 
-import type { BoxProps } from '../../q-box.vue'
+import type { BoxProps } from '../box.vue'
 
-import UiBox from '../../q-box.vue'
+import Box from '../box.vue'
+import { useProvideTabsContext } from '../tabs/lib'
 import css from './tabs.module.css'
 
 
-export interface TabsRootProps extends BoxProps {
+export interface TabsRootProps extends /* @vue-ignore */ BoxProps {
 	defaultTab?: string
 
 	/** Tabs orientation, `'horizontal'` by default */
@@ -89,7 +89,7 @@ useProvideTabsContext({
 </script>
 
 <template>
-	<UiBox
+	<Box
 		:is
 		:style
 		:mod='[mod, {
@@ -101,5 +101,5 @@ useProvideTabsContext({
 		:class='css.root'
 	>
 		<slot />
-	</UiBox>
+	</Box>
 </template>

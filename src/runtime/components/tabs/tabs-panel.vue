@@ -1,12 +1,12 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../../q-box.vue'
+import type { BoxProps } from '../box.vue'
 
-import UiBox from '../../q-box.vue'
-import { useTabsState } from '../lib'
+import Box from '../box.vue'
+import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
 
-export interface TabsPanelProps extends BoxProps {
+export interface TabsPanelProps extends /* @vue-ignore */ BoxProps {
 	value: string
 }
 
@@ -15,7 +15,7 @@ const ctx = useTabsState()
 </script>
 
 <template>
-	<UiBox
+	<Box
 		:is
 		:id='ctx?.getPanelId(value)'
 		:mod='[mod, { orientation: ctx?.orientation }]'
@@ -25,5 +25,5 @@ const ctx = useTabsState()
 		:aria-labelledby='ctx?.getTabId(value)'
 	>
 		<slot />
-	</UiBox>
+	</Box>
 </template>

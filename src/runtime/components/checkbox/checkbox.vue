@@ -12,7 +12,7 @@ import InputInline from '../input/ui/input-inline.vue'
 import { useCheckboxGroupState } from './lib/group.context'
 
 
-export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
+export interface CheckboxProps extends /* @vue-ignore */ Omit<InlineInputProps, 'id'> {
 	color?: UiKitColor
 	iconColor?: UiKitColor
 	variant?: 'filled' | 'outline'

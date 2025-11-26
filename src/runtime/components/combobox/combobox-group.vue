@@ -13,7 +13,7 @@ import { isValueChecked } from './lib/utils'
 export interface ComboboxGroupProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends Omit<BoxProps, 'is'>, ComboboxItemProps {
+> extends /* @vue-ignore */ Omit<BoxProps, 'is'>, ComboboxItemProps {
 	/** Group label */
 	label?: string
 

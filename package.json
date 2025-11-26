@@ -37,6 +37,7 @@
 		"test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
 	},
 	"dependencies": {
+		"defu": "^6.1.4",
 		"@floating-ui/vue": "^1.1.9",
 		"@nuxt/icon": "^2.1.0",
 		"@nuxt/kit": "^4.2.1",

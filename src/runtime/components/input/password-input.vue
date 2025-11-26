@@ -3,8 +3,8 @@ import { ref } from 'vue'
 
 import type { TextInputProps } from './index'
 
-import { ActionIcon } from '../action-icon'
-import UiTextInput from './text-input.vue'
+import ActionIcon from '../action-icon/action-icon.vue'
+import TextInput from './text-input.vue'
 
 
 const props = defineProps<TextInputProps>()
@@ -12,7 +12,7 @@ const password = ref<boolean>(true)
 </script>
 
 <template>
-	<UiTextInput
+	<TextInput
 		v-bind='props'
 		:type='password ? "password" : "text"'
 		right-section-p-e='all'
@@ -23,5 +23,5 @@ const password = ref<boolean>(true)
 				<Icon v-else name='gravity-ui:eye-slash' />
 			</ActionIcon>
 		</template>
-	</UiTextInput>
+	</TextInput>
 </template>

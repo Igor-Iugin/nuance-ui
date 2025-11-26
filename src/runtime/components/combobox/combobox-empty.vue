@@ -5,7 +5,7 @@ import Box from '../box.vue'
 import css from './combobox.module.css'
 
 
-export interface ComboboxEmptyProps extends Omit<BoxProps, 'is'> {
+export interface ComboboxEmptyProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
 }
 
 const { mod } = defineProps<ComboboxEmptyProps>()

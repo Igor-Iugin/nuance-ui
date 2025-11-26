@@ -1,7 +1,8 @@
 import type { OffsetOptions, Placement, Strategy } from '@floating-ui/vue'
-import type { CSSProperties, ModelRef, ShallowRef } from 'vue'
+import type { CSSProperties, ModelRef, Ref, ShallowRef } from 'vue'
 
 import { arrow, autoUpdate, flip, hide, inline, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
+import { computed, shallowRef } from 'vue'
 
 import type { ArrowPosition, PopoverWidth } from '../types'
 

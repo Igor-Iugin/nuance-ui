@@ -1,10 +1,10 @@
 <script setup lang='ts'>
 import type { BoxProps } from '../box.vue'
 
-import QBox from '../box.vue'
+import Box from '../box.vue'
 
 
-export interface VisuallyHiddenProps extends BoxProps {
+export interface VisuallyHiddenProps extends /* @vue-ignore */ BoxProps {
 	feature?: 'focusable' | 'fully-hidden'
 }
 
@@ -12,7 +12,7 @@ const { feature, ...rest } = defineProps<VisuallyHiddenProps>()
 </script>
 
 <template>
-	<QBox
+	<Box
 		:aria-hidden='feature === "focusable" ? "true" : undefined'
 		:data-hidden='feature === "fully-hidden" ? "true" : undefined'
 		:tabindex='feature === "fully-hidden" ? "-1" : undefined'
@@ -20,7 +20,7 @@ const { feature, ...rest } = defineProps<VisuallyHiddenProps>()
 		class='root'
 	>
 		<slot />
-	</QBox>
+	</Box>
 </template>
 
 <style scoped>

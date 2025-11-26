@@ -41,6 +41,15 @@ export default defineNuxtConfig({
 	eslint: {
 		config: { standalone: false },
 	},
+	typescript: {
+		typeCheck: true,
+		strict: true,
+		tsConfig: {
+			compilerOptions: {
+				moduleResolution: 'bundler',
+			},
+		},
+	},
 	postcss: {
 		plugins: {
 			'postcss-import': {},
@@ -55,6 +64,13 @@ export default defineNuxtConfig({
 				},
 			},
 			'autoprefixer': {},
+		},
+	},
+	vite: {
+		css: {
+			modules: {
+				localsConvention: 'camelCase',
+			},
 		},
 	},
 })

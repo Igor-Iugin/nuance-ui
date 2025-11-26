@@ -3,7 +3,6 @@ import type { Mod } from '@nui/composals'
 import type { Component } from 'vue'
 
 import { useMod } from '@nui/composals'
-import { computed } from 'vue'
 
 
 export interface BoxProps {
@@ -13,7 +12,7 @@ export interface BoxProps {
 }
 
 const { is = 'div', mod } = defineProps<BoxProps>()
-const _mod = computed(() => useMod(mod))
+const _mod = useMod(mod)
 </script>
 
 <template>

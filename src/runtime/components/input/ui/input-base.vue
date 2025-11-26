@@ -11,7 +11,7 @@ import type { InputBaseProps } from '../types'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
-export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'>, Required<Pick<WrapperContext, 'id'>> {
+export interface BaseInputProps extends /* @vue-ignore */ InputBaseProps, Omit<WrapperContext, 'id'>, Required<Pick<WrapperContext, 'id'>> {
 	is?: 'input' | 'textarea' | Component
 	modelValue?: string
 }

@@ -11,7 +11,7 @@ import Box from '../box.vue'
 import css from './action-icon.module.css'
 
 
-export interface ActionIconSectionProps extends BoxProps {
+export interface ActionIconSectionProps extends /* @vue-ignore */ BoxProps {
 	size?: UiKitSize | `compact-${UiKitSize}`
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
 	gradient?: UiKitGradient

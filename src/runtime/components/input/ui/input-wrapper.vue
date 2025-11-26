@@ -9,7 +9,7 @@ import { useProvideInputWrapper } from '../lib/input-wrapper.context'
 import InputLabel from './input-label.vue'
 
 
-export interface InputWrapperProps extends WrapperContext, InputLabelProps {
+export interface InputWrapperProps extends /* @vue-ignore */ WrapperContext, InputLabelProps {
 	error?: string
 	description?: string
 	label?: string

@@ -8,13 +8,13 @@ import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
-import NBox from './box.vue'
+import Box from './box.vue'
 
 
 type TitleOrder = 1 | 2 | 3 | 4 | 5 | 6
 type TextTruncate = 'end' | 'start' | boolean
 
-export interface TextProps extends BoxProps {
+export interface TextProps extends /* @vue-ignore */ BoxProps {
 	/** Controls `font-size` and `line-height`, `'md'` by default */
 	size?: UiKitSize | `h${TitleOrder}` | string
 
@@ -80,9 +80,9 @@ const style = computed(() => useStyleResolver(theme => ({
 </script>
 
 <template>
-	<NBox :is v-bind='rest' :mod='_mod' :class='$style.root' :style>
+	<Box :is v-bind='rest' :mod='_mod' :class='$style.root' :style>
 		<slot />
-	</NBox>
+	</Box>
 </template>
 
 <style module lang='postcss'>

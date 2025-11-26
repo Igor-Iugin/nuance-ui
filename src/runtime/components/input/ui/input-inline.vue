@@ -6,10 +6,10 @@ import { computed } from 'vue'
 
 import type { BoxProps } from '../../box.vue'
 
-import NBox from '../../box.vue'
+import Box from '../../box.vue'
 
 
-export interface InlineInputProps extends Omit<BoxProps, 'is'> {
+export interface InlineInputProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
 	id: string
 	label?: string
 	description?: string
@@ -42,31 +42,31 @@ const mod = computed(() => [
 </script>
 
 <template>
-	<NBox :style :class='$style.root' :mod>
+	<Box :style :class='$style.root' :mod>
 		<div :class='$style.body'>
 			<slot />
 
 			<div :class='$style.wrapper'>
-				<NBox is='label' :class='$style.label' :for='id' :mod='{ disabled }'>
+				<Box is='label' :class='$style.label' :for='id' :mod='{ disabled }'>
 					<slot name='label'>
 						{{ label }}
 					</slot>
-				</NBox>
+				</Box>
 
-				<NBox is='p' v-if='error' :class='$style.error' :mod='{ disabled }'>
+				<Box is='p' v-if='error' :class='$style.error' :mod='{ disabled }'>
 					<slot name='error'>
 						{{ error }}
 					</slot>
-				</NBox>
+				</Box>
 
-				<NBox is='p' v-else-if='description || $slots.description' :class='$style.description' :mod='{ disabled }'>
+				<Box is='p' v-else-if='description || $slots.description' :class='$style.description' :mod='{ disabled }'>
 					<slot name='description'>
 						{{ description }}
 					</slot>
-				</NBox>
+				</Box>
 			</div>
 		</div>
-	</NBox>
+	</Box>
 </template>
 
 <style lang='postcss' module>

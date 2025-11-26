@@ -6,20 +6,16 @@ import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
-import NBox from './box.vue'
+import Box from './box.vue'
 
 
-export interface BackgroundImageProps extends BoxProps {
+export interface BackgroundImageProps extends /* @vue-ignore */ BoxProps {
 	radius?: UiKitRadius | string
 	/** Image url */
 	src: string
 }
 
-const {
-	radius,
-	src,
-	...rest
-} = defineProps<BackgroundImageProps>()
+const { radius, src, ...rest } = defineProps<BackgroundImageProps>()
 
 const style = computed(() => ({
 	'--bi-radius': radius ? getRadius(radius) : undefined,
@@ -28,7 +24,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<NBox :style :class='$style.root' v-bind='rest' />
+	<Box :style :class='$style.root' v-bind='rest' />
 </template>
 
 <style module lang='postcss'>

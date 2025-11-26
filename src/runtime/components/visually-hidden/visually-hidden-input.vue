@@ -4,7 +4,7 @@ import type { VisuallyHiddenProps } from './visually-hidden.vue'
 import VisuallyHidden from './visually-hidden.vue'
 
 
-export interface VisuallyHiddenInputProps extends VisuallyHiddenProps {
+export interface VisuallyHiddenInputProps extends /* @vue-ignore */ VisuallyHiddenProps {
 	name: string
 	required?: boolean
 	disabled?: boolean

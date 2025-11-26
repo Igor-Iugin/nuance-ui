@@ -1,12 +1,12 @@
 <script lang='ts' setup>
 import type { DialogEmits, DialogModel, DialogRootProps } from '../dialog'
 
-import { DialogRoot } from '../dialog'
+import DialogRoot from '../dialog/dialog-root.vue'
 import css from './modal.module.css'
 
 
 export interface ModalRootProps
-	extends Omit<DialogRootProps, 'modal' | 'closeOnClickOutside' | 'rootClass' | 'withoutOverlay'> {
+	extends /* @vue-ignore */ Omit<DialogRootProps, 'modal' | 'closeOnClickOutside' | 'rootClass' | 'withoutOverlay'> {
 	/** If set, the modal is centered vertically @default `false` */
 	centered?: boolean
 

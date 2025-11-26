@@ -10,13 +10,13 @@ import type { BoxProps } from '../box.vue'
 import type { TransitionName } from '../transition'
 import type { DialogEmits, DialogModel } from './types'
 
-import NBox from '../box.vue'
+import Box from '../box.vue'
 import NTransition from '../transition/transition.vue'
 import css from './dialog.module.css'
 import { useProvideDialogState } from './lib'
 
 
-export interface DialogRootProps extends Omit<BoxProps, 'is'> {
+export interface DialogRootProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
 	/** If set, the dialog is closed when user clicks on the overlay @default `true` */
 	closeOnClickOutside?: boolean
 
@@ -116,7 +116,7 @@ const style = computed(() => ({
 
 <template>
 	<Teleport :disabled='!withinPortal' to='body'>
-		<NBox
+		<Box
 			is='dialog'
 			ref='dialogRef'
 			:class='[css.root, rootClass]'
@@ -127,10 +127,10 @@ const style = computed(() => ({
 			@cancel.prevent='() => closeOnClickOutside && (opened = false)'
 		>
 			<NTransition :name='transition'>
-				<NBox is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
+				<Box is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
 					<slot />
-				</NBox>
+				</Box>
 			</NTransition>
-		</NBox>
+		</Box>
 	</Teleport>
 </template>

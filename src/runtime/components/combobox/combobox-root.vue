@@ -2,8 +2,6 @@
 import type { UiKitSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { useId } from 'vue'
-
 import type { PopoverProps } from '../popover'
 import type { ComboboxStore } from './lib/use-combobox'
 import type { ComboboxRootEmits } from './types'
@@ -13,7 +11,7 @@ import { useProvideComboboxState } from './lib/context'
 import { useCombobox } from './lib/use-combobox'
 
 
-export interface ComboboxProps extends PopoverProps {
+export interface ComboboxProps extends /* @vue-ignore */ PopoverProps {
 	store?: ComboboxStore
 
 	/** Determines whether arrow key presses should loop though items (first to last and last to first), `true` by default */
@@ -45,10 +43,8 @@ const {
 const emit = defineEmits<ComboboxRootEmits>()
 const opened = defineModel<boolean>('open', { default: false })
 
-const id = useId()
 const store = _store ?? useCombobox({
 	loop,
-	listId: id,
 	scrollBehavior,
 	onSelect: ix => emit('select', ix),
 	onClear: () => emit('clear'),

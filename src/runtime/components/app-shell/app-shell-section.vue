@@ -4,7 +4,7 @@ import type { BoxProps } from '../box.vue'
 import Box from '../box.vue'
 
 
-export interface AppShellSectionProps extends BoxProps {
+export interface AppShellSectionProps extends /* @vue-ignore */ BoxProps {
 	/** Determines whether the section should take all available space, `false` by default */
 	grow?: boolean
 }

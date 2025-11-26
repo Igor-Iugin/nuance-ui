@@ -1,14 +1,16 @@
 <script setup lang='ts'>
 import type { CSSProperties } from 'vue'
 
-import type { BoxProps } from '../../q-box.vue'
+import { computed } from 'vue'
 
-import UiBox from '../../q-box.vue'
-import { useTabsState } from '../lib'
+import type { BoxProps } from '../box.vue'
+
+import Box from '../box.vue'
+import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
 
-export interface TabsListProps extends BoxProps {
+export interface TabsListProps extends /* @vue-ignore */ BoxProps {
 	grow?: boolean
 	justify?: CSSProperties['justify-content']
 }
@@ -19,7 +21,7 @@ const style = computed(() => ({ '--tabs-justify': justify }))
 </script>
 
 <template>
-	<UiBox
+	<Box
 		:is
 		:style
 		:class='css.list'
@@ -34,5 +36,5 @@ const style = computed(() => ({ '--tabs-justify': justify }))
 		:aria-orientation='ctx?.orientation'
 	>
 		<slot />
-	</UiBox>
+	</Box>
 </template>

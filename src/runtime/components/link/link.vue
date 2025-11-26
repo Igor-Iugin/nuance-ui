@@ -5,11 +5,11 @@ import { NuxtLink } from '#components'
 
 import type { TextProps } from '../text.vue'
 
-import NText from '../text.vue'
+import Text from '../text.vue'
 import { extractNuxtLinkProps } from './lib'
 
 
-export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
+export interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
 	underline?: boolean
 }
 
@@ -24,7 +24,7 @@ const { link, rest } = extractNuxtLinkProps(props)
 		v-bind='link'
 		custom
 	>
-		<NText
+		<Text
 			is='a'
 			:class='[$style.root, { [$style.underline]: rest.underline }]'
 			v-bind='{
@@ -36,7 +36,7 @@ const { link, rest } = extractNuxtLinkProps(props)
 			@click='(e: MouseEvent) => navigate(e)'
 		>
 			<slot />
-		</NText>
+		</Text>
 	</NuxtLink>
 </template>
 

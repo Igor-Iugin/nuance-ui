@@ -1,4 +1,5 @@
 import { isFalsy } from '@nui/utils'
+import { computed } from 'vue'
 
 
 export type Mod = Record<string, any>
@@ -25,15 +26,17 @@ function getMod(props: Mod | Mod[]): Mod {
 
 
 export function useMod(mod: Mod | Mod[] | Mod[][] | null | undefined): Mod | null {
-	if (!mod)
-		return null
+	return computed(() => {
+		if (!mod)
+			return null
 
-	if (Array.isArray(mod)) {
-		return mod
-			.filter(i => !isFalsy(i))
-			.reduce<Mod>((acc, value: Mod | Mod[]) => ({ ...acc, ...getMod(value) }), {})
-	}
+		if (Array.isArray(mod)) {
+			return mod
+				.filter(i => !isFalsy(i))
+				.reduce<Mod>((acc, value: Mod | Mod[]) => ({ ...acc, ...getMod(value) }), {})
+		}
 
-	return getMod(mod)
+		return getMod(mod)
+	})
 }
 

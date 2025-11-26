@@ -3,11 +3,11 @@ import type { NuxtLinkProps } from '#app'
 
 import type { ButtonProps } from '../button'
 
-import { QButton } from '../button'
+import Button from '../button/button.vue'
 import { extractNuxtLinkProps } from './lib'
 
 
-export interface LinkButtonProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, ButtonProps {
+export interface LinkButtonProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'href' | 'custom'>, ButtonProps {
 }
 
 const props = defineProps<LinkButtonProps>()
@@ -21,7 +21,7 @@ const { link, rest } = extractNuxtLinkProps(props)
 		v-bind='link'
 		custom
 	>
-		<QButton
+		<Button
 			v-bind='{ ...rest, is: rest?.is || "a", href, rel, target }'
 			@click='(e: MouseEvent) => navigate(e)'
 		>
@@ -34,6 +34,6 @@ const { link, rest } = extractNuxtLinkProps(props)
 			<template #rightSection>
 				<slot name='rightSection' />
 			</template>
-		</QButton>
+		</Button>
 	</NuxtLink>
 </template>

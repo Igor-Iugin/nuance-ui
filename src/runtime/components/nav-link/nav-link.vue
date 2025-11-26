@@ -8,12 +8,12 @@ import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
-import NBox from '../box.vue'
-import { UnstyledButton } from '../button'
+import Box from '../box.vue'
+import UnstyledButton from '../button/unstyled-button.vue'
 import { extractNuxtLinkProps } from '../link'
 
 
-export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+export interface NavLinkProps extends /* @vue-ignore */ BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
 	/** Link description, displayed below the label */
 	description?: string
 
@@ -84,16 +84,16 @@ const style = useStyleResolver(theme => {
 				<slot name='leftSection' />
 			</span>
 
-			<NBox :class='$style.body' :mod='{ "no-wrap": noWrap }'>
+			<Box :class='$style.body' :mod='{ "no-wrap": noWrap }'>
 				<span :class='$style.label'>
 					<slot />
 				</span>
-				<NBox :class='$style.description' :mod='{ active }'>
+				<Box :class='$style.description' :mod='{ active }'>
 					<slot name='description'>
 						{{ description }}
 					</slot>
-				</NBox>
-			</NBox>
+				</Box>
+			</Box>
 
 			<span
 				v-if='$slots.rightSection'

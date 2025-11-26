@@ -8,7 +8,7 @@ import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface InputProps extends InputWrapperProps, InputBaseProps {
+export interface InputProps extends /* @vue-ignore */ InputWrapperProps, InputBaseProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 

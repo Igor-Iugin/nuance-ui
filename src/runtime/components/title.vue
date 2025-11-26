@@ -3,10 +3,10 @@ import { computed } from 'vue'
 
 import type { TextProps } from './text.vue'
 
-import NText from './text.vue'
+import Text from './text.vue'
 
 
-export interface TitleProps extends Omit<TextProps, 'is'> {
+export interface TitleProps extends /* @vue-ignore */ Omit<TextProps, 'is'> {
 	order?: '1' | '2' | '3' | '4' | '5' | '6'
 	textWrap?: 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable'
 }
@@ -22,7 +22,7 @@ const style = computed(() => ({ '--title-text-wrap': textWrap }))
 </script>
 
 <template>
-	<NText
+	<Text
 		:is='`h${order}`'
 		v-bind='rest'
 		:size='size || `h${order}`'
@@ -30,7 +30,7 @@ const style = computed(() => ({ '--title-text-wrap': textWrap }))
 		:style
 	>
 		<slot />
-	</NText>
+	</Text>
 </template>
 
 <style module lang='postcss'>

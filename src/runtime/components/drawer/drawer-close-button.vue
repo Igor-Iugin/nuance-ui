@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import type { ActionIconProps } from '../action-icon'
 
-import { DialogCloseButton } from '../dialog'
+import DialogCloseButton from '../dialog/dialog-close-button.vue'
 
 
 const props = defineProps<ActionIconProps>()
