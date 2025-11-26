@@ -1,6 +1,7 @@
 <script lang='ts' setup>
 import type { Component } from 'vue'
 
+import Box from '@nui/components/box.vue'
 import { getFontSize, getRadius, getSize } from '@nui/utils'
 import { computed, useTemplateRef } from 'vue'
 
@@ -45,12 +46,14 @@ defineExpose({ ref })
 </script>
 
 <template>
-	<div
+	<Box
 		:style
 		:class='[$style.root, $attrs?.class]'
-		:data-with-left-section='!!$slots.leftSection || null'
-		:data-with-right-section='!!$slots.rightSection || null'
-		:data-variant='api.variant'
+		:mod='[{
+			"with-left-section": !!$slots?.leftSection,
+			"with-right-section": !!$slots?.rightSection,
+			"variant": api.variant,
+		}]'
 	>
 		<span
 			v-if='$slots.leftSection'
@@ -79,7 +82,7 @@ defineExpose({ ref })
 		>
 			<slot name='rightSection' />
 		</span>
-	</div>
+	</Box>
 </template>
 
 <style lang='postcss' module>

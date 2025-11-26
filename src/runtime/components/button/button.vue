@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -80,23 +80,19 @@ const style = computed(() => useStyleResolver(theme => {
 	}
 }))
 
-const slots = useSlots()
-
-const mod = computed(() => [
-	{
-		loading,
-		'data-with-left-section': !!slots?.leftSection,
-		'data-with-right-section': !!slots?.rightSection,
-		variant,
-	},
-	_mod,
-])
+const mod = computed(() => [{ loading, variant }, _mod])
 </script>
 
 <template>
 	<Box
 		:is
-		:mod
+		:mod='[
+			mod,
+			{
+				"with-left-section": !!$slots?.leftSection,
+				"with-right-section": !!$slots?.rightSection,
+			},
+		]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:disabled='loading'
