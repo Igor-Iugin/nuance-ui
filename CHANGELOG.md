@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.4...v0.1.5)
+
+### 📖 Documentation
+
+- Update installation rules ([76398dc](https://github.com/Igor-Iugin/nuance-ui/commit/76398dc))
+
+### 🏡 Chore
+
+- Add test for useTheme ([2baa6f0](https://github.com/Igor-Iugin/nuance-ui/commit/2baa6f0))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.3...v0.1.4)
