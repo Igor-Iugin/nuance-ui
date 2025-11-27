@@ -15,6 +15,12 @@ yarn add nuance-ui
 pnpm add nuance-ui
 ```
 
+### Install modules
+
+```bash
+npx nuxt module add color-mode icon
+```
+
 ## Quick Start
 
 Add `nuance-ui` to the `modules` section of your `nuxt.config.ts`:
