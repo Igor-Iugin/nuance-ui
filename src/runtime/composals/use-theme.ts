@@ -1,6 +1,6 @@
 import type { NuanceTheme } from '@nui/types'
 
-import { useColorMode } from '#build/imports'
+import { useColorMode } from '#imports'
 
 
 interface ThemeInstance {
