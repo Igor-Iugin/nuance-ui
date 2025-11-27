@@ -1,6 +1,6 @@
 import type { UiKitTheme } from '@nui/types'
 
-import { useState } from '#imports'
+import { useColorMode } from '#build/imports'
 
 
 interface ThemeInstance {
@@ -11,5 +11,5 @@ interface ThemeInstance {
 }
 
 export function useTheme() {
-	return useState('color-mode').value as ThemeInstance
+	return useColorMode() as ThemeInstance
 }
