@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.2...v0.1.3)
+
+### 🩹 Fixes
+
+- Fix useTheme ([7ac13c1](https://github.com/Igor-Iugin/nuance-ui/commit/7ac13c1))
+
+### 🏡 Chore
+
+- Add LICENSE.md ([87dc748](https://github.com/Igor-Iugin/nuance-ui/commit/87dc748))
+- Rename ui-kit types with Nuance* prefix ([5efc828](https://github.com/Igor-Iugin/nuance-ui/commit/5efc828))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.2
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.1...v0.1.2)
