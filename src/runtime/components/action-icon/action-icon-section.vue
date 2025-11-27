@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitGradient, UiKitRadius, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceRadius, NuanceSize, UiKitGradient } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
@@ -12,12 +12,12 @@ import css from './action-icon.module.css'
 
 
 export interface ActionIconSectionProps extends /* @vue-ignore */ BoxProps {
-	size?: UiKitSize | `compact-${UiKitSize}`
+	size?: NuanceSize | `compact-${NuanceSize}`
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
 	gradient?: UiKitGradient
 	loading?: boolean
-	color?: UiKitColor
-	radius?: UiKitRadius
+	color?: NuanceColor
+	radius?: NuanceRadius
 }
 
 const {

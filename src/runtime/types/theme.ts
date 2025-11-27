@@ -1,39 +1,39 @@
-export type UiKitSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type NuanceSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-export type UiKitBreakpointsValues = Record<UiKitSize | 'base', string>
-export type UiKitFontSizesValues = Record<UiKitSize, string>
-export type UiKitRadiusValues = Record<UiKitSize | 'full', string>
-export type UiKitSpacingValues = Record<UiKitSize, string>
-export type UiKitShadowsValues = Record<UiKitSize, string>
-export type UiKitLineHeightValues = Record<UiKitSize, string>
+export type NuanceBreakpointsValues = Record<NuanceSize | 'base', string>
+export type NuanceFontSizesValues = Record<NuanceSize, string>
+export type NuanceRadiusValues = Record<NuanceSize | 'full', string>
+export type NuanceSpacingValues = Record<NuanceSize, string>
+export type NuanceShadowsValues = Record<NuanceSize, string>
+export type NuanceLineHeightValues = Record<NuanceSize, string>
 
-export type UiKitBreakpoint = keyof UiKitBreakpointsValues
-export type UiKitFontSize = keyof UiKitFontSizesValues
-export type UiKitRadius = keyof UiKitRadiusValues | number
-export type UiKitSpacing = keyof UiKitSpacingValues | number
-export type UiKitShadow = keyof UiKitShadowsValues
-export type UiKitLineHeight = keyof UiKitLineHeightValues
+export type NuanceBreakpoint = keyof NuanceBreakpointsValues
+export type NuanceFontSize = keyof NuanceFontSizesValues
+export type NuanceRadius = keyof NuanceRadiusValues | number
+export type NuanceSpacing = keyof NuanceSpacingValues | number
+export type NuanceShadow = keyof NuanceShadowsValues
+export type NuanceLineHeight = keyof NuanceLineHeightValues
 
-export type UiKitColorShade = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+export type NuanceColorShade = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 type ShadedColor
-	= | `dark.${UiKitColorShade}`
-		| `slate.${UiKitColorShade}`
-		| `gray.${UiKitColorShade}`
-		| `red.${UiKitColorShade}`
-		| `pink.${UiKitColorShade}`
-		| `grape.${UiKitColorShade}`
-		| `violet.${UiKitColorShade}`
-		| `indigo.${UiKitColorShade}`
-		| `blue.${UiKitColorShade}`
-		| `cyan.${UiKitColorShade}`
-		| `green.${UiKitColorShade}`
-		| `lime.${UiKitColorShade}`
-		| `yellow.${UiKitColorShade}`
-		| `orange.${UiKitColorShade}`
-		| `teal.${UiKitColorShade}`
+	= | `dark.${NuanceColorShade}`
+		| `slate.${NuanceColorShade}`
+		| `gray.${NuanceColorShade}`
+		| `red.${NuanceColorShade}`
+		| `pink.${NuanceColorShade}`
+		| `grape.${NuanceColorShade}`
+		| `violet.${NuanceColorShade}`
+		| `indigo.${NuanceColorShade}`
+		| `blue.${NuanceColorShade}`
+		| `cyan.${NuanceColorShade}`
+		| `green.${NuanceColorShade}`
+		| `lime.${NuanceColorShade}`
+		| `yellow.${NuanceColorShade}`
+		| `orange.${NuanceColorShade}`
+		| `teal.${NuanceColorShade}`
 
-export type UiKitDefaultThemeColor
+export type NuanceDefaultThemeColor
 	= | 'dark'
 		| 'slate'
 		| 'gray'
@@ -52,13 +52,13 @@ export type UiKitDefaultThemeColor
 		| 'black'
 		| 'white'
 
-export type UiKitColor = UiKitDefaultThemeColor | ShadedColor
+export type NuanceColor = NuanceDefaultThemeColor | ShadedColor
 
-export type UiKitTheme = 'light' | 'dark'
+export type NuanceTheme = 'light' | 'dark'
 
 export interface UiKitGradient {
-	bg?: UiKitColor | string
-	from: UiKitColor | string
-	to: UiKitColor | string
+	bg?: NuanceColor | string
+	from: NuanceColor | string
+	to: NuanceColor | string
 	deg?: number
 }

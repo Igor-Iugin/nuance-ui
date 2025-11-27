@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceSize } from '@nui/types'
 import type { Component } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
@@ -14,8 +14,8 @@ import OvalLoader from './_loaders/oval-loader.vue'
 export type LoaderType = 'bars' | 'dots' | 'oval'
 
 export interface LoaderProps {
-	size?: UiKitSize | string
-	color?: UiKitColor | string
+	size?: NuanceSize | string
+	color?: NuanceColor | string
 	type?: LoaderType
 }
 

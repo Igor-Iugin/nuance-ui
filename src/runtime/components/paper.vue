@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitRadius, UiKitShadow } from '@nui/types'
+import type { NuanceRadius, NuanceShadow } from '@nui/types'
 
 import { getRadius, getShadow } from '@nui/utils'
 import { computed } from 'vue'
@@ -10,8 +10,8 @@ import Box from './box.vue'
 
 
 export interface PaperProps extends /* @vue-ignore */ BoxProps {
-	shadow?: UiKitShadow
-	radius?: UiKitRadius
+	shadow?: NuanceShadow
+	radius?: NuanceRadius
 	withBorder?: boolean
 }
 

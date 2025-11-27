@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 
 import { getFontSize, getSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -15,7 +15,7 @@ export interface InlineInputProps extends /* @vue-ignore */ Omit<BoxProps, 'is'>
 	description?: string
 	error?: string
 	disabled?: boolean | undefined
-	size?: UiKitSize | string
+	size?: NuanceSize | string
 	labelPosition?: 'left' | 'right'
 }
 

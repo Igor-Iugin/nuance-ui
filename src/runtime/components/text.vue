@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitGradient, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceSize, UiKitGradient } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
@@ -16,7 +16,7 @@ type TextTruncate = 'end' | 'start' | boolean
 
 export interface TextProps extends /* @vue-ignore */ BoxProps {
 	/** Controls `font-size` and `line-height`, `'md'` by default */
-	size?: UiKitSize | `h${TitleOrder}` | string
+	size?: NuanceSize | `h${TitleOrder}` | string
 
 	/** Number of lines after which Text will be truncated */
 	lineClamp?: number
@@ -35,10 +35,10 @@ export interface TextProps extends /* @vue-ignore */ BoxProps {
 
 	variant?: 'text' | 'gradient'
 
-	fz?: UiKitSize | `h${TitleOrder}` | string
-	lh?: UiKitSize | string
+	fz?: NuanceSize | `h${TitleOrder}` | string
+	lh?: NuanceSize | string
 	fw?: CSSProperties['font-weight']
-	c?: UiKitColor
+	c?: NuanceColor
 }
 
 const {

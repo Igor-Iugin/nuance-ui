@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitRadius } from '@nui/types'
+import type { NuanceRadius } from '@nui/types'
 
 import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
@@ -10,7 +10,7 @@ import Box from './box.vue'
 
 
 export interface BackgroundImageProps extends /* @vue-ignore */ BoxProps {
-	radius?: UiKitRadius | string
+	radius?: NuanceRadius | string
 	/** Image url */
 	src: string
 }

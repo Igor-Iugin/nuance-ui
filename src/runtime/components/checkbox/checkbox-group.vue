@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 
 import { useId } from 'vue'
 
@@ -12,7 +12,7 @@ import { useProvideCheckboxGroup } from './lib/group.context'
 
 export interface CheckboxGroupProps extends /* @vue-ignore */ Omit<InputWrapperProps, 'resize' | 'multiline' | 'id'> {
 	name: string
-	size?: UiKitSize
+	size?: NuanceSize
 }
 
 const { size, name, ...rest } = defineProps<CheckboxGroupProps>()

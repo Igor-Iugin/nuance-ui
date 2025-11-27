@@ -1,4 +1,4 @@
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 import type { ModelRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
@@ -6,7 +6,7 @@ import { createStrictInjection } from '@nui/helpers'
 
 export interface CheckboxGroupState {
 	value: ModelRef<string[]>
-	size?: UiKitSize
+	size?: NuanceSize
 }
 
 const injectionKey = Symbol('CheckboxGroup')

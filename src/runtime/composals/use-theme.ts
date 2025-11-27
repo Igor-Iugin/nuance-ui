@@ -1,11 +1,11 @@
-import type { UiKitTheme } from '@nui/types'
+import type { NuanceTheme } from '@nui/types'
 
 import { useColorMode } from '#build/imports'
 
 
 interface ThemeInstance {
-	preference: UiKitTheme
-	readonly value: UiKitTheme
+	preference: NuanceTheme
+	readonly value: NuanceTheme
 	unknown: boolean
 	forced: boolean
 }

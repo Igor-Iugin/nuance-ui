@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor } from '@nui/types'
+import type { NuanceColor } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
 import { useActiveLink, useStyleResolver } from '@nui/composals'
@@ -21,7 +21,7 @@ export interface NavLinkProps extends /* @vue-ignore */ BoxProps, Omit<NuxtLinkP
 	active?: boolean
 
 	/** Key of `theme.colors` of any valid CSS color to control active styles @default `theme.primaryColor` */
-	color?: UiKitColor
+	color?: NuanceColor
 
 	/** If set, label and description do not wrap to the next line @default `false` */
 	noWrap?: boolean

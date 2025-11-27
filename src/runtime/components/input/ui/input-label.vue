@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 
 import { getFontSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -7,7 +7,7 @@ import { computed } from 'vue'
 
 export interface InputLabelProps {
 	required?: boolean
-	size?: UiKitSize | string
+	size?: NuanceSize | string
 }
 
 const {

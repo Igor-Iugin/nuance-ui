@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitRadius, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
@@ -10,10 +10,10 @@ import { useChipGroupState, useChipState } from './lib'
 
 
 export interface ChipProps {
-	radius?: UiKitRadius
-	size?: UiKitSize
+	radius?: NuanceRadius
+	size?: NuanceSize
 	type?: 'radio' | 'checkbox'
-	color?: UiKitColor
+	color?: NuanceColor
 	id?: string
 	variant?: 'filled' | 'outline' | 'light'
 	value?: string

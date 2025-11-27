@@ -1,4 +1,4 @@
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
@@ -10,8 +10,8 @@ import type { InputVariant } from '../types'
 export interface WrapperContext {
 	id?: string | null
 	required?: boolean
-	radius?: UiKitSize | string
-	size?: UiKitSize | string
+	radius?: NuanceSize | string
+	size?: NuanceSize | string
 	variant?: InputVariant
 	multiline?: boolean
 	resize?: CSSProperties['resize']

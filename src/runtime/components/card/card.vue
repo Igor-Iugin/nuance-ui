@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSpacing } from '@nui/types'
+import type { NuanceSpacing } from '@nui/types'
 
 import { getSpacing } from '@nui/utils'
 import { computed } from 'vue'
@@ -11,7 +11,7 @@ import css from './card.module.css'
 
 
 export interface CardProps extends /* @vue-ignore */ PaperProps {
-	padding?: UiKitSpacing
+	padding?: NuanceSpacing
 }
 
 const { padding, is = 'article', ...rest } = defineProps<CardProps>()

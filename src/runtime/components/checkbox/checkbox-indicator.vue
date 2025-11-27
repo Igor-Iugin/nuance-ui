@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
@@ -10,11 +10,11 @@ import { useCheckboxCardState } from './lib/card.context'
 
 
 export interface CheckboxIndicatorProps {
-	color?: UiKitColor
-	iconColor?: UiKitColor
+	color?: NuanceColor
+	iconColor?: NuanceColor
 	variant?: 'filled' | 'outline'
-	radius?: UiKitSize
-	size?: UiKitSize
+	radius?: NuanceSize
+	size?: NuanceSize
 	indeterminate?: boolean
 }
 

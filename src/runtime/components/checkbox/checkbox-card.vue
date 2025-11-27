@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { Mod } from '@nui/composals'
-import type { UiKitRadius } from '@nui/types'
+import type { NuanceRadius } from '@nui/types'
 
 import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
@@ -13,7 +13,7 @@ import { useCheckboxGroupState } from './lib/group.context'
 export interface CheckboxCardProps {
 	mod?: Mod | Mod[]
 	withBorder?: boolean
-	radius?: UiKitRadius
+	radius?: NuanceRadius
 	value?: string
 }
 

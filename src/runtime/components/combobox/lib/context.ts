@@ -1,4 +1,4 @@
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 import type { CSSProperties, ModelRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
@@ -10,10 +10,10 @@ import type { ComboboxStore } from './use-combobox/use-combobox'
 interface ComboboxState {
 	opened: ModelRef<boolean>
 	onOptionSubmit?: (value: string, option: ComboboxItem) => void
-	size: UiKitSize
+	size: NuanceSize
 	readOnly: boolean
 	store: ComboboxStore
-	dropdownPadding?: UiKitSize | CSSProperties['padding']
+	dropdownPadding?: NuanceSize | CSSProperties['padding']
 }
 
 const injectionKey = Symbol('combobox-store')

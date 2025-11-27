@@ -1,7 +1,7 @@
 import type { AlignedPlacement, OffsetOptions, Side, Strategy } from '@floating-ui/vue'
 import type { CSSProperties } from 'vue'
 
-import type { UiKitRadius, UiKitShadow } from '~/src/runtime/types/theme'
+import type { NuanceRadius, NuanceShadow } from '~/src/runtime/types/theme'
 
 
 export type ArrowPosition = 'center' | 'side'
@@ -38,10 +38,10 @@ export interface PopoverProps {
 	arrowPosition?: ArrowPosition
 
 	/** Key of `theme.radius` or any valid CSS value to set border-radius @default `theme.defaultRadius` */
-	radius?: UiKitRadius
+	radius?: NuanceRadius
 
 	/** Key of `theme.shadows` or any other valid CSS `box-shadow` value */
-	shadow?: UiKitShadow
+	shadow?: NuanceShadow
 
 	/** If set, popover dropdown will not be rendered */
 	disabled?: boolean

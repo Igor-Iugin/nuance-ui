@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import type { PopoverProps } from '../popover'
@@ -21,10 +21,10 @@ export interface ComboboxProps extends /* @vue-ignore */ PopoverProps {
 	scrollBehavior?: ScrollBehavior
 
 	/** Controls items `font-size` and `padding` @default `'sm'` */
-	size?: UiKitSize
+	size?: NuanceSize
 
 	/** Controls `padding` of the dropdown @default `4` */
-	dropdownPadding?: UiKitSize | CSSProperties['padding']
+	dropdownPadding?: NuanceSize | CSSProperties['padding']
 
 	/** Determines whether the `Combobox` value can be changed */
 	readOnly?: boolean

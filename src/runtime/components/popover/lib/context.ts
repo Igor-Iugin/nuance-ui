@@ -1,4 +1,4 @@
-import type { UiKitRadius, UiKitShadow } from '@nui/types'
+import type { NuanceRadius, NuanceShadow } from '@nui/types'
 
 import { createStrictInjection } from '@nui/helpers'
 
@@ -11,8 +11,8 @@ interface PopoverState {
 	withArrow: boolean
 	id: string
 	onToggle: (event: ToggleEvent) => void
-	radius?: UiKitRadius
-	shadow?: UiKitShadow
+	radius?: NuanceRadius
+	shadow?: NuanceShadow
 }
 
 const injectionKey = Symbol('popover')

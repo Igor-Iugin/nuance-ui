@@ -1,10 +1,10 @@
-import type { UiKitGradient, UiKitTheme } from '@nui/types'
+import type { NuanceTheme, UiKitGradient } from '@nui/types'
 
 import { DEFAULT_GRADIENT } from '../../const'
 import { parseThemeColor } from '../parse-theme-color/parse-theme-color'
 
 
-export function getGradient(gradient: UiKitGradient | undefined, theme: UiKitTheme) {
+export function getGradient(gradient: UiKitGradient | undefined, theme: NuanceTheme) {
 	const merged = {
 		from: gradient?.from || DEFAULT_GRADIENT.from,
 		to: gradient?.to || DEFAULT_GRADIENT.to,
@@ -17,7 +17,7 @@ export function getGradient(gradient: UiKitGradient | undefined, theme: UiKitThe
 	return `linear-gradient(${merged.deg}deg, ${fromColor.value} 0%, ${toColor.value} 100%)`
 }
 
-export function getGradientOutline(gradient: UiKitGradient | undefined, theme: UiKitTheme) {
+export function getGradientOutline(gradient: UiKitGradient | undefined, theme: NuanceTheme) {
 	const merged = {
 		bg: gradient?.bg || DEFAULT_GRADIENT.bg,
 		from: gradient?.from || DEFAULT_GRADIENT.from,

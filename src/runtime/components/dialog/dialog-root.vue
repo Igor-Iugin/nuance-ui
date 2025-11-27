@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { UiKitRadius, UiKitShadow, UiKitSize, UiKitSpacing } from '@nui/types'
+import type { NuanceRadius, NuanceShadow, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
@@ -33,16 +33,16 @@ export interface DialogRootProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> 
 	xOffset?: CSSProperties['marginLeft']
 
 	/** Key of `theme.radius` or any valid CSS value to set `border-radius` @default `theme.defaultRadius` */
-	radius?: UiKitRadius
+	radius?: NuanceRadius
 
 	/** Controls width of the content area @default `'md'` */
-	size?: UiKitSize
+	size?: NuanceSize
 
 	/** Key of `theme.shadows` or any valid CSS box-shadow value @default `'xl'` */
-	shadow?: UiKitShadow
+	shadow?: NuanceShadow
 
 	/** Key of `theme.spacing` or any valid CSS value to set content, header and footer padding @default `'md'` */
-	padding?: UiKitSpacing
+	padding?: NuanceSpacing
 
 	/** Passes a class to root element */
 	rootClass?: string

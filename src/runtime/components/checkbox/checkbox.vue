@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitSize } from '@nui/types'
+import type { NuanceColor, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
@@ -13,11 +13,11 @@ import { useCheckboxGroupState } from './lib/group.context'
 
 
 export interface CheckboxProps extends /* @vue-ignore */ Omit<InlineInputProps, 'id'> {
-	color?: UiKitColor
-	iconColor?: UiKitColor
+	color?: NuanceColor
+	iconColor?: NuanceColor
 	variant?: 'filled' | 'outline'
-	radius?: UiKitSize
-	size?: UiKitSize
+	radius?: NuanceSize
+	size?: NuanceSize
 	indeterminate?: boolean
 	value?: string
 }

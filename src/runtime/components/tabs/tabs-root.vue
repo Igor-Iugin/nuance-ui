@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitColor, UiKitRadius } from '@nui/types'
+import type { NuanceColor, NuanceRadius } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { getRadius, getSafeId, getThemeColor } from '@nui/utils'
@@ -32,10 +32,10 @@ export interface TabsRootProps extends /* @vue-ignore */ BoxProps {
 	allowTabDeactivation?: boolean
 
 	/** Changes colors of `TabsTab` components when variant is `pills` or `default`, does nothing for other variants */
-	color?: UiKitColor
+	color?: NuanceColor
 
 	/** Key of `theme.radius` or any valid CSS value to set `border-radius`, `theme.defaultRadius` by default */
-	radius?: UiKitRadius
+	radius?: NuanceRadius
 
 	/** Determines whether tabs should have inverted styles, `false` by default */
 	inverted?: boolean

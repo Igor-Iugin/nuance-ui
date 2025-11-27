@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { UiKitSize } from '@nui/types'
+import type { NuanceSize } from '@nui/types'
 
 import { getSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -10,7 +10,7 @@ import Box from './box.vue'
 
 
 export interface ContainerProps extends /* @vue-ignore */ BoxProps {
-	size?: UiKitSize | string | number
+	size?: NuanceSize | string | number
 	fluid?: boolean
 }
 

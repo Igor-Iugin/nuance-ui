@@ -1,4 +1,4 @@
-import type { UiKitColor, UiKitColorShade, UiKitDefaultThemeColor, UiKitTheme } from '@nui/types'
+import type { NuanceColor, NuanceColorShade, NuanceDefaultThemeColor, NuanceTheme } from '@nui/types'
 
 import { getColorVar } from '../../utils/get-color-var'
 
@@ -6,12 +6,12 @@ import { getColorVar } from '../../utils/get-color-var'
 interface ParseThemeColorResult {
 	color: string
 	value: string
-	shade: UiKitColorShade | undefined
+	shade: NuanceColorShade | undefined
 	variable: `--${string}` | undefined
 	isThemeColor: boolean
 }
 
-const themeColors: (UiKitDefaultThemeColor | 'primary')[] = [
+const themeColors: (NuanceDefaultThemeColor | 'primary')[] = [
 	'dark',
 	'slate',
 	'gray',
@@ -37,7 +37,7 @@ export function parseThemeColor({
 	theme,
 }: {
 	color: unknown
-	theme: UiKitTheme
+	theme: NuanceTheme
 }): ParseThemeColorResult {
 	if (typeof color !== 'string') {
 		throw new TypeError(
@@ -65,8 +65,8 @@ export function parseThemeColor({
 		}
 	}
 
-	const [_color, shade] = color.split('.') as [UiKitColor, UiKitColorShade]
-	const colorShade = shade ? (Number(shade) as UiKitColorShade) : undefined
+	const [_color, shade] = color.split('.') as [NuanceColor, NuanceColorShade]
+	const colorShade = shade ? (Number(shade) as NuanceColorShade) : undefined
 	const isThemeColor = themeColors.includes(_color as any)
 
 	if (isThemeColor) {
@@ -92,7 +92,7 @@ export function parseThemeColor({
 	}
 }
 
-export function getThemeColor(color: string | undefined, theme: UiKitTheme) {
+export function getThemeColor(color: string | undefined, theme: NuanceTheme) {
 	const parsed = parseThemeColor({ color, theme })
 	return parsed.variable ? `var(${parsed.variable})` : color!
 }
