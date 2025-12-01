@@ -6,7 +6,7 @@ import type { TextProps } from './text.vue'
 import Text from './text.vue'
 
 
-export interface TitleProps extends /* @vue-ignore */ Omit<TextProps, 'is'> {
+export interface TitleProps extends Omit<TextProps, 'is'> {
 	order?: '1' | '2' | '3' | '4' | '5' | '6'
 	textWrap?: 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable'
 }

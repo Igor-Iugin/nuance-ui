@@ -12,7 +12,7 @@ import InputInline from '../input/ui/input-inline.vue'
 import { useCheckboxGroupState } from './lib/group.context'
 
 
-export interface CheckboxProps extends /* @vue-ignore */ Omit<InlineInputProps, 'id'> {
+export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 	color?: NuanceColor
 	iconColor?: NuanceColor
 	variant?: 'filled' | 'outline'
@@ -71,7 +71,7 @@ const style = computed(() => useStyleResolver(theme => {
 				type='checkbox'
 				:class='$style.input'
 				:disabled='rest.disabled'
-				@click='value ? ctx?.onUpdate?.(value) ?? toggle() : toggle()'
+				@change='() => value && ctx ? ctx.onUpdate(value) : toggle()'
 			>
 
 			<slot name='icon' :indeterminate='indeterminate' :class='$style.icon'>
@@ -109,6 +109,8 @@ const style = computed(() => useStyleResolver(theme => {
 }
 
 .input {
+	cursor: pointer;
+
 	display: block;
 
 	width: var(--checkbox-size);

@@ -13,7 +13,7 @@ import Loader from '../loader/loader.vue'
 import css from './button.module.css'
 
 
-export interface ButtonProps extends /* @vue-ignore */ BoxProps {
+export interface ButtonProps extends BoxProps {
 	size?: NuanceSize | `compact-${NuanceSize}`
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
 	gradient?: UiKitGradient

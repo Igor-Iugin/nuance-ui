@@ -5,7 +5,7 @@ import Title from '../title.vue'
 import css from './dialog.module.css'
 
 
-export interface DialogTitleProps extends /* @vue-ignore */ TitleProps {
+export interface DialogTitleProps extends TitleProps {
 }
 
 const { size = 'md', lh = '1', ...props } = defineProps<DialogTitleProps>()

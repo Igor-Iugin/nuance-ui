@@ -1,7 +1,7 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
 import { nextTick, useId, watch } from 'vue'
 
-import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits, ComboboxTargetProps } from '../combobox'
+import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
 import type { InputProps } from '../input'
 
 import Button from '../button/button.vue'
@@ -15,7 +15,7 @@ import Input from '../input/input.vue'
 export interface SelectProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends /* @vue-ignore */ Omit<InputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'>, Pick<ComboboxTargetProps, 'autoComplete'> {
+> extends Omit<InputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'> {
 	data: ComboboxData<Value, Ext>
 
 	/** Determines whether the select should be searchable @default `false` */
@@ -39,6 +39,9 @@ export interface SelectProps<
 	limit?: number
 	/** Props passed down to the underlying `ScrollArea` component in the dropdown */
 	// scrollAreaProps?: ScrollAreaProps
+
+	/** Input autocomplete attribute */
+	autoComplete?: string
 }
 
 const {

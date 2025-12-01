@@ -5,7 +5,7 @@ import Box from '../box.vue'
 import css from './combobox.module.css'
 
 
-export interface ComboboxOptionListProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
+export interface ComboboxOptionListProps extends BoxProps {
 	/** Id of the element that labels the options list */
 	labelledBy?: string
 }

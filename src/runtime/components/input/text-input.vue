@@ -21,9 +21,6 @@ const id = useId()
 
 <template>
 	<InputWrapper :id v-bind='props' :class='$attrs?.class'>
-		<slot name='label' />
-		<slot name='error' />
-		<slot name='description' />
 		<BaseInput
 			:id
 			v-model='model'
@@ -37,5 +34,8 @@ const id = useId()
 				<slot name='rightSection' />
 			</template>
 		</BaseInput>
+		<slot name='label' />
+		<slot name='error' />
+		<slot name='description' />
 	</InputWrapper>
 </template>

@@ -1,7 +1,7 @@
 import type { NuanceSize } from '@nui/types'
 import type { ModelRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createInjectionState } from '@vueuse/core'
 
 
 export interface CheckboxGroupState {
@@ -10,7 +10,7 @@ export interface CheckboxGroupState {
 }
 
 const injectionKey = Symbol('CheckboxGroup')
-const [useProvide, useState] = createStrictInjection(({ value, size }: CheckboxGroupState) => {
+const [useProvide, useState] = createInjectionState(({ value, size }: CheckboxGroupState) => {
 	const onUpdate = (newValue: string) => {
 		if (value.value.includes(newValue))
 			return value.value = value.value.filter(i => i !== newValue)
@@ -21,7 +21,6 @@ const [useProvide, useState] = createStrictInjection(({ value, size }: CheckboxG
 	return { value, size, onUpdate }
 }, {
 	injectionKey,
-	name: 'CheckboxGroup',
 })
 
 export const useProvideCheckboxGroup = useProvide

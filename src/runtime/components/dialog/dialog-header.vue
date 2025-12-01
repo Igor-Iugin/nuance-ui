@@ -5,14 +5,14 @@ import Box from '../box.vue'
 import css from './dialog.module.css'
 
 
-export interface DialogHeaderProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
+export interface DialogHeaderProps extends BoxProps {
 }
 
-const props = defineProps<DialogHeaderProps>()
+const { is = 'header', mod } = defineProps<DialogHeaderProps>()
 </script>
 
 <template>
-	<Box is='header' :class='css.header' v-bind='props'>
+	<Box :is :mod :class='css.header'>
 		<slot />
 	</Box>
 </template>

@@ -9,7 +9,7 @@ import type { BoxProps } from './box.vue'
 import Box from './box.vue'
 
 
-export interface ContainerProps extends /* @vue-ignore */ BoxProps {
+export interface ContainerProps extends BoxProps {
 	size?: NuanceSize | string | number
 	fluid?: boolean
 }

@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createInjectionState } from '@vueuse/core'
 
 
 export interface CheckboxCardState {
@@ -9,9 +9,8 @@ export interface CheckboxCardState {
 }
 
 const injectionKey = Symbol('CheckboxCard')
-const [useProvide, useState] = createStrictInjection((props: CheckboxCardState) => props, {
+const [useProvide, useState] = createInjectionState((props: CheckboxCardState) => props, {
 	injectionKey,
-	name: 'CheckboxCard',
 })
 
 export const useProvideCheckboxCard = useProvide

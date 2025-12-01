@@ -5,7 +5,7 @@ import Box from '../box.vue'
 import css from './button.module.css'
 
 
-export interface ButtonGroupProps extends /* @vue-ignore */ BoxProps {
+export interface ButtonGroupProps extends BoxProps {
 	orientation?: 'horizontal' | 'vertical'
 }
 

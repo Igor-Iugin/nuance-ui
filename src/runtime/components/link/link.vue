@@ -9,7 +9,7 @@ import Text from '../text.vue'
 import { extractNuxtLinkProps } from './lib'
 
 
-export interface LinkProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
+export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
 	underline?: boolean
 }
 

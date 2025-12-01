@@ -3,20 +3,20 @@ import { getFontSize } from '@nui/utils'
 import { computed, useId } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
-import type { InputLabelProps } from './input-label.vue'
 
 import { useProvideInputWrapper } from '../lib/input-wrapper.context'
 import InputLabel from './input-label.vue'
 
 
-export interface InputWrapperProps extends /* @vue-ignore */ WrapperContext, InputLabelProps {
+export interface InputWrapperProps extends WrapperContext {
 	error?: string
 	description?: string
 	label?: string
+	required?: boolean
 }
 
 const {
-	id: _id,
+	id,
 	error,
 	description,
 	label,
@@ -27,12 +27,15 @@ const {
 	...props
 } = defineProps<InputWrapperProps>()
 
-const id = _id ?? useId()
+const uid = id ?? useId()
 
 useProvideInputWrapper({
-	id,
-	variant,
+	id: uid,
+	error,
+	description,
+	label,
 	required,
+	variant,
 	size,
 	radius,
 	...props,
@@ -48,7 +51,7 @@ const style = computed(() => ({
 	<div :style :class='$style.root'>
 		<InputLabel
 			:data-v-hidden='!label || !$slots.label || null'
-			:for='id'
+			:for='uid'
 			:class='$style.label'
 			:size
 			:required

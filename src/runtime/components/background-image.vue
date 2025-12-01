@@ -9,7 +9,7 @@ import type { BoxProps } from './box.vue'
 import Box from './box.vue'
 
 
-export interface BackgroundImageProps extends /* @vue-ignore */ BoxProps {
+export interface BackgroundImageProps extends BoxProps {
 	radius?: NuanceRadius | string
 	/** Image url */
 	src: string

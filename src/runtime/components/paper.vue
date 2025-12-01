@@ -9,7 +9,7 @@ import type { BoxProps } from './box.vue'
 import Box from './box.vue'
 
 
-export interface PaperProps extends /* @vue-ignore */ BoxProps {
+export interface PaperProps extends BoxProps {
 	shadow?: NuanceShadow
 	radius?: NuanceRadius
 	withBorder?: boolean

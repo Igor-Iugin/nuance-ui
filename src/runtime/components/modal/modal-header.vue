@@ -4,7 +4,7 @@ import type { DialogHeaderProps } from '../dialog'
 import DialogHeader from '../dialog/dialog-header.vue'
 
 
-export interface ModalHeaderProps extends /* @vue-ignore */ DialogHeaderProps {
+export interface ModalHeaderProps extends DialogHeaderProps {
 }
 
 const props = defineProps<ModalHeaderProps>()

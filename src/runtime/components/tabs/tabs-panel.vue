@@ -6,7 +6,7 @@ import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
 
-export interface TabsPanelProps extends /* @vue-ignore */ BoxProps {
+export interface TabsPanelProps extends BoxProps {
 	value: string
 }
 

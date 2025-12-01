@@ -11,7 +11,7 @@ import { useProvideComboboxState } from './lib/context'
 import { useCombobox } from './lib/use-combobox'
 
 
-export interface ComboboxProps extends /* @vue-ignore */ PopoverProps {
+export interface ComboboxProps extends PopoverProps {
 	store?: ComboboxStore
 
 	/** Determines whether arrow key presses should loop though items (first to last and last to first), `true` by default */

@@ -1,8 +1,8 @@
 import type { NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
-import { shallowRef } from 'vue'
+import { createInjectionState } from '@vueuse/core'
+import { computed } from 'vue'
 
 import type { InputVariant } from '../types'
 
@@ -22,9 +22,8 @@ export interface WrapperContext {
 }
 
 const injectionKey = Symbol('InputWrapper')
-const [useProvide, useState] = createStrictInjection((initial: WrapperContext) => shallowRef(initial), {
+const [useProvide, useState] = createInjectionState(init => computed(() => init), {
 	injectionKey,
-	name: 'InputWrapper',
 })
 
 export const useProvideInputWrapper = useProvide

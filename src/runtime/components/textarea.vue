@@ -8,10 +8,10 @@ import InputBase from './input/ui/input-base.vue'
 import InputWrapper from './input/ui/input-wrapper.vue'
 
 
-export interface TextareaProps extends /* @vue-ignore */ Omit<InputWrapperProps, 'id'> {
+export interface TextareaProps extends InputWrapperProps {
 }
 
-const props = defineProps<TextareaProps>()
+const { id: uid, ...props } = defineProps<TextareaProps>()
 
 const modelValue = defineModel<string>()
 
@@ -19,10 +19,10 @@ const inputRef = useTemplateRef('inputRef')
 const { input } = useTextareaAutosize({
 	input: modelValue.value,
 	styleProp: 'minHeight',
-	element: inputRef.value?.ref as HTMLTextAreaElement,
+	element: inputRef.value?.ref as unknown as HTMLTextAreaElement,
 })
 
-const id = useId()
+const id = uid ?? useId()
 </script>
 
 <template>

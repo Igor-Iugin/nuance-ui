@@ -11,7 +11,7 @@ import { useProvideTabsContext } from '../tabs/lib'
 import css from './tabs.module.css'
 
 
-export interface TabsRootProps extends /* @vue-ignore */ BoxProps {
+export interface TabsRootProps extends BoxProps {
 	defaultTab?: string
 
 	/** Tabs orientation, `'horizontal'` by default */

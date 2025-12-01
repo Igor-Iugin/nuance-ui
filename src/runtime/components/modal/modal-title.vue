@@ -4,7 +4,7 @@ import type { DialogTitleProps } from '../dialog'
 import DialogTitle from '../dialog/dialog-title.vue'
 
 
-export interface ModalTitleProps extends /* @vue-ignore */ DialogTitleProps {
+export interface ModalTitleProps extends DialogTitleProps {
 }
 
 const props = defineProps<ModalTitleProps>()

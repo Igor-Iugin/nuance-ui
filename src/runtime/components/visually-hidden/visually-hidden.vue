@@ -4,7 +4,7 @@ import type { BoxProps } from '../box.vue'
 import Box from '../box.vue'
 
 
-export interface VisuallyHiddenProps extends /* @vue-ignore */ BoxProps {
+export interface VisuallyHiddenProps extends BoxProps {
 	feature?: 'focusable' | 'fully-hidden'
 }
 

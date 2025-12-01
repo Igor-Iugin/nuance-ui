@@ -10,7 +10,7 @@ import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface NumberInputProps extends /* @vue-ignore */ InputBaseProps, Omit<InputWrapperProps, 'multiline' | 'resize' | 'id'> {
+export interface NumberInputProps extends InputBaseProps, Omit<InputWrapperProps, 'multiline' | 'resize' | 'id'> {
 	/** Minimum possible value */
 	min?: number
 

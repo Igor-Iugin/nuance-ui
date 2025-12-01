@@ -13,7 +13,7 @@ import UnstyledButton from '../button/unstyled-button.vue'
 import { extractNuxtLinkProps } from '../link'
 
 
-export interface NavLinkProps extends /* @vue-ignore */ BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
 	/** Link description, displayed below the label */
 	description?: string
 

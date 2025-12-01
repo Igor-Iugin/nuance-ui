@@ -14,7 +14,7 @@ import Box from './box.vue'
 type TitleOrder = 1 | 2 | 3 | 4 | 5 | 6
 type TextTruncate = 'end' | 'start' | boolean
 
-export interface TextProps extends /* @vue-ignore */ BoxProps {
+export interface TextProps extends BoxProps {
 	/** Controls `font-size` and `line-height`, `'md'` by default */
 	size?: NuanceSize | `h${TitleOrder}` | string
 

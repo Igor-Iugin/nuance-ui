@@ -9,7 +9,7 @@ import type { BoxProps } from '../../box.vue'
 import Box from '../../box.vue'
 
 
-export interface InlineInputProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
+export interface InlineInputProps extends BoxProps {
 	id: string
 	label?: string
 	description?: string

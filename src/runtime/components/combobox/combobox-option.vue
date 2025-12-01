@@ -15,7 +15,7 @@ import { useComboboxState } from './lib/context'
 export interface ComboboxOptionProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends /* @vue-ignore */ Omit<BoxProps, 'is'>, ComboboxItemProps {
+> extends BoxProps, ComboboxItemProps {
 	data: ComboboxItem<Value, Ext>
 	checked: boolean
 	selected?: boolean

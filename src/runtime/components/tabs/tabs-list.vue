@@ -10,7 +10,7 @@ import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
 
-export interface TabsListProps extends /* @vue-ignore */ BoxProps {
+export interface TabsListProps extends BoxProps {
 	grow?: boolean
 	justify?: CSSProperties['justify-content']
 }

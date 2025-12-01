@@ -5,14 +5,14 @@ import Box from '../box.vue'
 import css from './combobox.module.css'
 
 
-export interface ComboboxEmptyProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
+export interface ComboboxEmptyProps extends BoxProps {
 }
 
-const { mod } = defineProps<ComboboxEmptyProps>()
+const { is, mod } = defineProps<ComboboxEmptyProps>()
 </script>
 
 <template>
-	<Box :mod :class='css.empty'>
+	<Box :is :mod :class='css.empty'>
 		<slot />
 	</Box>
 </template>

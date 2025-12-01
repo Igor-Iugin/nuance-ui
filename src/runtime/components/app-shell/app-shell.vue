@@ -6,7 +6,7 @@ import type { BoxProps } from '../box.vue'
 import Box from '../box.vue'
 
 
-export interface AppShellProps extends /* @vue-ignore */ BoxProps {
+export interface AppShellProps extends BoxProps {
 	/** AppShellNavbar collapsed state. Required if you use AppShellNavbar component. */
 	navbar?: boolean
 

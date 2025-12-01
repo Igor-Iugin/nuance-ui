@@ -23,7 +23,7 @@ export interface ChipProps {
 }
 
 const {
-	id: _id,
+	id: uid,
 	color,
 	size = 'sm',
 	radius = 'xl',
@@ -35,7 +35,7 @@ const {
 	disabled: _disabled,
 } = defineProps<ChipProps>()
 
-const id = _id || useId()
+const id = uid || useId()
 
 const modelValue = defineModel<boolean>({ default: false })
 

@@ -7,7 +7,7 @@ import Button from '../button/button.vue'
 import { extractNuxtLinkProps } from './lib'
 
 
-export interface LinkButtonProps extends /* @vue-ignore */ Omit<NuxtLinkProps, 'href' | 'custom'>, ButtonProps {
+export interface LinkButtonProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, ButtonProps {
 }
 
 const props = defineProps<LinkButtonProps>()

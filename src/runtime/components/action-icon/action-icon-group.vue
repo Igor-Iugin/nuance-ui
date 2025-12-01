@@ -5,7 +5,7 @@ import Box from '../box.vue'
 import css from './action-icon.module.css'
 
 
-export interface ActionIconGroupProps extends /* @vue-ignore */ BoxProps {
+export interface ActionIconGroupProps extends BoxProps {
 	orientation?: 'horizontal' | 'vertical'
 }
 

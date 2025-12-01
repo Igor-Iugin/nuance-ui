@@ -11,7 +11,8 @@ import type { InputBaseProps } from '../types'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
-export interface BaseInputProps extends /* @vue-ignore */ InputBaseProps, Omit<WrapperContext, 'id'>, Required<Pick<WrapperContext, 'id'>> {
+export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'> {
+	id: string
 	is?: 'input' | 'textarea' | Component
 	modelValue?: string
 }
@@ -21,15 +22,14 @@ const {
 	modelValue = '',
 	readonly,
 	disabled,
-	..._props
+	...props
 } = defineProps<BaseInputProps>()
 
 defineEmits<{
 	'update:modelValue': [value: string | undefined]
 }>()
 
-const props = computed(() => _props)
-const api = useInputWrapperState() ?? props
+const api = useInputWrapperState() ?? computed(() => props)
 
 const style = computed(() => ({
 	'--input-height': getSize(api.value.size, 'input-height'),
@@ -63,10 +63,10 @@ defineExpose({ ref })
 			<slot name='leftSection' />
 		</span>
 
-		<component
+		<Box
 			:is
 			:id='api.id'
-			v-bind='{ ...$attrs, class: undefined }'
+			v-bind='{ ...$attrs, disabled, class: undefined }'
 			ref='input'
 			:class='$style.input'
 			:value='modelValue'

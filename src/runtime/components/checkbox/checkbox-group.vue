@@ -10,7 +10,7 @@ import VisuallyHiddenInput from '../visually-hidden/visually-hidden-input.vue'
 import { useProvideCheckboxGroup } from './lib/group.context'
 
 
-export interface CheckboxGroupProps extends /* @vue-ignore */ Omit<InputWrapperProps, 'resize' | 'multiline' | 'id'> {
+export interface CheckboxGroupProps extends Omit<InputWrapperProps, 'resize' | 'multiline' | 'id' | 'size'> {
 	name: string
 	size?: NuanceSize
 }

@@ -5,11 +5,14 @@ import type { InputBaseProps } from '../input'
 import Box from '../box.vue'
 
 
-const props = defineProps<InputBaseProps & Omit<BoxProps, 'is'>>()
+interface UnstyledButtonProps extends InputBaseProps, BoxProps {
+}
+
+const { is = 'button', ...props } = defineProps<UnstyledButtonProps>()
 </script>
 
 <template>
-	<Box is='button' v-bind='props' :class='$style.root' type='button'>
+	<Box :is v-bind='props' :class='$style.root' type='button'>
 		<slot />
 	</Box>
 </template>

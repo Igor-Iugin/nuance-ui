@@ -16,7 +16,7 @@ import css from './dialog.module.css'
 import { useProvideDialogState } from './lib'
 
 
-export interface DialogRootProps extends /* @vue-ignore */ Omit<BoxProps, 'is'> {
+export interface DialogRootProps extends BoxProps {
 	/** If set, the dialog is closed when user clicks on the overlay @default `true` */
 	closeOnClickOutside?: boolean
 
