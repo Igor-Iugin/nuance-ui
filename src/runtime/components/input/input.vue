@@ -24,10 +24,6 @@ const uid = id ?? useId()
 
 <template>
 	<InputWrapper :id='uid' v-bind='rest'>
-		<template #label>
-			<slot name='label' />
-		</template>
-
 		<BaseInput :id='uid' v-model='value' v-bind='$attrs'>
 			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
@@ -37,11 +33,13 @@ const uid = id ?? useId()
 			</template>
 		</BaseInput>
 
-		<template #error>
+		<template v-if='$slots.label' #label>
+			<slot name='label' />
+		</template>
+		<template v-if='$slots.error' #error>
 			<slot name='error' />
 		</template>
-
-		<template #description>
+		<template v-if='$slots.description' #description>
 			<slot name='description' />
 		</template>
 	</InputWrapper>

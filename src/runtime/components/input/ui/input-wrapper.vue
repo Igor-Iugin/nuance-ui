@@ -50,7 +50,7 @@ const style = computed(() => ({
 <template>
 	<div :style :class='$style.root'>
 		<InputLabel
-			:data-v-hidden='!label || !$slots.label || null'
+			:data-v-hidden='(!label && !$slots.label) || null'
 			:for='uid'
 			:class='$style.label'
 			:size

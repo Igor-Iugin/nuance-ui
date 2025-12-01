@@ -18,10 +18,26 @@ const password = ref<boolean>(true)
 		right-section-p-e='all'
 	>
 		<template #rightSection>
-			<ActionIcon variant='subtle' @click='password = !password'>
-				<Icon v-if='password' name='gravity-ui:eye' />
-				<Icon v-else name='gravity-ui:eye-slash' />
-			</ActionIcon>
+			<slot name='rightSection'>
+				<ActionIcon variant='subtle' @click='password = !password'>
+					<Icon v-if='password' name='gravity-ui:eye' />
+					<Icon v-else name='gravity-ui:eye-slash' />
+				</ActionIcon>
+			</slot>
+		</template>
+
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
+
+		<template v-if='$slots.label' #label>
+			<slot name='label' />
+		</template>
+		<template v-if='$slots.error' #error>
+			<slot name='error' />
+		</template>
+		<template v-if='$slots.description' #description>
+			<slot name='description' />
 		</template>
 	</TextInput>
 </template>

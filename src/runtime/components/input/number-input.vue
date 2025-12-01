@@ -107,6 +107,16 @@ function handleBlur() {
 				</slot>
 			</template>
 		</BaseInput>
+
+		<template v-if='$slots.label' #label>
+			<slot name='label' />
+		</template>
+		<template v-if='$slots.error' #error>
+			<slot name='error' />
+		</template>
+		<template v-if='$slots.description' #description>
+			<slot name='description' />
+		</template>
 	</InputWrapper>
 </template>
 
