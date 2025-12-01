@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.5...v0.1.6)
+
+### 🩹 Fixes
+
+- Fixed passing props in components ([17cc161](https://github.com/Igor-Iugin/nuance-ui/commit/17cc161))
+
+### 📦 Build
+
+- Update minimum version Vue to 3.5.0 ([4d0b37d](https://github.com/Igor-Iugin/nuance-ui/commit/4d0b37d))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.5
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.4...v0.1.5)
