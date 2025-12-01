@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.7
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- Created email-input ([8f2bdcb](https://github.com/Igor-Iugin/nuance-ui/commit/8f2bdcb))
+
+### 🩹 Fixes
+
+- **InputWrapper:** Fix passing slots ([3071a18](https://github.com/Igor-Iugin/nuance-ui/commit/3071a18))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.6
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.5...v0.1.6)
