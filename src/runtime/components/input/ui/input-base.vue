@@ -50,8 +50,8 @@ defineExpose({ ref })
 		:style
 		:class='[$style.root, $attrs?.class]'
 		:mod='[{
-			"with-left-section": !!$slots?.leftSection,
-			"with-right-section": !!$slots?.rightSection,
+			"with-left-section": !!$slots.leftSection,
+			"with-right-section": !!$slots.rightSection,
 			"variant": api.variant,
 		}]'
 	>
