@@ -18,7 +18,6 @@ export default defineNuxtConfig({
 	},
 	icon: {
 		mode: 'svg',
-		class: '',
 		clientBundle: {
 			scan: {
 				globInclude: ['src/**/*.vue', 'src/**/*.ts'],
