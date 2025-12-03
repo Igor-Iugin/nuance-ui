@@ -84,7 +84,7 @@ export default defineNuxtModule<ModuleOptions>({
 		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
 
 
-		// PostCSS конфигурация
+		// PostCSS config
 		nuxt.options.postcss = nuxt.options.postcss || {}
 		nuxt.options.postcss.plugins = nuxt.options.postcss.plugins || {}
 
@@ -103,7 +103,7 @@ export default defineNuxtModule<ModuleOptions>({
 			'autoprefixer': {},
 		})
 
-		// Регистрируем компоненты с префиксом
+		// Add components
 		if (options.autoImport) {
 			addComponentsDir({
 				path: resolve('./runtime/components'),
