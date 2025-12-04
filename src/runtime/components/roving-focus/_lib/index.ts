@@ -2,7 +2,7 @@ import type { ShallowRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
 import { unrefElement } from '@vueuse/core'
-import { nextTick } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 
 
 const SELECT_ATTR = 'data-roving-item' as const
@@ -20,6 +20,17 @@ interface State {
 
 const injectionKey = Symbol('roving-focus')
 const [useProvide, useState] = createStrictInjection(({ list, loop, orientation, attr = SELECT_ATTR }: State) => {
+	const activeIx = ref(-1)
+
+	/**
+	 * Initializes the roving focus group by setting the first item as focusable.
+	 * Should be called once after the component is mounted and all items are in the DOM.
+	 *
+	 * @example
+	 * onMounted(() => nextTick(() => init()))
+	 */
+	const init = () => activeIx.value = 0
+
 	/**
 	 * Returns an array of all focusable roving items inside the container.
 	 * Items are selected by the `[data-roving-item]:not(:disabled)` selector.
@@ -28,6 +39,15 @@ const [useProvide, useState] = createStrictInjection(({ list, loop, orientation,
 		unrefElement(list)?.querySelectorAll(`[${attr}]:not(:disabled)`) ?? [],
 	) as HTMLElement[]
 
+	watch(activeIx, (ix, oldIx) => {
+		const items = getItems()
+
+		if (ix !== oldIx) {
+			items[oldIx]?.setAttribute('tabindex', '-1')
+			items[ix]?.setAttribute('tabindex', '0')
+		}
+	})
+
 	/**
 	 * Focuses a given element and makes it the only one with tabindex="0".
 	 */
@@ -35,7 +55,7 @@ const [useProvide, useState] = createStrictInjection(({ list, loop, orientation,
 		if (!element)
 			return
 
-		element.setAttribute('tabindex', '0')
+		activeIx.value = getItems().indexOf(element)
 		nextTick(() => element.focus())
 	}
 
@@ -58,48 +78,35 @@ const [useProvide, useState] = createStrictInjection(({ list, loop, orientation,
 		if (!element && dir !== 'first' && dir !== 'last')
 			return
 
-		const values = getItems()
-		const currentIndex = element ? values.indexOf(element) : -1
-		let nextIndex = currentIndex
+		const items = getItems()
+		const ix = element ? items.indexOf(element) : -1
+		let nextIndex = ix
 
 		switch (dir) {
 			case 'first':
 				nextIndex = 0
 				break
 			case 'last':
-				nextIndex = values.length - 1
+				nextIndex = items.length - 1
 				break
 			case 'next': {
-				nextIndex = currentIndex + 1
-				if (nextIndex >= values.length)
-					nextIndex = loop ? 0 : values.length - 1
+				nextIndex = ix + 1
+				if (nextIndex >= items.length)
+					nextIndex = loop ? 0 : items.length - 1
 				break
 			}
 			case 'prev': {
-				nextIndex = currentIndex - 1
+				nextIndex = ix - 1
 				if (nextIndex < 0)
-					nextIndex = loop ? values.length - 1 : 0
+					nextIndex = loop ? items.length - 1 : 0
 				break
 			}
 		}
 
-		if (nextIndex !== currentIndex && values[nextIndex] !== undefined) {
-			element?.setAttribute('tabindex', '-1')
-			focusElement(values[nextIndex])
+		if (nextIndex !== ix && items[nextIndex] !== undefined) {
+			activeIx.value = nextIndex
+			focusElement(items[nextIndex])
 		}
-	}
-
-	/**
-	 * Initializes the roving focus group by setting the first item as focusable.
-	 * Should be called once after the component is mounted and all items are in the DOM.
-	 *
-	 * @example
-	 * onMounted(() => nextTick(() => init()))
-	 */
-	function init() {
-		const values = getItems()
-		const element = values[0]
-		element?.setAttribute('tabindex', '0')
 	}
 
 	return ({
