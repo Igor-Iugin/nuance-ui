@@ -4,16 +4,18 @@ import type { NuanceSize } from '@nui/types'
 import { useStyleResolver } from '@nui/composals'
 import { getSize } from '@nui/utils'
 
+import type { RovingFocusProps } from '../../roving-focus/roving-focus.vue'
 import type { TreeContext } from '../lib/context'
 import type { TreeModels } from '../model'
 
 import Box from '../../box.vue'
+import RovingFocus from '../../roving-focus/roving-focus.vue'
 import { useProvideTreeState } from '../lib/context'
 
 
 type OmittedContext = Partial<Omit<TreeContext, 'selected' | 'expanded'>>
 
-export interface TreeRootProps extends OmittedContext {
+export interface TreeRootProps extends OmittedContext, RovingFocusProps {
 	size?: NuanceSize | string
 }
 
@@ -21,6 +23,9 @@ const {
 	multiple,
 	size,
 	iconResolver = () => ({ icon: 'gravity-ui:file' }),
+	attr,
+	loop,
+	orientation,
 } = defineProps<TreeRootProps>()
 
 const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
@@ -39,9 +44,11 @@ const style = useStyleResolver(() => ({
 </script>
 
 <template>
-	<Box is='ul' :class='$style.root' :style role='tree' :aria-multiselectable='multiple'>
-		<slot />
-	</Box>
+	<RovingFocus :attr :loop :orientation>
+		<Box is='ul' :class='$style.root' :style role='tree' :aria-multiselectable='multiple'>
+			<slot />
+		</Box>
+	</RovingFocus>
 </template>
 
 <style module lang='postcss'>

@@ -5,7 +5,9 @@ import { computed } from 'vue'
 
 import type { TreeItem } from '../model'
 
-import Box from '../../box.vue'
+import Button from '../../button/button.vue'
+import { useRovingFocus } from '../../roving-focus'
+import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
 import { useTreeState } from '../lib/context'
 
 
@@ -32,41 +34,44 @@ const selected = computed(() => ctx.selected.value.includes(value))
 const expanded = computed(() => ctx.expanded.value.includes(value))
 
 const { icon: fileIcon, color } = ctx.iconResolver(item)
+
+const { focus } = useRovingFocus()
 </script>
 
 <template>
-	<Box
-		is='li'
-		:class='$style.root'
-		role='treeitem'
-		:aria-selected='selected'
-		:aria-level='level'
-		:mod='{ selected, level }'
-	>
-		<NButton
-			size='compact-md'
-			:classes='{
-				label: $style.label,
-				inner: $style.button,
-				section: $style.section,
-			}'
-			color='gray'
-			variant='subtle'
-			@click='ctx.toggle("expand", item.value)'
-		>
-			<template v-if='isFolder' #leftSection>
-				<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
-				<Icon v-else :class='$style.icon' :name='icon' />
-			</template>
-			<template v-else #leftSection>
-				<Icon
-					:class='$style.icon'
-					:name='fileIcon'
-					:style='{ color: color && getThemeColor(color, theme) }'
-				/>
-			</template>
-			{{ label ?? value }}
-		</NButton>
+	<li :class='$style.root' role='presentation'>
+		<RovingFocusItem>
+			<Button
+				color='gray'
+				variant='subtle'
+				:mod='{ selected, level }'
+				size='compact-md'
+				:classes='{
+					label: $style.label,
+					inner: $style.button,
+					section: $style.section,
+				}'
+				role='treeitem'
+				:aria-selected='selected'
+				:aria-level='level'
+				@click.prevent='ctx.toggle("expand", item.value)'
+				@keydown.left.prevent='!expanded ? focus("prev", $event.currentTarget) : ctx.off("expand", item.value)'
+				@keydown.right.prevent='expanded ? focus("next", $event.currentTarget) : ctx.on("expand", item.value)'
+			>
+				<template v-if='isFolder' #leftSection>
+					<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
+					<Icon v-else :class='$style.icon' :name='icon' />
+				</template>
+				<template v-else #leftSection>
+					<Icon
+						:class='$style.icon'
+						:name='fileIcon'
+						:style='{ color: color && getThemeColor(color, theme) }'
+					/>
+				</template>
+				{{ label ?? value }}
+			</Button>
+		</RovingFocusItem>
 
 		<ul
 			v-if='expanded && item.children && item.children.length > 0'
@@ -80,7 +85,7 @@ const { icon: fileIcon, color } = ctx.iconResolver(item)
 				:level='level + 1'
 			/>
 		</ul>
-	</Box>
+	</li>
 </template>
 
 <style module lang='postcss'>

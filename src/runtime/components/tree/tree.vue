@@ -23,7 +23,6 @@ const expanded = defineModel<TreeModels<T>['expanded']>('expanded', {
 	default: [],
 })
 
-// Инициализируем только один раз при монтировании
 expanded.value = getExpandedItems<T>(props.data)
 </script>
 
