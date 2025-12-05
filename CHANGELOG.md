@@ -1,6 +1,45 @@
 # Changelog
 
 
+## v0.1.8
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.7...v0.1.8)
+
+### 🚀 Enhancements
+
+- **Tree:** Created component Tree ([34521b0](https://github.com/Igor-Iugin/nuance-ui/commit/34521b0))
+- **Components:** Added `RovingFocus` component ([3d8b73f](https://github.com/Igor-Iugin/nuance-ui/commit/3d8b73f))
+- **Components:** Added `Tree` component ([3ae1be6](https://github.com/Igor-Iugin/nuance-ui/commit/3ae1be6))
+- **RovingFocus:** Add move focus after remove focused element ([735e3a9](https://github.com/Igor-Iugin/nuance-ui/commit/735e3a9))
+- **new:** Created component Tree ([9a0ba33](https://github.com/Igor-Iugin/nuance-ui/commit/9a0ba33))
+
+### 🩹 Fixes
+
+- **RovingFocus:** Fix click event ([e2a4ec7](https://github.com/Igor-Iugin/nuance-ui/commit/e2a4ec7))
+- **Box:** Fix update mod props ([abf32df](https://github.com/Igor-Iugin/nuance-ui/commit/abf32df))
+- **config:** Simplify icon config ([6e8b336](https://github.com/Igor-Iugin/nuance-ui/commit/6e8b336))
+
+### 💅 Refactors
+
+- Change import getMod at new path ([3318ed0](https://github.com/Igor-Iugin/nuance-ui/commit/3318ed0))
+
+### 📖 Documentation
+
+- Added comments on code blocks ([75da29b](https://github.com/Igor-Iugin/nuance-ui/commit/75da29b))
+
+### 📦 Build
+
+- **config:** Removed empty class from icon ([e50686b](https://github.com/Igor-Iugin/nuance-ui/commit/e50686b))
+
+### 🏡 Chore
+
+- Code style ([ba37896](https://github.com/Igor-Iugin/nuance-ui/commit/ba37896))
+- **config:** Simplify icon config ([99910fc](https://github.com/Igor-Iugin/nuance-ui/commit/99910fc))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.7
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.6...v0.1.7)
