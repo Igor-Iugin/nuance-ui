@@ -1,12 +1,11 @@
-import { isFalsy } from '@nui/utils'
-import { computed } from 'vue'
+import { isFalsy } from './boolean/is-falsy'
 
 
 export type Mod = Record<string, any>
 
 const transformKey = (key: string) => key.startsWith('data-') ? key : `data-${key}`
 
-function getMod(props: Mod | Mod[]): Mod {
+export function getMod(props: Mod | Mod[]): Mod {
 	if (Array.isArray(props)) {
 		return props
 			.filter(i => !isFalsy(i))
@@ -23,20 +22,3 @@ function getMod(props: Mod | Mod[]): Mod {
 		return acc
 	}, {})
 }
-
-
-export function useMod(mod: Mod | Mod[] | Mod[][] | null | undefined): Mod | null {
-	return computed(() => {
-		if (!mod)
-			return null
-
-		if (Array.isArray(mod)) {
-			return mod
-				.filter(i => !isFalsy(i))
-				.reduce<Mod>((acc, value: Mod | Mod[]) => ({ ...acc, ...getMod(value) }), {})
-		}
-
-		return getMod(mod)
-	})
-}
-

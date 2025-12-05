@@ -1,8 +1,9 @@
 <script setup lang='ts'>
-import type { Mod } from '@nui/composals'
+import type { Mod } from '@nui/utils'
 import type { Component } from 'vue'
 
-import { useMod } from '@nui/composals'
+import { getMod, isFalsy } from '@nui/utils'
+import { computed } from 'vue'
 
 
 export interface BoxProps {
@@ -12,7 +13,18 @@ export interface BoxProps {
 }
 
 const { is = 'div', mod } = defineProps<BoxProps>()
-const _mod = useMod(mod)
+const _mod = computed(() => {
+	if (!mod)
+		return null
+
+	if (Array.isArray(mod)) {
+		return mod
+			.filter(i => !isFalsy(i))
+			.reduce<Mod>((acc, value: Mod | Mod[]) => ({ ...acc, ...getMod(value) }), {})
+	}
+
+	return getMod(mod)
+})
 </script>
 
 <template>
