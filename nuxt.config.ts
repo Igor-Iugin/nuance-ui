@@ -18,23 +18,12 @@ export default defineNuxtConfig({
 	},
 	icon: {
 		mode: 'svg',
+		serverBundle: 'remote',
+		class: 'icon',
 		clientBundle: {
 			scan: {
-				globInclude: ['src/**/*.vue', 'src/**/*.ts'],
-				globExclude: [
-					'node_modules',
-					'.idea',
-					'.output',
-					'.data',
-					'.nuxt',
-					'.nitro',
-					'.cache',
-					'dist',
-					'server',
-				],
+				globInclude: ['src/runtime/**/*.vue'],
 			},
-			includeCustomCollections: true,
-			sizeLimitKb: 256,
 		},
 	},
 	eslint: {
