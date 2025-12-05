@@ -50,6 +50,7 @@ const {
 	mod: _mod,
 } = defineProps<ButtonProps>()
 
+const mod = computed(() => [{ loading, variant }, _mod])
 const style = computed(() => useStyleResolver(theme => {
 	const {
 		background,
@@ -79,19 +80,17 @@ const style = computed(() => useStyleResolver(theme => {
 		},
 	}
 }))
-
-const mod = computed(() => [{ loading, variant }, _mod])
 </script>
 
 <template>
 	<Box
 		:is
 		:mod='[
-			mod,
 			{
 				"with-left-section": !!$slots?.leftSection,
 				"with-right-section": !!$slots?.rightSection,
 			},
+			mod,
 		]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
