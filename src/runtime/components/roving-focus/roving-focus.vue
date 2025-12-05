@@ -2,7 +2,7 @@
 import { nextTick, onMounted, useTemplateRef } from 'vue'
 
 import Renderless from '../renderless/renderless.vue'
-import { useProvideRovingFocus } from './_lib'
+import { useProvideRovingFocus } from './_lib/context'
 
 
 export interface RovingFocusProps {

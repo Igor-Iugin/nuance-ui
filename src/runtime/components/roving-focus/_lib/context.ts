@@ -109,15 +109,48 @@ const [useProvide, useState] = createStrictInjection(({ list, loop, orientation,
 		}
 	}
 
+	/**
+	 * Called when an item is being unmounted.
+	 * Moves focus to the nearest available item if the unmounting item is active.
+	 */
+	const onItemUnmount = (element: HTMLElement | null | undefined) => {
+		if (!element)
+			return
+
+		const items = getItems()
+		const currentIndex = items.indexOf(element)
+
+		// If this element is the active one, move focus to nearest item
+		if (currentIndex === activeIx.value) {
+			nextTick(() => {
+				const newItems = getItems()
+
+				if (newItems.length === 0)
+					return activeIx.value = -1
+
+				// Try to focus the next item (same index after removal)
+				// or previous if we're at the end
+				const nextIndex = currentIndex < newItems.length ? currentIndex : newItems.length - 1
+				activeIx.value = nextIndex
+				newItems[nextIndex]?.focus()
+			})
+		}
+		else if (currentIndex < activeIx.value) {
+			// Adjust activeIx if an item before the active one is removed
+			activeIx.value--
+		}
+	}
+
 	return ({
 		attr,
 		list,
 		loop,
 		orientation,
+		init,
 		focus,
 		getItems,
 		focusElement,
-		init,
+		onItemUnmount,
 	})
 }, {
 	injectionKey,

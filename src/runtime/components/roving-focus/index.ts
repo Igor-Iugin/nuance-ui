@@ -1,1 +1,1 @@
-export { useRovingFocus } from './_lib'
+export { useRovingFocus } from './_lib/context'
