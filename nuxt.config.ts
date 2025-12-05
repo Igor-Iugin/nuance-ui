@@ -17,9 +17,6 @@ export default defineNuxtConfig({
 		dataValue: 'mantine-color-scheme',
 	},
 	icon: {
-		mode: 'svg',
-		serverBundle: 'remote',
-		class: 'icon',
 		clientBundle: {
 			scan: {
 				globInclude: ['src/runtime/**/*.vue'],

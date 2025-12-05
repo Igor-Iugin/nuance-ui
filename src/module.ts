@@ -47,26 +47,7 @@ export default defineNuxtModule<ModuleOptions>({
 		'@nuxt/icon': {
 			version: '>=2.1.0',
 			defaults: {
-				mode: 'svg',
 				class: '',
-				clientBundle: {
-					scan: {
-						globInclude: ['src/**/*.vue', 'src/**/*.ts'],
-						globExclude: [
-							'node_modules',
-							'.idea',
-							'.output',
-							'.data',
-							'.nuxt',
-							'.nitro',
-							'.cache',
-							'dist',
-							'server',
-						],
-					},
-					includeCustomCollections: true,
-					sizeLimitKb: 256,
-				},
 			},
 		},
 	},
