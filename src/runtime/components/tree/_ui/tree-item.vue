@@ -1,6 +1,6 @@
 <script setup lang='ts' generic='T extends string = string'>
 import { useTheme } from '@nui/composals'
-import { getThemeColor } from '@nui/utils'
+import { getThemeColor, isFalsy } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { TreeItem } from '../model'
@@ -23,40 +23,90 @@ const {
 	value,
 	label,
 	children,
+	disabled,
 } = item
 
 const { value: theme } = useTheme()
 
-const isFolder = computed(() => children && children.length > 0)
+const isFolder = computed(() => !isFalsy(children))
 
-const ctx = useTreeState()
+const ctx = useTreeState<T>()
 const selected = computed(() => ctx.selected.value.includes(value))
 const expanded = computed(() => ctx.expanded.value.includes(value))
+const active = computed(() => ctx.active.value === value)
 
 const { icon: fileIcon, color } = ctx.iconResolver(item)
 
 const { focus } = useRovingFocus()
+
+function handleClick(event: MouseEvent) {
+	if (event.shiftKey)
+		ctx.toggle('select', value, 'range') // Shift + Click - выбор диапазона
+	else if (event.ctrlKey || event.metaKey)
+		ctx.toggle('select', value, 'multiple') // Ctrl/Cmd + Click - множественный выбор
+	else
+		ctx.toggle('select', value, 'single') // Обычный клик - одиночный выбор
+
+	// Раскрываем/закрываем папку только при обычном клике
+	if (isFolder.value && !event.ctrlKey && !event.metaKey && !event.shiftKey)
+		ctx.toggle('expand', value)
+}
+
+function handleKeyDown(event: KeyboardEvent) {
+	switch (event.key) {
+		// Arrow Left - закрыть папку или перейти к родителю
+		case 'ArrowLeft': {
+			event.preventDefault()
+			if (isFolder.value && expanded.value)
+				return ctx.off('expand', value)
+			else
+				return focus('prev', event.currentTarget as HTMLElement)
+		}
+		// Arrow Right - открыть папку или перейти к первому ребенку
+		case 'ArrowRight': {
+			event.preventDefault()
+			if (isFolder.value && !expanded.value)
+				return ctx.on('expand', value)
+			else if (expanded.value)
+				return focus('next', event.currentTarget as HTMLElement)
+			break
+		}
+		// Enter/Space - выбор элемента
+		case 'Enter':
+			ctx.on('select', value)
+			return ctx.setActive(value)
+		case ' ': {
+			event.preventDefault()
+			if (event.shiftKey)
+				return ctx.toggle('select', value, 'range')
+			else if (event.ctrlKey || event.metaKey)
+				return ctx.toggle('select', value, 'multiple')
+
+			return ctx.toggle('select', value, 'single')
+		}
+	}
+}
 </script>
 
 <template>
 	<li :class='$style.root' role='presentation'>
 		<RovingFocusItem>
 			<Button
-				color='gray'
 				variant='subtle'
-				:mod='{ selected, level }'
 				size='compact-md'
+				role='treeitem'
 				:classes='{
+					root: $style.button,
 					label: $style.label,
-					inner: $style.button,
+					inner: $style.inner,
 					section: $style.section,
 				}'
-				role='treeitem'
+				:mod='{ active, selected, level }'
 				:aria-selected='selected'
 				:aria-level='level'
-				@click.prevent='ctx.toggle("expand", item.value)'
-				@keydown.left.prevent='!expanded ? focus("prev", $event.currentTarget) : ctx.off("expand", item.value)'
-				@keydown.right.prevent='expanded ? focus("next", $event.currentTarget) : ctx.on("expand", item.value)'
+				:disabled
+				@click.prevent='handleClick'
+				@keydown.prevent='handleKeyDown'
 			>
 				<template v-if='isFolder' #leftSection>
 					<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
@@ -95,19 +145,30 @@ const { focus } = useRovingFocus()
 }
 
 .button {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
+	.inner {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+
+		color: var(--color-text);
+
+		.label {
+			font-size: var(--font-size-sm);
+			font-weight: 500;
+		}
+	}
+
+	&[data-active],
+	&[data-selected] {
+		.inner {
+			color: var(--button-color);
+		}
+	}
+
+	&[data-selected] {
+		background: alpha(var(--button-color), .1);
+	}
 }
 
-.label {
-	font-size: var(--font-size-sm);
-	font-weight: 500;
-	color: var(--color-text);
-}
-
-.section {
-	color: var(--color-text);
-}
 
 .icon {
 	width: var(--tree-icon-size);

@@ -1,4 +1,9 @@
+import type { NuanceColor } from '@nui/types'
+
+
 export interface TreeModels<T extends string = string> {
+	active: T | null
+	tree: TreeItem<T>[]
 	selected: T[]
 	expanded: T[]
 }
@@ -24,4 +29,9 @@ export interface TreeItem<T extends string = string> {
 	onSelect?: (item: TreeItem<T>) => void
 	/** Fires when item is toggled */
 	onToggle?: (item: TreeItem<T>) => void
+}
+
+export type TreeIconResolver<T extends string = string> = (item: TreeItem<T>) => {
+	icon: string
+	color?: NuanceColor
 }

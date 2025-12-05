@@ -1,80 +1,158 @@
-import type { TreeItem } from '@nui/components'
-import type { NuanceColor } from '@nui/types'
+import type { TreeIconResolver, TreeItem } from '@nui/components'
 import type { ModelRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
+import { getBranchChildren, getTreeItemsBetween } from '@nui/utils'
 
 
-type TreeEventType = 'select' | 'expand'
+type EventType = 'select' | 'expand'
+type SelectMode = 'single' | 'multiple' | 'range'
 
 export interface TreeContext<T extends string = string> {
+	tree: ModelRef<TreeItem<T>[]>
+	active: ModelRef<T | null>
 	selected: ModelRef<T[]>
 	expanded: ModelRef<T[]>
-	multiple?: boolean
 
-	iconResolver: <T extends string = string>(item: TreeItem<T>) => {
-		icon: string
-		color?: NuanceColor
-	}
+	iconResolver: TreeIconResolver<T>
+}
+
+export interface TreeState<T extends string = string> {
+	active: ModelRef<T | null>
+	selected: ModelRef<T[]>
+	expanded: ModelRef<T[]>
+
+	iconResolver: TreeIconResolver<T>
+
+	toggle: (type: EventType, value: T, mode?: SelectMode) => void
+	on: ((type: 'expand', value: T) => void) & ((type: 'select', value: T, mode?: SelectMode) => void)
+	off: (type: EventType, value: T) => void
+	setActive: (value: T | null) => void
 }
 
 const injectionKey = Symbol('nui-tree')
-const [useProvide, useState] = createStrictInjection((state: TreeContext) => {
-	const on = (type: TreeEventType, value: string) => {
+const [useProvide, useState] = createStrictInjection(<T extends string>({
+	tree,
+	active,
+	selected,
+	expanded,
+	iconResolver,
+}: TreeContext<T>): TreeState<T> => {
+	const setActive = (value: T | null) => active.value = value
+
+	// Expand
+	function on(type: 'expand', value: T): void
+	function on(type: 'select', value: T, mode?: SelectMode): void
+	function on(type: EventType, value: T, mode?: SelectMode) {
+		if (type === 'select') {
+			setActive(value)
+
+			switch (mode) {
+				case 'single':
+					return selected.value = [value]
+				case 'multiple': {
+					const exist = selected.value.includes(value)
+					if (!exist)
+						selected.value = [...selected.value, value]
+					return
+				}
+				case 'range': {
+					if (!active.value || active.value === value)
+						return
+
+					const range = getTreeItemsBetween(tree.value, active.value, value)
+					return selected.value = [...new Set([...selected.value, ...range])]
+				}
+				default:
+					return selected.value = [value]
+			}
+		}
+
+		if (type === 'expand') {
+			const exist = expanded.value.includes(value)
+			if (!exist)
+				expanded.value = [...expanded.value, value]
+			return
+		}
+
+		return console.warn(`Unknown target type in NuiTree: ${type}`)
+	}
+
+	const off = (type: EventType, value: T) => {
 		switch (type) {
 			case 'select': {
-				const exist = state.selected.value.includes(value)
-				if (!exist)
-					state.selected.value = [...state.selected.value, value]
-				break
+				selected.value = selected.value.filter(i => i !== value)
+				// Если убираем активный элемент, сбрасываем active
+				if (active.value === value)
+					active.value = selected.value[0] ?? null
+				return
 			}
 			case 'expand': {
-				const exist = state.expanded.value.includes(value)
-				if (!exist)
-					state.expanded.value = [...state.expanded.value, value]
-				break
+				const children = getBranchChildren(tree.value, value)
+				return expanded.value = expanded.value
+					.filter(v => !children.includes(v))
+					.filter(v => v !== value)
 			}
 			default:
 				return console.warn(`Unknown target type in NuiTree: ${type}`)
 		}
 	}
 
-	const off = (type: TreeEventType, value: string) => {
-		switch (type) {
-			case 'select':
-				return state.selected.value = state.selected.value.filter(i => i !== value)
-			case 'expand':
-				return state.expanded.value = state.expanded.value.filter(i => i !== value)
-			default:
-				return console.warn(`Unknown target type in NuiTree: ${type}`)
-		}
-	}
-
-	const toggle = (type: TreeEventType, value: string) => {
+	const toggle = (type: EventType, value: T, mode: SelectMode = 'single') => {
 		switch (type) {
 			case 'select': {
-				const active = state.selected.value.includes(value)
-				return active ? off(type, value) : on(type, value)
+				const isSelected = selected.value.includes(value)
+
+				// В single mode всегда устанавливаем новое значение
+				if (mode === 'single')
+					return on(type, value, mode)
+
+				// В multiple mode переключаем состояние
+				if (mode === 'multiple') {
+					if (isSelected)
+						return off(type, value)
+
+					return on(type, value, mode)
+				}
+
+				// В range mode всегда добавляем диапазон
+				if (mode === 'range')
+					return on(type, value, mode)
+
+				return
 			}
 			case 'expand': {
-				const active = state.expanded.value.includes(value)
-				return active ? off(type, value) : on(type, value)
+				const isExpanded = expanded.value.includes(value)
+				if (isExpanded)
+					return off(type, value)
+
+				return on(type, value)
 			}
 			default:
-				return console.warn(`Unknown target type in NuiTree: ${type}`)
+				console.warn(`Unknown target type in NuiTree: ${type}`)
 		}
 	}
 
 	return {
-		...state,
+		active,
+		selected,
+		expanded,
+		iconResolver,
 		toggle,
 		on,
 		off,
+		setActive,
 	}
 }, {
 	injectionKey,
 	name: 'TreeState',
 })
 
-export const useProvideTreeState = useProvide
-export const useTreeState = useState
+export function useProvideTreeState<T extends string = string>(ctx: TreeContext<T>) {
+	// @ts-expect-error
+	return useProvide(ctx) as unknown as TreeState<T>
+}
+
+export function useTreeState<T extends string = string>() {
+	return useState() as unknown as TreeState<T>
+}
