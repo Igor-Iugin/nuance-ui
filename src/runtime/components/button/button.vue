@@ -20,6 +20,8 @@ export interface ButtonProps extends BoxProps {
 	loading?: boolean
 	color?: NuanceColor
 	radius?: NuanceRadius
+
+	/** Styles API */
 	classes?: {
 		root?: string
 		inner?: string

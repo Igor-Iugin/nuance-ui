@@ -19,6 +19,8 @@ export interface ActionIconProps {
 	loading?: boolean
 	color?: NuanceColor
 	radius?: NuanceRadius
+
+	/** Styles API */
 	classes?: {
 		root?: string
 		icon?: string
