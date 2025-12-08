@@ -1,5 +1,3 @@
 <template>
-	<NNavLink to='/tree'>
-		Tree
-	</NNavLink>
+	Empty page
 </template>
