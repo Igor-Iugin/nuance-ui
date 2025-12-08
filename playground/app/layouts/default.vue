@@ -8,12 +8,15 @@ const theme = useTheme()
 
 <template>
 	<NAppShell :class='$style.root' aside footer with-border>
-		<NAppShellNavbar>
+		<NAppShellNavbar :class='$style.navbar'>
 			<NNavLink to='/tree'>
 				Tree
 			</NNavLink>
 			<NNavLink to='/progress'>
 				Progress
+			</NNavLink>
+			<NNavLink to='/alert'>
+				Alert
 			</NNavLink>
 		</NAppShellNavbar>
 
@@ -38,5 +41,9 @@ const theme = useTheme()
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.navbar {
+	padding: var(--spacing-sm) var(--spacing-xs);
 }
 </style>
