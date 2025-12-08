@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import { clamp, useCounter } from '@vueuse/core'
-import { shallowRef, useId, watch } from 'vue'
+import { clamp } from '@vueuse/core'
+import { shallowRef, useId } from 'vue'
 
 import type { InputWrapperProps } from './index'
 import type { InputBaseProps } from './types'
@@ -34,16 +34,11 @@ const {
 	rightSectionPE = 'all',
 	...rest
 } = defineProps<NumberInputProps>()
+
 const id = useId()
-const value = defineModel<number>({ default: 0 })
-
-const { count, inc, dec, set } = useCounter(value, { min, max })
-
 const focused = shallowRef<boolean>(false)
 
-watch(count, () => {
-	value.value = count.value
-})
+const value = defineModel<number>({ default: 0 })
 
 function handleWheel(event: WheelEvent) {
 	if (!focused.value)
@@ -57,14 +52,14 @@ function handleWheel(event: WheelEvent) {
 		return
 
 	if (event.deltaY > 0)
-		dec(step)
+		value.value = clamp(value.value + step, min, max)
 	else if (event.deltaY < 0)
-		inc(step)
+		value.value = clamp(value.value - step, min, max)
 }
 
 function handleBlur() {
 	focused.value = false
-	set(clamp(count.value, min, max))
+	value.value = clamp(value.value, min, max)
 }
 </script>
 
@@ -72,12 +67,12 @@ function handleBlur() {
 	<InputWrapper v-bind='rest' :id :class='$style.root' :right-section-p-e>
 		<BaseInput
 			:id
-			:value='count'
-			:readonly
-			:disabled
-			:step
+			v-model='value'
 			:min
 			:max
+			:step
+			:readonly
+			:disabled
 			type='number'
 			@focus='focused = true'
 			@blur='handleBlur()'
@@ -92,14 +87,14 @@ function handleBlur() {
 						<UnstyledButton
 							:class='$style.control'
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(max) && value >= max!)'
-							@click='inc(step)'
+							@click='value = clamp(value + step, min, max)'
 						>
 							<Icon name='gravity-ui:chevron-up' />
 						</UnstyledButton>
 						<UnstyledButton
 							:class='$style.control'
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(min) && value <= min!)'
-							@click='dec(step)'
+							@click='value = clamp(value - step, min, max)'
 						>
 							<Icon name='gravity-ui:chevron-down' />
 						</UnstyledButton>
