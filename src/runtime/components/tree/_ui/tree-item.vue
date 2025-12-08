@@ -72,9 +72,10 @@ function handleKeyDown(event: KeyboardEvent) {
 			break
 		}
 		// Enter/Space - выбор элемента
-		case 'Enter':
+		case 'Enter': {
 			ctx.on('select', value)
 			return ctx.setActive(value)
+		}
 		case ' ': {
 			event.preventDefault()
 			if (event.shiftKey)
@@ -92,8 +93,10 @@ function handleKeyDown(event: KeyboardEvent) {
 	<li :class='$style.root' role='presentation'>
 		<RovingFocusItem>
 			<Button
-				variant='subtle'
-				size='compact-md'
+				:size='ctx.size'
+				:color='ctx.color'
+				:variant='ctx.variant'
+				:disabled
 				role='treeitem'
 				:classes='{
 					root: $style.button,
@@ -101,10 +104,9 @@ function handleKeyDown(event: KeyboardEvent) {
 					inner: $style.inner,
 					section: $style.section,
 				}'
-				:mod='{ active, selected, level }'
-				:aria-selected='selected'
 				:aria-level='level'
-				:disabled
+				:aria-selected='selected'
+				:mod='{ active, selected, level }'
 				@click.prevent='handleClick'
 				@keydown.prevent='handleKeyDown'
 			>
@@ -152,7 +154,6 @@ function handleKeyDown(event: KeyboardEvent) {
 		color: var(--color-text);
 
 		.label {
-			font-size: var(--font-size-sm);
 			font-weight: 500;
 		}
 	}

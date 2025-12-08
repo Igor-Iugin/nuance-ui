@@ -1,6 +1,4 @@
 <script setup lang='ts' generic='T extends string = string'>
-import { unref } from 'vue'
-
 import type { TreeRootProps } from './_ui/tree-root.vue'
 import type { TreeModels } from './model'
 
@@ -12,7 +10,12 @@ import { getExpandedItems } from './lib/get-default'
 export interface TreeProps<T extends string = string> extends TreeRootProps<T> {
 }
 
-const props = defineProps<TreeProps<T>>()
+const {
+	color,
+	variant = 'subtle',
+	size = 'compact-sm',
+	...props
+} = defineProps<TreeProps<T>>()
 
 const tree = defineModel<TreeModels<T>['tree']>('tree', { required: true })
 const active = defineModel<TreeModels<T>['active']>('active', { default: null })
@@ -29,9 +32,12 @@ expanded.value = getExpandedItems<T>(tree.value)
 		v-model:active='active'
 		v-model:selected='selected'
 		v-model:expanded='expanded'
+		:size
+		:color
+		:variant
 	>
 		<UTreeItem
-			v-for='item in unref(tree)'
+			v-for='item in tree'
 			:key='item.value'
 			:item
 			:level='1'

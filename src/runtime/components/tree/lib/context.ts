@@ -1,4 +1,4 @@
-import type { TreeIconResolver, TreeItem } from '@nui/components'
+import type { ButtonProps, TreeIconResolver, TreeItem } from '@nui/components'
 import type { ModelRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
@@ -15,6 +15,12 @@ export interface TreeContext<T extends string = string> {
 	expanded: ModelRef<T[]>
 
 	iconResolver: TreeIconResolver<T>
+
+	selectable: boolean
+
+	variant: ButtonProps['variant']
+	color: ButtonProps['color']
+	size: ButtonProps['size']
 }
 
 export interface TreeState<T extends string = string> {
@@ -28,6 +34,12 @@ export interface TreeState<T extends string = string> {
 	on: ((type: 'expand', value: T) => void) & ((type: 'select', value: T, mode?: SelectMode) => void)
 	off: (type: EventType, value: T) => void
 	setActive: (value: T | null) => void
+
+	selectable: boolean
+
+	variant: ButtonProps['variant']
+	color: ButtonProps['color']
+	size: ButtonProps['size']
 }
 
 const injectionKey = Symbol('nui-tree')
@@ -37,6 +49,8 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 	selected,
 	expanded,
 	iconResolver,
+	selectable,
+	...rest
 }: TreeContext<T>): TreeState<T> => {
 	const setActive = (value: T | null) => active.value = value
 
@@ -46,6 +60,9 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 	function on(type: EventType, value: T, mode?: SelectMode) {
 		if (type === 'select') {
 			setActive(value)
+
+			if (!selectable)
+				return
 
 			switch (mode) {
 				case 'single':
@@ -88,10 +105,9 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 				return
 			}
 			case 'expand': {
-				const children = getBranchChildren(tree.value, value)
+				const children = new Set(getBranchChildren(tree.value, value))
 				return expanded.value = expanded.value
-					.filter(v => !children.includes(v))
-					.filter(v => v !== value)
+					.filter(v => v !== value && !children.has(v))
 			}
 			default:
 				return console.warn(`Unknown target type in NuiTree: ${type}`)
@@ -108,12 +124,8 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 					return on(type, value, mode)
 
 				// В multiple mode переключаем состояние
-				if (mode === 'multiple') {
-					if (isSelected)
-						return off(type, value)
-
-					return on(type, value, mode)
-				}
+				if (mode === 'multiple')
+					return isSelected ? off(type, value) : on(type, value, mode)
 
 				// В range mode всегда добавляем диапазон
 				if (mode === 'range')
@@ -123,10 +135,7 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 			}
 			case 'expand': {
 				const isExpanded = expanded.value.includes(value)
-				if (isExpanded)
-					return off(type, value)
-
-				return on(type, value)
+				return isExpanded ? off(type, value) : on(type, value)
 			}
 			default:
 				console.warn(`Unknown target type in NuiTree: ${type}`)
@@ -134,14 +143,16 @@ const [useProvide, useState] = createStrictInjection(<T extends string>({
 	}
 
 	return {
+		on,
+		off,
+		toggle,
+		setActive,
 		active,
 		selected,
 		expanded,
 		iconResolver,
-		toggle,
-		on,
-		off,
-		setActive,
+		selectable,
+		...rest,
 	}
 }, {
 	injectionKey,

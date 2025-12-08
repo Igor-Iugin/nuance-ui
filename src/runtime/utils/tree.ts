@@ -28,6 +28,54 @@ function traverse<T extends string = string>(nodes: TreeNode<T>[]): TreeNode<T>[
 }
 
 /**
+ * Filters tree nodes based on a predicate function.
+ * Returns a new tree containing only nodes that match the predicate.
+ * Parent nodes are kept if they have matching children.
+ *
+ * @template Node - The type of tree nodes
+ * @param {Node[]} tree - The tree to filter
+ * @param {(node: Node) => boolean} predicate - Function to test each node
+ * @returns {Node[]} New filtered tree
+ * @example
+ * const tree = [
+ *   { value: 'folder', children: [{ value: 'file1' }, { value: 'file2' }] },
+ *   { value: 'file3' }
+ * ]
+ * // Keep only folders (nodes with children)
+ * filterTree(tree, node => node.children && node.children.length > 0)
+ * // Result: [{ value: 'folder', children: [{ value: 'file1' }, { value: 'file2' }] }]
+ */
+export function filterTree<Node extends TreeNode = TreeNode>(
+	tree: Node[],
+	predicate: (node: Node) => boolean,
+): Node[] {
+	const result: Node[] = []
+
+	for (const node of tree) {
+		// Рекурсивно фильтруем детей
+		const filteredChildren = node.children?.length
+			? filterTree(node.children as Node[], predicate)
+			: undefined
+
+		// Оставляем узел если:
+		// 1. Он соответствует предикату
+		// 2. ИЛИ у него есть отфильтрованные дети
+		if (predicate(node) || (filteredChildren && filteredChildren.length > 0)) {
+			const newNode: Node = { ...node }
+			if (filteredChildren && filteredChildren.length > 0)
+				newNode.children = filteredChildren
+			else
+				// Удаляем пустой массив children
+				delete newNode.children
+
+			result.push(newNode)
+		}
+	}
+
+	return result
+}
+
+/**
  * Searches for a tree item by its value using depth-first search.
  * @template T - The type of node values
  * @param {TreeNode<T>[]} items - The array of tree nodes to search in
@@ -193,24 +241,5 @@ export function removeTreeNodes<Node extends TreeNode = TreeNode, Value extends 
 	valuesToRemove: Value[],
 ): Node[] {
 	const removeSet = new Set(valuesToRemove)
-
-	function recurse(nodes: Node[]): Node[] {
-		const result: Node[] = []
-		for (const node of nodes) {
-			if (removeSet.has(node.value as Value))
-				continue
-
-			const newNode: Node = { ...node }
-			if (node.children?.length) {
-				const filteredChildren = recurse(node.children as Node[])
-				if (filteredChildren.length > 0)
-					newNode.children = filteredChildren
-			}
-			result.push(newNode)
-			// If value matches, skip this node and its subtree
-		}
-		return result
-	}
-
-	return recurse(tree)
+	return filterTree(tree, n => !removeSet.has(n.value as Value))
 }

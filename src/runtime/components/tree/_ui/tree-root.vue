@@ -1,5 +1,5 @@
 <script setup lang='ts' generic='T extends string = string'>
-import type { NuanceSize } from '@nui/types'
+import type { ButtonProps } from '@nui/components'
 
 import { useStyleResolver } from '@nui/composals'
 import { getSize, removeTreeNodes } from '@nui/utils'
@@ -15,18 +15,25 @@ import { useProvideTreeState } from '../lib/context'
 
 
 export type TreeRootProps<T extends string = string> = RovingFocusProps & {
-	size?: NuanceSize | string
 	iconResolver?: TreeIconResolver<T>
 	removable?: boolean
+	selectable?: boolean
+
+	variant?: ButtonProps['variant']
+	color?: ButtonProps['color']
+	size?: ButtonProps['size']
 }
 
 const {
-	size,
+	color,
 	attr,
 	loop,
 	orientation,
+	variant = 'subtle',
+	size = 'compact-sm',
 	iconResolver = () => ({ icon: 'gravity-ui:file' }),
 	removable = false,
+	selectable = false,
 } = defineProps<TreeRootProps<T>>()
 
 const tree = defineModel<TreeModels<T>['tree']>('tree', { required: true })
@@ -47,6 +54,10 @@ useProvideTreeState<T>({
 	selected,
 	expanded,
 	iconResolver,
+	size,
+	color,
+	variant,
+	selectable,
 })
 
 if (removable) {
