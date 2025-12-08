@@ -1,20 +1,20 @@
 <script lang='ts' setup>
 import type { Component } from 'vue'
 
-import Box from '@nui/components/box.vue'
 import { getFontSize, getRadius, getSize } from '@nui/utils'
 import { computed, useTemplateRef } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
 import type { InputBaseProps } from '../types'
 
+import Box from '../../box.vue'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
 export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'> {
 	id: string
 	is?: 'input' | 'textarea' | Component
-	modelValue?: string
+	modelValue?: string | number
 }
 
 const {
@@ -26,7 +26,7 @@ const {
 } = defineProps<BaseInputProps>()
 
 defineEmits<{
-	'update:modelValue': [value: string | undefined]
+	'update:modelValue': [value: string | number | undefined]
 }>()
 
 const api = useInputWrapperState() ?? computed(() => props)
