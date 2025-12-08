@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.1.9
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.8...v0.1.9)
+
+### 🚀 Enhancements
+
+- **Tree:** Added passing props to tree-item ([0f76a5c](https://github.com/Igor-Iugin/nuance-ui/commit/0f76a5c))
+- Added page fore tree view ([de75cd6](https://github.com/Igor-Iugin/nuance-ui/commit/de75cd6))
+- **new:** New Progress component ([5351be1](https://github.com/Igor-Iugin/nuance-ui/commit/5351be1))
+- **colors:** Update colors vars ([e12138d](https://github.com/Igor-Iugin/nuance-ui/commit/e12138d))
+- **new:** Alert component ([5d12269](https://github.com/Igor-Iugin/nuance-ui/commit/5d12269))
+- **new:** Alert component ([b7d0b23](https://github.com/Igor-Iugin/nuance-ui/commit/b7d0b23))
+
+### 🩹 Fixes
+
+- **AppShellMain:** Fixed items positioning ([2710188](https://github.com/Igor-Iugin/nuance-ui/commit/2710188))
+- **NumberInput:** Fix value controlling ([68ef517](https://github.com/Igor-Iugin/nuance-ui/commit/68ef517))
+- **Input:** Fix value type ([ab4b9a6](https://github.com/Igor-Iugin/nuance-ui/commit/ab4b9a6))
+- **NavLink:** Fix hover styles ([42e9479](https://github.com/Igor-Iugin/nuance-ui/commit/42e9479))
+
+### 📖 Documentation
+
+- Add JSDoc for classes prop ([e943c31](https://github.com/Igor-Iugin/nuance-ui/commit/e943c31))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.8
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.7...v0.1.8)
