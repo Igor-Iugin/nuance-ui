@@ -54,16 +54,16 @@
 	--color-gray-8: #343a40;
 	--color-gray-9: #212529;
 
-	--color-red-0: #fdf4f4;
-	--color-red-1: #f5e0e0;
-	--color-red-2: #e8c5c5;
-	--color-red-3: #d49999;
-	--color-red-4: #c27373;
-	--color-red-5: #a85a5a;
-	--color-red-6: #8f4545;
-	--color-red-7: #763636;
-	--color-red-8: #5d2a2a;
-	--color-red-9: #4a2121;
+	--color-red-0: #fff5f5;
+	--color-red-1: #ffe3e3;
+	--color-red-2: #ffc9c9;
+	--color-red-3: #ffa8a8;
+	--color-red-4: #ff8787;
+	--color-red-5: #ff6b6b;
+	--color-red-6: #fa5252;
+	--color-red-7: #f03e3e;
+	--color-red-8: #e03131;
+	--color-red-9: #c92a2a;
 
 	--color-pink-0: #fdf6f8;
 	--color-pink-1: #f7e4e9;
@@ -164,25 +164,25 @@
 	--color-lime-8: #66a80f;
 	--color-lime-9: #5c940d;
 
-	--color-yellow-0: #fdfbf0;
-	--color-yellow-1: #f9f4d6;
-	--color-yellow-2: #f0e6a6;
-	--color-yellow-3: #e3d372;
-	--color-yellow-4: #d4bf47;
-	--color-yellow-5: #c2a72b;
-	--color-yellow-6: #a68c1a;
-	--color-yellow-7: #8a7315;
-	--color-yellow-8: #6e5a12;
-	--color-yellow-9: #584610;
+	--color-yellow-0: #fff9db;
+	--color-yellow-1: #fff3bf;
+	--color-yellow-2: #ffec99;
+	--color-yellow-3: #ffe066;
+	--color-yellow-4: #ffd43b;
+	--color-yellow-5: #fcc419;
+	--color-yellow-6: #fab005;
+	--color-yellow-7: #f59f00;
+	--color-yellow-8: #f08c00;
+	--color-yellow-9: #e67700;
 
-	--color-orange-0: #fdf6f0;
-	--color-orange-1: #f7e6d3;
-	--color-orange-2: #edd1b0;
-	--color-orange-3: #deb887;
-	--color-orange-4: #cd9a5b;
-	--color-orange-5: #b8833a;
-	--color-orange-6: #a0692f;
-	--color-orange-7: #8b5a28;
-	--color-orange-8: #704621;
-	--color-orange-9: #5a3419;
+	--color-orange-0: #fff4e6;
+	--color-orange-1: #ffe8cc;
+	--color-orange-2: #ffd8a8;
+	--color-orange-3: #ffc078;
+	--color-orange-4: #ffa94d;
+	--color-orange-5: #ff922b;
+	--color-orange-6: #fd7e14;
+	--color-orange-7: #f76707;
+	--color-orange-8: #e8590c;
+	--color-orange-9: #d9480f;
 }
