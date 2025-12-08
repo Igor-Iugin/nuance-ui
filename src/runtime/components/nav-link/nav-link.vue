@@ -127,6 +127,16 @@ const style = useStyleResolver(theme => {
 		opacity: 0.4;
 	}
 
+	&:hover {
+		@mixin where-light {
+			background-color: var(--color-gray-0);
+		}
+
+		@mixin where-dark {
+			background-color: var(--color-dark-6);
+		}
+	}
+
 	&:where([data-active], [aria-current='page']) {
 		color: var(--nl-color);
 
@@ -139,16 +149,6 @@ const style = useStyleResolver(theme => {
 
 		@mixin hover {
 			background-color: var(--nl-hover);
-		}
-	}
-
-	@mixin hover {
-		@mixin where-light {
-			background-color: var(--color-gray-0);
-		}
-
-		@mixin where-dark {
-			background-color: var(--color-dark-6);
 		}
 	}
 }
