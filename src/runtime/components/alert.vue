@@ -1,13 +1,13 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceRadius } from '@nui/types'
 
-import ActionIcon from '@nui/components/action-icon/action-icon.vue'
 import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver, getRadius } from '@nui/utils'
 import { computed, useId } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
+import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box.vue'
 
 
