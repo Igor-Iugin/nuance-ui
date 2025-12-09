@@ -56,7 +56,7 @@ export type NuanceColor = NuanceDefaultThemeColor | ShadedColor
 
 export type NuanceTheme = 'light' | 'dark'
 
-export interface UiKitGradient {
+export interface NuanceGradient {
 	bg?: NuanceColor | string
 	from: NuanceColor | string
 	to: NuanceColor | string

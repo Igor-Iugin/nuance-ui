@@ -1,4 +1,4 @@
-import type { NuanceColor, NuanceTheme, UiKitGradient } from '@nui/types'
+import type { NuanceColor, NuanceGradient, NuanceTheme } from '@nui/types'
 
 import { DEFAULT_GRADIENT } from '../../const'
 import { getGradient, getGradientOutline } from '../color-functions/get-gradient'
@@ -20,7 +20,7 @@ export function createVariantColorResolver({
 }: {
 	color: NuanceColor | string | undefined
 	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
-	gradient?: UiKitGradient
+	gradient?: NuanceGradient
 	theme: NuanceTheme
 }): VariantColorResolverResult {
 	const parsed = parseThemeColor({ color, theme })

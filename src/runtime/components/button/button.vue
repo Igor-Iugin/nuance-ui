@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { NuanceColor, NuanceRadius, NuanceSize, UiKitGradient } from '@nui/types'
+import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 import type { HTMLAttributes } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
@@ -16,7 +16,7 @@ import css from './button.module.css'
 export interface ButtonProps extends BoxProps {
 	size?: NuanceSize | `compact-${NuanceSize}`
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
-	gradient?: UiKitGradient
+	gradient?: NuanceGradient
 	loading?: boolean
 	color?: NuanceColor
 	radius?: NuanceRadius

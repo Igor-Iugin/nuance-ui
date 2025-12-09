@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceRadius, NuanceSize, UiKitGradient } from '@nui/types'
+import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
@@ -14,7 +14,7 @@ import css from './action-icon.module.css'
 export interface ActionIconSectionProps extends BoxProps {
 	size?: NuanceSize | `compact-${NuanceSize}`
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
-	gradient?: UiKitGradient
+	gradient?: NuanceGradient
 	loading?: boolean
 	color?: NuanceColor
 	radius?: NuanceRadius

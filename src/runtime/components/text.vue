@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSize, UiKitGradient } from '@nui/types'
+import type { NuanceColor, NuanceGradient, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
@@ -31,7 +31,7 @@ export interface TextProps extends BoxProps {
 	inherit?: boolean
 
 	/** Gradient configuration, ignored when `variant` is not `gradient`, `theme.defaultGradient` by default */
-	gradient?: UiKitGradient
+	gradient?: NuanceGradient
 
 	variant?: 'text' | 'gradient'
 
