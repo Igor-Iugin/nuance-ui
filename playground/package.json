@@ -11,10 +11,11 @@
 		"nuxt": "^4.2.1"
 	},
 	"devDependencies": {
+		"@floating-ui/vue": "^1.1.9",
 		"@nuxt/icon": "^2.1.0",
+		"@nuxt/image": "^2.0.0",
 		"@nuxtjs/color-mode": "^4.0.0",
 		"@vueuse/core": "^14.0.0",
-		"@floating-ui/vue": "^1.1.9",
 		"postcss": "^8.5.6",
 		"postcss-preset-mantine": "^1.18.0",
 		"postcss-simple-vars": "^7.0.1"
