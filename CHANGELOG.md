@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v0.1.12
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.11...v0.1.12)
+
+### 🩹 Fixes
+
+- **Progress:** Fix passing slot in label ([5bb27fd](https://github.com/Igor-Iugin/nuance-ui/commit/5bb27fd))
+- **Progress:** Fix passing default slot in ProgressSection ([f832f9f](https://github.com/Igor-Iugin/nuance-ui/commit/f832f9f))
+- **Tree:** Fix export TreeItemProps ([19742da](https://github.com/Igor-Iugin/nuance-ui/commit/19742da))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.11
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.10...v0.1.11)
