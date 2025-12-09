@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.1.10
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.9...v0.1.10)
+
+### 🚀 Enhancements
+
+- **new:** Avatar, AvatarGroup ([304a0cc](https://github.com/Igor-Iugin/nuance-ui/commit/304a0cc))
+
+### 🩹 Fixes
+
+- **config:** Fix stylelint stupid error ([be23782](https://github.com/Igor-Iugin/nuance-ui/commit/be23782))
+- Fix imports ([11dedff](https://github.com/Igor-Iugin/nuance-ui/commit/11dedff))
+- Type name ([c3e4c15](https://github.com/Igor-Iugin/nuance-ui/commit/c3e4c15))
+- Add nuxt/image in playground ([a37f949](https://github.com/Igor-Iugin/nuance-ui/commit/a37f949))
+- **config:** Indent ([2c1ab9c](https://github.com/Igor-Iugin/nuance-ui/commit/2c1ab9c))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.9
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.8...v0.1.9)
