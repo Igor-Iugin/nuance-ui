@@ -11,7 +11,7 @@ import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
 import { useTreeState } from '../lib/context'
 
 
-interface TreeItemProps<T extends string = string> {
+export interface TreeItemProps<T extends string = string> {
 	item: TreeItem<T>
 	level: number
 }
