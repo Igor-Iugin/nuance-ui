@@ -44,7 +44,7 @@ const ariaAttributes = computed(() => withAria
 		'aria-valuetext': `${value.value}%`,
 	}
 	: {})
-
+ 
 const style = computed(() => useStyleResolver(theme => ({
 	'--progress-section-size': `${value.value}%`,
 	'--progress-section-color': getThemeColor(color, theme),
@@ -57,5 +57,7 @@ const style = computed(() => useStyleResolver(theme => ({
 		v-bind='ariaAttributes'
 		:class='css.section'
 		:mod='[{ striped: striped || animated, animated }, mod]'
-	/>
+	>
+		<slot />
+	</Box>
 </template>
