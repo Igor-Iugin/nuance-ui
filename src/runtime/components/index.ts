@@ -1,5 +1,6 @@
 export * from './action-icon'
 export * from './app-shell'
+export * from './avatar'
 export * from './background-image.vue'
 export * from './box.vue'
 export * from './button'

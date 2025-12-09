@@ -18,6 +18,9 @@ const theme = useTheme()
 			<NNavLink to='/alert'>
 				Alert
 			</NNavLink>
+			<NNavLink to='/avatar'>
+				Avatar
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
