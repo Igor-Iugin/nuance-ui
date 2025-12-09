@@ -16,7 +16,6 @@ const { mod } = defineProps<BoxProps>()
 <style module lang='postcss'>
 .root {
 	display: grid;
-	align-content: flex-start;
 
 	min-height: 100dvh;
 	padding-top: calc(var(--app-shell-header-offset, 0rem) + var(--app-shell-padding));
