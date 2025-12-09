@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.11
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.10...v0.1.11)
+
+### 🩹 Fixes
+
+- **AppConfig:** Fix styles ([9870815](https://github.com/Igor-Iugin/nuance-ui/commit/9870815))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.10
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.9...v0.1.10)
