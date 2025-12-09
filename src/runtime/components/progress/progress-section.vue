@@ -44,7 +44,7 @@ const ariaAttributes = computed(() => withAria
 		'aria-valuetext': `${value.value}%`,
 	}
 	: {})
- 
+
 const style = computed(() => useStyleResolver(theme => ({
 	'--progress-section-size': `${value.value}%`,
 	'--progress-section-color': getThemeColor(color, theme),
