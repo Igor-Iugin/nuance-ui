@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.13
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.12...v0.1.13)
+
+### 🩹 Fixes
+
+- **NumberInput:** Fix rightSection logic ([6c261ad](https://github.com/Igor-Iugin/nuance-ui/commit/6c261ad))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.12
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.11...v0.1.12)
