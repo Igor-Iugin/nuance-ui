@@ -78,12 +78,12 @@ function handleBlur() {
 			@blur='handleBlur()'
 			@wheel.prevent='handleWheel'
 		>
-			<template v-if='$slots?.leftSection' #leftSection>
+			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
-			<template #rightSection>
+			<template v-if='$slots.rightSection || !hideControls' #rightSection>
 				<slot name='rightSection'>
-					<div v-if='!hideControls' :class='$style.controls'>
+					<div :class='$style.controls'>
 						<UnstyledButton
 							:class='$style.control'
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(max) && value >= max!)'
