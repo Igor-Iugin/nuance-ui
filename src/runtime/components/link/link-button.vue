@@ -4,26 +4,27 @@ import type { NuxtLinkProps } from '#app'
 import type { ButtonProps } from '../button'
 
 import Button from '../button/button.vue'
-import { extractNuxtLinkProps } from './lib'
+import { pickLinkProps } from './lib'
 
 
 export interface LinkButtonProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, ButtonProps {
 }
 
 const props = defineProps<LinkButtonProps>()
-const { link, rest } = extractNuxtLinkProps(props)
+const { link, rest } = pickLinkProps(props)
 </script>
 
 <template>
-	<!-- @vue-ignore	-->
-	<NuxtLink
-		v-slot='{ href, navigate, rel, target }'
-		v-bind='link'
-		custom
-	>
+	<NuxtLink v-slot='slotProps' v-bind='link' custom>
 		<Button
-			v-bind='{ ...rest, is: rest?.is || "a", href, rel, target }'
-			@click='(e: MouseEvent) => navigate(e)'
+			v-bind='{
+				...rest,
+				is: rest?.is || "a",
+				href: slotProps.href,
+				rel: ("rel" in slotProps ? slotProps.rel : undefined),
+				target: ("target" in slotProps ? slotProps.target : undefined),
+			}'
+			@click='(e: MouseEvent) => slotProps.navigate(e)'
 		>
 			<template #leftSection>
 				<slot name='leftSection' />

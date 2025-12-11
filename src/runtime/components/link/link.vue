@@ -6,7 +6,7 @@ import { NuxtLink } from '#components'
 import type { TextProps } from '../text.vue'
 
 import Text from '../text.vue'
-import { extractNuxtLinkProps } from './lib'
+import { pickLinkProps } from './lib'
 
 
 export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
@@ -14,7 +14,7 @@ export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<
 }
 
 const props = defineProps<LinkProps>()
-const { link, rest } = extractNuxtLinkProps(props)
+const { link, rest } = pickLinkProps(props)
 </script>
 
 <template>

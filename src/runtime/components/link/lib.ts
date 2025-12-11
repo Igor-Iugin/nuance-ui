@@ -16,7 +16,7 @@ const linkProps = [
 	'trailingSlash',
 ] as const
 
-export function extractNuxtLinkProps<T extends NuxtLinkProps>(props: T) {
+export function pickLinkProps<T extends NuxtLinkProps>(props: T) {
 	const link = reactivePick(props, ...linkProps)
 	const rest = reactiveOmit(props, ...linkProps)
 

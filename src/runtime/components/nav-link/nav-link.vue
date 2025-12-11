@@ -10,7 +10,7 @@ import type { BoxProps } from '../box.vue'
 
 import Box from '../box.vue'
 import UnstyledButton from '../button/unstyled-button.vue'
-import { extractNuxtLinkProps } from '../link'
+import { pickLinkProps } from '../link'
 
 
 export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
@@ -44,7 +44,7 @@ const {
 		noWrap,
 		description,
 	},
-} = extractNuxtLinkProps(props)
+} = pickLinkProps(props)
 
 const active = useActiveLink(link?.to)
 const mod = computed(() => [{ active: active.value, disabled }, _mod])
@@ -62,7 +62,6 @@ const style = useStyleResolver(theme => {
 </script>
 
 <template>
-	<!-- @vue-ignore	-->
 	<NuxtLink
 		v-slot='{ href, navigate }'
 		v-bind='link'
