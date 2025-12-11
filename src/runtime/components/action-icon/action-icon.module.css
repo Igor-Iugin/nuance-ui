@@ -114,6 +114,11 @@
 	opacity 100ms ease;
 }
 
+.icon-element {
+	width: 80%;
+	height: 80%;
+}
+
 .group {
 	--ai-border-width: 1px;
 	display: flex;

@@ -81,7 +81,7 @@ const _mod = computed(() => [{ loading }, mod])
 
 		<span :class='[css.icon, classes?.icon]'>
 			<slot>
-				<Icon v-if='icon' :name='icon' />
+				<Icon v-if='icon' :name='icon' :class='css["icon-element"]' />
 			</slot>
 		</span>
 	</Box>

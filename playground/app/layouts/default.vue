@@ -9,17 +9,20 @@ const theme = useTheme()
 <template>
 	<NAppShell :class='$style.root' aside footer with-border>
 		<NAppShellNavbar :class='$style.navbar'>
-			<NNavLink to='/tree'>
-				Tree
-			</NNavLink>
-			<NNavLink to='/progress'>
-				Progress
+			<NNavLink to='/action-icon'>
+				Action Icon
 			</NNavLink>
 			<NNavLink to='/alert'>
 				Alert
 			</NNavLink>
 			<NNavLink to='/avatar'>
 				Avatar
+			</NNavLink>
+			<NNavLink to='/tree'>
+				Tree
+			</NNavLink>
+			<NNavLink to='/progress'>
+				Progress
 			</NNavLink>
 		</NAppShellNavbar>
 
