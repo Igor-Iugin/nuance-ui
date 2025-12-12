@@ -33,7 +33,7 @@ export function createVariantColorResolver({
 				background: `var(--color-${color}-filled)`,
 				hover: `var(--color-${color}-filled-hover)`,
 				text,
-				border: '1px solid transparent)',
+				border: '1px solid transparent',
 			}
 		}
 
@@ -51,7 +51,7 @@ export function createVariantColorResolver({
 				background: `var(--color-${color}-light)`,
 				hover: `var(--color-${color}-light-hover)`,
 				text: `var(--color-${color}-light-color)`,
-				border: '1px solid transparent)',
+				border: '1px solid transparent',
 			}
 		}
 
@@ -59,7 +59,7 @@ export function createVariantColorResolver({
 			background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
 			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
 			text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
-			border: '1px solid transparent)',
+			border: '1px solid transparent',
 		}
 	}
 
@@ -108,7 +108,7 @@ export function createVariantColorResolver({
 				deg: gradient?.deg,
 			}, theme),
 			text: 'var(--color-white)',
-			border: 'none',
+			border: '1px solid transparent',
 		}
 	}
 
