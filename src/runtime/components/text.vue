@@ -48,26 +48,23 @@ const {
 	inline,
 	inherit,
 	mod,
-	variant = 'text',
+	variant,
 	gradient,
 	fz,
 	fw,
 	lh,
 	c,
-	size = 'sm',
+	size,
 	...rest
 } = defineProps<TextProps>()
 
-const _mod = computed(() => [
-	{
-		truncate,
-		'line-clamp': lineClamp,
-		inline,
-		inherit,
-		variant,
-	},
-	mod,
-])
+const _mod = computed(() => [{
+	truncate,
+	'line-clamp': lineClamp,
+	inline,
+	inherit,
+	variant,
+}, mod])
 
 const style = computed(() => useStyleResolver(theme => ({
 	'--text-fz': getFontSize(fz || size),
@@ -87,10 +84,12 @@ const style = computed(() => useStyleResolver(theme => ({
 
 <style module lang='postcss'>
 .root {
-	--text-fz: var(--font-size-md);
-	--text-lh: var(--line-height-md);
+	--text-fz: var(--font-size-sm);
+	--text-lh: var(--line-height-sm);
 	--text-color: inherit;
 	--text-fw: normal;
+	--text-gradient: none;
+	--text-line-clamp: none;
 
 	margin: 0;
 	padding: 0;
@@ -141,6 +140,7 @@ const style = computed(() => useStyleResolver(theme => ({
 		font-size: inherit;
 		font-weight: inherit;
 		line-height: inherit;
+		color: inherit;
 	}
 
 	&:where([data-inline]) {
