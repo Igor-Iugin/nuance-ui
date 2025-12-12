@@ -15,24 +15,24 @@ const { link, rest } = pickLinkProps(props)
 </script>
 
 <template>
-	<NuxtLink v-slot='slotProps' v-bind='link' custom>
+	<NuxtLink v-slot='{ href, navigate, ...linkProps }' v-bind='link' custom>
 		<Button
 			v-bind='{
 				...rest,
 				is: rest?.is || "a",
-				href: slotProps.href,
-				rel: ("rel" in slotProps ? slotProps.rel : undefined),
-				target: ("target" in slotProps ? slotProps.target : undefined),
+				href,
+				rel: ("rel" in linkProps ? linkProps.rel : undefined),
+				target: ("target" in linkProps ? linkProps.target : undefined),
 			}'
-			@click='(e: MouseEvent) => slotProps.navigate(e)'
+			@click='navigate'
 		>
-			<template #leftSection>
+			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
 
 			<slot />
 
-			<template #rightSection>
+			<template v-if='$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
 		</Button>

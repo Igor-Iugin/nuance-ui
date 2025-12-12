@@ -57,18 +57,17 @@ const style = computed(() => useStyleResolver(theme => {
 </script>
 
 <template>
-	<NuxtLink
-		v-slot='{ href, navigate, isActive }'
-		v-bind='link'
-		custom
-	>
+	<NuxtLink v-slot='{ href, navigate, isActive, ...linkProps }' v-bind='link' custom>
 		<UnstyledButton
 			is='a'
+			:href
 			:style
 			:class='$style.root'
 			:mod='[{ active: isActive, disabled }, mod]'
-			:href
-			@click='(e: MouseEvent) => navigate(e)'
+			:aria-current="isActive ? 'page' : undefined"
+			:rel='("rel" in linkProps) ? linkProps?.rel : undefined'
+			:target='("target" in linkProps) ? linkProps?.target : undefined'
+			@click='navigate'
 		>
 			<span v-if='$slots.leftSection' :class='$style.section' data-position='left'>
 				<slot name='leftSection' />

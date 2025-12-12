@@ -13,27 +13,25 @@ export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<
 	underline?: boolean
 }
 
+defineOptions({ inheritAttrs: false })
+
 const props = defineProps<LinkProps>()
-const { link, rest } = pickLinkProps(props)
+const { link, rest: { underline, ...rest } } = pickLinkProps(props)
 </script>
 
 <template>
-	<!-- @vue-ignore	-->
-	<NuxtLink
-		v-slot='{ href, navigate, rel, target }'
-		v-bind='link'
-		custom
-	>
+	<NuxtLink v-slot='{ href, navigate, ...linkProps }' v-bind='link' custom>
 		<Text
 			is='a'
-			:class='[$style.root, { [$style.underline]: rest.underline }]'
+			:class='[$style.root, { [$style.underline]: underline }]'
 			v-bind='{
 				...rest,
+				...$attrs,
 				href,
-				rel,
-				target,
+				rel: ("rel" in linkProps ? linkProps.rel : undefined),
+				target: ("target" in linkProps ? linkProps.target : undefined),
 			}'
-			@click='(e: MouseEvent) => navigate(e)'
+			@click='navigate'
 		>
 			<slot />
 		</Text>
