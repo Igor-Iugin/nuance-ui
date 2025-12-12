@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.1.14
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.13...v0.1.14)
+
+### 🚀 Enhancements
+
+- **Breadcrumbs:** Сделана база компонента ([4e8c4b0](https://github.com/Igor-Iugin/nuance-ui/commit/4e8c4b0))
+- **new:** Breadcrumbs ([7b9f0a1](https://github.com/Igor-Iugin/nuance-ui/commit/7b9f0a1))
+
+### 🩹 Fixes
+
+- **ActionIcon:** Fix icon size ([6f5b6a8](https://github.com/Igor-Iugin/nuance-ui/commit/6f5b6a8))
+- **AppShell:** Remove display: grid ([e75b38c](https://github.com/Igor-Iugin/nuance-ui/commit/e75b38c))
+- **NavLink:** Fix hover styles ([8028e2a](https://github.com/Igor-Iugin/nuance-ui/commit/8028e2a))
+- Fix hover styles ([a61072f](https://github.com/Igor-Iugin/nuance-ui/commit/a61072f))
+- **Link:** Fix passing NuxtLink props ([1b26813](https://github.com/Igor-Iugin/nuance-ui/commit/1b26813))
+- **Text:** Fix inherit styles ([4ba27ca](https://github.com/Igor-Iugin/nuance-ui/commit/4ba27ca))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.13
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.12...v0.1.13)
