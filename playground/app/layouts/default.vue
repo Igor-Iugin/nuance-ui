@@ -18,6 +18,9 @@ const theme = useTheme()
 			<NNavLink to='/avatar'>
 				Avatar
 			</NNavLink>
+			<NNavLink to='/breadcrumbs'>
+				Breadcrumbs
+			</NNavLink>
 			<NNavLink to='/tree'>
 				Tree
 			</NNavLink>

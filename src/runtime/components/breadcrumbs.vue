@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceSpacing } from '@nui/types'
+import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { MaybeRef } from 'vue'
 
 import { getSpacing } from '@nui/utils'
@@ -7,10 +7,12 @@ import { computed, unref } from 'vue'
 
 import type { BoxProps } from './box.vue'
 import type { LinkProps } from './link'
+import type { TextProps } from './text.vue'
 
 import Box from './box.vue'
-import Button from './button/button.vue'
 import { pickLinkProps } from './link'
+import Link from './link/link.vue'
+import Text from './text.vue'
 
 
 export interface BreadcrumbsItem extends Omit<LinkProps, 'mod'> {
@@ -28,6 +30,9 @@ export interface BreadcrumbsProps extends BoxProps {
 
 	/** Controls spacing between separator and breadcrumb @default `'xs'` */
 	spacing?: NuanceSpacing
+
+	color?: NuanceColor
+	size?: TextProps['fz']
 }
 
 const {
@@ -35,6 +40,8 @@ const {
 	mod,
 	spacing,
 	separator = 'gravity-ui:chevron-right',
+	color = 'primary',
+	size,
 } = defineProps<BreadcrumbsProps>()
 
 const style = computed(() => ({
@@ -43,31 +50,28 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Box
-		:is
-		:mod
-		:style
-		:class='$style.root'
-		aria-label='breadcrumb'
-	>
+	<Box :is :mod :style :class='$style.root' aria-label='breadcrumb'>
 		<template v-for='(item, ix) in unref(items)' :key='ix'>
-			<li :class='$style.breadcrumb'>
-				<NuxtLink v-slot='{ isActive }' v-bind='pickLinkProps(item).link' custom>
-					<span :aria-current='isActive'>
-						<slot :name='item.slot ?? "item"'>
-							<Button>
-								{{ item.label }}
-							</Button>
-						</slot>
-					</span>
-				</NuxtLink>
-			</li>
-			<li
-				v-if='ix < unref(items)!.length'
+			<Text
+				is='li'
+				:c='color'
+				:fz='size'
+				:class='$style.breadcrumb'
 				role='presentation'
 				aria-hidden='true'
-				:class='$style.separator'
 			>
+				<NuxtLink v-slot='{ isActive }' v-bind='pickLinkProps(item).link' custom>
+					<slot :name='item.slot ?? "item"' :item='item' :ix='ix' :active='isActive'>
+						<Link v-bind='pickLinkProps(item).link' inherit :class='$style.item' :mod='{ active: isActive }'>
+							<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
+							<Text is='span' inherit truncate>
+								{{ item.label }}
+							</Text>
+						</Link>
+					</slot>
+				</NuxtLink>
+			</Text>
+			<li v-if='ix < unref(items)!.length - 1' role='presentation' aria-hidden='true' :class='$style.separator'>
 				<slot name='separator'>
 					<Icon :name='separator' />
 				</slot>
@@ -84,20 +88,40 @@ const style = computed(() => ({
 	flex-wrap: wrap;
 	gap: var(--bc-spacing);
 	align-items: center;
+
+	list-style: none;
 }
 
 .breadcrumb {
 	line-height: 1;
+
+	color: var(--color-text);
 	white-space: nowrap;
 	-webkit-tap-highlight-color: transparent;
+
+}
+
+.item {
+	display: flex;
+	gap: .25rem;
+	align-items: center;
+
+	font-weight: 600;
+
+	&:where([data-active]) {
+		color: var(--text-color);
+	}
+}
+
+.icon {
+	width: 1.2em;
+	height: 1.2em;
 }
 
 .separator {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	margin-inline: var(--bc-spacing);
 
 	line-height: 1;
 

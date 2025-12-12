@@ -32,6 +32,7 @@ type ShadedColor
 		| `yellow.${NuanceColorShade}`
 		| `orange.${NuanceColorShade}`
 		| `teal.${NuanceColorShade}`
+		| `primary.${NuanceColorShade}`
 
 export type NuanceDefaultThemeColor
 	= | 'dark'
@@ -51,6 +52,7 @@ export type NuanceDefaultThemeColor
 		| 'teal'
 		| 'black'
 		| 'white'
+		| 'primary'
 
 export type NuanceColor = NuanceDefaultThemeColor | ShadedColor
 
