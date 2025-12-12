@@ -14,6 +14,11 @@ const linkProps = [
 	'replace',
 	'prefetchOn',
 	'trailingSlash',
+	'activeClass',
+	'ariaCurrentValue',
+	'exactActiveClass',
+	'prefetchedClass',
+	'viewTransition',
 ] as const
 
 export function pickLinkProps<T extends NuxtLinkProps>(props: T) {
