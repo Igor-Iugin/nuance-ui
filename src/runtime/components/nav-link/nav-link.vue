@@ -2,7 +2,7 @@
 import type { NuanceColor } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
-import { useActiveLink, useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composals'
 import { createVariantColorResolver } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -38,7 +38,7 @@ const {
 	link,
 	rest: {
 		disabled,
-		mod: _mod,
+		mod,
 		variant = 'filled',
 		color,
 		noWrap,
@@ -46,40 +46,31 @@ const {
 	},
 } = pickLinkProps(props)
 
-const active = useActiveLink(link?.to)
-const mod = computed(() => [{ active: active.value, disabled }, _mod])
-
-const style = useStyleResolver(theme => {
+const style = computed(() => useStyleResolver(theme => {
 	const { background, hover, text } = createVariantColorResolver({ variant, color, theme })
 	return {
-		root: {
-			'--nl-bg': variant ? background : undefined,
-			'--nl-hover': variant ? hover : undefined,
-			'--nl-color': variant ? text : undefined,
-		},
+		'--nl-bg': variant ? background : undefined,
+		'--nl-hover': variant ? hover : undefined,
+		'--nl-color': variant ? text : undefined,
 	}
-})
+}))
 </script>
 
 <template>
 	<NuxtLink
-		v-slot='{ href, navigate }'
+		v-slot='{ href, navigate, isActive }'
 		v-bind='link'
 		custom
 	>
 		<UnstyledButton
 			is='a'
+			:style
 			:class='$style.root'
-			:style='style.root'
-			:mod
+			:mod='[{ active: isActive, disabled }, mod]'
 			:href
 			@click='(e: MouseEvent) => navigate(e)'
 		>
-			<span
-				v-if='$slots.leftSection'
-				:class='$style.section'
-				data-position='left'
-			>
+			<span v-if='$slots.leftSection' :class='$style.section' data-position='left'>
 				<slot name='leftSection' />
 			</span>
 
@@ -94,11 +85,7 @@ const style = useStyleResolver(theme => {
 				</Box>
 			</Box>
 
-			<span
-				v-if='$slots.rightSection'
-				:class='$style.section'
-				data-position='right'
-			>
+			<span v-if='$slots.rightSection' :class='$style.section' data-position='right'>
 				<slot name='rightSection' />
 			</span>
 		</UnstyledButton>
@@ -136,7 +123,7 @@ const style = useStyleResolver(theme => {
 		}
 	}
 
-	&:where([data-active], [aria-current='page']) {
+	&:where([data-active]) {
 		color: var(--nl-color);
 
 		background-color: var(--nl-bg);
@@ -146,7 +133,7 @@ const style = useStyleResolver(theme => {
 			--description-color: var(--nl-color);
 		}
 
-		@mixin hover {
+		&:hover {
 			background-color: var(--nl-hover);
 		}
 	}
