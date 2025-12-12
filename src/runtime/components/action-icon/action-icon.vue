@@ -27,11 +27,12 @@ export interface ActionIconProps {
 	}
 	mod?: BoxProps['mod']
 	icon?: string
+	disabled?: boolean
 }
 
 const {
 	color,
-	size = 'md',
+	size,
 	variant = 'default',
 	gradient,
 	loading,
@@ -39,6 +40,7 @@ const {
 	radius,
 	mod,
 	icon,
+	disabled,
 } = defineProps<ActionIconProps>()
 
 const style = computed(() => useStyleResolver(theme => {
@@ -58,17 +60,15 @@ const style = computed(() => useStyleResolver(theme => {
 		'--ai-bd': border,
 	}
 }))
-
-const _mod = computed(() => [{ loading }, mod])
 </script>
 
 <template>
 	<Box
 		is='button'
-		:mod='_mod'
+		:mod='[{ loading }, mod]'
 		:style
 		:class='[css.root, classes?.root]'
-		:disabled='loading'
+		:disabled='(!disabled ? loading : disabled) || undefined'
 	>
 		<Transition name='slide-down'>
 			<Loader
