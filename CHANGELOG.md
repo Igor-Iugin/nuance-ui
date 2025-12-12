@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.15
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.14...v0.1.15)
+
+### 🚀 Enhancements
+
+- **new:** NavIconLink ([433089e](https://github.com/Igor-Iugin/nuance-ui/commit/433089e))
+
+### 🩹 Fixes
+
+- Fix mistakes in resolver ([3308a2e](https://github.com/Igor-Iugin/nuance-ui/commit/3308a2e))
+- Add rest NuxtLinkProps ([b763c39](https://github.com/Igor-Iugin/nuance-ui/commit/b763c39))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.14
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.13...v0.1.14)
