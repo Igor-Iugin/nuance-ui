@@ -127,15 +127,13 @@
 		}
 	}
 
-	@mixin hover {
-		&:where(:not([data-loading], :disabled)) {
-			color: var(--button-color);
+	&:hover:where(:not([data-loading], :disabled)) {
+		color: var(--button-color);
 
-			background: var(--button-hover);
+		background: var(--button-hover);
 
-			&:where([data-variant='gradient-outline']) {
-				color: white;
-			}
+		&:where([data-variant='gradient-outline']) {
+			color: white;
 		}
 	}
 }

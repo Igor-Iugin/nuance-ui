@@ -73,12 +73,10 @@
 		}
 	}
 
-	@mixin hover {
-		&:where(:not([data-loading], :disabled, [data-disabled])) {
-			color: var(--ai-color);
+	&:hover:where(:not([data-loading], :disabled, [data-disabled])) {
+		color: var(--ai-color);
 
-			background-color: var(--ai-hover);
-		}
+		background-color: var(--ai-hover);
 	}
 }
 
