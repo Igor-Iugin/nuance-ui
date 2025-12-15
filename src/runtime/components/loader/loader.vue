@@ -14,16 +14,12 @@ import OvalLoader from './_loaders/oval-loader.vue'
 export type LoaderType = 'bars' | 'dots' | 'oval'
 
 export interface LoaderProps {
-	size?: NuanceSize | string
+	size?: NuanceSize | `compact-${NuanceSize}` | string
 	color?: NuanceColor | string
 	type?: LoaderType
 }
 
-const {
-	size = 'sm',
-	color,
-	type = 'oval',
-} = defineProps<LoaderProps>()
+const { size, color, type = 'oval' } = defineProps<LoaderProps>()
 
 const loaders: Record<LoaderType, Component> = {
 	bars: BarsLoader,
@@ -33,9 +29,10 @@ const loaders: Record<LoaderType, Component> = {
 
 const style = computed(() => useStyleResolver(theme => {
 	const _color = parseThemeColor({ color, theme })
+	const _size = size?.includes('compact') ? size.replace('compact-', '') : size
 
 	return {
-		'--loader-size': getSize(size, 'loader-size'),
+		'--loader-size': getSize(_size, 'loader-size'),
 		'--loader-color': _color.value,
 	}
 }))
@@ -52,7 +49,7 @@ const style = computed(() => useStyleResolver(theme => {
 	--loader-size-md: rem(36px);
 	--loader-size-lg: rem(44px);
 	--loader-size-xl: rem(58px);
-	--loader-size: var(--loader-size-md);
+	--loader-size: var(--loader-size-sm);
 	--loader-color: var(--color-primary-filled);
 }
 </style>

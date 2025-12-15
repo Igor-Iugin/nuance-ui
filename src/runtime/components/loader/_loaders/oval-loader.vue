@@ -19,7 +19,7 @@
 
 		border-color: var(--loader-color) var(--loader-color) var(--loader-color) transparent;
 		border-style: solid;
-		border-width: calc(var(--loader-size) / 8);
+		border-width: calc(var(--loader-size) / 6);
 		border-radius: 10000px;
 
 		animation: oval-loader-animation 1.2s linear infinite;
