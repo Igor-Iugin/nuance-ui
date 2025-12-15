@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.16
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.15...v0.1.16)
+
+### 🚀 Enhancements
+
+- **AppShell:** Add context for control template elements ([d638ee9](https://github.com/Igor-Iugin/nuance-ui/commit/d638ee9))
+
+### 🩹 Fixes
+
+- **NavIconLink:** Fix pass props ([7ea9097](https://github.com/Igor-Iugin/nuance-ui/commit/7ea9097))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.15
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.14...v0.1.15)
