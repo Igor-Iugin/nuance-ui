@@ -1,9 +1,10 @@
 <script setup lang='ts'>
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
 import Box from '../box.vue'
+import { useProvideAppShell } from './context'
 
 
 export interface AppShellProps extends BoxProps {
@@ -25,30 +26,25 @@ export interface AppShellProps extends BoxProps {
 	withBorder?: boolean
 }
 
-const {
-	mod,
-	layout = 'default',
-	withBorder = false,
-	aside,
-	footer,
-	header,
-	navbar,
-} = defineProps<AppShellProps>()
+const { is, mod, layout = 'default', withBorder = false, ...rest } = defineProps<AppShellProps>()
+
+const flags = toRefs(rest)
+useProvideAppShell(flags)
 
 const style = computed(() => ({
-	'--app-shell-navbar-transform': navbar ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,
-	'--app-shell-navbar-offset': navbar ? '0rem' : undefined,
-	'--app-shell-aside-transform': aside ? 'translateX(var(--app-shell-aside-width))' : undefined,
-	'--app-shell-aside-offset': aside ? '0rem' : undefined,
-	'--app-shell-header-transform': header ? 'translateY(calc(-1 * var(--app-shell-header-height)))' : undefined,
-	'--app-shell-header-offset': header ? '0rem' : undefined,
-	'--app-shell-footer-transform': footer ? 'translateY(var(--app-shell-footer-height))' : undefined,
-	'--app-shell-footer-offset': footer ? '0rem' : undefined,
+	'--app-shell-navbar-transform': flags.navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,
+	'--app-shell-navbar-offset': flags.navbar.value ? '0rem' : undefined,
+	'--app-shell-aside-transform': flags.aside.value ? 'translateX(var(--app-shell-aside-width))' : undefined,
+	'--app-shell-aside-offset': flags.aside.value ? '0rem' : undefined,
+	'--app-shell-header-transform': flags.header.value ? 'translateY(calc(-1 * var(--app-shell-header-height)))' : undefined,
+	'--app-shell-header-offset': flags.header.value ? '0rem' : undefined,
+	'--app-shell-footer-transform': flags.footer.value ? 'translateY(var(--app-shell-footer-height))' : undefined,
+	'--app-shell-footer-offset': flags.footer.value ? '0rem' : undefined,
 }))
 </script>
 
 <template>
-	<Box :style :class='$style.root' :mod='[mod, { layout, "with-border": withBorder }]'>
+	<Box :is :style :class='$style.root' :mod='[mod, { layout, "with-border": withBorder }]'>
 		<slot />
 	</Box>
 </template>
