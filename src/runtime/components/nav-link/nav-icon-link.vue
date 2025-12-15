@@ -23,8 +23,6 @@ export interface NavIconLinkProps extends ActionIconProps, Omit<NuxtLinkProps, '
 	notActive?: ActionIconProps['variant']
 }
 
-defineOptions({ inheritAttrs: false })
-
 const {
 	active = 'filled',
 	notActive = 'default',
