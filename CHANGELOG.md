@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.17
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.16...v0.1.17)
+
+### 🩹 Fixes
+
+- **NavIconLink:** Fix pass `$attrs` ([70c3364](https://github.com/Igor-Iugin/nuance-ui/commit/70c3364))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.16
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.15...v0.1.16)
