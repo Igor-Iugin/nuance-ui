@@ -39,7 +39,7 @@ const { link, rest } = pickLinkProps(etc)
 	<NuxtLink v-slot='{ href, navigate, isActive, ...linkProps }' v-bind='link' custom>
 		<ActionIcon
 			is='a'
-			v-bind='rest'
+			v-bind='{ ...rest, $attrs }'
 			:href
 			:variant='isActive ? active : notActive'
 			:mod='[{ active: isActive }, mod]'
