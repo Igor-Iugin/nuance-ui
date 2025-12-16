@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.19
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.18...v0.1.19)
+
+### 🚀 Enhancements
+
+- **Tree:** Rewrite Tree for async update ([d4a0bd9](https://github.com/Igor-Iugin/nuance-ui/commit/d4a0bd9))
+
+### 🩹 Fixes
+
+- **Loader:** Fix oval-loader border-width ([c69333f](https://github.com/Igor-Iugin/nuance-ui/commit/c69333f))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.18
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.17...v0.1.18)
