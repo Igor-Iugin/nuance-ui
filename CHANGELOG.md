@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.21
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.20...v0.1.21)
+
+### 🩹 Fixes
+
+- **Tree:** Fix TreeLoader type ([44167ac](https://github.com/Igor-Iugin/nuance-ui/commit/44167ac))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.20
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.19...v0.1.20)
