@@ -13,7 +13,7 @@ import css from './action-icon.module.css'
 
 
 export interface ActionIconProps {
-	size?: NuanceSize | `compact-${NuanceSize}` | string
+	size?: NuanceSize | `input-${NuanceSize}` | string
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
 	gradient?: NuanceGradient
 	loading?: boolean
