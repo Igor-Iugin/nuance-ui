@@ -1,23 +1,24 @@
-<script setup lang='ts' generic='T extends string = string'>
+<script setup lang='ts'>
 import type { ButtonProps } from '@nui/components'
 
 import { useStyleResolver } from '@nui/composals'
-import { getSize, removeTreeNodes } from '@nui/utils'
+import { getSize } from '@nui/utils'
 import { onClickOutside, useEventListener } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
 import type { RovingFocusProps } from '../../roving-focus/roving-focus.vue'
-import type { TreeIconResolver, TreeModels } from '../model'
+import type { TreeEmits, TreeIconResolver, TreeLoader, TreeModels } from '../model'
 
 import Box from '../../box.vue'
 import RovingFocus from '../../roving-focus/roving-focus.vue'
 import { useProvideTreeState } from '../lib/context'
 
 
-export type TreeRootProps<T extends string = string> = RovingFocusProps & {
-	iconResolver?: TreeIconResolver<T>
+export type TreeRootProps = RovingFocusProps & {
+	iconResolver?: TreeIconResolver
 	removable?: boolean
 	selectable?: boolean
+	loadBranch: TreeLoader
 
 	variant?: ButtonProps['variant']
 	color?: ButtonProps['color']
@@ -34,12 +35,14 @@ const {
 	iconResolver = () => ({ icon: 'gravity-ui:file' }),
 	removable = false,
 	selectable = false,
-} = defineProps<TreeRootProps<T>>()
+	loadBranch,
+} = defineProps<TreeRootProps>()
 
-const tree = defineModel<TreeModels<T>['tree']>('tree', { required: true })
-const active = defineModel<TreeModels<T>['active']>('active', { default: null })
-const selected = defineModel<TreeModels<T>['selected']>('selected', { default: [] })
-const expanded = defineModel<TreeModels<T>['expanded']>('expanded', { default: [] })
+const emit = defineEmits<TreeEmits>()
+
+const active = defineModel<TreeModels['active']>('active', { default: null })
+const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
+const expanded = defineModel<TreeModels['expanded']>('expanded', { default: [] })
 
 const style = useStyleResolver(() => ({
 	'--icon-size': getSize(size),
@@ -48,8 +51,8 @@ const style = useStyleResolver(() => ({
 const root = useTemplateRef<HTMLUListElement>('parent')
 onClickOutside(root, () => selected.value = [])
 
-useProvideTreeState<T>({
-	tree,
+useProvideTreeState({
+	root,
 	active,
 	selected,
 	expanded,
@@ -58,13 +61,14 @@ useProvideTreeState<T>({
 	color,
 	variant,
 	selectable,
+	loadBranch,
 })
 
 if (removable) {
 	useEventListener(root, 'keydown', event => {
 		if (event.key === 'Delete') {
 			event.preventDefault()
-			return tree.value = removeTreeNodes(tree.value, selected.value)
+			emit('delete', selected.value)
 		}
 	})
 }
@@ -78,7 +82,7 @@ if (removable) {
 			role='tree'
 			:style
 			:class='$style.root'
-			@keydown.esc.prevent='selected.value = []'
+			@keydown.esc.prevent='selected = []'
 		>
 			<slot />
 		</Box>

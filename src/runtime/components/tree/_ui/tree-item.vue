@@ -1,96 +1,61 @@
-<script setup lang='ts' generic='T extends string = string'>
+<script setup lang='ts'>
 import { useTheme } from '@nui/composals'
-import { getThemeColor, isFalsy } from '@nui/utils'
-import { computed } from 'vue'
+import { getThemeColor } from '@nui/utils'
+import { computed, watch } from 'vue'
 
 import type { TreeItem } from '../model'
 
 import Button from '../../button/button.vue'
-import { useRovingFocus } from '../../roving-focus'
+import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
+import UTransition from '../../transition/transition.vue'
 import { useTreeState } from '../lib/context'
+import { useTreeItemHandlers } from '../lib/item-handlers'
 
 
-export interface TreeItemProps<T extends string = string> {
-	item: TreeItem<T>
+export interface TreeItemProps extends TreeItem {
 	level: number
 }
 
-const { item, level } = defineProps<TreeItemProps<T>>()
 const {
+	type = 'file',
 	icon = 'gravity-ui:folder',
 	trailingIcon = 'gravity-ui:folder-open',
-	value,
-	label,
-	children,
+	path,
+	name,
+	level,
 	disabled,
-} = item
+} = defineProps<TreeItemProps>()
 
 const { value: theme } = useTheme()
 
-const isFolder = computed(() => !isFalsy(children))
+const isFolder = computed(() => type === 'directory')
 
-const ctx = useTreeState<T>()
-const selected = computed(() => ctx.selected.value.includes(value))
-const expanded = computed(() => ctx.expanded.value.includes(value))
-const active = computed(() => ctx.active.value === value)
+const ctx = useTreeState()
+const selected = computed(() => ctx.selected.value.includes(path))
+const expanded = computed(() => ctx.expanded.value.includes(path))
+const active = computed(() => ctx.active.value === path)
 
-const { icon: fileIcon, color } = ctx.iconResolver(item)
-
-const { focus } = useRovingFocus()
-
-function handleClick(event: MouseEvent) {
-	if (event.shiftKey)
-		ctx.toggle('select', value, 'range') // Shift + Click - выбор диапазона
-	else if (event.ctrlKey || event.metaKey)
-		ctx.toggle('select', value, 'multiple') // Ctrl/Cmd + Click - множественный выбор
-	else
-		ctx.toggle('select', value, 'single') // Обычный клик - одиночный выбор
-
-	// Раскрываем/закрываем папку только при обычном клике
-	if (isFolder.value && !event.ctrlKey && !event.metaKey && !event.shiftKey)
-		ctx.toggle('expand', value)
-}
-
-function handleKeyDown(event: KeyboardEvent) {
-	switch (event.key) {
-		// Arrow Left - закрыть папку или перейти к родителю
-		case 'ArrowLeft': {
-			event.preventDefault()
-			if (isFolder.value && expanded.value)
-				return ctx.off('expand', value)
-			else
-				return focus('prev', event.currentTarget as HTMLElement)
+const { data, pending, execute } = ctx.loadBranch(path)
+// Execute only if opened
+watch(expanded, expanded => {
+	if (expanded) {
+		try {
+			execute()
 		}
-		// Arrow Right - открыть папку или перейти к первому ребенку
-		case 'ArrowRight': {
-			event.preventDefault()
-			if (isFolder.value && !expanded.value)
-				return ctx.on('expand', value)
-			else if (expanded.value)
-				return focus('next', event.currentTarget as HTMLElement)
-			break
-		}
-		// Enter/Space - выбор элемента
-		case 'Enter': {
-			ctx.on('select', value)
-			return ctx.setActive(value)
-		}
-		case ' ': {
-			event.preventDefault()
-			if (event.shiftKey)
-				return ctx.toggle('select', value, 'range')
-			else if (event.ctrlKey || event.metaKey)
-				return ctx.toggle('select', value, 'multiple')
-
-			return ctx.toggle('select', value, 'single')
+		catch (e) {
+			console.error(e)
+			ctx.off('expand', path)
 		}
 	}
-}
+}, { immediate: true })
+
+const { icon: fileIcon, color } = ctx.iconResolver(type, name, path, disabled)
+const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expanded)
 </script>
 
 <template>
-	<li :class='$style.root' role='presentation'>
+	<li :class='$style.item' role='presentation'>
 		<RovingFocusItem>
 			<Button
 				:size='ctx.size'
@@ -98,55 +63,80 @@ function handleKeyDown(event: KeyboardEvent) {
 				:variant='ctx.variant'
 				:disabled
 				role='treeitem'
-				:classes='{
-					root: $style.button,
-					label: $style.label,
-					inner: $style.inner,
-					section: $style.section,
-				}'
+				:classes='$style'
 				:aria-level='level'
 				:aria-selected='selected'
-				:mod='{ active, selected, level }'
+				:mod='{ active, selected, "tree-item": path }'
 				@click.prevent='handleClick'
 				@keydown.prevent='handleKeyDown'
 			>
-				<template v-if='isFolder' #leftSection>
-					<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
-					<Icon v-else :class='$style.icon' :name='icon' />
+				<template #leftSection>
+					<template v-if='pending'>
+						<Loader :class='$style.icon' />
+					</template>
+
+					<template v-else-if='isFolder'>
+						<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
+						<Icon v-else :class='$style.icon' :name='icon' />
+					</template>
+
+					<template v-else>
+						<Icon
+							:class='$style.icon'
+							:name='fileIcon'
+							:style='{ color: color && getThemeColor(color, theme) }'
+						/>
+					</template>
 				</template>
-				<template v-else #leftSection>
-					<Icon
-						:class='$style.icon'
-						:name='fileIcon'
-						:style='{ color: color && getThemeColor(color, theme) }'
-					/>
-				</template>
-				{{ label ?? value }}
+
+				{{ name ?? path }}
 			</Button>
 		</RovingFocusItem>
 
-		<ul
-			v-if='expanded && item.children && item.children.length > 0'
-			:class='$style.list'
-			role='group'
-		>
-			<TreeItem
-				v-for='child in item.children'
-				:key='child.value'
-				:item='child'
-				:level='level + 1'
-			/>
-		</ul>
+		<UTransition name='scale-y'>
+			<ul
+				v-if='expanded && data && data.length > 0'
+				:class='$style.list'
+				role='group'
+			>
+				<TreeItem
+					v-for='child in data'
+					:key='child.path'
+					v-bind='child'
+					:path='child.path'
+					:level='level + 1'
+				/>
+			</ul>
+		</UTransition>
 	</li>
 </template>
 
 <style module lang='postcss'>
-.root {
+.item {
 	display: grid;
 	gap: .25rem;
 }
 
-.button {
+.icon {
+	--loader-size: var(--tree-icon-size);
+
+	width: var(--tree-icon-size);
+	height: var(--tree-icon-size);
+}
+
+.list {
+	display: grid;
+	gap: .25rem;
+
+	margin-inline-start: 1rem;
+
+	padding-inline-start: .75rem;
+	border-left: 1px solid var(--color-gray-4);
+
+	list-style: none;
+}
+
+.root {
 	.inner {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
@@ -168,23 +158,5 @@ function handleKeyDown(event: KeyboardEvent) {
 	&[data-selected] {
 		background: alpha(var(--button-color), .1);
 	}
-}
-
-
-.icon {
-	width: var(--tree-icon-size);
-	height: var(--tree-icon-size);
-}
-
-.list {
-	display: grid;
-	gap: .25rem;
-
-	margin-inline-start: 1rem;
-
-	padding-inline-start: .75rem;
-	border-left: 1px solid var(--color-gray-4);
-
-	list-style: none;
 }
 </style>

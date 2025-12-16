@@ -1,37 +1,46 @@
 import type { NuanceColor } from '@nui/types'
+import type { AsyncData } from '#app'
 
 
-export interface TreeModels<T extends string = string> {
-	active: T | null
-	tree: TreeItem<T>[]
-	selected: T[]
-	expanded: T[]
+export interface TreeModels {
+	active: string | null
+	tree: TreeItem[]
+	selected: string[]
+	expanded: string[]
 }
 
-export interface TreeItem<T extends string = string> {
+export interface TreeEmits {
+	delete: [path: string[]]
+}
+
+/**
+ *  Required pass instance of `useFetch`/`useAsyncData` with `{ immediate: false }`
+ *  Root path will be queried immediate with path `/`
+ */
+export type TreeLoader = (path: string) => AsyncData<TreeItem[], unknown>
+export type TreeItemType = 'file' | 'directory'
+
+export interface TreeItem {
 	/** @IconifyIcon */
 	icon?: string
-	/** Value given to this item */
-	value: T
-	/** Item label */
-	label?: string
+	/** Path given to this item */
+	path: string
+	/** Item name */
+	name?: string
 	/** @IconifyIcon */
 	trailingIcon?: string
-	/** Item default expanded */
-	expanded?: boolean
 	/** Item disabled state */
 	disabled?: boolean
-	/** Slot name */
-	slot?: string
-	/** Item children */
-	children?: TreeItem<T>[]
-	/** Fires when item is selected */
-	onSelect?: (item: TreeItem<T>) => void
-	/** Fires when item is toggled */
-	onToggle?: (item: TreeItem<T>) => void
+	/**
+	 *  Type of item
+	 *  @default `file`
+	 */
+	type?: TreeItemType
+
+	children?: TreeItem[]
 }
 
-export type TreeIconResolver<T extends string = string> = (item: TreeItem<T>) => {
+export type TreeIconResolver = (type: TreeItemType, name?: string, path?: string, disabled?: boolean) => {
 	icon: string
 	color?: NuanceColor
 }

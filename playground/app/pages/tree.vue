@@ -1,107 +1,120 @@
 <script setup lang='ts'>
 import type { TreeItem } from '@nui/components'
+import type { AsyncData } from '#app'
+
+import { findTreeItem } from '@nui/utils'
 
 
 const mockTreeData = ref<TreeItem[]>([
 	{
-		value: 'root/Documents',
-		label: 'Documents',
-		expanded: true,
+		path: '/Documents',
+		name: 'Documents',
+		type: 'directory',
 		children: [
 			{
-				value: 'root/Documents/Work',
-				label: 'Work',
-				expanded: true,
+				path: '/Documents/Work',
+				name: 'Work',
+				type: 'directory',
 				children: [
 					{
-						value: 'root/Documents/Work/Projects',
-						label: 'Projects',
+						path: '/Documents/Work/Projects',
+						name: 'Projects',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Documents/Work/Projects/2024',
-								label: '2024',
+								path: '/Documents/Work/Projects/2024',
+								name: '2024',
+								type: 'directory',
 								children: [
 									{
-										value: 'root/Documents/Work/Projects/2024/Q1',
-										label: 'Q1',
+										path: '/Documents/Work/Projects/2024/Q1',
+										name: 'Q1',
+										type: 'directory',
 										children: [
 											{
-												value: 'root/Documents/Work/Projects/2024/Q1/budget.xlsx',
-												label: 'budget.xlsx',
+												path: '/Documents/Work/Projects/2024/Q1/budget.xlsx',
+												name: 'budget.xlsx',
 											},
 											{
-												value: 'root/Documents/Work/Projects/2024/Q1/report.pdf',
-												label: 'report.pdf',
+												path: '/Documents/Work/Projects/2024/Q1/report.pdf',
+												name: 'report.pdf',
 											},
 										],
 									},
 									{
-										value: 'root/Documents/Work/Projects/2024/Q2',
-										label: 'Q2',
+										path: '/Documents/Work/Projects/2024/Q2',
+										name: 'Q2',
+										type: 'directory',
 										children: [
 											{
-												value: 'root/Documents/Work/Projects/2024/Q2/analysis.docx',
-												label: 'analysis.docx',
+												path: '/Documents/Work/Projects/2024/Q2/analysis.docx',
+												name: 'analysis.docx',
 											},
 										],
 									},
 								],
 							},
 							{
-								value: 'root/Documents/Work/Projects/2023',
-								label: '2023',
+								path: '/Documents/Work/Projects/2023',
+								name: '2023',
+								type: 'directory',
 								children: [
 									{
-										value: 'root/Documents/Work/Projects/2023/archive.zip',
-										label: 'archive.zip',
+										path: '/Documents/Work/Projects/2023/archive.zip',
+										name: 'archive.zip',
 									},
 								],
 							},
 						],
 					},
 					{
-						value: 'root/Documents/Work/Meetings',
-						label: 'Meetings',
+						path: '/Documents/Work/Meetings',
+						name: 'Meetings',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Documents/Work/Meetings/notes-2024-01.md',
-								label: 'notes-2024-01.md',
+								path: '/Documents/Work/Meetings/notes-2024-01.md',
+								name: 'notes-2024-01.md',
 							},
 							{
-								value: 'root/Documents/Work/Meetings/notes-2024-02.md',
-								label: 'notes-2024-02.md',
+								path: '/Documents/Work/Meetings/notes-2024-02.md',
+								name: 'notes-2024-02.md',
 							},
 						],
 					},
 				],
 			},
 			{
-				value: 'root/Documents/Personal',
-				label: 'Personal',
+				path: '/Documents/Personal',
+				name: 'Personal',
+				type: 'directory',
 				children: [
 					{
-						value: 'root/Documents/Personal/Photos',
-						label: 'Photos',
+						path: '/Documents/Personal/Photos',
+						name: 'Photos',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Documents/Personal/Photos/Vacation',
-								label: 'Vacation',
+								path: '/Documents/Personal/Photos/Vacation',
+								name: 'Vacation',
+								type: 'directory',
 								children: [
 									{
-										value: 'root/Documents/Personal/Photos/Vacation/Summer 2024',
-										label: 'Summer 2024',
+										path: '/Documents/Personal/Photos/Vacation/Summer 2024',
+										name: 'Summer 2024',
+										type: 'directory',
 										children: [
 											{
-												value: 'root/Documents/Personal/Photos/Vacation/Summer 2024/beach.jpg',
-												label: 'beach.jpg',
+												path: '/Documents/Personal/Photos/Vacation/Summer 2024/beach.jpg',
+												name: 'beach.jpg',
 											},
 											{
-												value: 'root/Documents/Personal/Photos/Vacation/Summer 2024/sunset.jpg',
-												label: 'sunset.jpg',
+												path: '/Documents/Personal/Photos/Vacation/Summer 2024/sunset.jpg',
+												name: 'sunset.jpg',
 											},
 											{
-												value: 'root/Documents/Personal/Photos/Vacation/Summer 2024/mountains.jpg',
-												label: 'mountains.jpg',
+												path: '/Documents/Personal/Photos/Vacation/Summer 2024/mountains.jpg',
+												name: 'mountains.jpg',
 											},
 										],
 									},
@@ -110,12 +123,13 @@ const mockTreeData = ref<TreeItem[]>([
 						],
 					},
 					{
-						value: 'root/Documents/Personal/Music',
-						label: 'Music',
+						path: '/Documents/Personal/Music',
+						name: 'Music',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Documents/Personal/Music/playlist.m3u',
-								label: 'playlist.m3u',
+								path: '/Documents/Personal/Music/playlist.m3u',
+								name: 'playlist.m3u',
 							},
 						],
 					},
@@ -124,32 +138,37 @@ const mockTreeData = ref<TreeItem[]>([
 		],
 	},
 	{
-		value: 'root/Downloads',
-		label: 'Downloads',
+		path: '/Downloads',
+		name: 'Downloads',
+		type: 'directory',
 		children: [
 			{
-				value: 'root/Downloads/Software',
-				label: 'Software',
+				path: '/Downloads/Software',
+				name: 'Software',
+				type: 'directory',
 				children: [
 					{
-						value: 'root/Downloads/Software/Development',
-						label: 'Development',
+						path: '/Downloads/Software/Development',
+						name: 'Development',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Downloads/Software/Development/IDE',
-								label: 'IDE',
+								path: '/Downloads/Software/Development/IDE',
+								name: 'IDE',
+								type: 'directory',
 								children: [
 									{
-										value: 'root/Downloads/Software/Development/IDE/Plugins',
-										label: 'Plugins',
+										path: '/Downloads/Software/Development/IDE/Plugins',
+										name: 'Plugins',
+										type: 'directory',
 										children: [
 											{
-												value: 'root/Downloads/Software/Development/IDE/Plugins/eslint-plugin.vsix',
-												label: 'eslint-plugin.vsix',
+												path: '/Downloads/Software/Development/IDE/Plugins/eslint-plugin.vsix',
+												name: 'eslint-plugin.vsix',
 											},
 											{
-												value: 'root/Downloads/Software/Development/IDE/Plugins/prettier-plugin.vsix',
-												label: 'prettier-plugin.vsix',
+												path: '/Downloads/Software/Development/IDE/Plugins/prettier-plugin.vsix',
+												name: 'prettier-plugin.vsix',
 											},
 										],
 									},
@@ -160,47 +179,51 @@ const mockTreeData = ref<TreeItem[]>([
 				],
 			},
 			{
-				value: 'root/Downloads/setup.exe',
-				label: 'setup.exe',
+				path: '/Downloads/setup.exe',
+				name: 'setup.exe',
 			},
 			{
-				value: 'root/Downloads/readme.txt',
-				label: 'readme.txt',
+				path: '/Downloads/readme.txt',
+				name: 'readme.txt',
 			},
 		],
 	},
 	{
-		value: 'root/Projects',
-		label: 'Projects',
-		disabled: true,
+		path: '/Projects',
+		name: 'Projects',
+		type: 'directory',
 		children: [
 			{
-				value: 'root/Projects/Frontend',
-				label: 'Frontend',
+				path: '/Projects/Frontend',
+				name: 'Frontend',
+				type: 'directory',
 				children: [
 					{
-						value: 'root/Projects/Frontend/Vue',
-						label: 'Vue',
+						path: '/Projects/Frontend/Vue',
+						name: 'Vue',
+						type: 'directory',
 						children: [
 							{
-								value: 'root/Projects/Frontend/Vue/Components',
-								label: 'Components',
+								path: '/Projects/Frontend/Vue/Components',
+								name: 'Components',
+								type: 'directory',
 								children: [
 									{
-										value: 'root/Projects/Frontend/Vue/Components/UI',
-										label: 'UI',
+										path: '/Projects/Frontend/Vue/Components/UI',
+										name: 'UI',
+										type: 'directory',
 										children: [
 											{
-												value: 'root/Projects/Frontend/Vue/Components/UI/Button.vue',
-												label: 'Button.vue',
+												path: '/Projects/Frontend/Vue/Components/UI/Button.vue',
+												name: 'Button.vue',
 											},
 											{
-												value: 'root/Projects/Frontend/Vue/Components/UI/Input.vue',
-												label: 'Input.vue',
+												path: '/Projects/Frontend/Vue/Components/UI/Input.vue',
+												name: 'Input.vue',
 											},
 											{
-												value: 'root/Projects/Frontend/Vue/Components/UI/Tree.vue',
-												label: 'Tree.vue',
+												path: '/Projects/Frontend/Vue/Components/UI/Tree.vue',
+												name: 'Tree.vue',
 											},
 										],
 									},
@@ -213,12 +236,31 @@ const mockTreeData = ref<TreeItem[]>([
 		],
 	},
 	{
-		value: 'root/Archive',
-		label: 'Archive',
+		path: '/Archive',
+		name: 'Archive',
+		type: 'directory',
 	},
 ])
+
+function handleLoad(path: string): AsyncData<TreeItem[], unknown> {
+	const pending = ref<boolean>(false)
+	const data = shallowRef<TreeItem[]>([])
+
+	const execute = async () => {
+		pending.value = true
+		await new Promise(resolve => setTimeout(resolve, 500))
+		pending.value = false
+
+		if (path === '/')
+			data.value = mockTreeData.value.map(({ children: _, ...item }) => item)
+		else
+			data.value = findTreeItem(mockTreeData.value, path)?.children ?? []
+	}
+
+	return { data, pending, execute } as AsyncData<TreeItem[], unknown>
+}
 </script>
 
 <template>
-	<NTree v-model:tree='mockTreeData' removable selectable />
+	<NTree :load-branch='handleLoad' selectable />
 </template>
