@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.20
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.19...v0.1.20)
+
+### 🚀 Enhancements
+
+- **Tree:** Added chevron for folders ([f655bad](https://github.com/Igor-Iugin/nuance-ui/commit/f655bad))
+
+### 🩹 Fixes
+
+- **ActionIcon:** Fix size type ([0eff594](https://github.com/Igor-Iugin/nuance-ui/commit/0eff594))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.19
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.18...v0.1.19)
