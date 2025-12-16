@@ -5,6 +5,7 @@ import { computed, watch } from 'vue'
 
 import type { TreeItem } from '../model'
 
+import ActionIcon from '../../action-icon/action-icon.vue'
 import Button from '../../button/button.vue'
 import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
@@ -67,6 +68,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 				:aria-level='level'
 				:aria-selected='selected'
 				:mod='{ active, selected, "tree-item": path }'
+				right-section-p-e='all'
 				@click.prevent='handleClick'
 				@keydown.prevent='handleKeyDown'
 			>
@@ -90,6 +92,18 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 				</template>
 
 				{{ name ?? path }}
+
+				<template v-if='isFolder' #rightSection>
+					<ActionIcon
+						icon='gravity-ui:chevron-down'
+						size='sm'
+						:color='ctx.color'
+						:classes='{ root: $style.chevron, icon: $style["chevron-icon"] }'
+						:mod='{ expanded }'
+						variant='subtle'
+						@click.stop='ctx.toggle("expand", path)'
+					/>
+				</template>
 			</Button>
 		</RovingFocusItem>
 
@@ -123,6 +137,23 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 	width: var(--tree-icon-size);
 	height: var(--tree-icon-size);
 }
+
+.chevron {
+	color: var(--color-dimmed);
+
+	transition: transform .3s ease-in-out;
+
+	&:hover {
+		color: var(--color-dimmed);
+
+		background-color: transparent;
+	}
+
+	&[data-expanded] .chevron-icon {
+		transform: rotate(-180deg);
+	}
+}
+
 
 .list {
 	display: grid;

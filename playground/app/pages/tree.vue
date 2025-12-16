@@ -262,5 +262,13 @@ function handleLoad(path: string): AsyncData<TreeItem[], unknown> {
 </script>
 
 <template>
-	<NTree :load-branch='handleLoad' selectable />
+	<div :class='$style.root'>
+		<NTree :load-branch='handleLoad' selectable />
+	</div>
 </template>
+
+<style module>
+.root {
+	max-width: 300px;
+}
+</style>
