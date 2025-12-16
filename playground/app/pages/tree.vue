@@ -242,7 +242,7 @@ const mockTreeData = ref<TreeItem[]>([
 	},
 ])
 
-function handleLoad(path: string): AsyncData<TreeItem[], unknown> {
+function handleLoad(path: string) {
 	const pending = ref<boolean>(false)
 	const data = shallowRef<TreeItem[]>([])
 
@@ -257,7 +257,7 @@ function handleLoad(path: string): AsyncData<TreeItem[], unknown> {
 			data.value = findTreeItem(mockTreeData.value, path)?.children ?? []
 	}
 
-	return { data, pending, execute } as AsyncData<TreeItem[], unknown>
+	return { data, pending, execute } as AsyncData<TreeItem[], any>
 }
 </script>
 
