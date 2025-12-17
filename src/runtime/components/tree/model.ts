@@ -1,5 +1,5 @@
 import type { NuanceColor } from '@nui/types'
-import type { AsyncData } from '#app'
+import type { AsyncData, NuxtError } from '#app'
 import type { FetchError } from 'ofetch'
 
 
@@ -18,7 +18,11 @@ export interface TreeEmits {
  *  Required pass instance of `useFetch`/`useAsyncData` with `{ immediate: false }`
  *  Root path will be queried immediate with path `/`
  */
-export type TreeLoader = (path: string) => AsyncData<TreeItem[], FetchError<any>>
+export type TreeLoader = (path: string) => AsyncData<
+	TreeItem[] | undefined,
+	FetchError<any> | NuxtError | undefined | null
+>
+
 export type TreeItemType = 'file' | 'directory'
 
 export interface TreeItem {

@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import type { TreeItem } from '@nui/components'
-import type { AsyncData } from '#app'
 
 import { findTreeItem } from '@nui/utils'
 
@@ -243,21 +242,16 @@ const mockTreeData = ref<TreeItem[]>([
 ])
 
 function handleLoad(path: string) {
-	const pending = ref<boolean>(false)
-	const data = shallowRef<TreeItem[]>([])
-
-	const execute = async () => {
-		pending.value = true
+	return useAsyncData<TreeItem[]>(`tree-${path}`, async () => {
 		await new Promise(resolve => setTimeout(resolve, 500))
-		pending.value = false
 
-		if (path === '/')
-			data.value = mockTreeData.value.map(({ children: _, ...item }) => item)
-		else
-			data.value = findTreeItem(mockTreeData.value, path)?.children ?? []
-	}
-
-	return { data, pending, execute } as AsyncData<TreeItem[], any>
+		if (path === '/') {
+			return mockTreeData.value.map(({ children: _, ...item }) => item)
+		}
+		else {
+			return findTreeItem(mockTreeData.value, path)?.children ?? []
+		}
+	}, { immediate: false, server: false })
 }
 </script>
 
