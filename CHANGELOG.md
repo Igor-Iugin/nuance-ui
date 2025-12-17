@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.24
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.23...v0.1.24)
+
+### 🩹 Fixes
+
+- **Tree:** Fix handlers ([d47728e](https://github.com/Igor-Iugin/nuance-ui/commit/d47728e))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.23
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.22...v0.1.23)
