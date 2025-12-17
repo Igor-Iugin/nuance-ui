@@ -1,6 +1,5 @@
 import type { ShallowRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
 import { createInjectionState, unrefElement } from '@vueuse/core'
 import { nextTick, ref, watch } from 'vue'
 

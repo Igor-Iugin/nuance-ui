@@ -126,7 +126,7 @@ export function flatTree<T extends string = string>(tree: TreeNode<T>[]): TreeNo
  *
  * @template T - The type of node values
  * @param {TreeNode<T>[]} tree - The tree to search in
- * @param {T} value - The value of the parent node
+ * @param {T} path - The path of the parent node
  * @returns {T[]} Array of all descendant values (empty if node not found or has no children)
  * @example
  * const tree = [
