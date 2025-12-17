@@ -1,7 +1,7 @@
 import type { ShallowRef } from 'vue'
 
 import { createStrictInjection } from '@nui/helpers'
-import { unrefElement } from '@vueuse/core'
+import { createInjectionState, unrefElement } from '@vueuse/core'
 import { nextTick, ref, watch } from 'vue'
 
 
@@ -19,7 +19,7 @@ interface State {
 }
 
 const injectionKey = Symbol('roving-focus')
-const [useProvide, useState] = createStrictInjection(({ list, loop, orientation, attr = SELECT_ATTR }: State) => {
+const [useProvide, useState] = createInjectionState(({ list, loop, orientation, attr = SELECT_ATTR }: State) => {
 	const activeIx = ref(-1)
 
 	/**
@@ -154,7 +154,6 @@ const [useProvide, useState] = createStrictInjection(({ list, loop, orientation,
 	})
 }, {
 	injectionKey,
-	name: 'RovingFocus',
 })
 /**
  * Provides the roving focus context to descendants.
