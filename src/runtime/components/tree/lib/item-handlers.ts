@@ -8,7 +8,7 @@ import { useTreeState } from './context'
 export function useTreeItemHandlers(path: string, isFolder: Ref<boolean>, expanded: Ref<boolean>) {
 	const ctx = useTreeState()
 
-	const { focus } = useRovingFocus()
+	const { focus } = useRovingFocus() ?? {}
 
 	function handleClick(event: MouseEvent) {
 		if (event.shiftKey)
