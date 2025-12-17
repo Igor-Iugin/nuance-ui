@@ -98,7 +98,5 @@ if (removable) {
 	gap: .25rem;
 
 	padding-inline-start: 0;
-
-	list-style: none;
 }
 </style>

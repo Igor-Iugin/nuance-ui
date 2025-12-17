@@ -163,8 +163,6 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 
 	padding-inline-start: .75rem;
 	border-left: 1px solid var(--color-gray-4);
-
-	list-style: none;
 }
 
 .root {
