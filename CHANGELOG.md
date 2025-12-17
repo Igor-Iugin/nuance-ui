@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.23
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.22...v0.1.23)
+
+### 🩹 Fixes
+
+- **RovingFocus:** Remove required context ([c311b44](https://github.com/Igor-Iugin/nuance-ui/commit/c311b44))
+- **docs:** Fix jsdoc ([7d6cf86](https://github.com/Igor-Iugin/nuance-ui/commit/7d6cf86))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.22
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.21...v0.1.22)
