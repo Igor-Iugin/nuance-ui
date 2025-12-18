@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, toRefs } from 'vue'
+import { computed, ref } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -26,20 +26,38 @@ export interface AppShellProps extends BoxProps {
 	withBorder?: boolean
 }
 
-const { is, mod, layout = 'default', withBorder = false, ...rest } = defineProps<AppShellProps>()
+const {
+	is,
+	mod,
+	layout = 'default',
+	withBorder = false,
+	aside: _aside,
+	footer: _footer,
+	header: _header,
+	navbar: _navbar,
+} = defineProps<AppShellProps>()
 
-const flags = toRefs(rest)
-useProvideAppShell(flags)
+const aside = ref(_aside ?? false)
+const footer = ref(_footer ?? false)
+const header = ref(_header ?? false)
+const navbar = ref(_navbar ?? false)
+
+useProvideAppShell({
+	aside,
+	footer,
+	header,
+	navbar,
+})
 
 const style = computed(() => ({
-	'--app-shell-navbar-transform': flags.navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,
-	'--app-shell-navbar-offset': flags.navbar.value ? '0rem' : undefined,
-	'--app-shell-aside-transform': flags.aside.value ? 'translateX(var(--app-shell-aside-width))' : undefined,
-	'--app-shell-aside-offset': flags.aside.value ? '0rem' : undefined,
-	'--app-shell-header-transform': flags.header.value ? 'translateY(calc(-1 * var(--app-shell-header-height)))' : undefined,
-	'--app-shell-header-offset': flags.header.value ? '0rem' : undefined,
-	'--app-shell-footer-transform': flags.footer.value ? 'translateY(var(--app-shell-footer-height))' : undefined,
-	'--app-shell-footer-offset': flags.footer.value ? '0rem' : undefined,
+	'--app-shell-navbar-transform': navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,
+	'--app-shell-navbar-offset': navbar.value ? '0rem' : undefined,
+	'--app-shell-aside-transform': aside.value ? 'translateX(var(--app-shell-aside-width))' : undefined,
+	'--app-shell-aside-offset': aside.value ? '0rem' : undefined,
+	'--app-shell-header-transform': header.value ? 'translateY(calc(-1 * var(--app-shell-header-height)))' : undefined,
+	'--app-shell-header-offset': header.value ? '0rem' : undefined,
+	'--app-shell-footer-transform': footer.value ? 'translateY(var(--app-shell-footer-height))' : undefined,
+	'--app-shell-footer-offset': footer.value ? '0rem' : undefined,
 }))
 </script>
 
