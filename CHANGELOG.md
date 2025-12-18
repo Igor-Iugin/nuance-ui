@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.25
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.24...v0.1.25)
+
+### 🩹 Fixes
+
+- **CSS:** Add reset list styles ([11ce469](https://github.com/Igor-Iugin/nuance-ui/commit/11ce469))
+- Fix breadcrumbs and warning in pickLinkProps ([712a4a8](https://github.com/Igor-Iugin/nuance-ui/commit/712a4a8))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.24
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.23...v0.1.24)
