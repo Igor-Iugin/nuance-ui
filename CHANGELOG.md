@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.26
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.25...v0.1.26)
+
+### 🩹 Fixes
+
+- **AppShell:** Fix usage of layout ([390f808](https://github.com/Igor-Iugin/nuance-ui/commit/390f808))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.25
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.24...v0.1.25)
