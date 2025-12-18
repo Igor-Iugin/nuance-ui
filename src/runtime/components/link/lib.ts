@@ -1,7 +1,5 @@
 import type { NuxtLinkProps } from '#app'
 
-import { reactiveOmit, reactivePick } from '@vueuse/core'
-
 
 const linkProps = [
 	'to',
@@ -21,15 +19,28 @@ const linkProps = [
 	'viewTransition',
 ] as const
 
+type NuxtLinkParams = typeof linkProps[number]
+
 export function pickLinkProps<T extends NuxtLinkProps>(props: T) {
-	const link = reactivePick(props, ...linkProps)
-	const rest = reactiveOmit(props, ...linkProps)
+	const link: Pick<T, NuxtLinkParams> = {}
+	const rest = {} as Omit<T, NuxtLinkParams>
+
+	for (const key in props) {
+		if (linkProps.includes(key as any)) {
+			// @ts-ignore
+			link[key] = props[key]
+		}
+		else {
+			// @ts-ignore
+			rest[key] = props[key]
+		}
+	}
 
 	return {
 		link: {
 			...link,
-			prefetch: link?.prefetch || undefined,
-			noPrefetch: link?.noPrefetch || undefined,
+			prefetch: link?.prefetch ?? undefined,
+			noPrefetch: link?.noPrefetch ?? undefined,
 		},
 		rest,
 	}

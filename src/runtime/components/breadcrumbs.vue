@@ -23,6 +23,7 @@ export interface BreadcrumbsItem extends Omit<LinkProps, 'mod'> {
 }
 
 export interface BreadcrumbsProps extends BoxProps {
+	/** Manual items array */
 	items?: MaybeRef<BreadcrumbsItem[]>
 
 	/** Separator icon between items @default `'gravity-ui:chevron-right'` */
@@ -30,6 +31,9 @@ export interface BreadcrumbsProps extends BoxProps {
 
 	/** Controls spacing between separator and breadcrumb @default `'xs'` */
 	spacing?: NuanceSpacing
+
+	/** Function to determine if an item is active */
+	activeItem?: (item: BreadcrumbsItem) => boolean
 
 	color?: NuanceColor
 	size?: TextProps['fz']
@@ -42,6 +46,7 @@ const {
 	separator = 'gravity-ui:chevron-right',
 	color = 'primary',
 	size,
+	items,
 } = defineProps<BreadcrumbsProps>()
 
 const style = computed(() => ({
@@ -50,7 +55,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Box :is :mod :style :class='$style.root' aria-label='breadcrumb'>
+	<Box :is :mod :style	:class='$style.root' aria-label='breadcrumb'>
 		<template v-for='(item, ix) in unref(items)' :key='ix'>
 			<Text
 				is='li'
@@ -61,8 +66,18 @@ const style = computed(() => ({
 				aria-hidden='true'
 			>
 				<NuxtLink v-slot='{ isActive }' v-bind='pickLinkProps(item).link' custom>
-					<slot :name='item.slot ?? "item"' :item='item' :ix='ix' :active='isActive'>
-						<Link v-bind='pickLinkProps(item).link' inherit :class='$style.item' :mod='{ active: isActive }'>
+					<slot
+						:name='item.slot ?? "item"'
+						:item='item'
+						:ix='ix'
+						:active='activeItem ? activeItem(item) : isActive'
+					>
+						<Link
+							v-bind='pickLinkProps(item).link'
+							inherit
+							:class='$style.item'
+							:mod='{ active: activeItem ? activeItem(item) : isActive }'
+						>
 							<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
 							<Text is='span' inherit truncate>
 								{{ item.label }}
@@ -88,8 +103,6 @@ const style = computed(() => ({
 	flex-wrap: wrap;
 	gap: var(--bc-spacing);
 	align-items: center;
-
-	list-style: none;
 }
 
 .breadcrumb {
@@ -105,6 +118,7 @@ const style = computed(() => ({
 	display: flex;
 	gap: .25rem;
 	align-items: center;
+	text-transform: capitalize;
 
 	font-weight: 600;
 
