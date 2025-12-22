@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.29
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.28...v0.1.29)
+
+### 🩹 Fixes
+
+- **Table:** Pass cell size in table ([7d02ddf](https://github.com/Igor-Iugin/nuance-ui/commit/7d02ddf))
+- Pass cell slots ([9c46403](https://github.com/Igor-Iugin/nuance-ui/commit/9c46403))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.28
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.27...v0.1.28)
