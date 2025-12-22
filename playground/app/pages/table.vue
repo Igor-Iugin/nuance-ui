@@ -1,9 +1,6 @@
 <script setup lang='ts'>
-import type { TableColumn } from '@nui/components'
+import { createColumnHelper } from '@tanstack/vue-table'
 
-
-const NCheckbox = resolveComponent('NCheckbox')
-const NButton = resolveComponent('NButton')
 
 interface Payment {
 	id: string
@@ -82,93 +79,49 @@ const data = ref<Payment[]>([
 	},
 ])
 
-const columns: TableColumn<Payment>[] = [
-	{
+
+const helper = createColumnHelper<Payment>()
+
+const Checkbox = resolveComponent('NCheckbox')
+const Text = resolveComponent('NText')
+const Icon = resolveComponent('NIcon')
+
+const columns = [
+	helper.display({
 		id: 'select',
-		header: ({ table }) =>
-			h(NCheckbox, {
-				'modelValue': table.getIsSomePageRowsSelected()
-					? 'indeterminate'
-					: table.getIsAllPageRowsSelected(),
-				'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
-					table.toggleAllPageRowsSelected(!!value),
-				'aria-label': 'Select all',
-			}),
-		cell: ({ row }) =>
-			h(NCheckbox, {
-				'modelValue': row.getIsSelected() ? true : row.getIsSomeSelected() ? 'indeterminate' : false,
-				'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
-				'aria-label': 'Select row',
-			}),
-	},
-	{
-		accessorKey: 'id',
-		header: '#',
-		cell: ({ row }) => {
-			return h(
-				'div',
-				{
-					style: {
-						paddingLeft: `${row.depth}rem`,
-					},
-					class: 'flex items-center gap-2',
-				},
-				[
-					h(NButton, {
-						color: 'neutral',
-						variant: 'outline',
-						size: 'xs',
-						icon: row.getIsExpanded() ? 'i-lucide-minus' : 'i-lucide-plus',
-						class: !row.getCanExpand() && 'invisible',
-						ui: {
-							base: 'p-0 rounded-sm',
-							leadingIcon: 'size-4',
-						},
-						onClick: row.getToggleExpandedHandler(),
-					}),
-					row.getValue('id') as string,
-				],
-			)
-		},
-	},
-	{
-		accessorKey: 'date',
-		header: 'Date',
-		cell: ({ row }) => {
-			return new Date(row.getValue('date')).toLocaleString('en-US', {
-				day: 'numeric',
-				month: 'short',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false,
-			})
-		},
-	},
-	{
-		accessorKey: 'email',
-		header: 'Email',
-	},
-	{
-		accessorKey: 'amount',
-		header: () => h('div', { class: 'text-right' }, 'Amount'),
-		cell: ({ row }) => {
-			const amount = Number.parseFloat(row.getValue('amount'))
-
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'EUR',
-			}).format(amount)
-
-			return h('div', { class: 'text-right font-medium' }, formatted)
-		},
-	},
+		header: ({ table }) => h(Checkbox, {
+			'modelValue': table.getIsSomePageRowsSelected()
+				? 'indeterminate'
+				: table.getIsAllPageRowsSelected(),
+			'onUpdate:modelValue': (value: boolean | 'indeterminate') =>
+				table.toggleAllPageRowsSelected(!!value),
+			'aria-label': 'Select all',
+		}),
+		cell: ({ row }) => h(Checkbox, {
+			'modelValue': row.getIsSelected(),
+			'onUpdate:modelValue': (value: boolean | 'indeterminate') => row.toggleSelected(!!value),
+			'aria-label': 'Select row',
+		}),
+		size: 40,
+	}),
+	helper.display({
+		id: 'icon',
+		cell: () => h(Icon, { name: 'gravity-ui:folder', size: 20 }),
+		size: 40,
+	}),
+	helper.accessor('date', {
+		header: 'Дата',
+		cell: ({ getValue }) => h(Text, getValue()),
+	}),
+	helper.accessor('amount', {
+		header: 'Количество',
+		cell: ({ getValue }) => h(Text, getValue()),
+		size: 80,
+	}),
 ]
 </script>
 
 <template>
-	<NTable
-		:data
-		:columns
-	/>
+	<NTable :data :columns	/>
 </template>
 

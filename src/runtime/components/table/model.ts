@@ -19,14 +19,14 @@ import type {
 	VisibilityOptions,
 } from '@tanstack/vue-table'
 import type { VirtualizerOptions } from '@tanstack/vue-virtual'
-import type { TableHTMLAttributes, WatchOptions } from 'vue'
+import type { CSSProperties, TableHTMLAttributes, WatchOptions } from 'vue'
 
 import type { NuanceColor } from '../../types'
 
 
 export type TableRow<T> = Row<T>
 export type TableData = RowData
-export type TableColumn<T extends TableData, D = unknown> = ColumnDef<T, D>
+export type TableColumn<T extends TableData, D = any> = ColumnDef<T, D>
 
 export interface TableOptions<T extends TableData = TableData> extends Omit<CoreOptions<T>, 'data' | 'columns' | 'getCoreRowModel' | 'state' | 'onStateChange' | 'renderFallbackValue'> {
 	state?: CoreOptions<T>['state']
@@ -95,6 +95,7 @@ export interface TableProps<T extends TableData = TableData>
 	 * @defaultValue 'primary'
 	 */
 	loadingColor?: NuanceColor | string
+	verticalAlign?: CSSProperties['verticalAlign']
 
 	onSelect?: (e: Event, row: TableRow<T>) => void
 	onHover?: (e: Event, row: TableRow<T> | null) => void
@@ -105,6 +106,7 @@ export interface TableProps<T extends TableData = TableData>
 		table?: string
 		thead?: string
 		th?: string
+		td?: string
 		tr?: string
 		tbody?: string
 		tfoot?: string

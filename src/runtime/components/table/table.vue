@@ -1,8 +1,28 @@
 <script setup lang="ts" generic="T extends TableData">
-import type { ColumnFiltersState, ColumnOrderState, ColumnPinningState, ColumnSizingInfoState, ColumnSizingState, ExpandedState, GroupingState, PaginationState, RowPinningState, RowSelectionState, SortingState, VisibilityState } from '@tanstack/vue-table'
+import type {
+	ColumnFiltersState,
+	ColumnOrderState,
+	ColumnPinningState,
+	ColumnSizingInfoState,
+	ColumnSizingState,
+	ExpandedState,
+	GroupingState,
+	PaginationState,
+	RowPinningState,
+	RowSelectionState,
+	SortingState,
+	VisibilityState,
+} from '@tanstack/vue-table'
 import type { Ref } from 'vue'
 
-import { FlexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, getSortedRowModel, useVueTable } from '@tanstack/vue-table'
+import {
+	FlexRender,
+	getCoreRowModel,
+	getExpandedRowModel,
+	getFilteredRowModel,
+	getSortedRowModel,
+	useVueTable,
+} from '@tanstack/vue-table'
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { reactivePick, unrefElement } from '@vueuse/core'
 import { useStyleResolver } from '#imports'
@@ -208,6 +228,7 @@ const renderedSize = computed(() => {
 
 const style = computed(() => useStyleResolver(theme => ({
 	'--table-loader-color': props.loadingColor ? getThemeColor(props.loadingColor, theme) : undefined,
+	'--vertical-align': props.verticalAlign,
 })))
 
 defineExpose({
@@ -362,6 +383,9 @@ defineExpose({
 	--table-color: var(--color-primary-4);
 	--table-loader-color: var(--table-color);
 	--table-loader-animation: carousel 2s ease-in-out infinite;
+	--table-padding-x: .5rem;
+	--table-padding-y: .5rem;
+	--vertical-align: baseline;
 
 	@mixin where-light {
 		--table-active-bg: alpha(var(--color-slate-1), .5);
@@ -419,10 +443,11 @@ defineExpose({
 
 .th {
 	font-weight: 600;
-	padding-block: .75rem;
-	padding-inline: 1rem;
+	padding-block: var(--table-padding-y);
+	padding-inline: var(--table-padding-x);
 	text-align: left;
 	color: var(--table-c);
+	vertical-align: var(--vertical-align);
 
 	&:has([role='checkbox']) {
 		padding-inline-end: 0;
@@ -470,8 +495,10 @@ defineExpose({
 
 	td {
 		white-space: nowrap;
-		padding: 1rem;
+		padding-block: var(--table-padding-y);
+		padding-inline: var(--table-padding-x);
 		color: var(--table-c);
+		vertical-align: var(--vertical-align);
 
 		&:has([role='checkbox']) {
 			padding-inline-end: 0;
