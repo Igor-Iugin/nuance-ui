@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.28
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.27...v0.1.28)
+
+### 🩹 Fixes
+
+- Fix table types ([cd8f6d7](https://github.com/Igor-Iugin/nuance-ui/commit/cd8f6d7))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.27
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.26...v0.1.27)
