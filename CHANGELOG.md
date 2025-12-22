@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.27
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.26...v0.1.27)
+
+### 🚀 Enhancements
+
+- **new:** Table component ([9c40a62](https://github.com/Igor-Iugin/nuance-ui/commit/9c40a62))
+
+### 🩹 Fixes
+
+- Rework indeterminate state ([f5d7585](https://github.com/Igor-Iugin/nuance-ui/commit/f5d7585))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.26
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.25...v0.1.26)
