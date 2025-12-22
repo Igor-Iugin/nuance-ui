@@ -24,6 +24,9 @@ const theme = useTheme()
 			<NNavLink to='/tree'>
 				Tree
 			</NNavLink>
+			<NNavLink to='/table'>
+				Table
+			</NNavLink>
 			<NNavLink to='/progress'>
 				Progress
 			</NNavLink>

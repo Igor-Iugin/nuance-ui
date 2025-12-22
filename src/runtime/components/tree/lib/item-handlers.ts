@@ -31,7 +31,7 @@ export function useTreeItemHandlers(path: string, isFolder: Ref<boolean>, expand
 				if (isFolder.value && expanded.value)
 					return ctx.off('expand', path)
 				else
-					return focus('prev', event.currentTarget as HTMLElement)
+					return focus?.('prev', event.currentTarget as HTMLElement)
 			}
 			// Arrow Right - открыть папку или перейти к первому ребенку
 			case 'ArrowRight': {
@@ -39,7 +39,7 @@ export function useTreeItemHandlers(path: string, isFolder: Ref<boolean>, expand
 				if (isFolder.value && !expanded.value)
 					return ctx.on('expand', path)
 				else if (expanded.value)
-					return focus('next', event.currentTarget as HTMLElement)
+					return focus?.('next', event.currentTarget as HTMLElement)
 				break
 			}
 			// Enter/Space - выбор элемента

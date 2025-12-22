@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -8,18 +8,6 @@ import { useProvideAppShell } from './context'
 
 
 export interface AppShellProps extends BoxProps {
-	/** AppShellNavbar collapsed state. Required if you use AppShellNavbar component. */
-	navbar?: boolean
-
-	/** AppShellAside collapsed state. Required if you use AppShellAside component. */
-	aside?: boolean
-
-	/** AppShellHeader collapsed state. Required if you use AppShellHeader component. */
-	header?: boolean
-
-	/** AppShellFooter collapsed state. Required if you use AppShellFooter component. */
-	footer?: boolean
-
 	/** Determines how Navbar/Aside are arranged relative to Header/Footer, `default` by default */
 	layout?: 'default' | 'alt'
 
@@ -31,23 +19,14 @@ const {
 	mod,
 	layout = 'default',
 	withBorder = false,
-	aside: _aside,
-	footer: _footer,
-	header: _header,
-	navbar: _navbar,
 } = defineProps<AppShellProps>()
 
-const aside = ref(_aside ?? false)
-const footer = ref(_footer ?? false)
-const header = ref(_header ?? false)
-const navbar = ref(_navbar ?? false)
+const aside = defineModel<boolean>('aside', { default: false })
+const header = defineModel<boolean>('header', { default: false })
+const navbar = defineModel<boolean>('navbar', { default: false })
+const footer = defineModel<boolean>('footer', { default: false })
 
-useProvideAppShell({
-	aside,
-	footer,
-	header,
-	navbar,
-})
+useProvideAppShell({ aside, footer, header, navbar	})
 
 const style = computed(() => ({
 	'--app-shell-navbar-transform': navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,

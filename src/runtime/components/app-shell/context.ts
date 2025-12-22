@@ -1,13 +1,13 @@
-import type { Ref } from 'vue'
+import type { ModelRef } from 'vue'
 
 import { createInjectionState } from '@vueuse/core'
 
 
 interface AppShellState {
-	header: Ref<boolean>
-	navbar: Ref<boolean>
-	aside: Ref<boolean>
-	footer: Ref<boolean>
+	header: ModelRef<boolean>
+	navbar: ModelRef<boolean>
+	aside: ModelRef<boolean>
+	footer: ModelRef<boolean>
 }
 
 const [useProvide, useAState] = createInjectionState<[AppShellState], AppShellState>(state => state)
