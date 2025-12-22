@@ -18,7 +18,6 @@ export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 	variant?: 'filled' | 'outline'
 	radius?: NuanceSize
 	size?: NuanceSize
-	indeterminate?: boolean
 	value?: string
 }
 
@@ -28,20 +27,19 @@ const {
 	variant = 'filled',
 	color,
 	iconColor,
-	indeterminate,
 	value,
 	...rest
 } = defineProps<CheckboxProps>()
 
 const id = useId()
-const modelValue = defineModel<boolean>()
+const modelValue = defineModel<boolean | 'indeterminate'>()
 const ctx = useCheckboxGroupState()
 
 const checked = computed(() => {
 	if (ctx?.value && value)
 		return ctx?.value.value.includes(value)
 
-	return modelValue.value
+	return !!modelValue.value
 })
 
 const size = ctx?.size ?? _size
@@ -74,8 +72,8 @@ const style = computed(() => useStyleResolver(theme => {
 				@change='() => value && ctx ? ctx.onUpdate(value) : toggle()'
 			>
 
-			<slot name='icon' :indeterminate='indeterminate' :class='$style.icon'>
-				<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' />
+			<slot name='icon' :indeterminate='modelValue === "indeterminate"' :class='$style.icon'>
+				<Icon v-if='modelValue !== "indeterminate"' name='gravity-ui:check' :class='$style.icon' />
 				<Icon v-else name='gravity-ui:minus' :class='$style.icon' />
 			</slot>
 		</Box>
