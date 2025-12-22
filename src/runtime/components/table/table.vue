@@ -274,8 +274,14 @@ defineExpose({
 						:scope="header.colSpan > 1 ? 'colgroup' : 'col'"
 						:colspan='header.colSpan > 1 ? header.colSpan : undefined'
 						:rowspan='header.rowSpan > 1 ? header.rowSpan : undefined'
-						:class='[$style.th, props.classes?.th, resolveValue(header.column.columnDef.meta?.class?.th, header)]'
-						:style='resolveValue(header.column.columnDef.meta?.style?.th, header)'
+						:class='[
+							$style.th,
+							props.classes?.th, resolveValue(header.column.columnDef.meta?.class?.th, header),
+						]'
+						:style='[
+							{ width: header.getSize() !== 150 ? `${header.getSize()}px` : undefined },
+							resolveValue(header.column.columnDef.meta?.style?.th, header),
+						]'
 					>
 						<slot :name='`${header.id}-header`' v-bind='header.getContext()'>
 							<FlexRender

@@ -75,7 +75,10 @@ function onRowContextmenu(e: Event, row: TableRow<T>) {
 			:colspan='resolveValue(cell.column.columnDef.meta?.colspan?.td, cell)'
 			:rowspan='resolveValue(cell.column.columnDef.meta?.rowspan?.td, cell)'
 			:class='resolveValue(cell.column.columnDef.meta?.class?.td, cell)'
-			:style='resolveValue(cell.column.columnDef.meta?.style?.td, cell)'
+			:style='[
+				{ width: cell.column.getSize() !== 150 ? `${cell.column.getSize()}px` : undefined },
+				resolveValue(cell.column.columnDef.meta?.style?.td, cell),
+			]'
 		>
 			<slot :name='`${cell.column.id}-cell`' v-bind='cell.getContext()'>
 				<FlexRender :render='cell.column.columnDef.cell' :props='cell.getContext()' />
