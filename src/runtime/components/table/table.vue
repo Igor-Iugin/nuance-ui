@@ -23,18 +23,15 @@ import {
 	getSortedRowModel,
 	useVueTable,
 } from '@tanstack/vue-table'
-import { useVirtualizer } from '@tanstack/vue-virtual'
 import { reactivePick, unrefElement } from '@vueuse/core'
 import { useStyleResolver } from '#imports'
-import defu from 'defu'
-import { computed, ref, toRef, useTemplateRef, watch } from 'vue'
+import { computed, ref, useTemplateRef, watch } from 'vue'
 
 import type { TableColumn, TableData, TableProps, TableSlots } from './model'
 
 import { getThemeColor } from '../../utils'
 import Box from '../box.vue'
-import TableRow from './_ui/table-row.vue'
-import { processColumns, resolveValue, valueUpdater } from './lib'
+import { createRowHandlers, processColumns, resolveValue, valueUpdater } from './lib'
 
 
 defineOptions({ inheritAttrs: false })
@@ -196,40 +193,12 @@ watch(() => props.data, () => {
 	data.value = props.data ? [...props.data] : []
 }, props.watchOptions)
 
-
-const virtualizerProps = toRef(() => defu(typeof props.virtualize === 'boolean' ? {} : props.virtualize, {
-	estimateSize: 65,
-	overscan: 12,
-}))
-
-const virtualizer = !!props.virtualize && useVirtualizer({
-	...virtualizerProps.value,
-	get count() {
-		return rows.value.length
-	},
-	getScrollElement: () => unrefElement(rootRef) as Element,
-	estimateSize: (index: number) => {
-		const estimate = virtualizerProps.value.estimateSize
-		return typeof estimate === 'function' ? estimate(index) : estimate
-	},
-})
-
-const renderedSize = computed(() => {
-	if (!virtualizer)
-		return 0
-
-	const virtualItems = virtualizer.value.getVirtualItems()
-	if (!virtualItems?.length)
-		return 0
-
-	// Sum up the actual sizes of virtual items
-	return virtualItems.reduce((sum: number, item: any) => sum + item.size, 0)
-})
-
 const style = computed(() => useStyleResolver(theme => ({
 	'--table-loader-color': props.loadingColor ? getThemeColor(props.loadingColor, theme) : undefined,
 	'--vertical-align': props.verticalAlign,
 })))
+
+const { onRowContextmenu, onRowHover, onRowSelect } = createRowHandlers(props)
 
 defineExpose({
 	get $el() {
@@ -241,15 +210,7 @@ defineExpose({
 </script>
 
 <template>
-	<Box
-		ref='rootRef'
-		:class='[$style.root, props.classes?.root]'
-		:style='[
-			virtualizer ? { height: `${virtualizer.getTotalSize()}px` } : undefined,
-			style,
-		]'
-		:mod='{ virtualize: !!virtualizer }'
-	>
+	<Box ref='rootRef' :class='[$style.root, props.classes?.root]' :style>
 		<table ref='tableRef' :class='[$style.table, props.classes?.table]'>
 			<caption v-if='caption || $slots.caption' :class='props.classes?.caption'>
 				<slot name='caption'>
@@ -300,36 +261,47 @@ defineExpose({
 				<slot name='body-top' />
 
 				<template v-if='rows.length'>
-					<template v-if='virtualizer'>
-						<template v-for='(virtualRow, index) in virtualizer.getVirtualItems()' :key='rows[virtualRow.index]?.id'>
-							<TableRow
-								:row='rows[virtualRow.index]!'
-								:class='[$style.tr, props.classes?.tr, resolveValue(table.options.meta?.class?.tr, virtualRow)]'
-								:style='[
-									{
-										height: `${virtualRow.size}px`,
-										transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`,
-									},
-									resolveValue(table.options.meta?.style?.tr, virtualRow),
-								]'
-								:on-select='props?.onSelect'
-								:on-hover='props?.onHover'
-								:on-contextmenu='props?.onContextmenu'
-							/>
-						</template>
-					</template>
-
-					<template v-else>
-						<TableRow
-							v-for='row in rows'
-							:key='row.id'
-							:row='row'
+					<template v-for='row in rows' :key='row.id'>
+						<Box
+							is='tr'
+							:mod='{
+								selected: row.getIsSelected(),
+								expanded: row.getIsExpanded(),
+								selectable: !!onSelect || !!onHover || !!onContextmenu,
+							}'
+							:role="onSelect ? 'button' : undefined"
+							:tabindex='onSelect ? 0 : undefined'
 							:class='[$style.tr, props.classes?.tr, resolveValue(table.options.meta?.class?.tr, row)]'
 							:style='resolveValue(table.options.meta?.style?.tr, row)'
-							:on-select='props?.onSelect'
-							:on-hover='props?.onHover'
-							:on-contextmenu='props?.onContextmenu'
-						/>
+							@click='onRowSelect($event, row)'
+							@pointerenter='onRowHover($event, row)'
+							@pointerleave='onRowHover($event, null)'
+							@contextmenu='onRowContextmenu($event, row)'
+						>
+							<Box
+								is='td'
+								v-for='cell in row.getVisibleCells()'
+								:key='cell.id'
+								:mod='{ pinned: cell.column.getIsPinned() }'
+								:colspan='resolveValue(cell.column.columnDef.meta?.colspan?.td, cell)'
+								:rowspan='resolveValue(cell.column.columnDef.meta?.rowspan?.td, cell)'
+								:class='resolveValue(cell.column.columnDef.meta?.class?.td, cell)'
+								:style='[
+									{ width: cell.column.getSize() !== 150 ? `${cell.column.getSize()}px` : undefined },
+									resolveValue(cell.column.columnDef.meta?.style?.td, cell),
+								]'
+							>
+								<slot :name='`${cell.column.id}-cell`' v-bind='cell.getContext()'>
+									<FlexRender :render='cell.column.columnDef.cell' :props='cell.getContext()' />
+								</slot>
+							</Box>
+						</Box>
+
+						<tr v-if='row.getIsExpanded()'>
+							<td :colspan='row.getAllCells().length'>
+								<slot name='expanded' :row='row' />
+							</td>
+						</tr>
 					</template>
 				</template>
 
@@ -354,7 +326,6 @@ defineExpose({
 				is='tfoot'
 				v-if='hasFooter'
 				:class='[$style.tfoot, props.classes?.tfoot]'
-				:style='virtualizer ? { transform: `translateY(${virtualizer.getTotalSize() - renderedSize}px)` } : undefined'
 				:mod='{ sticky: props.sticky === "footer" || props.sticky === true }'
 			>
 				<tr :class='[$style.separator, props.classes?.separator]' />

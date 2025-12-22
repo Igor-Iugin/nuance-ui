@@ -84,9 +84,7 @@ const helper = createColumnHelper<Payment>()
 
 const Checkbox = resolveComponent('NCheckbox')
 const Text = resolveComponent('NText')
-const Icon = resolveComponent('NIcon')
-
-const $style = useCssModule()
+const Icon = resolveComponent('Icon')
 
 const columns = [
 	helper.display({
@@ -105,17 +103,11 @@ const columns = [
 			'aria-label': 'Select row',
 		}),
 		size: 40,
-		meta: {
-			class: { td: $style.cell },
-		},
 	}),
 	helper.display({
 		id: 'icon',
 		cell: () => h(Icon, { name: 'gravity-ui:folder', size: 20 }),
 		size: 40,
-		meta: {
-			class: { td: $style.cell },
-		},
 	}),
 	helper.accessor('date', {
 		header: 'Дата',
@@ -130,7 +122,7 @@ const columns = [
 </script>
 
 <template>
-	<NTable :data :columns vertical-align='middle'	/>
+	<NTable :data :columns vertical-align='middle' />
 </template>
 
 <style lang="css" module>
