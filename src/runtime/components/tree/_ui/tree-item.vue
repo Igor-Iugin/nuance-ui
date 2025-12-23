@@ -11,6 +11,7 @@ import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
 import UTransition from '../../transition/transition.vue'
 import { useTreeState } from '../lib/context'
+import { filterTreeItems } from '../lib/filter-tree-items'
 import { useTreeItemHandlers } from '../lib/item-handlers'
 
 
@@ -37,7 +38,8 @@ const selected = computed(() => ctx.selected.value.includes(path))
 const expanded = computed(() => ctx.expanded.value.includes(path))
 const active = computed(() => ctx.active.value === path)
 
-const { data, pending, execute } = ctx.loadBranch(path)
+const { data: state, pending, execute } = ctx.loadBranch(path)
+const data = computed(() => filterTreeItems(state.value, ctx.filter))
 // Execute only if opened
 watch(expanded, expanded => {
 	if (expanded) {

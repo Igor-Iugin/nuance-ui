@@ -49,3 +49,5 @@ export type TreeIconResolver = (type: TreeItemType, name?: string, path?: string
 	icon: string
 	color?: NuanceColor
 }
+
+export type TreeFilter = 'directory' | null | ((item: TreeItem) => boolean)

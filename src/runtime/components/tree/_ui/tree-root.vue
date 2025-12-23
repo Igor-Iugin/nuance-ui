@@ -7,7 +7,7 @@ import { onClickOutside, useEventListener } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
 import type { RovingFocusProps } from '../../roving-focus/roving-focus.vue'
-import type { TreeEmits, TreeIconResolver, TreeLoader, TreeModels } from '../model'
+import type { TreeEmits, TreeFilter, TreeIconResolver, TreeLoader, TreeModels } from '../model'
 
 import Box from '../../box.vue'
 import RovingFocus from '../../roving-focus/roving-focus.vue'
@@ -19,6 +19,7 @@ export type TreeRootProps = RovingFocusProps & {
 	removable?: boolean
 	selectable?: boolean
 	loadBranch: TreeLoader
+	filter?: TreeFilter
 
 	variant?: ButtonProps['variant']
 	color?: ButtonProps['color']
@@ -36,6 +37,7 @@ const {
 	removable = false,
 	selectable = false,
 	loadBranch,
+	filter,
 } = defineProps<TreeRootProps>()
 
 const emit = defineEmits<TreeEmits>()
@@ -62,6 +64,7 @@ useProvideTreeState({
 	variant,
 	selectable,
 	loadBranch,
+	filter,
 })
 
 if (removable) {

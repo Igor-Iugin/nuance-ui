@@ -4,7 +4,7 @@ import type { ModelRef, ShallowRef } from 'vue'
 import { createStrictInjection } from '@nui/helpers'
 import { unrefElement } from '@vueuse/core'
 
-import type { TreeIconResolver, TreeLoader } from '../model'
+import type { TreeFilter, TreeIconResolver, TreeLoader } from '../model'
 
 
 type EventType = 'select' | 'expand'
@@ -18,6 +18,7 @@ export interface TreeContext {
 
 	iconResolver: TreeIconResolver
 	loadBranch: TreeLoader
+	filter?: TreeFilter
 
 	selectable: boolean
 

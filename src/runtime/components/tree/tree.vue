@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 
 import type { TreeRootProps } from './_ui/tree-root.vue'
 import type { TreeEmits, TreeModels } from './model'
 
 import UTreeItem from './_ui/tree-item.vue'
 import TreeRoot from './_ui/tree-root.vue'
+import { filterTreeItems } from './lib/filter-tree-items'
 
 
 export interface TreeProps extends TreeRootProps {
@@ -16,6 +17,7 @@ const {
 	variant = 'subtle',
 	size = 'compact-sm',
 	loadBranch,
+	filter = 'directory',
 	...props
 } = defineProps<TreeProps>()
 defineEmits<TreeEmits>()
@@ -24,7 +26,8 @@ const active = defineModel<TreeModels['active']>('active', { default: null })
 const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
 const expanded = defineModel<TreeModels['expanded']>('expanded', { default: [] })
 
-const { data: root, execute } = loadBranch('/')
+const { data: state, execute } = loadBranch('/')
+const root = computed(() => filterTreeItems(state.value, filter))
 onMounted(execute)
 </script>
 
@@ -38,6 +41,7 @@ onMounted(execute)
 		:size
 		:color
 		:variant
+		:filter
 		@delete='path => $emit("delete", path)'
 	>
 		<UTreeItem

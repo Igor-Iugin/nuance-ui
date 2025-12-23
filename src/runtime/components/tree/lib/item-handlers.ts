@@ -17,10 +17,6 @@ export function useTreeItemHandlers(path: string, isFolder: Ref<boolean>, expand
 			ctx.toggle('select', path, 'multiple') // Ctrl/Cmd + Click - множественный выбор
 		else
 			ctx.toggle('select', path, 'single') // Обычный клик - одиночный выбор
-
-		// Раскрываем/закрываем папку только при обычном клике
-		if (isFolder.value && !event.ctrlKey && !event.metaKey && !event.shiftKey)
-			ctx.toggle('expand', path)
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
