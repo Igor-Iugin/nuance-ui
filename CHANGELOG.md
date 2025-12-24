@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.33
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.32...v0.1.33)
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Fix item key ([fd22efd](https://github.com/Igor-Iugin/nuance-ui/commit/fd22efd))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.32
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.31...v0.1.32)
