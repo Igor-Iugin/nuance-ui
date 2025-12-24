@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.31
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.30...v0.1.31)
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Fix active item... again ([f1cf628](https://github.com/Igor-Iugin/nuance-ui/commit/f1cf628))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.30
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.29...v0.1.30)
