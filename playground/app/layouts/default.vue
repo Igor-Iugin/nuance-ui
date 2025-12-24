@@ -30,6 +30,9 @@ const theme = useTheme()
 			<NNavLink to='/progress'>
 				Progress
 			</NNavLink>
+			<NNavLink to='/checkbox'>
+				Checkbox
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>

@@ -47,7 +47,7 @@ const mod = computed(() => [
 			<slot />
 
 			<div :class='$style.wrapper'>
-				<Box is='label' :class='$style.label' :for='id' :mod='{ disabled }'>
+				<Box is='label' v-if='label || $slots.label' :class='$style.label' :for='id' :mod='{ disabled }'>
 					<slot name='label'>
 						{{ label }}
 					</slot>
@@ -112,6 +112,10 @@ const mod = computed(() => [
 	fieldset:disabled &,
 	&[data-disabled] {
 		--label-cursor: not-allowed;
+	}
+
+	&:empty {
+		display: none;
 	}
 }
 
