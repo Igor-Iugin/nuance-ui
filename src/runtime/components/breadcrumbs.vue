@@ -56,7 +56,7 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 
 <template>
 	<Box :is :mod :style	:class='$style.root' aria-label='breadcrumb'>
-		<template v-for='(item, ix) in breadcrumbs' :key='ix'>
+		<template v-for='(item, ix) in breadcrumbs' :key='item.to'>
 			<Text
 				is='li'
 				:c='color'
