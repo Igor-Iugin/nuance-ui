@@ -50,11 +50,13 @@ const {
 const style = computed(() => ({
 	'--bc-spacing': getSpacing(spacing),
 }))
+
+const breadcrumbs = computed(() => unref(items) ?? [])
 </script>
 
 <template>
 	<Box :is :mod :style	:class='$style.root' aria-label='breadcrumb'>
-		<template v-for='(item, ix) in unref(items)' :key='ix'>
+		<template v-for='(item, ix) in breadcrumbs' :key='ix'>
 			<Text
 				is='li'
 				:c='color'
@@ -63,18 +65,18 @@ const style = computed(() => ({
 				role='presentation'
 				aria-hidden='true'
 			>
-				<NuxtLink v-slot='{ isActive }' v-bind='pickLinkProps(item).link' custom>
+				<NuxtLink v-bind='pickLinkProps(item).link' custom>
 					<slot
 						:name='item.slot ?? "item"'
 						:item='item'
 						:ix='ix'
-						:active='item?.active ?? isActive'
+						:active='item.active ?? (ix === breadcrumbs!.length - 1)'
 					>
 						<Link
 							v-bind='pickLinkProps(item).link'
 							inherit
 							:class='$style.item'
-							:mod='{ active: item?.active ?? isActive }'
+							:mod='{ active: item.active ?? (ix === breadcrumbs!.length - 1) }'
 						>
 							<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
 							<Text is='span' inherit truncate>
@@ -84,7 +86,7 @@ const style = computed(() => ({
 					</slot>
 				</NuxtLink>
 			</Text>
-			<li v-if='ix < unref(items)!.length - 1' role='presentation' aria-hidden='true' :class='$style.separator'>
+			<li v-if='ix < breadcrumbs.length - 1' role='presentation' aria-hidden='true' :class='$style.separator'>
 				<slot name='separator'>
 					<Icon :name='separator' />
 				</slot>
