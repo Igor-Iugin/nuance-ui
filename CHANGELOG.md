@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.32
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.31...v0.1.32)
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Fix item key ([609bcd1](https://github.com/Igor-Iugin/nuance-ui/commit/609bcd1))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.31
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.30...v0.1.31)
