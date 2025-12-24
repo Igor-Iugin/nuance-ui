@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.1.30
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.29...v0.1.30)
+
+### 🚀 Enhancements
+
+- **Tree:** Added filter for items ([a73d57e](https://github.com/Igor-Iugin/nuance-ui/commit/a73d57e))
+
+### 🩹 Fixes
+
+- **Table:** Pass cell size in table ([7d02ddf](https://github.com/Igor-Iugin/nuance-ui/commit/7d02ddf))
+- Pass cell slots ([9c46403](https://github.com/Igor-Iugin/nuance-ui/commit/9c46403))
+- **InlineInput:** Fix sizes of empty element ([18d9df8](https://github.com/Igor-Iugin/nuance-ui/commit/18d9df8))
+- **Breadcrumbs:** Fix passing active item ([a62efb5](https://github.com/Igor-Iugin/nuance-ui/commit/a62efb5))
+
+### 🏡 Chore
+
+- **release:** V0.1.29 ([d4bd44c](https://github.com/Igor-Iugin/nuance-ui/commit/d4bd44c))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.29
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.28...v0.1.29)
