@@ -16,6 +16,7 @@ import Text from './text.vue'
 
 
 export interface BreadcrumbsItem extends Omit<LinkProps, 'mod'> {
+	active?: boolean
 	label: string
 	icon?: string
 	class?: string
@@ -31,9 +32,6 @@ export interface BreadcrumbsProps extends BoxProps {
 
 	/** Controls spacing between separator and breadcrumb @default `'xs'` */
 	spacing?: NuanceSpacing
-
-	/** Function to determine if an item is active */
-	activeItem?: (item: BreadcrumbsItem) => boolean
 
 	color?: NuanceColor
 	size?: TextProps['fz']
@@ -70,13 +68,13 @@ const style = computed(() => ({
 						:name='item.slot ?? "item"'
 						:item='item'
 						:ix='ix'
-						:active='activeItem ? activeItem(item) : isActive'
+						:active='item?.active ?? isActive'
 					>
 						<Link
 							v-bind='pickLinkProps(item).link'
 							inherit
 							:class='$style.item'
-							:mod='{ active: activeItem ? activeItem(item) : isActive }'
+							:mod='{ active: item?.active ?? isActive }'
 						>
 							<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
 							<Text is='span' inherit truncate>
