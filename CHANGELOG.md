@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.34
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.33...v0.1.34)
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Fix inactive color ([555ff9b](https://github.com/Igor-Iugin/nuance-ui/commit/555ff9b))
+
+### 💅 Refactors
+
+- **Breadcrumbs:** Rework breadcrumbs ([22a58ad](https://github.com/Igor-Iugin/nuance-ui/commit/22a58ad))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.33
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.32...v0.1.33)
