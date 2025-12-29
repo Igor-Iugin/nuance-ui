@@ -1,18 +1,17 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSpacing } from '@nui/types'
+import type { NuanceSpacing } from '@nui/types'
 import type { MaybeRef } from 'vue'
 
+import { useTheme } from '@nui/composals'
 import { getSpacing } from '@nui/utils'
 import { computed, unref } from 'vue'
 
 import type { BoxProps } from './box.vue'
+import type { ButtonProps } from './button/button.vue'
 import type { LinkProps } from './link'
-import type { TextProps } from './text.vue'
 
 import Box from './box.vue'
-import { pickLinkProps } from './link'
-import Link from './link/link.vue'
-import Text from './text.vue'
+import Button from './button/button.vue'
 
 
 export interface BreadcrumbsItem extends Omit<LinkProps, 'mod'> {
@@ -33,8 +32,9 @@ export interface BreadcrumbsProps extends BoxProps {
 	/** Controls spacing between separator and breadcrumb @default `'xs'` */
 	spacing?: NuanceSpacing
 
-	color?: NuanceColor
-	size?: TextProps['fz']
+	variant?: ButtonProps['variant']
+	color?: ButtonProps['color']
+	size?: ButtonProps['size']
 }
 
 const {
@@ -43,13 +43,21 @@ const {
 	spacing,
 	separator = 'gravity-ui:chevron-right',
 	color = 'primary',
-	size,
+	variant = 'subtle',
+	size = 'compact-sm',
 	items,
 } = defineProps<BreadcrumbsProps>()
+
+defineEmits<{
+	click: [item: BreadcrumbsItem]
+}>()
 
 const style = computed(() => ({
 	'--bc-spacing': getSpacing(spacing),
 }))
+
+const theme = useTheme()
+const inactive = computed(() => theme.value === 'light' ? 'dark' : 'gray')
 
 const breadcrumbs = computed(() => unref(items) ?? [])
 </script>
@@ -57,26 +65,28 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 <template>
 	<Box :is :mod :style	:class='$style.root' aria-label='breadcrumb'>
 		<template v-for='(item, ix) in breadcrumbs' :key='item.to'>
-			<Text is='li' :c='color' :fz='size' :class='$style.breadcrumb' role='presentation' aria-hidden='true'>
+			<li :class='$style.breadcrumb' role='presentation' aria-hidden='true'>
 				<slot
 					:name='item.slot ?? "item"'
 					:item='item'
 					:ix='ix'
 					:active='item.active ?? (ix === breadcrumbs!.length - 1)'
 				>
-					<Link
-						v-bind='pickLinkProps(item).link'
-						inherit
+					<Button
+						:size
+						:variant
 						:class='$style.item'
 						:mod='{ active: item.active ?? (ix === breadcrumbs!.length - 1) }'
+						:color='item.active ?? (ix === breadcrumbs!.length - 1) ? color : inactive'
+						@click.stop.prevent='$emit("click", item)'
 					>
-						<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
-						<Text is='span' inherit truncate>
-							{{ item.label }}
-						</Text>
-					</Link>
+						<template v-if='item?.icon' #leftSection>
+							<Icon :name='item.icon' :class='$style.icon' />
+						</template>
+						{{ item.label }}
+					</Button>
 				</slot>
-			</Text>
+			</li>
 			<li v-if='ix < breadcrumbs.length - 1' role='presentation' aria-hidden='true' :class='$style.separator'>
 				<slot name='separator'>
 					<Icon :name='separator' />
@@ -112,10 +122,6 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 	text-transform: capitalize;
 
 	font-weight: 600;
-
-	&:where([data-active]) {
-		color: var(--text-color);
-	}
 }
 
 .icon {
