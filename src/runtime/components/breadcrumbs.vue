@@ -57,7 +57,7 @@ const style = computed(() => ({
 }))
 
 const theme = useTheme()
-const inactive = computed(() => theme.value === 'light' ? 'dark' : 'gray')
+const inactive = computed(() => theme.value === 'dark' ? 'gray' : 'dark')
 
 const breadcrumbs = computed(() => unref(items) ?? [])
 </script>
