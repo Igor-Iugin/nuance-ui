@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.1.35
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.34...v0.1.35)
+
+### 🚀 Enhancements
+
+- **new:** FileUpload button ([17c3d94](https://github.com/Igor-Iugin/nuance-ui/commit/17c3d94))
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Fix inactive color ([555ff9b](https://github.com/Igor-Iugin/nuance-ui/commit/555ff9b))
+
+### 💅 Refactors
+
+- **Breadcrumbs:** Rework breadcrumbs ([22a58ad](https://github.com/Igor-Iugin/nuance-ui/commit/22a58ad))
+
+### 🏡 Chore
+
+- **release:** V0.1.34 ([5bebabe](https://github.com/Igor-Iugin/nuance-ui/commit/5bebabe))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.34
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.33...v0.1.34)
