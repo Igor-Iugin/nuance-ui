@@ -38,7 +38,7 @@ export interface TextProps extends BoxProps {
 	fz?: NuanceSize | `h${TitleOrder}` | string
 	lh?: NuanceSize | string
 	fw?: CSSProperties['font-weight']
-	c?: NuanceColor
+	c?: NuanceColor | 'dimmed'
 }
 
 const {
