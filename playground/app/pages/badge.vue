@@ -2,7 +2,7 @@
 </script>
 
 <template>
-	<NBadge>
+	<NBadge variant='dot'>
 		Test
 	</NBadge>
 </template>

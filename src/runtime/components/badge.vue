@@ -30,9 +30,6 @@ export interface BadgeProps extends BoxProps {
 	/** Key of `theme.colors` or any valid CSS color @default `theme.primaryColor` */
 	color?: NuanceColor | string
 
-	/** Key of `theme.colors` or any valid CSS color @default `theme.primaryColor` */
-	dotColor?: NuanceColor | string
-
 	/** Gradient configuration used when `variant=\"gradient\"` @default `theme.defaultGradient` */
 	gradient?: NuanceGradient
 
@@ -48,7 +45,6 @@ const {
 	size = 'md',
 	radius = 'sm',
 	color,
-	dotColor,
 	fullWidth = false,
 	circle,
 	icon,
@@ -57,7 +53,7 @@ const {
 const style = computed(() => useStyleResolver(theme => {
 	const { background, border, text } = createVariantColorResolver({
 		theme,
-		variant,
+		variant: variant === 'dot' ? 'default' : variant,
 		color,
 	})
 
@@ -69,14 +65,16 @@ const style = computed(() => useStyleResolver(theme => {
 		'--badge-bg': color || variant ? background : undefined,
 		'--badge-color': color || variant ? text : undefined,
 		'--badge-bd': color || variant ? border : undefined,
-		'--badge-dot-color': (variant === 'dot' && dotColor) ? getThemeColor(dotColor, theme) : undefined,
+		'--badge-dot-color': variant === 'dot' ? getThemeColor(color, theme) : undefined,
 	}
 }))
 </script>
 
 <template>
 	<Box
-		:style :class='$style.root' :mod='[
+		:style
+		:class='$style.root'
+		:mod='[
 			{
 				"block": fullWidth,
 				circle,
