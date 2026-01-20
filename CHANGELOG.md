@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.37
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.36...v0.1.37)
+
+### 🩹 Fixes
+
+- **Badge:** Fix badge styles ([efc46ba](https://github.com/Igor-Iugin/nuance-ui/commit/efc46ba))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.36
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.35...v0.1.36)
