@@ -19,13 +19,13 @@ export function createVariantColorResolver({
 	theme,
 }: {
 	color: NuanceColor | string | undefined
-	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline' | 'dot'
 	gradient?: NuanceGradient
 	theme: NuanceTheme
 }): VariantColorResolverResult {
 	const parsed = parseThemeColor({ color, theme })
 
-	if (variant === 'filled') {
+	if (variant === 'filled' || variant === 'dot') {
 		const text = 'var(--color-white)'
 
 		if (parsed.shade === undefined) {

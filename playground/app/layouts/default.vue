@@ -9,6 +9,9 @@ const theme = useTheme()
 <template>
 	<NAppShell :class='$style.root' aside footer with-border>
 		<NAppShellNavbar :class='$style.navbar'>
+			<NNavLink to='/badge'>
+				Badge
+			</NNavLink>
 			<NNavLink to='/file'>
 				Files
 			</NNavLink>
