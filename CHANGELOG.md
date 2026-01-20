@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.36
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.35...v0.1.36)
+
+### 🚀 Enhancements
+
+- **New:** Badge ([ac6351e](https://github.com/Igor-Iugin/nuance-ui/commit/ac6351e))
+
+### 🩹 Fixes
+
+- Added **dimmed** color to **NText** ([bd80bac](https://github.com/Igor-Iugin/nuance-ui/commit/bd80bac))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.35
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.34...v0.1.35)
