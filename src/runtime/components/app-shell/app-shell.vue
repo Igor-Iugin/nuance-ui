@@ -1,4 +1,7 @@
 <script setup lang='ts'>
+import type { DateConfig } from '@nui/composals'
+
+import { useProvideDatesConfig } from '@nui/composals'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
@@ -12,6 +15,9 @@ export interface AppShellProps extends BoxProps {
 	layout?: 'default' | 'alt'
 
 	withBorder?: boolean
+
+	/** Provide app config for dates */
+	dateConfig?: DateConfig
 }
 
 const {
@@ -19,6 +25,7 @@ const {
 	mod,
 	layout = 'default',
 	withBorder = false,
+	dateConfig,
 } = defineProps<AppShellProps>()
 
 const aside = defineModel<boolean>('aside', { default: false })
@@ -27,6 +34,7 @@ const navbar = defineModel<boolean>('navbar', { default: false })
 const footer = defineModel<boolean>('footer', { default: false })
 
 useProvideAppShell({ aside, footer, header, navbar	})
+useProvideDatesConfig(dateConfig)
 
 const style = computed(() => ({
 	'--app-shell-navbar-transform': navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,

@@ -7,7 +7,7 @@ const theme = useTheme()
 </script>
 
 <template>
-	<NAppShell :class='$style.root' aside footer with-border>
+	<NAppShell :class='$style.root' aside footer with-border :date-config='{ locale: "ru-RU" }'>
 		<NAppShellNavbar :class='$style.navbar'>
 			<NNavLink to='/badge'>
 				Badge
@@ -20,6 +20,9 @@ const theme = useTheme()
 			</NNavLink>
 			<NNavLink to='/alert'>
 				Alert
+			</NNavLink>
+			<NNavLink to='/dates'>
+				Dates
 			</NNavLink>
 			<NNavLink to='/avatar'>
 				Avatar
