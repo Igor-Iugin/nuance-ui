@@ -11,10 +11,4 @@ const date = ref(new Date())
 		@prev='date = addMonth(date, -1)'
 		@next='date = addMonth(date, 1)'
 	/>
-	<NMonthLevelsGroup
-		v-model:date='date'
-		:number-of-columns='3'
-		@prev='date = addMonth(date, -1)'
-		@next='date = addMonth(date, 1)'
-	/>
 </template>
