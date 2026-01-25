@@ -3,7 +3,7 @@ import type { DateInput } from '@formkit/tempo'
 import { date as fDate } from '@formkit/tempo'
 
 
-export function isWeekendDay(date: DateInput, firstDayOfWeek: number): boolean {
+export function isWeekend(date: DateInput, firstDayOfWeek: number): boolean {
 	const day = fDate(date).getDay()
 
 	// Выходные - это последние два дня недели
