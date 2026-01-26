@@ -5,19 +5,17 @@ import type { BoxProps } from '../../../box.vue'
 
 import UnstyledButton from '../../../button/unstyled-button.vue'
 import { useCalendarState } from '../../lib/context'
+import css from './styles/calendar-header.module.css'
 
 
 export interface CalendarPrevProps extends BoxProps {
+	icon?: string
 }
 
-const props = defineProps<CalendarPrevProps>()
-
-defineSlots<{
-	default?: [{
-		/** Current disable state */
-		disabled: boolean
-	}]
-}>()
+const {
+	icon = 'gravity-ui:chevron-left',
+	...props
+} = defineProps<CalendarPrevProps>()
 
 const ctx = useCalendarState()
 const disabled = computed(() => ctx.disabled.value || ctx.isPrevDisabled())
@@ -28,10 +26,11 @@ const disabled = computed(() => ctx.disabled.value || ctx.isPrevDisabled())
 		v-bind='props'
 		aria-label='Previous page'
 		:disabled
+		:class='css.control'
 		@click='ctx.prevPage()'
 	>
-		<slot :disabled>
-			Prev page
+		<slot>
+			<Icon :name='icon' :class='css.icon' />
 		</slot>
 	</UnstyledButton>
 </template>

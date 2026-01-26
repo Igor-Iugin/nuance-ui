@@ -6,27 +6,34 @@ import type { BoxProps } from '../../../box.vue'
 
 import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
+import css from './styles/calendar-header.module.css'
 
 
-export interface CalendarHeadingProps extends BoxProps {}
+export interface CalendarHeadingProps extends BoxProps {
+	format?: string
+}
 
-const { is, mod, ...props } = defineProps<CalendarHeadingProps>()
+const {
+	format: lFormat = 'MMMM YYYY',
+	mod,
+	...props
+} = defineProps<CalendarHeadingProps>()
 
 defineSlots<{
 	default?: [{
-		/** Current month and year */
-		value: string
+		/** Formatted label */
+		label: string
 	}]
 }>()
 
 const ctx = useCalendarState()
 const disabled = computed(() => ctx.disabled.value)
-const label = computed(() => format({ date: ctx.date.value, format: 'MMMM YYYY', ...ctx.config }))
+const label = computed(() => format({ date: ctx.date.value, format: lFormat, ...ctx.config }))
 </script>
 
 <template>
-	<Box :is v-bind='props' :mod='[{ disabled }, mod]'>
-		<slot :value='label'>
+	<Box v-bind='props' :mod='[{ disabled }, mod]' :class='css.level'>
+		<slot :label>
 			{{ label }}
 		</slot>
 	</Box>
