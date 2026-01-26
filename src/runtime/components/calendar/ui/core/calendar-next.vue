@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { DateValue } from '@internationalized/date'
-
 import { computed } from 'vue'
 
 import type { BoxProps } from '../../../box.vue'
@@ -10,11 +8,9 @@ import { useCalendarState } from '../../lib/context'
 
 
 export interface CalendarNextProps extends BoxProps {
-	/** The function to be used for the next page. Overwrites the `nextPage` function set on the `CalendarRoot`. */
-	nextPage?: (placeholder: DateValue) => DateValue
 }
 
-const { nextPage, ...props } = defineProps<CalendarNextProps>()
+const props = defineProps<CalendarNextProps>()
 
 defineSlots<{
 	default?: [{
@@ -24,7 +20,7 @@ defineSlots<{
 }>()
 
 const ctx = useCalendarState()
-const disabled = computed(() => ctx.disabled.value || ctx.isNextButtonDisabled(nextPage))
+const disabled = computed(() => ctx.disabled.value || ctx.isNextDisabled())
 </script>
 
 <template>
@@ -32,7 +28,7 @@ const disabled = computed(() => ctx.disabled.value || ctx.isNextButtonDisabled(n
 		v-bind='props'
 		aria-label='Next page'
 		:disabled
-		@click='ctx.nextPage(nextPage)'
+		@click='ctx.nextPage()'
 	>
 		<slot :disabled>
 			Next page

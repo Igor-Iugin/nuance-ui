@@ -29,7 +29,7 @@ function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGr
 		const startFrom = days[days.length - 1]
 
 		for (let i = 1; i < extraDays; i++) {
-			days.push(format(addDay(startFrom, i), 'medium', config?.locale, config?.genitive))
+			days.push(format(addDay(startFrom, i), 'YYYY-MM-DD', config?.locale, config?.genitive))
 		}
 	}
 

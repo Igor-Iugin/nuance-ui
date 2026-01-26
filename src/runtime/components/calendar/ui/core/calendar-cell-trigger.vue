@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { DateValue } from '@internationalized/date'
+import type { DateInput } from '@formkit/tempo'
 
-import { getLocalTimeZone, isSameDay, isSameMonth, isToday } from '@internationalized/date'
+import { format } from '@formkit/tempo'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../../../box.vue'
@@ -12,9 +12,9 @@ import { useCalendarState } from '../../lib/context'
 
 export interface CalendarCellTriggerProps extends BoxProps {
 	/** The date value provided to the cell trigger */
-	day: DateValue
+	day: DateInput
 	/** The month in which the cell is rendered */
-	month: DateValue
+	month: DateInput
 }
 
 const props = defineProps<CalendarCellTriggerProps>()
@@ -23,6 +23,7 @@ defineSlots<{
 	default: [{
 		/** Current day */
 		date: string
+		label: string
 		/** Current disable state */
 		disabled: boolean
 		/** Current selected state */
@@ -30,37 +31,28 @@ defineSlots<{
 		/** Current today state */
 		today: boolean
 		/** Current outside view state */
-		outsideView: boolean
-		/** Current outside visible view state */
-		outsideVisibleView: boolean
-		/** Current unavailable state */
-		unavailable: boolean
+		outside: boolean
+		/** Current weekend view state */
+		weekend: boolean
 	}]
 }>()
 
 const ctx = useCalendarState()
 
-const date = computed(() => props.day.day.toLocaleString(ctx.locale.value))
-const label = computed(() => ctx.formatter.custom(fDate(props.day), {
-	weekday: 'long',
-	month: 'long',
-	day: 'numeric',
-	year: 'numeric',
-}))
-const unavailable = computed(() => ctx.isDateUnavailable?.(props.day) ?? false)
-const today = computed(() => isToday(props.day, getLocalTimeZone()))
-const outside = computed(() => isSameMonth(props.day, props.month))
-const disabled = computed(() => ctx.isDateDisabled(props.day) || (ctx.hideOutsideDates.value && outside.value))
-const focused = computed(() => !ctx.disabled.value && isSameDay(props.day, ctx.placeholder.value))
-const selected = computed(() => ctx.isDateSelected(props.day))
+const label = computed(() => format({ date: props.day, format: 'D', ...ctx.config }))
+const today = computed(() => ctx.isToday(props.day))
+const outside = computed(() => ctx.isToday(props.day))
+const disabled = computed(() => ctx.isDisabled(props.day) || (ctx.hideOutsideDates.value && outside.value))
+const weekend = computed(() => ctx.isWeekend(props.day))
 
-function changeDate(date: DateValue) {
+function changeDate(date: DateInput) {
 	if (ctx.readonly.value)
 		return
-	if (ctx.isDateDisabled(date) || ctx.isDateUnavailable?.(date))
+	if (disabled.value)
 		return
 
-	ctx.onDateChange(date)
+	return console.log(date)
+	// ctx.onDateChange(date)
 }
 
 const onClick = () => !disabled.value && changeDate(props.day)
@@ -72,18 +64,16 @@ const onClick = () => !disabled.value && changeDate(props.day)
 		data-calendar-cell-trigger
 		:disabled
 		:mod='{
-			selected,
-			value: date,
-			unavailable,
+			value: props.day,
+			weekend,
 			today,
 			outside,
-			focused,
 		}'
-		:tabindex='focused ? 0 : outside || disabled ? undefined : -1'
+		:tabindex='outside || disabled ? undefined : -1'
 		@click='onClick'
 	>
-		<slot :date :disabled :today :selected :outside :unavailable>
-			{{ date }}
+		<slot :date='props.day' :label :disabled :today :weekend :outside>
+			{{ label }}
 		</slot>
 	</UnstyledButton>
 </template>

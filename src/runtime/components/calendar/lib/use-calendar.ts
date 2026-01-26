@@ -1,4 +1,4 @@
-import type { DateInput } from '@formkit/tempo'
+import type { DateInput, FormatToken } from '@formkit/tempo'
 import type { DateConfig } from '@nui/composals'
 import type { CalendarGrid, DateMatcher } from '@nui/helpers/date'
 import type { ModelRef, Ref } from 'vue'
@@ -6,40 +6,78 @@ import type { ModelRef, Ref } from 'vue'
 import { addMonth, isAfter, isBefore, range, sameDay } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { createMonths, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 
 export interface UseCalendarProps {
-	weekdayFormat: Ref<string>
-	nextPage: Ref<((date: DateInput) => DateInput) | undefined>
-	prevPage: Ref<((date: DateInput) => DateInput) | undefined>
+	prevPage: () => void
+	nextPage: () => void
 
-	date: ModelRef<DateInput>
-	fixedWeeks: Ref<boolean>
-	numberOfMonths: Ref<number>
+	// props
+	numberOfMonths: Ref<number | undefined>
+	weekdayFormat: Ref<FormatToken>
+	fixedWeeks: Ref<boolean | undefined>
 	minDate: Ref<DateInput | undefined>
 	maxDate: Ref<DateInput | undefined>
-	disabled: Ref<boolean>
-
-	config?: DateConfig
-
-	isDateDisabled?: DateMatcher
+	excludeDate: Ref<DateMatcher | undefined>
+	prevDisabled: Ref<DateMatcher | undefined>
+	nextDisabled: Ref<DateMatcher | undefined>
+	highlightToday: Ref<boolean | undefined>
+	hideWeekdays: Ref<boolean | undefined>
+	hideOutsideDates: Ref<boolean | undefined>
+	disabled: Ref<boolean | undefined>
+	readonly: Ref<boolean | undefined>
+	config: Ref<DateConfig | undefined>
 }
 
-export function useCalendar({
-	date,
-	config: _cfg,
-	fixedWeeks,
-	numberOfMonths,
-	weekdayFormat,
+type OmittedProps = Omit<
+	UseCalendarProps,
+	| 'config'
+	| 'minDate'
+	| 'maxDate'
+	| 'excludeDate'
+	| 'prevDisabled'
+	| 'nextDisabled'
+	| 'prevPage'
+	| 'nextPage'
+>
+export interface UseCalendarReturn extends OmittedProps {
+	isWeekend: DateMatcher
+	isOutside: DateMatcher
+	isToday: DateMatcher
+	isDisabled: DateMatcher
+	isNextDisabled: () => boolean
+	isPrevDisabled: () => boolean
+	prevPage: () => void
+	nextPage: () => void
+	grid: Ref<CalendarGrid[]>
+	weekdays: Ref<string[]>
+	date: ModelRef<DateInput>
+	config: DateConfig
+}
 
-	isDateDisabled,
+export function useCalendar(
+	date: ModelRef<DateInput>,
+	{
+		config: cfg,
+		fixedWeeks,
+		numberOfMonths,
+		weekdayFormat,
 
-	maxDate,
-	minDate,
-	disabled,
-}: UseCalendarProps) {
-	const config = _cfg ?? useDatesConfig()
+		excludeDate,
+		nextDisabled,
+		prevDisabled,
+
+		prevPage,
+		nextPage,
+
+		maxDate,
+		minDate,
+		disabled,
+		...props
+	}: UseCalendarProps,
+): UseCalendarReturn {
+	const config = cfg.value ?? useDatesConfig()
 
 	const grid = ref<CalendarGrid[]>(createMonths({
 		date: date.value,
@@ -47,15 +85,32 @@ export function useCalendar({
 		config,
 		fixedWeeks: fixedWeeks.value,
 	}))
-	const weekdays = range('ddd', config?.locale, config?.genitive)
+
+	const weekdays = computed(() => {
+		const days = range(weekdayFormat.value, config?.locale, config?.genitive)
+
+		if (config.firstDayOfWeek === 1)
+			return [...days.slice(config.firstDayOfWeek), ...days.slice(0, config.firstDayOfWeek)]
+
+		return days
+	})
 	const today = new Date()
+
+	watch([date, numberOfMonths, () => config, fixedWeeks], ([date, numberOfMonths, config, fixedWeeks]) => {
+		grid.value = createMonths({
+			date,
+			numberOfMonths,
+			config,
+			fixedWeeks,
+		})
+	})
 
 	const isWeekend = (day: DateInput) => isWeekendDay(day, config.firstDayOfWeek)
 	const isOutside = (day: DateInput) => !isSameMonth(day, date.value)
 	const isToday = (day: DateInput) => sameDay(day, today)
 
 	const isDisabled = (day: DateInput) => {
-		if (isDateDisabled?.(day) || disabled.value)
+		if (excludeDate?.value?.(day) || disabled.value)
 			return true
 		if (maxDate.value && isAfter(date.value, maxDate.value))
 			return true
@@ -65,28 +120,26 @@ export function useCalendar({
 		return false
 	}
 
-	// ??
 	const isNextDisabled = () => {
 		if (!maxDate.value || !grid.value.length)
 			return false
 		if (disabled.value)
 			return true
+		if (nextDisabled.value?.(date.value))
+			return true
 
-		const lastPeriod = grid.value[grid.value.length - 1]!.value
-
-		return isAfter(addMonth(lastPeriod, 1), maxDate.value)
+		return isAfter(addMonth(date.value, 1), maxDate.value)
 	}
 
-	// ??
 	const isPrevDisabled = () => {
 		if (!minDate.value || !grid.value.length)
 			return false
 		if (disabled.value)
 			return true
+		if (prevDisabled.value?.(date.value))
+			return true
 
-		const firstPeriod = grid.value[0]!.value
-
-		return isBefore(addMonth(firstPeriod, -1), minDate.value)
+		return isBefore(addMonth(date.value, -1), minDate.value)
 	}
 
 	return {
@@ -100,6 +153,8 @@ export function useCalendar({
 
 		isNextDisabled,
 		isPrevDisabled,
+		prevPage,
+		nextPage,
 
 		// props
 		fixedWeeks,
@@ -108,5 +163,6 @@ export function useCalendar({
 		config,
 		date,
 		weekdayFormat,
+		...props,
 	}
 }

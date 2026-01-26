@@ -13,7 +13,7 @@ export function getDaysBetween(
 
 	let date = start
 	while (isBefore(date, end)) {
-		days.push(format(date, 'medium', config?.locale, config?.genitive))
+		days.push(format(date, 'YYYY-MM-DD', config?.locale, config?.genitive))
 		date = addDay(date, 1)
 	}
 

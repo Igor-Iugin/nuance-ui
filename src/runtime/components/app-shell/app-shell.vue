@@ -17,7 +17,7 @@ export interface AppShellProps extends BoxProps {
 	withBorder?: boolean
 
 	/** Provide app config for dates */
-	dateConfig?: DateConfig
+	dateConfig?: Partial<DateConfig>
 }
 
 const {

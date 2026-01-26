@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { DateValue } from '@internationalized/date'
+import type { DateInput } from '@formkit/tempo'
 
 import type { BoxProps } from '../../../box.vue'
 
@@ -8,10 +8,10 @@ import { useCalendarState } from '../../lib/context'
 
 
 export interface CalendarCellProps extends BoxProps {
-	date: DateValue
+	date: DateInput
 }
 
-const { is,	mod, date } = defineProps<CalendarCellProps>()
+const { is = 'td',	mod, date } = defineProps<CalendarCellProps>()
 const ctx = useCalendarState()
 /**
  * Отличие reka-ui от моего решения в том, что как пропс передаётся только date
@@ -29,9 +29,8 @@ const ctx = useCalendarState()
 		:is
 		:mod
 		role='gridcell'
-		:aria-selected='ctx.isDateSelected(date) ? true : undefined'
-		:aria-disabled='ctx.isDateDisabled(date) || ctx.isDateUnavailable?.(date) || ctx.hideOutsideDates.value'
-		:data-disabled="ctx.isDateDisabled(date) || ctx.hideOutsideDates.value ? '' : undefined"
+		:aria-disabled='ctx.isDisabled(date) || ctx.hideOutsideDates.value'
+		:data-disabled="ctx.isDisabled(date) || ctx.hideOutsideDates.value ? '' : undefined"
 	>
 		<slot />
 	</Box>
