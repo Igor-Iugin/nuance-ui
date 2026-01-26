@@ -9,7 +9,6 @@
   --dch-control-radius: var(--radius-default);
 
 	display: flex;
-	margin-bottom: var(--spacing-xs);
 }
 
 .level,

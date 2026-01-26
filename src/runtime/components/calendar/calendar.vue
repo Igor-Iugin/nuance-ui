@@ -50,40 +50,48 @@ const date = defineModel<DateInput>('date', { required: true })
 		@next='date = addMonth(date, 1)'
 		@prev='date = addMonth(date, -1)'
 	>
-		<CalendarHeader>
-			<CalendarPrev />
-			<CalendarHeading />
-			<CalendarNext />
-		</CalendarHeader>
-		<CalendarGrid v-for='month in grid' :key='month.value.toString()'>
-			<CalendarGridHead>
-				<CalendarGridRow>
-					<CalendarGridHeadCell v-for='day in weekDays' :key='day'>
-						<slot name='weekday' :day='day'>
-							{{ day }}
-						</slot>
-					</CalendarGridHeadCell>
-				</CalendarGridRow>
-			</CalendarGridHead>
-			<CalendarGridBody>
-				<CalendarGridRow v-for='(week, ix) in month.rows' :key='`week-row-${ix}`'>
-					<td v-if='withWeekNumbers' :class='$style.weeknumber'>
-						{{ getWeekNumber(week[0]!, 1) }}
-					</td>
-					<CalendarCell v-for='day in week' :key='day' :date='day'>
-						<CalendarCellTrigger v-slot='cell' :day :month='month.value'>
-							<slot name='day' :day='day' v-bind='cell'>
-								{{ cell.label }}
+		<div :class='$style.content'>
+			<CalendarHeader>
+				<CalendarPrev />
+				<CalendarHeading />
+				<CalendarNext />
+			</CalendarHeader>
+			<CalendarGrid v-for='month in grid' :key='month.value.toString()'>
+				<CalendarGridHead>
+					<CalendarGridRow>
+						<CalendarGridHeadCell v-for='day in weekDays' :key='day'>
+							<slot name='weekday' :day='day'>
+								{{ day }}
 							</slot>
-						</CalendarCellTrigger>
-					</CalendarCell>
-				</CalendarGridRow>
-			</CalendarGridBody>
-		</CalendarGrid>
+						</CalendarGridHeadCell>
+					</CalendarGridRow>
+				</CalendarGridHead>
+				<CalendarGridBody>
+					<CalendarGridRow v-for='(week, ix) in month.rows' :key='`week-row-${ix}`'>
+						<td v-if='withWeekNumbers' :class='$style.weeknumber'>
+							{{ getWeekNumber(week[0]!, 1) }}
+						</td>
+						<CalendarCell v-for='day in week' :key='day' :date='day'>
+							<CalendarCellTrigger v-slot='cell' :day :month='month.value'>
+								<slot name='day' :day='day' v-bind='cell'>
+									{{ cell.label }}
+								</slot>
+							</CalendarCellTrigger>
+						</CalendarCell>
+					</CalendarGridRow>
+				</CalendarGridBody>
+			</CalendarGrid>
+		</div>
 	</CalendarRoot>
 </template>
 
 <style lang="postcss" module>
+.content {
+	display: grid;
+	gap: var(--spacing-sm);
+	width: fit-content;
+}
+
 .weeknumber {
   --wn-size-xs: rem(30px);
   --wn-size-sm: rem(36px);
