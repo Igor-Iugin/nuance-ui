@@ -36,7 +36,7 @@ function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGr
 	const weeks = chunk(days, 7)
 
 	return {
-		value: date,
+		value: format(date, 'YYYY-MM'),
 		rows: weeks,
 	}
 }

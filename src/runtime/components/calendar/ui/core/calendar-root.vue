@@ -31,12 +31,8 @@ const emit = defineEmits<CalendarEmits>()
 
 defineSlots<{
 	default: (props: {
-		/** The current date of the placeholder */
-		date: DateInput
 		/** The grid of dates */
 		grid: CalendarGrid[]
-		/** The days of the week */
-		weekDays: string[]
 	}) => any
 }>()
 
@@ -57,6 +53,6 @@ useProvideCalendarState(state)
 
 <template>
 	<Box>
-		<slot :date :grid :week-days='state.weekdays.value' />
+		<slot :grid />
 	</Box>
 </template>
