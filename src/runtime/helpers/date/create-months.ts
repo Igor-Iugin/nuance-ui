@@ -22,14 +22,14 @@ function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGr
 	const start = weekStart(startOfMonth, config.firstDayOfWeek)
 	const end = weekEnd(endOfMonth, config.firstDayOfWeek)
 
-	const days = getDaysBetween(start, end, config)
+	const days = getDaysBetween(start, end)
 
 	if (fixedWeeks && days.length < 42) {
 		const extraDays = 42 - days.length
 		const startFrom = days[days.length - 1]
 
 		for (let i = 1; i <= extraDays; i++) {
-			days.push(format(addDay(startFrom, i), 'YYYY-MM-DD', config?.locale, config?.genitive))
+			days.push(format(addDay(startFrom, i), 'YYYY-MM-DD'))
 		}
 	}
 
@@ -38,7 +38,6 @@ function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGr
 	return {
 		value: date,
 		rows: weeks,
-		cells: days,
 	}
 }
 
