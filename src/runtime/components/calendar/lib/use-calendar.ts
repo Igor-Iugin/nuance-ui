@@ -6,7 +6,7 @@ import type { ModelRef, Ref } from 'vue'
 import { addMonth, isAfter, isBefore, range, sameDay } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { createMonths, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
-import { computed } from 'vue'
+import { computed, shallowRef, watch } from 'vue'
 
 
 export interface UseCalendarProps {
@@ -84,13 +84,21 @@ export function useCalendar(
 		(numberOfMonths.value && numberOfMonths.value > 1)
 		|| hideOutsideDates.value,
 	)
-
-	const grid = computed<CalendarGrid[]>(() => createMonths({
+	const grid = shallowRef<CalendarGrid[]>(createMonths({
 		date: date.value,
 		numberOfMonths: numberOfMonths.value,
 		config: config.value,
 		fixedWeeks: fixedWeeks.value,
 	}))
+
+	watch([date, numberOfMonths, config, fixedWeeks], () => {
+		grid.value = createMonths({
+			date: date.value,
+			numberOfMonths: numberOfMonths.value,
+			config: config.value,
+			fixedWeeks: fixedWeeks.value,
+		})
+	})
 
 	const weekdays = computed(() => {
 		const days = range(weekdayFormat.value, config.value?.locale, config.value?.genitive)

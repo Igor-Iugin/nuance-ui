@@ -4,7 +4,7 @@ import type { UseCalendarReturn } from './use-calendar'
 
 
 const injectionKey = Symbol('nui-calendar')
-const [Provide, Inject] = createStrictInjection((state: UseCalendarReturn) => state, {
+const [Provide, Inject] = createStrictInjection((state: Omit<UseCalendarReturn, 'grid'>) => state, {
 	injectionKey,
 	name: 'CalendarState',
 })

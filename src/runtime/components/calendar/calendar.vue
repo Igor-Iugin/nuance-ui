@@ -61,7 +61,9 @@ const date = defineModel<DateInput>('date', { required: true })
 			<CalendarGrid :key='`grid-${month.value.toString()}`'>
 				<CalendarGridHead>
 					<CalendarGridRow>
-						<CalendarGridHeadCell v-if='withWeekNumbers' />
+						<CalendarGridHeadCell v-if='withWeekNumbers'>
+							#
+						</CalendarGridHeadCell>
 						<CalendarGridHeadCell v-for='day in weekDays' :key='day'>
 							<slot name='weekday' :day='day'>
 								{{ day }}

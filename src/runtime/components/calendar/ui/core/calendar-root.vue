@@ -46,7 +46,7 @@ const prevPage = () => emit('prev', date.value)
 const nextPage = () => emit('next', date.value)
 
 const refs = toRefs(props)
-const state = useCalendar(date, {
+const { grid, ...state } = useCalendar(date, {
 	...refs,
 	prevPage,
 	nextPage,
@@ -57,6 +57,6 @@ useProvideCalendarState(state)
 
 <template>
 	<Box>
-		<slot :date :grid='state.grid.value' :week-days='state.weekdays.value' />
+		<slot :date :grid :week-days='state.weekdays.value' />
 	</Box>
 </template>
