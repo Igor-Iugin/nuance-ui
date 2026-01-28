@@ -16,6 +16,9 @@ export interface CalendarHeaderProps extends BoxProps {
 	nextIcon?: string
 	format?: string
 	date: DateInput
+
+	withPrev?: boolean
+	withNext?: boolean
 }
 
 const {
@@ -24,6 +27,8 @@ const {
 	nextIcon = 'gravity-ui:chevron-right',
 	format = 'MMMM YYYY',
 	date,
+	withPrev = true,
+	withNext = true,
 	...props
 } = defineProps<CalendarHeaderProps>()
 
@@ -38,6 +43,7 @@ const label = computed(() => tFormat({ date, format, ...ctx.config }))
 <template>
 	<Box :is v-bind='props' :class='$style.header'>
 		<UnstyledButton
+			v-if='withPrev'
 			aria-label='Previous page'
 			:disabled='prevDisabled'
 			:class='$style.control'
@@ -55,6 +61,7 @@ const label = computed(() => tFormat({ date, format, ...ctx.config }))
 		</div>
 
 		<UnstyledButton
+			v-if='withNext'
 			aria-label='Next page'
 			:disabled='nextDisabled'
 			:class='$style.control'
