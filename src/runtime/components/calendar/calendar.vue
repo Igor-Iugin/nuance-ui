@@ -57,6 +57,7 @@ const date = defineModel<DateInput>('date', { required: true })
 				<CalendarHeading :month='month.value' />
 				<CalendarNext v-if='ix === grid.length - 1' />
 			</CalendarHeader>
+
 			<CalendarGrid :key='`grid-${month.value.toString()}`'>
 				<CalendarGridHead>
 					<CalendarGridRow>
@@ -68,19 +69,14 @@ const date = defineModel<DateInput>('date', { required: true })
 						</CalendarGridHeadCell>
 					</CalendarGridRow>
 				</CalendarGridHead>
+
 				<CalendarGridBody>
 					<CalendarGridRow v-for='(week, weekIx) in month.rows' :key='`week-row-${weekIx}`'>
 						<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 							{{ getWeekNumber(week[0]!, 1) }}
 						</td>
 						<CalendarCell v-for='day in week' :key='day'>
-							<CalendarCellTrigger
-								v-slot='cell'
-								:key='`m${month.value.toString()}-d${day}`'
-								:day
-								:month='month.value'
-								:size
-							>
+							<CalendarCellTrigger v-slot='cell' :month='month.value' :day :size>
 								<slot name='day' :day='day' v-bind='cell'>
 									{{ cell.label }}
 								</slot>

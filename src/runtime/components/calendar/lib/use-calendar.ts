@@ -74,10 +74,16 @@ export function useCalendar(
 		maxDate,
 		minDate,
 		disabled,
+		hideOutsideDates,
 		...props
 	}: UseCalendarProps,
 ): UseCalendarReturn {
 	const config = computed(() => cfg.value ?? useDatesConfig())
+
+	const hideOutside = computed(() =>
+		(numberOfMonths.value && numberOfMonths.value > 1)
+		|| hideOutsideDates.value,
+	)
 
 	const grid = computed<CalendarGrid[]>(() => createMonths({
 		date: date.value,
@@ -151,6 +157,7 @@ export function useCalendar(
 		fixedWeeks,
 		disabled,
 		numberOfMonths,
+		hideOutsideDates: hideOutside,
 		config: config.value,
 		date,
 		weekdayFormat,

@@ -47,17 +47,11 @@ const ctx = useCalendarState()
 
 const label = computed(() => format({ date: props.day, format: 'D', ...ctx.config }))
 
-const cellState = computed(() => {
-	const outside = ctx.isOutside(props.day, props.month)
-	const disabled = ctx.isDisabled(props.day) || (ctx.hideOutsideDates.value && outside)
-
-	return {
-		today: ctx.isToday(props.day),
-		outside,
-		disabled,
-		weekend: ctx.isWeekend(props.day),
-	}
-})
+const outside = computed(() => ctx.isOutside(props.day, props.month))
+const hidden = computed(() => ctx.hideOutsideDates.value && outside.value)
+const today = computed(() => ctx.isToday(props.day))
+const disabled = computed(() => ctx.isDisabled(props.day) || hidden.value)
+const weekend = computed(() => ctx.isWeekend(props.day))
 
 const style = computed(() => ({
 	'--day-size': getSize(props.size),
@@ -66,31 +60,42 @@ const style = computed(() => ({
 function changeDate(date: DateInput) {
 	if (ctx.readonly.value)
 		return
-	if (cellState.value.disabled)
+	if (disabled.value)
 		return
 
 	return console.log(date)
 	// ctx.onDateChange(date)
 }
 
-const onClick = () => !cellState.value.disabled && changeDate(props.day)
+const onClick = () => !disabled.value && changeDate(props.day)
 </script>
 
 <template>
 	<UnstyledButton
 		:aria-label='label'
 		:mod='{
-			weekend: cellState.weekend,
-			today: cellState.today,
-			outside: cellState.outside,
+			today,
+			outside,
+			disabled,
+			weekend,
+			hidden,
 		}'
 		:style
-		:disabled='cellState.disabled'
+		:disabled
 		:class='$style.cell'
-		:tabindex='cellState.outside || cellState.disabled ? undefined : -1'
+		:tabindex='outside || disabled ? undefined : -1'
 		@click='onClick'
 	>
-		<slot :date='props.day' :month :label v-bind='cellState'>
+		<slot
+			:date='props.day'
+			:month='props.month'
+			:label
+			:today
+			:outside
+			:disabled
+			:weekend
+			:hidden
+		>
 			{{ label }}
 		</slot>
 	</UnstyledButton>
