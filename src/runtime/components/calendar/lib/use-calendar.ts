@@ -6,7 +6,7 @@ import type { ModelRef, Ref } from 'vue'
 import { addMonth, isAfter, isBefore, range, sameDay } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { createMonths, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 
 
 export interface UseCalendarProps {
@@ -43,7 +43,7 @@ type OmittedProps = Omit<
 >
 export interface UseCalendarReturn extends OmittedProps {
 	isWeekend: DateMatcher
-	isOutside: DateMatcher
+	isOutside: (date: DateInput, month?: DateInput) => boolean
 	isToday: DateMatcher
 	isDisabled: DateMatcher
 	isNextDisabled: () => boolean
@@ -77,36 +77,27 @@ export function useCalendar(
 		...props
 	}: UseCalendarProps,
 ): UseCalendarReturn {
-	const config = cfg.value ?? useDatesConfig()
+	const config = computed(() => cfg.value ?? useDatesConfig())
 
-	const grid = ref<CalendarGrid[]>(createMonths({
+	const grid = computed<CalendarGrid[]>(() => createMonths({
 		date: date.value,
 		numberOfMonths: numberOfMonths.value,
-		config,
+		config: config.value,
 		fixedWeeks: fixedWeeks.value,
 	}))
 
 	const weekdays = computed(() => {
-		const days = range(weekdayFormat.value, config?.locale, config?.genitive)
+		const days = range(weekdayFormat.value, config.value?.locale, config.value?.genitive)
 
-		if (config.firstDayOfWeek === 1)
-			return [...days.slice(config.firstDayOfWeek), ...days.slice(0, config.firstDayOfWeek)]
+		if (config.value.firstDayOfWeek === 1)
+			return [...days.slice(config.value.firstDayOfWeek), ...days.slice(0, config.value.firstDayOfWeek)]
 
 		return days
 	})
 	const today = new Date()
 
-	watch([date, numberOfMonths, () => config, fixedWeeks], ([date, numberOfMonths, config, fixedWeeks]) => {
-		grid.value = createMonths({
-			date,
-			numberOfMonths,
-			config,
-			fixedWeeks,
-		})
-	})
-
-	const isWeekend = (day: DateInput) => isWeekendDay(day, config.firstDayOfWeek)
-	const isOutside = (day: DateInput) => !isSameMonth(day, date.value)
+	const isWeekend = (day: DateInput) => isWeekendDay(day, config.value.firstDayOfWeek)
+	const isOutside = (day: DateInput, month?: DateInput) => !isSameMonth(day, month ?? date.value)
 	const isToday = (day: DateInput) => sameDay(day, today)
 
 	const isDisabled = (day: DateInput) => {
@@ -160,7 +151,7 @@ export function useCalendar(
 		fixedWeeks,
 		disabled,
 		numberOfMonths,
-		config,
+		config: config.value,
 		date,
 		weekdayFormat,
 		...props,

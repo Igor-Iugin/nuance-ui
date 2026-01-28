@@ -27,15 +27,14 @@ export interface CalendarProps extends CalendarRootProps {
 	/** Controls size */
 	size?: NuanceSize
 
-	/** Determines whether controls should be separated by space @default `true` */
-	withCellSpacing?: boolean
-
 	/** Determines whether week numbers should be displayed @default `false` */
 	withWeekNumbers?: boolean
 }
 
 const {
 	withWeekNumbers,
+	numberOfMonths = 1,
+	size,
 	...props
 } = defineProps<CalendarProps>()
 
@@ -47,18 +46,21 @@ const date = defineModel<DateInput>('date', { required: true })
 		v-slot='{ weekDays, grid }'
 		v-model:date='date'
 		v-bind='props'
-		@next='date = addMonth(date, 1)'
-		@prev='date = addMonth(date, -1)'
+		:number-of-months
+		:class='$style.content'
+		@next='date = addMonth(date, numberOfMonths)'
+		@prev='date = addMonth(date, -numberOfMonths)'
 	>
-		<div :class='$style.content'>
+		<section v-for='(month, ix) in grid' :key='`table-${month.value.toString()}`'>
 			<CalendarHeader>
-				<CalendarPrev />
-				<CalendarHeading />
-				<CalendarNext />
+				<CalendarPrev v-if='ix === 0' />
+				<CalendarHeading :month='month.value' />
+				<CalendarNext v-if='ix === grid.length - 1' />
 			</CalendarHeader>
-			<CalendarGrid v-for='month in grid' :key='month.value.toString()'>
+			<CalendarGrid :key='`grid-${month.value.toString()}`'>
 				<CalendarGridHead>
 					<CalendarGridRow>
+						<CalendarGridHeadCell v-if='withWeekNumbers' />
 						<CalendarGridHeadCell v-for='day in weekDays' :key='day'>
 							<slot name='weekday' :day='day'>
 								{{ day }}
@@ -67,12 +69,18 @@ const date = defineModel<DateInput>('date', { required: true })
 					</CalendarGridRow>
 				</CalendarGridHead>
 				<CalendarGridBody>
-					<CalendarGridRow v-for='(week, ix) in month.rows' :key='`week-row-${ix}`'>
+					<CalendarGridRow v-for='(week, weekIx) in month.rows' :key='`week-row-${weekIx}`'>
 						<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 							{{ getWeekNumber(week[0]!, 1) }}
 						</td>
-						<CalendarCell v-for='day in week' :key='day' :date='day'>
-							<CalendarCellTrigger v-slot='cell' :day :month='month.value'>
+						<CalendarCell v-for='day in week' :key='day'>
+							<CalendarCellTrigger
+								v-slot='cell'
+								:key='`m${month.value.toString()}-d${day}`'
+								:day
+								:month='month.value'
+								:size
+							>
 								<slot name='day' :day='day' v-bind='cell'>
 									{{ cell.label }}
 								</slot>
@@ -81,13 +89,13 @@ const date = defineModel<DateInput>('date', { required: true })
 					</CalendarGridRow>
 				</CalendarGridBody>
 			</CalendarGrid>
-		</div>
+		</section>
 	</CalendarRoot>
 </template>
 
 <style lang="postcss" module>
 .content {
-	display: grid;
+	display: flex;
 	gap: var(--spacing-sm);
 	width: fit-content;
 }

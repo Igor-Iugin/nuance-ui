@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { DateInput } from '@formkit/tempo'
+
 import { format } from '@formkit/tempo'
 import { computed } from 'vue'
 
@@ -11,11 +13,13 @@ import css from './styles/calendar-header.module.css'
 
 export interface CalendarHeadingProps extends BoxProps {
 	format?: string
+	month?: DateInput
 }
 
 const {
-	format: lFormat = 'MMMM YYYY',
 	mod,
+	month,
+	format: lFormat = 'MMMM YYYY',
 	...props
 } = defineProps<CalendarHeadingProps>()
 
@@ -28,7 +32,7 @@ defineSlots<{
 
 const ctx = useCalendarState()
 const disabled = computed(() => ctx.disabled.value)
-const label = computed(() => format({ date: ctx.date.value, format: lFormat, ...ctx.config }))
+const label = computed(() => format({ date: month ?? ctx.date.value, format: lFormat, ...ctx.config }))
 </script>
 
 <template>
