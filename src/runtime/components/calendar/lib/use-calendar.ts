@@ -40,6 +40,7 @@ type OmittedProps = Omit<
 	| 'nextDisabled'
 	| 'prevPage'
 	| 'nextPage'
+	| 'highlightToday'
 >
 export interface UseCalendarReturn extends OmittedProps {
 	isWeekend: DateMatcher
@@ -75,6 +76,7 @@ export function useCalendar(
 		minDate,
 		disabled,
 		hideOutsideDates,
+		highlightToday,
 		...props
 	}: UseCalendarProps,
 ): UseCalendarReturn {
@@ -112,7 +114,7 @@ export function useCalendar(
 
 	const isWeekend = (day: DateInput) => isWeekendDay(day, config.value.firstDayOfWeek)
 	const isOutside = (day: DateInput, month?: DateInput) => !isSameMonth(day, month ?? date.value)
-	const isToday = (day: DateInput) => sameDay(day, today)
+	const isToday = (day: DateInput) => !!highlightToday.value && sameDay(day, today)
 
 	const isDisabled = (day: DateInput) => {
 		if (excludeDate?.value?.(day) || disabled.value)

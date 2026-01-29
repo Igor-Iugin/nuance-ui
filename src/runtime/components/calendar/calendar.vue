@@ -2,15 +2,14 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { addMonth } from '@formkit/tempo'
+import { addMonth, addYear } from '@formkit/tempo'
+import { computed } from 'vue'
 
+import type { CalendarLevel } from './model'
 import type { CalendarRootProps } from './ui/core'
 
-import {
-	CalendarGrid,
-	CalendarHeader,
-	CalendarRoot,
-} from './ui/core'
+import {	CalendarHeader, CalendarRoot } from './ui/core'
+import {	CalendarMonth, CalendarYear } from './ui/levels'
 
 
 export interface CalendarProps extends CalendarRootProps {
@@ -19,16 +18,72 @@ export interface CalendarProps extends CalendarRootProps {
 
 	/** Determines whether week numbers should be displayed @default `false` */
 	withWeekNumbers?: boolean
+
+	defaultLevel?: CalendarLevel
 }
 
-const {
-	withWeekNumbers,
-	numberOfMonths = 1,
-	size,
-	...props
-} = defineProps<CalendarProps>()
+const props = withDefaults(defineProps<CalendarProps>(), {
+	hideOutsideDates: false,
+	pagedNavigation: false,
+	weekdayFormat: 'ddd',
+	fixedWeeks: false,
+	multiple: false,
+	numberOfMonths: 1,
+	disabled: false,
+	readonly: false,
+	hideWeekdays: false,
+	highlightToday: true,
+
+	defaultLevel: 'year',
+	withWeekNumbers: false,
+})
 
 const date = defineModel<DateInput>('date', { required: true })
+const level = defineModel<CalendarLevel>('level', { default: 'month' })
+
+const levelFormat = computed(() => {
+	switch (level.value) {
+		case 'month':
+			return 'MMMM YYYY'
+		case 'year':
+			return 'YYYY'
+		default:
+			return 'MMMM YYYY'
+	}
+})
+
+function getLevelDate(date: DateInput, ix: number) {
+	switch (level.value) {
+		case 'month':
+			return date
+		case 'year':
+			return addYear(date, ix)
+		default:
+			return date
+	}
+}
+
+function nextLevel() {
+	switch (level.value) {
+		case 'month':
+			return 'year'
+		case 'year':
+			return 'decade'
+		case 'decade':
+			return level.value
+	}
+}
+
+function handleMove(dir: -1 | 1) {
+	switch (level.value) {
+		case 'month':
+			return date.value = addMonth(date.value, props.numberOfMonths * dir)
+		case 'year':
+			return date.value = addYear(date.value, props.numberOfMonths * dir)
+		case 'decade':
+			return date.value = addYear(date.value, props.numberOfMonths * (dir * 10))
+	}
+}
 </script>
 
 <template>
@@ -36,15 +91,30 @@ const date = defineModel<DateInput>('date', { required: true })
 		v-slot='{ grid }'
 		v-model:date='date'
 		v-bind='props'
-		:number-of-months
 		:class='$style.content'
-		@next='date = addMonth(date, numberOfMonths)'
-		@prev='date = addMonth(date, -numberOfMonths)'
+		@prev='handleMove(-1)'
+		@next='handleMove(1)'
 	>
-		<section v-for='(month) in grid' :key='`table-${month.value.toString()}`'>
-			<CalendarHeader :date='month.value' />
+		<section v-for='(month, ix) in grid' :key='`table-${month.value.toString()}`'>
+			<CalendarHeader
+				:date='getLevelDate(month.value, ix)'
+				:format='levelFormat'
+				:with-prev='ix === 0'
+				:with-next='ix === grid.length - 1'
+				@level='level = nextLevel()'
+			/>
 
-			<CalendarGrid :month :with-week-numbers :size />
+			<CalendarMonth
+				v-if='level === "month"'
+				:month
+				:with-week-numbers
+				:size
+			/>
+			<CalendarYear
+				v-if='level === "year"'
+				:year='getLevelDate(month.value, ix)'
+				:size
+			/>
 		</section>
 	</CalendarRoot>
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { DateInput } from '@formkit/tempo'
 import type { CalendarGrid } from '@nui/helpers/date'
 import type { NuanceSize } from '@nui/types'
 
@@ -6,10 +7,10 @@ import { getWeekNumber } from '@nui/helpers/date'
 
 import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
-import CalendarCell from './calendar-cell.vue'
+import { CalendarDay } from '../core'
 
 
-export interface CalendarGridProps {
+export interface CalendarMonthProps {
 	month: CalendarGrid
 
 	/** Controls size */
@@ -19,7 +20,12 @@ export interface CalendarGridProps {
 	withWeekNumbers?: boolean
 }
 
-const { month, size, withWeekNumbers } = defineProps<CalendarGridProps>()
+const { month, size, withWeekNumbers } = defineProps<CalendarMonthProps>()
+
+
+defineEmits<{
+	select: [date: DateInput]
+}>()
 
 const ctx = useCalendarState()
 </script>
@@ -44,18 +50,20 @@ const ctx = useCalendarState()
 				<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 					{{ getWeekNumber(week[0]!, 1) }}
 				</td>
-				<CalendarCell
-					v-for='(day, dayIx) in week'
-					:key='dayIx'
-					v-slot='cell'
-					:month='month.value'
-					:day
-					:size
-				>
-					<slot name='day' :day='day' v-bind='cell'>
-						{{ cell.label }}
-					</slot>
-				</CalendarCell>
+				<td v-for='(day, dayIx) in week' :key='dayIx' role='gridcell'>
+					<CalendarDay
+						v-slot='cell'
+						:key='dayIx'
+						:month='month.value'
+						:day
+						:size
+						@click='$emit("select", day)'
+					>
+						<slot name='day' :day='day' v-bind='cell'>
+							{{ cell.label }}
+						</slot>
+					</CalendarDay>
+				</td>
 			</tr>
 		</tbody>
 	</Box>

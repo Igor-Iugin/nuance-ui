@@ -6,6 +6,7 @@ import type { DateMatcher } from '@nui/helpers/date'
  *  `@formkit/tempo` config
  */
 export type CalendarSettings = Omit<FormatOptions, 'date'>
+export type CalendarLevel = 'month' | 'year' | 'decade'
 
 export interface CalendarEmits {
 	(e: 'prev', date: DateInput): DateInput

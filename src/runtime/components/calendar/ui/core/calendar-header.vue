@@ -32,6 +32,10 @@ const {
 	...props
 } = defineProps<CalendarHeaderProps>()
 
+defineEmits<{
+	level: []
+}>()
+
 const ctx = useCalendarState()
 const disabled = computed(() => ctx.disabled.value)
 const nextDisabled = computed(() => disabled.value || ctx.isNextDisabled())
@@ -54,7 +58,7 @@ const label = computed(() => tFormat({ date, format, ...ctx.config }))
 			</slot>
 		</UnstyledButton>
 
-		<div :mod='{ disabled }' :class='$style.level'>
+		<div :mod='{ disabled }' :class='$style.level' @click='$emit("level")'>
 			<slot name='label' :label>
 				{{ label }}
 			</slot>

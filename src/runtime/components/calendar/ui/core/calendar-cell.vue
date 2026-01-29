@@ -1,106 +1,29 @@
 <script setup lang='ts'>
-import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { format } from '@formkit/tempo'
 import { getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../../../box.vue'
 
 import UnstyledButton from '../../../button/unstyled-button.vue'
-import { useCalendarState } from '../../lib/context'
 
 
 export interface CalendarCellProps extends BoxProps {
-	/** The date value provided to the cell trigger */
-	day: DateInput
-	/** The month in which the cell is rendered */
-	month: DateInput
-
 	size?: NuanceSize | string
 }
 
 const props = defineProps<CalendarCellProps>()
 
-defineSlots<{
-	default: [{
-		label: string
-		/** Current day */
-		date: string
-		/** Current month */
-		month: string
-		/** Current disable state */
-		disabled: boolean
-		/** Current selected state */
-		selected: boolean
-		/** Current today state */
-		today: boolean
-		/** Current outside view state */
-		outside: boolean
-		/** Current weekend view state */
-		weekend: boolean
-	}]
-}>()
-
-const ctx = useCalendarState()
-
-const label = computed(() => format({ date: props.day, format: 'D', ...ctx.config }))
-
-const outside = computed(() => ctx.isOutside(props.day, props.month))
-const hidden = computed(() => ctx.hideOutsideDates.value && outside.value)
-const today = computed(() => ctx.isToday(props.day))
-const disabled = computed(() => ctx.isDisabled(props.day) || hidden.value)
-const weekend = computed(() => ctx.isWeekend(props.day))
-
 const style = computed(() => ({
 	'--day-size': getSize(props.size),
 }))
-
-function changeDate(date: DateInput) {
-	if (ctx.readonly.value)
-		return
-	if (disabled.value)
-		return
-
-	return console.log(date)
-	// ctx.onDateChange(date)
-}
-
-const onClick = () => !disabled.value && changeDate(props.day)
 </script>
 
 <template>
-	<td role='gridcell'>
-		<UnstyledButton
-			:aria-label='label'
-			:mod='{
-				today,
-				outside,
-				disabled,
-				weekend,
-				hidden,
-			}'
-			:style
-			:disabled
-			:class='$style.cell'
-			:tabindex='outside || disabled ? undefined : -1'
-			@click='onClick'
-		>
-			<slot
-				:date='props.day'
-				:month='props.month'
-				:label
-				:today
-				:outside
-				:disabled
-				:weekend
-				:hidden
-			>
-				{{ label }}
-			</slot>
-		</UnstyledButton>
-	</td>
+	<UnstyledButton v-bind='props' :style :class='$style.cell'>
+		<slot	/>
+	</UnstyledButton>
 </template>
 
 <style lang="postcss" module>
@@ -158,7 +81,7 @@ const onClick = () => !disabled.value && changeDate(props.day)
 		display: none;
 	}
 
-	&:where([data-today][data-highlight-today]:not([data-selected], [data-in-range])) {
+	&:where([data-today]:not([data-selected], [data-in-range])) {
 		@mixin where-light {
 			border: 1px solid var(--color-gray-4);
 		}

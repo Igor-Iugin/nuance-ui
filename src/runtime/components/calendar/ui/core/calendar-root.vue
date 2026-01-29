@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
 	disabled: false,
 	readonly: false,
 	hideWeekdays: false,
-	highlightToday: false,
+	highlightToday: true,
 })
 
 const emit = defineEmits<CalendarEmits>()
