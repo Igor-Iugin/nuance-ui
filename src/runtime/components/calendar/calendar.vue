@@ -2,14 +2,14 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { addMonth, addYear } from '@formkit/tempo'
+import { addMonth, addYear, date as fDate } from '@formkit/tempo'
 import { computed } from 'vue'
 
 import type { CalendarLevel } from './model'
 import type { CalendarRootProps } from './ui/core'
 
 import {	CalendarHeader, CalendarRoot } from './ui/core'
-import {	CalendarMonth, CalendarYear } from './ui/levels'
+import {	CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
 
 
 export interface CalendarProps extends CalendarRootProps {
@@ -59,7 +59,7 @@ function getLevelDate(date: DateInput, ix: number) {
 		case 'year':
 			return addYear(date, ix)
 		default:
-			return date
+			return addYear(date, ix * 10)
 	}
 }
 
@@ -84,6 +84,13 @@ function handleMove(dir: -1 | 1) {
 			return date.value = addYear(date.value, props.numberOfMonths * (dir * 10))
 	}
 }
+
+function getDecadeLabel(start: DateInput) {
+	const startYear = fDate(start)
+	const endYear = addYear(start, 9)
+
+	return `${startYear.getFullYear()} - ${endYear.getFullYear()}`
+}
 </script>
 
 <template>
@@ -102,7 +109,11 @@ function handleMove(dir: -1 | 1) {
 				:with-prev='ix === 0'
 				:with-next='ix === grid.length - 1'
 				@level='level = nextLevel()'
-			/>
+			>
+				<template v-if='level === "decade"' #label>
+					{{ getDecadeLabel(getLevelDate(month.value, ix)) }}
+				</template>
+			</CalendarHeader>
 
 			<CalendarMonth
 				v-if='level === "month"'
@@ -112,6 +123,11 @@ function handleMove(dir: -1 | 1) {
 			/>
 			<CalendarYear
 				v-if='level === "year"'
+				:year='getLevelDate(month.value, ix)'
+				:size
+			/>
+			<CalendarDecade
+				v-if='level === "decade"'
 				:year='getLevelDate(month.value, ix)'
 				:size
 			/>
