@@ -22,8 +22,8 @@ const linkProps = [
 type NuxtLinkParams = typeof linkProps[number]
 
 export function pickLinkProps<T extends NuxtLinkProps>(props: T) {
-	const link: Pick<T, NuxtLinkParams> = {}
 	const rest = {} as Omit<T, NuxtLinkParams>
+	let link: Pick<T, NuxtLinkParams> = {}
 
 	for (const key in props) {
 		if (linkProps.includes(key as any)) {
@@ -36,12 +36,10 @@ export function pickLinkProps<T extends NuxtLinkProps>(props: T) {
 		}
 	}
 
+	link = Object.fromEntries(Object.entries(link).filter(([_, value]) => value !== undefined && value !== false))
+
 	return {
-		link: {
-			...link,
-			prefetch: link?.prefetch ?? undefined,
-			noPrefetch: link?.noPrefetch ?? undefined,
-		},
+		link,
 		rest,
 	}
 }
