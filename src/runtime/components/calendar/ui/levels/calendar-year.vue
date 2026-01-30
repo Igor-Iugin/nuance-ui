@@ -34,7 +34,7 @@ const monthList = computed(() => {
 })
 
 const dateYear = date(year).getFullYear()
-const isToday = (month: number) => isSameMonth(new Date(dateYear, month), ctx.date.value)
+const isToday = (month: number) => isSameMonth(new Date(dateYear, month), new Date())
 </script>
 
 <template>
