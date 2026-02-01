@@ -2,7 +2,7 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { addMonth, addYear, date as fDate } from '@formkit/tempo'
+import { addMonth, addYear, date as fDate, format } from '@formkit/tempo'
 import { computed } from 'vue'
 
 import type { CalendarLevel } from './model'
@@ -40,6 +40,26 @@ const props = withDefaults(defineProps<CalendarProps>(), {
 
 const date = defineModel<DateInput>('date', { required: true })
 const level = defineModel<CalendarLevel>('level', { default: 'month' })
+
+const calendars = computed(() => {
+	const dates: string[] = []
+
+	for (let ix = 0; ix < props.numberOfMonths; ix++) {
+		switch (level.value) {
+			case 'month':
+				dates.push(format(addMonth(date.value, ix), 'YYYY-MM-DD'))
+				break
+			case 'year':
+				dates.push(format(addYear(date.value, ix), 'YYYY-MM-DD'))
+				break
+			case 'decade':
+				dates.push(format(addYear(date.value, ix * 10), 'YYYY-MM-DD'))
+				break
+		}
+	}
+
+	return dates
+})
 
 const levelFormat = computed(() => {
 	switch (level.value) {
@@ -95,40 +115,39 @@ function getDecadeLabel(start: DateInput) {
 
 <template>
 	<CalendarRoot
-		v-slot='{ grid }'
 		v-model:date='date'
 		v-bind='props'
 		:class='$style.content'
 		@prev='handleMove(-1)'
 		@next='handleMove(1)'
 	>
-		<section v-for='(month, ix) in grid' :key='`table-${month.value.toString()}`'>
+		<section v-for='(calendar, ix) in calendars' :key='`calendar-${ix}`'>
 			<CalendarHeader
-				:date='getLevelDate(month.value, ix)'
+				:date='getLevelDate(calendar, ix)'
 				:format='levelFormat'
 				:with-prev='ix === 0'
-				:with-next='ix === grid.length - 1'
+				:with-next='ix === calendars.length - 1'
 				@level='level = nextLevel()'
 			>
 				<template v-if='level === "decade"' #label>
-					{{ getDecadeLabel(getLevelDate(month.value, ix)) }}
+					{{ getDecadeLabel(getLevelDate(calendar, ix)) }}
 				</template>
 			</CalendarHeader>
 
 			<CalendarMonth
 				v-if='level === "month"'
-				:month
+				:month='calendar'
 				:with-week-numbers
 				:size
 			/>
 			<CalendarYear
 				v-if='level === "year"'
-				:year='getLevelDate(month.value, ix)'
+				:year='calendar'
 				:size
 			/>
 			<CalendarDecade
 				v-if='level === "decade"'
-				:year='getLevelDate(month.value, ix)'
+				:date='calendar'
 				:size
 			/>
 		</section>

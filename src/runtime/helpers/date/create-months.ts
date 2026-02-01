@@ -1,10 +1,8 @@
 import type { DateInput } from '@formkit/tempo'
 import type { DateConfig } from '@nui/composals'
 
-import { addDay, addMonth, format, monthEnd, monthStart, weekEnd, weekStart } from '@formkit/tempo'
+import { addDay, monthEnd, monthStart, weekEnd, weekStart } from '@formkit/tempo'
 import { chunk } from '@nui/utils'
-
-import type { CalendarGrid } from './types'
 
 import { getDaysBetween } from './get-days-between'
 
@@ -15,7 +13,7 @@ interface CreateMonthProps {
 	config: DateConfig
 }
 
-function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGrid {
+export function createMonth({ date, fixedWeeks, config }: CreateMonthProps): string[][] {
 	const startOfMonth = monthStart(date)
 	const endOfMonth = monthEnd(date)
 
@@ -25,37 +23,13 @@ function createMonth({ date, fixedWeeks, config }: CreateMonthProps): CalendarGr
 	const days = getDaysBetween(start, end)
 
 	if (fixedWeeks && days.length < 42) {
-		const extraDays = 42 - days.length
-		const startFrom = days[days.length - 1]
+		const extraDaysCount = 42 - days.length
+		const startFrom = new Date(days[days.length - 1]!)
 
-		for (let i = 1; i <= extraDays; i++) {
-			days.push(format(addDay(startFrom, i), 'YYYY-MM-DD'))
-		}
+		const extraDays = getDaysBetween(startFrom, addDay(startFrom, extraDaysCount))
+
+		days.push(...extraDays)
 	}
 
-	const weeks = chunk(days, 7)
-
-	return {
-		value: format(date, 'YYYY-MM'),
-		rows: weeks,
-	}
-}
-
-interface CreateMonthsProps extends CreateMonthProps {
-	numberOfMonths: number | undefined
-}
-
-export function createMonths({ numberOfMonths, ...props }: CreateMonthsProps): CalendarGrid[] {
-	const months = []
-
-	if (!numberOfMonths || numberOfMonths === 1) {
-		months.push(createMonth(props))
-		return months
-	}
-
-	for (let i = 0; i < numberOfMonths; i++) {
-		months.push(createMonth({ ...props, date: addMonth(props.date, i) }))
-	}
-
-	return months
+	return chunk(days, 7)
 }

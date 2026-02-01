@@ -2,7 +2,7 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { addYear, format, sameYear } from '@formkit/tempo'
+import { addYear, sameYear } from '@formkit/tempo'
 import { chunk } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -14,13 +14,13 @@ import { CalendarCell } from '../core'
 
 
 export interface CalendarDecadeProps extends CalendarCellProps {
-	year: DateInput
+	date: DateInput
 
 	/** Controls size */
 	size?: NuanceSize
 }
 
-const { year, size } = defineProps<CalendarDecadeProps>()
+const { date, size } = defineProps<CalendarDecadeProps>()
 
 defineEmits<{
 	select: [date: DateInput]
@@ -28,22 +28,22 @@ defineEmits<{
 
 const ctx = useCalendarState()
 const yearList = computed(() => {
-	const years: string[] = []
+	const years: Date[] = []
 
 	for (let ix = 0; ix < 10; ix++) {
-		years.push(format(addYear(year, ix), 'YYYY-MM-DD'))
+		years.push(addYear(date, ix))
 	}
 
 	return chunk(years, 3)
 })
 
-const isToday = (year: string) => sameYear(year, ctx.date.value)
+const isToday = (year: Date) => sameYear(year, ctx.today)
 </script>
 
 <template>
 	<Box is='table' role='grid' tabindex='-1' :class='$style.table'>
 		<tbody>
-			<tr v-for='(years, yearsIx) in yearList' :key='`${year}-${yearsIx}`'>
+			<tr v-for='(years, yearsIx) in yearList' :key='`decade-${yearsIx}`'>
 				<td v-for='(year, yearIx) in years' :key='yearIx'>
 					<CalendarCell
 						:class='$style.year'
@@ -51,7 +51,7 @@ const isToday = (year: string) => sameYear(year, ctx.date.value)
 						:size
 						@click='$emit("select", year)'
 					>
-						{{ year.split("-")[0] }}
+						{{ year.getFullYear() }}
 					</CalendarCell>
 				</td>
 			</tr>

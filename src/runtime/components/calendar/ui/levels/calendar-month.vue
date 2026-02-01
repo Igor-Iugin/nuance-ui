@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
-import type { CalendarGrid } from '@nui/helpers/date'
 import type { NuanceSize } from '@nui/types'
 
-import { getWeekNumber } from '@nui/helpers/date'
+import { createMonth, getWeekNumber } from '@nui/helpers/date'
+import { shallowRef, watch } from 'vue'
 
-import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
 import { CalendarDay } from '../core'
 
 
 export interface CalendarMonthProps {
-	month: CalendarGrid
+	month: string
 
 	/** Controls size */
 	size?: NuanceSize
@@ -27,11 +26,28 @@ defineEmits<{
 	select: [date: DateInput]
 }>()
 
+
 const ctx = useCalendarState()
+const weeks = shallowRef(createMonth({
+	date: month,
+	config: ctx.config,
+	fixedWeeks: ctx.fixedWeeks.value,
+}))
+
+watch(() => month, (date, oldDate) => {
+	if (date === oldDate)
+		return
+
+	weeks.value = createMonth({
+		date,
+		config: ctx.config,
+		fixedWeeks: ctx.fixedWeeks.value,
+	})
+})
 </script>
 
 <template>
-	<Box is='table' role='grid' tabindex='-1'>
+	<table role='grid' tabindex='-1'>
 		<thead>
 			<tr>
 				<th v-if='withWeekNumbers' :class='$style.weekday'>
@@ -46,27 +62,21 @@ const ctx = useCalendarState()
 		</thead>
 
 		<tbody>
-			<tr v-for='(week, weekIx) in month.rows' :key='`week-row-${weekIx}`'>
+			<tr v-for='(week, weekIx) in weeks' :key='`week-${weekIx}`'>
 				<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 					{{ getWeekNumber(week[0]!, 1) }}
 				</td>
-				<td v-for='(day, dayIx) in week' :key='dayIx' role='gridcell'>
+				<td v-for='(day, ix) in week' :key='`day-${ix}`' role='gridcell'>
 					<CalendarDay
-						v-slot='cell'
-						:key='dayIx'
-						:month='month.value'
+						:month
 						:day
 						:size
 						@click='$emit("select", day)'
-					>
-						<slot name='day' :day='day' v-bind='cell'>
-							{{ cell.label }}
-						</slot>
-					</CalendarDay>
+					/>
 				</td>
 			</tr>
 		</tbody>
-	</Box>
+	</table>
 </template>
 
 <style lang="postcss" module>

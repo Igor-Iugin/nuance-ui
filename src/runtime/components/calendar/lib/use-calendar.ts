@@ -1,12 +1,12 @@
 import type { DateInput, FormatToken } from '@formkit/tempo'
 import type { DateConfig } from '@nui/composals'
-import type { CalendarGrid, DateMatcher } from '@nui/helpers/date'
+import type { DateMatcher } from '@nui/helpers/date'
 import type { ModelRef, Ref } from 'vue'
 
 import { addMonth, isAfter, isBefore, range, sameDay } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
-import { createMonths, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
-import { computed, shallowRef, watch } from 'vue'
+import { isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
+import { computed } from 'vue'
 
 
 export interface UseCalendarProps {
@@ -43,6 +43,11 @@ type OmittedProps = Omit<
 	| 'highlightToday'
 >
 export interface UseCalendarReturn extends OmittedProps {
+	weekdays: Ref<string[]>
+	date: ModelRef<DateInput>
+	config: DateConfig
+	today: Date
+
 	isWeekend: DateMatcher
 	isOutside: (date: DateInput, month?: DateInput) => boolean
 	isToday: DateMatcher
@@ -51,10 +56,6 @@ export interface UseCalendarReturn extends OmittedProps {
 	isPrevDisabled: () => boolean
 	prevPage: () => void
 	nextPage: () => void
-	grid: Ref<CalendarGrid[]>
-	weekdays: Ref<string[]>
-	date: ModelRef<DateInput>
-	config: DateConfig
 }
 
 export function useCalendar(
@@ -86,30 +87,20 @@ export function useCalendar(
 		(numberOfMonths.value && numberOfMonths.value > 1)
 		|| hideOutsideDates.value,
 	)
-	const grid = shallowRef<CalendarGrid[]>(createMonths({
-		date: date.value,
-		numberOfMonths: numberOfMonths.value,
-		config: config.value,
-		fixedWeeks: fixedWeeks.value,
-	}))
-
-	watch([date, numberOfMonths, config, fixedWeeks], () => {
-		grid.value = createMonths({
-			date: date.value,
-			numberOfMonths: numberOfMonths.value,
-			config: config.value,
-			fixedWeeks: fixedWeeks.value,
-		})
-	})
 
 	const weekdays = computed(() => {
 		const days = range(weekdayFormat.value, config.value?.locale, config.value?.genitive)
 
-		if (config.value.firstDayOfWeek === 1)
-			return [...days.slice(config.value.firstDayOfWeek), ...days.slice(0, config.value.firstDayOfWeek)]
+		if (config.value.firstDayOfWeek === 1) {
+			return [
+				...days.slice(config.value.firstDayOfWeek),
+				...days.slice(0, config.value.firstDayOfWeek),
+			]
+		}
 
 		return days
 	})
+
 	const today = new Date()
 
 	const isWeekend = (day: DateInput) => isWeekendDay(day, config.value.firstDayOfWeek)
@@ -128,7 +119,7 @@ export function useCalendar(
 	}
 
 	const isNextDisabled = () => {
-		if (!maxDate.value || !grid.value.length)
+		if (!maxDate.value)
 			return false
 		if (disabled.value)
 			return true
@@ -139,7 +130,7 @@ export function useCalendar(
 	}
 
 	const isPrevDisabled = () => {
-		if (!minDate.value || !grid.value.length)
+		if (!minDate.value)
 			return false
 		if (disabled.value)
 			return true
@@ -150,8 +141,8 @@ export function useCalendar(
 	}
 
 	return {
-		grid,
 		weekdays,
+		today,
 
 		isWeekend,
 		isOutside,
