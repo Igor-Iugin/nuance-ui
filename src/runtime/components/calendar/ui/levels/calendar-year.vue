@@ -2,7 +2,7 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { date, range } from '@formkit/tempo'
+import { date, isAfter, isBefore, range } from '@formkit/tempo'
 import { isSameMonth } from '@nui/helpers/date'
 import { chunk } from '@nui/utils'
 import { computed } from 'vue'
@@ -28,27 +28,46 @@ defineEmits<{
 }>()
 
 const ctx = useCalendarState()
+const dateYear = computed(() => date(year).getFullYear())
+
 const monthList = computed(() => {
 	const months =	range('MMMM', ctx.config.locale, ctx.config.genitive)
-	return chunk(months, 3)
+	return chunk(months.map((label, ix) => ({ label, ix })), 3)
 })
 
-const dateYear = date(year).getFullYear()
-const isToday = (month: number) => isSameMonth(new Date(dateYear, month), ctx.today)
+const isToday = (month: number) => isSameMonth(new Date(dateYear.value, month), new Date())
+function isDisabled(month: number) {
+	if (ctx.disabled.value)
+		return true
+
+	const firstDayOfMonth = new Date(dateYear.value, month, 1)
+	const lastDayOfMonth = new Date(dateYear.value, month + 1, 0)
+
+	// The month is disabled if the entire month is after the maxDate
+	if (ctx.maxDate.value && isAfter(firstDayOfMonth, ctx.maxDate.value))
+		return true
+
+	// The month is disabled if the whole month is before minDate
+	if (ctx.minDate.value && isBefore(lastDayOfMonth, ctx.minDate.value))
+		return true
+
+	return false
+}
 </script>
 
 <template>
 	<Box is='table' role='grid' tabindex='-1' :class='$style.table'>
 		<tbody>
 			<tr v-for='(months, seasonIx) in monthList' :key='`${year}-${seasonIx}`'>
-				<td v-for='(month, monthIx) in months' :key='monthIx'>
+				<td v-for='month in months' :key='`${year}-${month.ix}`'>
 					<CalendarCell
 						:class='$style.year'
-						:mod='{ today: isToday(seasonIx * 3 + monthIx) }'
+						:mod='{ today: isToday(month.ix) }'
+						:disabled='isDisabled(month.ix)'
 						:size
-						@click='$emit("select", new Date(dateYear, seasonIx * 3 + monthIx))'
+						@click='$emit("select", new Date(dateYear, month.ix))'
 					>
-						{{ month }}
+						{{ month.label }}
 					</CalendarCell>
 				</td>
 			</tr>

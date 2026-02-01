@@ -48,7 +48,7 @@ const style = computed(() => ({
 	color: var(--color-text);
 
 	&:hover {
-		&:where(:not([data-static], :disabled, [data-selected], [data-in-range])) {
+		&:where(:not([data-static], &:disabled, [data-selected], [data-in-range])) {
 			@mixin light {
 				background-color: var(--color-gray-0);
 			}
@@ -70,11 +70,6 @@ const style = computed(() => ({
 
 	&:where([data-outside]) {
 		color: alpha(var(--color-dimmed), .5);
-	}
-
-	&:where(:disabled) {
-		color: alpha(var(--color-disabled), .5);
-		cursor: not-allowed;
 	}
 
 	&:where([data-hidden]) {
@@ -127,6 +122,11 @@ const style = computed(() => ({
 				background-color: var(--color-primary-filled-hover);
 			}
 		}
+	}
+
+	&:where(:disabled) {
+		color: alpha(var(--color-disabled), .5);
+		cursor: not-allowed;
 	}
 }
 </style>

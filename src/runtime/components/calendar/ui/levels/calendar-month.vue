@@ -2,11 +2,12 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { createMonth, getWeekNumber } from '@nui/helpers/date'
+import { isAfter, isBefore, sameDay } from '@formkit/tempo'
+import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
 import { shallowRef, watch } from 'vue'
 
 import { useCalendarState } from '../../lib/context'
-import { CalendarDay } from '../core'
+import { CalendarCell } from '../core'
 
 
 export interface CalendarMonthProps {
@@ -44,6 +45,22 @@ watch(() => month, (date, oldDate) => {
 		fixedWeeks: ctx.fixedWeeks.value,
 	})
 })
+
+const today = new Date()
+
+const isWeekend = (day: DateInput) => isWeekendDay(day, ctx.config.firstDayOfWeek)
+const isOutside = (day: DateInput) => !isSameMonth(day, month)
+const isToday = (day: DateInput) => !!ctx.highlightToday.value && sameDay(day, today)
+function isDisabled(day: DateInput) {
+	if (ctx.excludeDate?.value?.(day) || ctx.disabled.value)
+		return true
+	if (ctx.maxDate.value && isAfter(day, ctx.maxDate.value))
+		return true
+	if (ctx.minDate.value && (isBefore(day, ctx.minDate.value) && !sameDay(day, ctx.minDate.value)))
+		return true
+
+	return false
+}
 </script>
 
 <template>
@@ -66,18 +83,21 @@ watch(() => month, (date, oldDate) => {
 				<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 					{{ getWeekNumber(week[0]!, 1) }}
 				</td>
-				<td v-for='(day, ix) in week' :key='`day-${ix}`' role='gridcell'>
-					<CalendarDay
-						v-slot='{ label, outside, today, weekend }'
-						:month
-						:day
+				<td v-for='(day, dayIx) in week' :key='`day-${dayIx}`' role='gridcell'>
+					<CalendarCell
+						:mod='{
+							today: isToday(day),
+							outside: isOutside(day),
+							weekend: isWeekend(day),
+							hidden: ctx.hideOutsideDates.value && isOutside(day),
+						}'
 						:size
-						@click='$emit("select", day)'
+						:disabled='isDisabled(day)'
 					>
-						<slot :label :outside :today :weekend>
-							{{ label }}
+						<slot>
+							{{ new Date(day).getDate() }}
 						</slot>
-					</CalendarDay>
+					</CalendarCell>
 				</td>
 			</tr>
 		</tbody>

@@ -3,9 +3,8 @@ import type { DateConfig } from '@nui/composals'
 import type { DateMatcher } from '@nui/helpers/date'
 import type { ModelRef, Ref } from 'vue'
 
-import { addMonth, isAfter, isBefore, range, sameDay } from '@formkit/tempo'
+import { addMonth, isAfter, isBefore, range } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
-import { isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
 import { computed } from 'vue'
 
 
@@ -33,25 +32,16 @@ export interface UseCalendarProps {
 type OmittedProps = Omit<
 	UseCalendarProps,
 	| 'config'
-	| 'minDate'
-	| 'maxDate'
-	| 'excludeDate'
 	| 'prevDisabled'
 	| 'nextDisabled'
 	| 'prevPage'
 	| 'nextPage'
-	| 'highlightToday'
 >
 export interface UseCalendarReturn extends OmittedProps {
 	weekdays: Ref<string[]>
 	date: ModelRef<DateInput>
 	config: DateConfig
-	today: Date
 
-	isWeekend: DateMatcher
-	isOutside: (date: DateInput, month?: DateInput) => boolean
-	isToday: DateMatcher
-	isDisabled: DateMatcher
 	isNextDisabled: () => boolean
 	isPrevDisabled: () => boolean
 	prevPage: () => void
@@ -62,31 +52,22 @@ export function useCalendar(
 	date: ModelRef<DateInput>,
 	{
 		config: cfg,
-		fixedWeeks,
 		numberOfMonths,
 		weekdayFormat,
 
-		excludeDate,
 		nextDisabled,
 		prevDisabled,
-
-		prevPage,
-		nextPage,
 
 		maxDate,
 		minDate,
 		disabled,
 		hideOutsideDates,
-		highlightToday,
 		...props
 	}: UseCalendarProps,
 ): UseCalendarReturn {
 	const config = computed(() => cfg.value ?? useDatesConfig())
 
-	const hideOutside = computed(() =>
-		(numberOfMonths.value && numberOfMonths.value > 1)
-		|| hideOutsideDates.value,
-	)
+	const hideOutside = computed(() => (numberOfMonths.value && numberOfMonths.value > 1) || hideOutsideDates.value)
 
 	const weekdays = computed(() => {
 		const days = range(weekdayFormat.value, config.value?.locale, config.value?.genitive)
@@ -100,23 +81,6 @@ export function useCalendar(
 
 		return days
 	})
-
-	const today = new Date()
-
-	const isWeekend = (day: DateInput) => isWeekendDay(day, config.value.firstDayOfWeek)
-	const isOutside = (day: DateInput, month?: DateInput) => !isSameMonth(day, month ?? date.value)
-	const isToday = (day: DateInput) => !!highlightToday.value && sameDay(day, today)
-
-	const isDisabled = (day: DateInput) => {
-		if (excludeDate?.value?.(day) || disabled.value)
-			return true
-		if (maxDate.value && isAfter(date.value, maxDate.value))
-			return true
-		if (minDate.value && isBefore(date.value, minDate.value))
-			return true
-
-		return false
-	}
 
 	const isNextDisabled = () => {
 		if (!maxDate.value)
@@ -142,26 +106,19 @@ export function useCalendar(
 
 	return {
 		weekdays,
-		today,
-
-		isWeekend,
-		isOutside,
-		isToday,
-		isDisabled,
 
 		isNextDisabled,
 		isPrevDisabled,
-		prevPage,
-		nextPage,
 
 		// props
-		fixedWeeks,
 		disabled,
 		numberOfMonths,
 		hideOutsideDates: hideOutside,
 		config: config.value,
 		date,
 		weekdayFormat,
+		maxDate,
+		minDate,
 		...props,
 	}
 }

@@ -2,7 +2,7 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import { addYear, sameYear } from '@formkit/tempo'
+import { isAfter, isBefore } from '@formkit/tempo'
 import { chunk } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -27,31 +27,55 @@ defineEmits<{
 }>()
 
 const ctx = useCalendarState()
+
+const startYear = computed(() => new Date(date).getFullYear())
 const yearList = computed(() => {
-	const years: Date[] = []
+	const years: number[] = []
+	const base = startYear.value
 
 	for (let ix = 0; ix < 10; ix++) {
-		years.push(addYear(date, ix))
+		years.push(base + ix)
 	}
 
 	return chunk(years, 3)
 })
 
-const isToday = (year: Date) => sameYear(year, ctx.today)
+const today = new Date()
+const currentYear = today.getFullYear()
+
+const isToday = (year: number) => year === currentYear
+
+function isDisabled(year: number) {
+	if (ctx.disabled.value)
+		return true
+
+	// The year is disabled if the entire year is after the maxDate
+	const firstDayOfYear = new Date(year, 0, 1)
+	if (ctx.maxDate.value && isAfter(firstDayOfYear, ctx.maxDate.value))
+		return true
+
+	// The year is disabled if the whole year is before minDate
+	const lastDayOfYear = new Date(year, 11, 31)
+	if (ctx.minDate.value && isBefore(lastDayOfYear, ctx.minDate.value))
+		return true
+
+	return false
+}
 </script>
 
 <template>
 	<Box is='table' role='grid' tabindex='-1' :class='$style.table'>
 		<tbody>
 			<tr v-for='(years, yearsIx) in yearList' :key='`decade-${yearsIx}`'>
-				<td v-for='(year, yearIx) in years' :key='yearIx'>
+				<td v-for='year in years' :key='year'>
 					<CalendarCell
 						:class='$style.year'
 						:mod='{ today: isToday(year) }'
+						:disabled='isDisabled(year)'
 						:size
-						@click='$emit("select", year)'
+						@click='$emit("select", new Date(year, 0, 1))'
 					>
-						{{ year.getFullYear() }}
+						{{ year }}
 					</CalendarCell>
 				</td>
 			</tr>
