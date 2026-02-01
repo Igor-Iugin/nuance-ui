@@ -131,7 +131,7 @@ function move(dir: -1 | 1) {
 				<template v-if='!!$slots.weekday' #weekday>
 					<slot name='weekday' />
 				</template>
-				<slot v-if='!!$slots.day' name='day' />
+				<slot name='day' />
 			</CalendarMonth>
 			<CalendarYear
 				v-if='level === "year"'
