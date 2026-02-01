@@ -22,6 +22,7 @@ const hidden = computed(() => ctx.hideOutsideDates.value && outside.value)
 const today = computed(() => ctx.isToday(day))
 const disabled = computed(() => ctx.isDisabled(day) || hidden.value)
 const weekend = computed(() => ctx.isWeekend(day))
+const label = computed(() => new Date(day).getDate())
 
 const mod = computed(() => ({
 	'data-today': today.value || undefined,
@@ -39,8 +40,6 @@ const mod = computed(() => ({
 		:size
 		:tabindex='outside || disabled ? undefined : -1'
 	>
-		<slot>
-			{{ new Date(day).getDate() }}
-		</slot>
+		<slot :today :label :weekend :outside />
 	</CalendarCell>
 </template>

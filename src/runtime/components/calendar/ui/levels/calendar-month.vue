@@ -68,11 +68,16 @@ watch(() => month, (date, oldDate) => {
 				</td>
 				<td v-for='(day, ix) in week' :key='`day-${ix}`' role='gridcell'>
 					<CalendarDay
+						v-slot='{ label, outside, today, weekend }'
 						:month
 						:day
 						:size
 						@click='$emit("select", day)'
-					/>
+					>
+						<slot :label :outside :today :weekend>
+							{{ label }}
+						</slot>
+					</CalendarDay>
 				</td>
 			</tr>
 		</tbody>

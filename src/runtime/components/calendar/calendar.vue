@@ -47,13 +47,13 @@ const calendars = computed(() => {
 	for (let ix = 0; ix < props.numberOfMonths; ix++) {
 		switch (level.value) {
 			case 'month':
-				dates.push(format(addMonth(date.value, ix), 'YYYY-MM-DD'))
+				dates.push(addMonth(date.value, ix).toISOString())
 				break
 			case 'year':
-				dates.push(format(addYear(date.value, ix), 'YYYY-MM-DD'))
+				dates.push(addYear(date.value, ix).toISOString())
 				break
 			case 'decade':
-				dates.push(format(addYear(date.value, ix * 10), 'YYYY-MM-DD'))
+				dates.push(addYear(date.value, ix * 10).toISOString())
 				break
 		}
 	}
@@ -61,25 +61,14 @@ const calendars = computed(() => {
 	return dates
 })
 
-const levelFormat = computed(() => {
+function getLabel(date: DateInput) {
 	switch (level.value) {
 		case 'month':
-			return 'MMMM YYYY'
+			return format(date, 'MMMM YYYY')
 		case 'year':
-			return 'YYYY'
-		default:
-			return 'MMMM YYYY'
-	}
-})
-
-function getLevelDate(date: DateInput, ix: number) {
-	switch (level.value) {
-		case 'month':
-			return date
-		case 'year':
-			return addYear(date, ix)
-		default:
-			return addYear(date, ix * 10)
+			return format(date, 'YYYY')
+		case 'decade':
+			return `${fDate(date).getFullYear()} - ${addYear(date, 9).getFullYear()}`
 	}
 }
 
@@ -94,7 +83,7 @@ function nextLevel() {
 	}
 }
 
-function handleMove(dir: -1 | 1) {
+function move(dir: -1 | 1) {
 	switch (level.value) {
 		case 'month':
 			return date.value = addMonth(date.value, props.numberOfMonths * dir)
@@ -104,13 +93,6 @@ function handleMove(dir: -1 | 1) {
 			return date.value = addYear(date.value, props.numberOfMonths * (dir * 10))
 	}
 }
-
-function getDecadeLabel(start: DateInput) {
-	const startYear = fDate(start)
-	const endYear = addYear(start, 9)
-
-	return `${startYear.getFullYear()} - ${endYear.getFullYear()}`
-}
 </script>
 
 <template>
@@ -118,19 +100,25 @@ function getDecadeLabel(start: DateInput) {
 		v-model:date='date'
 		v-bind='props'
 		:class='$style.content'
-		@prev='handleMove(-1)'
-		@next='handleMove(1)'
+		@prev='move(-1)'
+		@next='move(1)'
 	>
 		<section v-for='(calendar, ix) in calendars' :key='`calendar-${ix}`'>
 			<CalendarHeader
-				:date='getLevelDate(calendar, ix)'
-				:format='levelFormat'
 				:with-prev='ix === 0'
 				:with-next='ix === calendars.length - 1'
 				@level='level = nextLevel()'
 			>
-				<template v-if='level === "decade"' #label>
-					{{ getDecadeLabel(getLevelDate(calendar, ix)) }}
+				<template v-if='!!$slots.prevButton' #prevButton>
+					<slot name='prevButton' />
+				</template>
+				<template #label>
+					<slot name='level'>
+						{{ getLabel(calendar) }}
+					</slot>
+				</template>
+				<template v-if='!!$slots.nextButton' #nextButton>
+					<slot name='nextButton' />
 				</template>
 			</CalendarHeader>
 
@@ -139,7 +127,12 @@ function getDecadeLabel(start: DateInput) {
 				:month='calendar'
 				:with-week-numbers
 				:size
-			/>
+			>
+				<template v-if='!!$slots.weekday' #weekday>
+					<slot name='weekday' />
+				</template>
+				<slot v-if='!!$slots.day' name='day' />
+			</CalendarMonth>
 			<CalendarYear
 				v-if='level === "year"'
 				:year='calendar'

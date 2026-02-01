@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { DateInput } from '@formkit/tempo'
-
-import { format as tFormat } from '@formkit/tempo'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../../../box.vue'
@@ -14,8 +11,6 @@ import { useCalendarState } from '../../lib/context'
 export interface CalendarHeaderProps extends BoxProps {
 	prevIcon?: string
 	nextIcon?: string
-	format?: string
-	date: DateInput
 
 	withPrev?: boolean
 	withNext?: boolean
@@ -25,8 +20,6 @@ const {
 	is = 'header',
 	prevIcon = 'gravity-ui:chevron-left',
 	nextIcon = 'gravity-ui:chevron-right',
-	format = 'MMMM YYYY',
-	date,
 	withPrev = true,
 	withNext = true,
 	...props
@@ -40,8 +33,6 @@ const ctx = useCalendarState()
 const disabled = computed(() => ctx.disabled.value)
 const nextDisabled = computed(() => disabled.value || ctx.isNextDisabled())
 const prevDisabled = computed(() => disabled.value || ctx.isPrevDisabled())
-
-const label = computed(() => tFormat({ date, format, ...ctx.config }))
 </script>
 
 <template>
@@ -59,9 +50,7 @@ const label = computed(() => tFormat({ date, format, ...ctx.config }))
 		</UnstyledButton>
 
 		<div :mod='{ disabled }' :class='$style.level' @click='$emit("level")'>
-			<slot name='label' :label>
-				{{ label }}
-			</slot>
+			<slot name='label' />
 		</div>
 
 		<UnstyledButton
