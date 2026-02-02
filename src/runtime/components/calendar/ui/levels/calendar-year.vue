@@ -11,6 +11,7 @@ import type { CalendarCellProps } from '../core'
 
 import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
+import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
 
 
@@ -19,11 +20,13 @@ export interface CalendarYearProps extends CalendarCellProps {
 
 	/** Controls size */
 	size?: NuanceSize
+
+	selectable?: boolean
 }
 
-const { year, size } = defineProps<CalendarYearProps>()
+const { year, size, selectable } = defineProps<CalendarYearProps>()
 
-defineEmits<{
+const emit = defineEmits<{
 	select: [date: DateInput]
 }>()
 
@@ -31,27 +34,44 @@ const ctx = useCalendarState()
 const dateYear = computed(() => date(year).getFullYear())
 
 const monthList = computed(() => {
-	const months =	range('MMMM', ctx.config.locale, ctx.config.genitive)
-	return chunk(months.map((label, ix) => ({ label, ix })), 3)
+	const months =	range('MMMM', ctx.config.value.locale, ctx.config.value.genitive)
+		.map((label, ix) => ({ label, ix }))
+	return chunk(months, 3)
 })
 
 const isToday = (month: number) => isSameMonth(new Date(dateYear.value, month), new Date())
 function isDisabled(month: number) {
-	if (ctx.disabled.value)
+	if (ctx.disabled)
 		return true
 
 	const firstDayOfMonth = new Date(dateYear.value, month, 1)
 	const lastDayOfMonth = new Date(dateYear.value, month + 1, 0)
 
 	// The month is disabled if the entire month is after the maxDate
-	if (ctx.maxDate.value && isAfter(firstDayOfMonth, ctx.maxDate.value))
+	if (ctx.maxDate && isAfter(firstDayOfMonth, ctx.maxDate))
 		return true
 
 	// The month is disabled if the whole month is before minDate
-	if (ctx.minDate.value && isBefore(lastDayOfMonth, ctx.minDate.value))
+	if (ctx.minDate && isBefore(lastDayOfMonth, ctx.minDate))
 		return true
 
 	return false
+}
+
+const selection = useCalendarSelectionState()
+const isSelected = (month: number) => selection.isSelected(new Date(dateYear.value, month, 1))
+const isInRange = (month: number) => selection.isInRange(new Date(dateYear.value, month, 1))
+const isFirstInRange = (month: number) => selection.isFirstInRange(new Date(dateYear.value, month, 1))
+const isLastInRange = (month: number) => selection.isLastInRange(new Date(dateYear.value, month, 1))
+
+function handleSelect(month: number) {
+	const monthDate = new Date(dateYear.value, month, 1)
+	emit('select', monthDate)
+
+	if (isDisabled(month) || !selectable || ctx.readonly)
+		return
+
+	selection.handleMonthSelect(monthDate)
 }
 </script>
 
@@ -62,10 +82,16 @@ function isDisabled(month: number) {
 				<td v-for='month in months' :key='`${year}-${month.ix}`'>
 					<CalendarCell
 						:class='$style.year'
-						:mod='{ today: isToday(month.ix) }'
+						:mod='{
+							"today": isToday(month.ix),
+							"selected": isSelected(month.ix),
+							"in-range": isInRange(month.ix),
+							"first-in-range": isFirstInRange(month.ix),
+							"last-in-range": isLastInRange(month.ix),
+						}'
 						:disabled='isDisabled(month.ix)'
 						:size
-						@click='$emit("select", new Date(dateYear, month.ix))'
+						@click='handleSelect(month.ix)'
 					>
 						{{ month.label }}
 					</CalendarCell>

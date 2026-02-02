@@ -7,6 +7,7 @@ import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } fr
 import { shallowRef, watch } from 'vue'
 
 import { useCalendarState } from '../../lib/context'
+import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
 
 
@@ -23,7 +24,7 @@ export interface CalendarMonthProps {
 const { month, size, withWeekNumbers } = defineProps<CalendarMonthProps>()
 
 
-defineEmits<{
+const emit = defineEmits<{
 	select: [date: DateInput]
 }>()
 
@@ -31,8 +32,8 @@ defineEmits<{
 const ctx = useCalendarState()
 const weeks = shallowRef(createMonth({
 	date: month,
-	config: ctx.config,
-	fixedWeeks: ctx.fixedWeeks.value,
+	config: ctx.config.value,
+	fixedWeeks: ctx.fixedWeeks,
 }))
 
 watch(() => month, (date, oldDate) => {
@@ -41,25 +42,38 @@ watch(() => month, (date, oldDate) => {
 
 	weeks.value = createMonth({
 		date,
-		config: ctx.config,
-		fixedWeeks: ctx.fixedWeeks.value,
+		config: ctx.config.value,
+		fixedWeeks: ctx.fixedWeeks,
 	})
 })
 
 const today = new Date()
 
-const isWeekend = (day: DateInput) => isWeekendDay(day, ctx.config.firstDayOfWeek)
+const isWeekend = (day: DateInput) => isWeekendDay(day, ctx.config.value.firstDayOfWeek)
 const isOutside = (day: DateInput) => !isSameMonth(day, month)
-const isToday = (day: DateInput) => !!ctx.highlightToday.value && sameDay(day, today)
+const isToday = (day: DateInput) => !!ctx.highlightToday && sameDay(day, today)
 function isDisabled(day: DateInput) {
-	if (ctx.excludeDate?.value?.(day) || ctx.disabled.value)
+	if (ctx.excludeDate?.(day) || ctx.disabled)
 		return true
-	if (ctx.maxDate.value && isAfter(day, ctx.maxDate.value))
+	if (ctx.maxDate && isAfter(day, ctx.maxDate))
 		return true
-	if (ctx.minDate.value && (isBefore(day, ctx.minDate.value) && !sameDay(day, ctx.minDate.value)))
+	if (ctx.minDate && (isBefore(day, ctx.minDate) && !sameDay(day, ctx.minDate)))
 		return true
 
 	return false
+}
+
+const selection = useCalendarSelectionState()
+function handleSelect(event: PointerEvent) {
+	const target = event.target as HTMLElement
+	const cell = target.closest('[data-value]') as HTMLElement | null
+	const day = cell?.dataset?.value
+
+	if (!day || isDisabled(day) || ctx.readonly)
+		return
+
+	emit('select', day)
+	selection.handleDaySelect(day)
 }
 </script>
 
@@ -78,7 +92,7 @@ function isDisabled(day: DateInput) {
 			</tr>
 		</thead>
 
-		<tbody>
+		<tbody @click='handleSelect'>
 			<tr v-for='(week, weekIx) in weeks' :key='`week-${weekIx}`'>
 				<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 					{{ getWeekNumber(week[0]!, 1) }}
@@ -87,10 +101,15 @@ function isDisabled(day: DateInput) {
 					<CalendarCell
 						:size
 						:mod='{
-							today: isToday(day),
-							outside: isOutside(day),
-							weekend: isWeekend(day),
-							hidden: ctx.hideOutsideDates.value && isOutside(day),
+							"value": day,
+							"today": isToday(day),
+							"outside": isOutside(day),
+							"weekend": isWeekend(day),
+							"hidden": ctx.hideOutsideDates.value && isOutside(day),
+							"selected": selection.isSelected(day),
+							"in-range": selection.isInRange(day),
+							"first-in-range": selection.isFirstInRange(day),
+							"last-in-range": selection.isLastInRange(day),
 						}'
 						:disabled='isDisabled(day)'
 					>

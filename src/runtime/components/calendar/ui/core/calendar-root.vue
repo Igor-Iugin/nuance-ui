@@ -1,19 +1,61 @@
-<script setup lang="ts">
-import type { DateInput } from '@formkit/tempo'
+<script setup lang="ts" generic="T extends SelectionMode = 'single'">
+import type { DateInput, FormatToken } from '@formkit/tempo'
+import type { DateConfig } from '@nui/composals'
+import type { DateMatcher } from '@nui/helpers/date'
 
-import { toRefs } from '@vueuse/core'
+import { range } from '@formkit/tempo'
+import { useDatesConfig } from '@nui/composals'
+import { computed } from 'vue'
 
-import type { CalendarParams } from '../../model'
+import type { CalendarSelection, SelectionMode } from '../../model'
 
 import Box from '../../../box.vue'
 import { useProvideCalendarState } from '../../lib/context'
-import { useCalendar } from '../../lib/use-calendar'
+import { useCalendarSelection } from '../../lib/use-calendar-selection'
 
 
-export interface CalendarRootProps extends CalendarParams {
+export interface CalendarRootProps<T extends SelectionMode> {
+	/** Selection mode @default 'single' */
+	mode?: T
+
+	/** The number of months to display at once */
+	numberOfMonths?: number
+
+	/** `@formkit/tempo` format for weekdays names @default `'ddd'` */
+	weekdayFormat?: FormatToken
+
+	/** Whether or not to always display 6 weeks in the calendar */
+	fixedWeeks?: boolean
+
+	/** Minimum possible date */
+	minDate?: DateInput
+
+	/** Maximum possible date */
+	maxDate?: DateInput
+
+	/** Callback function to determine whether the day should be disabled */
+	excludeDate?: DateMatcher
+
+	/** Determines whether today should be highlighted with a border @default `false` */
+	highlightToday?: boolean
+
+	/** Determines whether weekdays row should be hidden @default `false` */
+	hideWeekdays?: boolean
+
+	/** Determines whether outside dates should be hidden @default `false` */
+	hideOutsideDates?: boolean
+
+	/** Whether the calendar is disabled */
+	disabled?: boolean
+
+	/** Whether the calendar is readonly */
+	readonly?: boolean
+
+	/** `@formkit/tempo` locale config */
+	config?: DateConfig
 }
 
-const props = withDefaults(defineProps<CalendarRootProps>(), {
+const props = withDefaults(defineProps<CalendarRootProps<T>>(), {
 	hideOutsideDates: false,
 	pagedNavigation: false,
 	weekdayFormat: 'ddd',
@@ -24,14 +66,65 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
 	readonly: false,
 	hideWeekdays: false,
 	highlightToday: true,
+	mode: 'single' as any,
 })
 
 const date = defineModel<DateInput>('date', { required: true })
 
-const refs = toRefs(props)
-const state = useCalendar(date, refs)
+const config = computed(() => props.config ?? useDatesConfig())
+const hideOutsideDates = computed(() => (props.numberOfMonths && props.numberOfMonths > 1) || props.hideOutsideDates)
 
-const { config } = useProvideCalendarState(state)
+const weekdays = computed(() => {
+	const days = range(props.weekdayFormat, config.value?.locale, config.value?.genitive)
+
+	if (config.value.firstDayOfWeek === 1) {
+		return [
+			...days.slice(config.value.firstDayOfWeek),
+			...days.slice(0, config.value.firstDayOfWeek),
+		]
+	}
+
+	return days
+})
+
+const select = defineModel<CalendarSelection<T>>('select', {
+	default: ({ mode }) => {
+		switch (mode) {
+			case 'single':
+				return null as CalendarSelection<T>
+			case 'range':
+				return { start: null, end: null } as CalendarSelection<T>
+			case 'week':
+				return { start: null, end: null, number: null } as CalendarSelection<T>
+			case 'multiple':
+				return [] as unknown as CalendarSelection<T>
+			default:
+				return null as CalendarSelection<T>
+		}
+	},
+})
+
+useProvideCalendarState({
+	date,
+	weekdays,
+	config,
+	hideOutsideDates,
+	fixedWeeks: props.fixedWeeks,
+	disabled: props.disabled,
+	excludeDate: props.excludeDate,
+	highlightToday: props.highlightToday,
+	maxDate: props.maxDate,
+	minDate: props.minDate,
+	readonly: props.readonly,
+	weekdayFormat: props.weekdayFormat,
+})
+
+useCalendarSelection({
+	value: select,
+	mode: props.mode,
+	config: config.value,
+	readonly: props.readonly,
+})
 </script>
 
 <template>

@@ -127,6 +127,7 @@ const style = computed(() => ({
 	&:where(:disabled) {
 		color: alpha(var(--color-disabled), .5);
 		cursor: not-allowed;
+		pointer-events: none;
 	}
 }
 </style>

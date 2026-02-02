@@ -10,6 +10,7 @@ import type { CalendarCellProps } from '../core'
 
 import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
+import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
 
 
@@ -18,11 +19,13 @@ export interface CalendarDecadeProps extends CalendarCellProps {
 
 	/** Controls size */
 	size?: NuanceSize
+
+	selectable?: boolean
 }
 
-const { date, size } = defineProps<CalendarDecadeProps>()
+const { date, size, selectable } = defineProps<CalendarDecadeProps>()
 
-defineEmits<{
+const emit = defineEmits<{
 	select: [date: DateInput]
 }>()
 
@@ -46,20 +49,36 @@ const currentYear = today.getFullYear()
 const isToday = (year: number) => year === currentYear
 
 function isDisabled(year: number) {
-	if (ctx.disabled.value)
+	if (ctx.disabled)
 		return true
 
 	// The year is disabled if the entire year is after the maxDate
 	const firstDayOfYear = new Date(year, 0, 1)
-	if (ctx.maxDate.value && isAfter(firstDayOfYear, ctx.maxDate.value))
+	if (ctx.maxDate && isAfter(firstDayOfYear, ctx.maxDate))
 		return true
 
 	// The year is disabled if the whole year is before minDate
 	const lastDayOfYear = new Date(year, 11, 31)
-	if (ctx.minDate.value && isBefore(lastDayOfYear, ctx.minDate.value))
+	if (ctx.minDate && isBefore(lastDayOfYear, ctx.minDate))
 		return true
 
 	return false
+}
+
+const selection = useCalendarSelectionState()
+const isSelected = (year: number) => selection.isSelected(new Date(year, 0, 1))
+const isInRange = (year: number) => selection.isInRange(new Date(year, 0, 1))
+const isFirstInRange = (year: number) => selection.isFirstInRange(new Date(year, 0, 1))
+const isLastInRange = (year: number) => selection.isLastInRange(new Date(year, 0, 1))
+
+function handleSelect(year: number) {
+	const yearDate = new Date(year, 0, 1)
+	emit('select', yearDate)
+
+	if (isDisabled(year) || !selectable || ctx.readonly)
+		return
+
+	selection.handleYearSelect(yearDate)
 }
 </script>
 
@@ -70,10 +89,16 @@ function isDisabled(year: number) {
 				<td v-for='year in years' :key='year'>
 					<CalendarCell
 						:class='$style.year'
-						:mod='{ today: isToday(year) }'
+						:mod='{
+							"today": isToday(year),
+							"selected": isSelected(year),
+							"in-range": isInRange(year),
+							"first-in-range": isFirstInRange(year),
+							"last-in-range": isLastInRange(year),
+						}'
 						:disabled='isDisabled(year)'
 						:size
-						@click='$emit("select", new Date(year, 0, 1))'
+						@click='handleSelect(year)'
 					>
 						{{ year }}
 					</CalendarCell>

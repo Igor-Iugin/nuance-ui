@@ -1,8 +1,8 @@
-<script setup lang='ts'>
+<script setup lang='ts' generic="T extends SelectionMode = 'single'">
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import type { CalendarLevel } from './model'
+import type { CalendarLevel, SelectionMode } from './model'
 import type { CalendarRootProps } from './ui/core'
 
 import { useCalendarNavigation } from './lib/use-calendar-navigation'
@@ -10,7 +10,7 @@ import {	CalendarHeader, CalendarRoot } from './ui/core'
 import {	CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
 
 
-export interface CalendarProps extends CalendarRootProps {
+export interface CalendarProps<T extends SelectionMode = 'single'> extends CalendarRootProps<T> {
 	/** Controls size */
 	size?: NuanceSize
 
@@ -27,7 +27,7 @@ export interface CalendarProps extends CalendarRootProps {
 	maxLevel?: CalendarLevel
 }
 
-const props = withDefaults(defineProps<CalendarProps>(), {
+const props = withDefaults(defineProps<CalendarProps<T>>(), {
 	hideOutsideDates: false,
 	pagedNavigation: false,
 	weekdayFormat: 'ddd',
@@ -38,6 +38,7 @@ const props = withDefaults(defineProps<CalendarProps>(), {
 	readonly: false,
 	hideWeekdays: false,
 	highlightToday: true,
+	mode: 'single' as any,
 
 	withWeekNumbers: false,
 	minLevel: 'month',
@@ -45,7 +46,7 @@ const props = withDefaults(defineProps<CalendarProps>(), {
 })
 
 const date = defineModel<DateInput>('date', { default: new Date() })
-const level = defineModel<CalendarLevel>('level', { default: 'month' })
+const level = defineModel<CalendarLevel>('level', { default: ({ minLevel }) => minLevel })
 
 const [calendars, nav] = useCalendarNavigation({
 	date,
@@ -99,11 +100,25 @@ const [calendars, nav] = useCalendarNavigation({
 				v-if='level === "year"'
 				:year='calendar'
 				:size
+				:selectable='props.minLevel === "year"'
+				@select='month => {
+					if (props.minLevel !== "year")
+						level = nav.prevLevel()
+
+					date = month
+				}'
 			/>
 			<CalendarDecade
 				v-if='level === "decade"'
 				:date='calendar'
 				:size
+				:selectable='props.minLevel === "decade"'
+				@select='year => {
+					if (props.minLevel !== "decade")
+						level = nav.prevLevel()
+
+					date = year
+				}'
 			/>
 		</section>
 	</CalendarRoot>
