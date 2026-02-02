@@ -85,13 +85,13 @@ function isDisabled(day: DateInput) {
 				</td>
 				<td v-for='(day, dayIx) in week' :key='`day-${dayIx}`' role='gridcell'>
 					<CalendarCell
+						:size
 						:mod='{
 							today: isToday(day),
 							outside: isOutside(day),
 							weekend: isWeekend(day),
 							hidden: ctx.hideOutsideDates.value && isOutside(day),
 						}'
-						:size
 						:disabled='isDisabled(day)'
 					>
 						<slot>

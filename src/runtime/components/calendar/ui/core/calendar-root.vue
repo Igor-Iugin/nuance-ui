@@ -3,7 +3,7 @@ import type { DateInput } from '@formkit/tempo'
 
 import { toRefs } from '@vueuse/core'
 
-import type { CalendarEmits, CalendarParams } from '../../model'
+import type { CalendarParams } from '../../model'
 
 import Box from '../../../box.vue'
 import { useProvideCalendarState } from '../../lib/context'
@@ -26,25 +26,16 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
 	highlightToday: true,
 })
 
-const emit = defineEmits<CalendarEmits>()
-
 const date = defineModel<DateInput>('date', { required: true })
 
-const prevPage = () => emit('prev', date.value)
-const nextPage = () => emit('next', date.value)
-
 const refs = toRefs(props)
-const state = useCalendar(date, {
-	...refs,
-	prevPage,
-	nextPage,
-})
+const state = useCalendar(date, refs)
 
-useProvideCalendarState(state)
+const { config } = useProvideCalendarState(state)
 </script>
 
 <template>
 	<Box>
-		<slot />
+		<slot :config />
 	</Box>
 </template>

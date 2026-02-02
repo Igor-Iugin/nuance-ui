@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import type { BoxProps } from '../../../box.vue'
 
 import Box from '../../../box.vue'
 import UnstyledButton from '../../../button/unstyled-button.vue'
-import { useCalendarState } from '../../lib/context'
 
 
 export interface CalendarHeaderProps extends BoxProps {
@@ -14,6 +11,12 @@ export interface CalendarHeaderProps extends BoxProps {
 
 	withPrev?: boolean
 	withNext?: boolean
+
+	nextDisabled?: () => boolean
+	prevDisabled?: () => boolean
+
+	/** Label disabled state  */
+	disabled?: boolean
 }
 
 const {
@@ -22,17 +25,19 @@ const {
 	nextIcon = 'gravity-ui:chevron-right',
 	withPrev = true,
 	withNext = true,
+	nextDisabled,
+	prevDisabled,
+	disabled,
 	...props
 } = defineProps<CalendarHeaderProps>()
 
-defineEmits<{
-	level: []
-}>()
+defineEmits<CalendarHeaderEmits>()
 
-const ctx = useCalendarState()
-const disabled = computed(() => ctx.disabled.value)
-const nextDisabled = computed(() => disabled.value || ctx.isNextDisabled())
-const prevDisabled = computed(() => disabled.value || ctx.isPrevDisabled())
+export interface CalendarHeaderEmits {
+	prev: []
+	level: []
+	next: []
+}
 </script>
 
 <template>
@@ -40,29 +45,29 @@ const prevDisabled = computed(() => disabled.value || ctx.isPrevDisabled())
 		<UnstyledButton
 			v-if='withPrev'
 			aria-label='Previous page'
-			:disabled='prevDisabled'
+			:disabled='prevDisabled?.()'
 			:class='$style.control'
-			@click='ctx.prevPage()'
+			@click='$emit("prev")'
 		>
-			<slot name='prevButton'>
-				<Icon :name='prevIcon' :class='$style.icon' />
-			</slot>
+			<Icon :name='prevIcon' :class='$style.icon' />
 		</UnstyledButton>
 
-		<div :mod='{ disabled }' :class='$style.level' @click='$emit("level")'>
-			<slot name='label' />
-		</div>
+		<UnstyledButton
+			:disabled
+			:class='$style.level'
+			@click='$emit("level")'
+		>
+			<slot />
+		</UnstyledButton>
 
 		<UnstyledButton
 			v-if='withNext'
 			aria-label='Next page'
-			:disabled='nextDisabled'
+			:disabled='nextDisabled?.()'
 			:class='$style.control'
-			@click='ctx.nextPage()'
+			@click='$emit("next")'
 		>
-			<slot name='nextButton'>
-				<Icon :name='nextIcon' :class='$style.icon' />
-			</slot>
+			<Icon :name='nextIcon' :class='$style.icon' />
 		</UnstyledButton>
 	</Box>
 </template>

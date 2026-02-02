@@ -8,11 +8,6 @@ import type { DateMatcher } from '@nui/helpers/date'
 export type CalendarSettings = Omit<FormatOptions, 'date'>
 export type CalendarLevel = 'month' | 'year' | 'decade'
 
-export interface CalendarEmits {
-	(e: 'prev', date: DateInput): DateInput
-	(e: 'next', date: DateInput): DateInput
-}
-
 export interface CalendarParams {
 	/** The number of months to display at once */
 	numberOfMonths?: number
@@ -31,12 +26,6 @@ export interface CalendarParams {
 
 	/** Callback function to determine whether the day should be disabled */
 	excludeDate?: DateMatcher
-
-	/** Callback function to determine whether the prev button should be disabled */
-	prevDisabled?: DateMatcher
-
-	/** Callback function to determine whether the next button should be disabled */
-	nextDisabled?: DateMatcher
 
 	/** Determines whether today should be highlighted with a border @default `false` */
 	highlightToday?: boolean
