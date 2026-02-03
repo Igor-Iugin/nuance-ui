@@ -13,7 +13,7 @@ export type DateConfig = Omit<FormatOptions, 'date' | 'format'> & {
 /**
  * Get first day of week from Intl.Locale
  */
-function getFirstDayOfWeek(locale?: string, forceDay: number = 1): number {
+function getFirstDayOfWeek(locale?: string, forceDay?: number): number {
 	if (forceDay)
 		return forceDay
 
@@ -31,7 +31,7 @@ function getFirstDayOfWeek(locale?: string, forceDay: number = 1): number {
 	}
 }
 
-const [Provide, Inject] = createStrictInjection((state?: DateConfig) => ({
+const [Provide, Inject] = createStrictInjection((state?: Partial<DateConfig>) => ({
 	...state,
 	firstDayOfWeek: getFirstDayOfWeek(state?.locale, state?.firstDayOfWeek),
 }), {
