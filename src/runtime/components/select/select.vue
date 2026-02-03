@@ -1,5 +1,5 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
-import { nextTick, useId, watch } from 'vue'
+import { nextTick, watch } from 'vue'
 
 import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
 import type { InputProps } from '../input'
@@ -66,9 +66,7 @@ const value = defineModel<ComboboxItem<Value, Ext> | null>({ default: null })
 
 const { parsed, options } = useComboboxData<Value, Ext>(data)
 
-const id = useId()
 const store = useCombobox({
-	listId: id,
 	opened,
 	loop: true,
 	scrollBehavior: 'instant',
@@ -109,7 +107,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
 			<component
 				:is='searchable ? Input : Button'
-				:id
+				:id='store.listId'
 				v-bind='{ ...rest, ...$attrs }'
 				v-model='search'
 				:disabled
@@ -154,8 +152,8 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 			:with-check-icon
 			:icon-position
 			:nothing-found-message
-			:aria-label='id'
-			:label-id='id'
+			:aria-label='store.listId'
+			:label-id='store.listId'
 		/>
 	</ComboboxRoot>
 </template>

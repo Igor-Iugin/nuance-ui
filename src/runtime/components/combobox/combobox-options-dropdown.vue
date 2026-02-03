@@ -26,7 +26,6 @@ export interface ComboboxOptionsDropdownProps<
 	filterOptions?: boolean
 	nothingFoundMessage?: string
 	labelId: string | undefined
-	ariaLabel: string | undefined
 
 	withCheckIcon?: boolean
 	iconPosition?: 'left' | 'right'
@@ -36,7 +35,6 @@ export interface ComboboxOptionsDropdownProps<
 const {
 	data,
 	labelId,
-	ariaLabel,
 	nothingFoundMessage = 'Нет вариантов',
 	withCheckIcon = true,
 	filterOptions = true,
@@ -61,7 +59,7 @@ const filteredData = computed(() => typeof search.value === 'string'
 
 <template>
 	<ComboboxDropdown data-composed>
-		<ComboboxOptionList :labelled-by='labelId' :aria-label='ariaLabel'>
+		<ComboboxOptionList :labelled-by='labelId' v-bind='$attrs'>
 			<template
 				v-for='item in filteredData'
 				:key='isOptionsGroup(item) ? item.group : (item as ComboboxItem<Value, Ext>)?.value'
