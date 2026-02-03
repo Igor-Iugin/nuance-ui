@@ -9,7 +9,7 @@ import ComboboxOptionsDropdown from '../combobox/combobox-options-dropdown.vue'
 import ComboboxRoot from '../combobox/combobox-root.vue'
 import ComboboxTarget from '../combobox/combobox-target.vue'
 import ButtonInput from '../input/button-input.vue'
-import Input from '../input/input.vue'
+import Input from '../input/c-input.vue'
 
 
 export interface SelectProps<

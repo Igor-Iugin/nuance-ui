@@ -20,13 +20,13 @@ export interface ButtonInputProps extends InputWrapperProps, InputBaseProps {
 const { id, ...rest } = defineProps<ButtonInputProps>()
 const value = defineModel<any>()
 
-const ref = useTemplateRef('button')
+const ref = useTemplateRef<HTMLElement>('button')
 
 const uid = id ?? useId()
 
 defineExpose({
 	get $el() {
-		return unrefElement(ref.value) as HTMLElement
+		return unrefElement(ref.value)
 	},
 })
 </script>

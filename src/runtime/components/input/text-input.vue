@@ -1,30 +1,49 @@
 <script setup lang='ts'>
-import { useId } from 'vue'
+import { unrefElement } from '@vueuse/core'
+import { computed, useId, useTemplateRef, watch } from 'vue'
 
+import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
 import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export type TextInputProps = Omit<InputWrapperProps, 'id' | 'multiline' | 'resize'>
+export interface TextInputProps extends InputWrapperProps, InputBaseProps {
+	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
+	multiline?: boolean
 
-defineOptions({
-	inheritAttrs: false,
+	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
+	withAria?: boolean
+
+	classes?: {
+		wrapper?: string
+		input?: string
+	}
+}
+
+const { classes, id: uid, ...props } = defineProps<TextInputProps>()
+const value = defineModel<string>({ default: '' })
+
+watch(value, v => console.log('value', v))
+
+const id = computed(() => uid ?? useId())
+
+const ref = useTemplateRef<HTMLElement>('input')
+defineExpose({
+	get $el() {
+		return unrefElement(ref.value)
+	},
 })
-
-const { required, ...props } = defineProps<TextInputProps>()
-const model = defineModel<string | undefined>()
-
-const id = useId()
 </script>
 
 <template>
-	<InputWrapper :id v-bind='props' :class='$attrs?.class'>
+	<InputWrapper :id v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
 		<BaseInput
 			:id
-			v-model='model'
-			v-bind='{ ...$attrs, class: undefined }'
+			ref='input'
+			v-bind='{ ...$attrs, class: classes?.input }'
+			v-model='value'
 			:required
 		>
 			<template v-if='$slots.leftSection' #leftSection>

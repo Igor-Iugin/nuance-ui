@@ -22,6 +22,7 @@
 			]'
 		/>
 	</div>
+	<NDateInput label='Date input' />
 </template>
 
 <style lang="postcss" module>

@@ -39,9 +39,6 @@ export interface CalendarRootProps<T extends SelectionMode> {
 	/** Determines whether today should be highlighted with a border @default `false` */
 	highlightToday?: boolean
 
-	/** Determines whether weekdays row should be hidden @default `false` */
-	hideWeekdays?: boolean
-
 	/** Determines whether outside dates should be hidden @default `false` */
 	hideOutsideDates?: boolean
 

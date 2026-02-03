@@ -15,17 +15,22 @@ import { useInputWrapperState } from '../lib/input-wrapper.context'
 export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'> {
 	id: string
 	is?: 'input' | 'textarea' | Component
+	modelValue?: string | number
 }
 
 const {
 	is = 'input',
 	readonly,
 	disabled,
+	modelValue = '',
 	...props
 } = defineProps<BaseInputProps>()
 
+defineEmits<{
+	'update:modelValue': [value: string | number | undefined]
+}>()
+
 const api = computed(() => useInputWrapperState() ?? props)
-const value = defineModel<string | number>({ default: '' })
 
 const style = computed(() => ({
 	'--input-height': getSize(api.value.size, 'input-height'),
@@ -70,10 +75,10 @@ defineExpose({
 			v-bind='{ ...$attrs, disabled, class: undefined }'
 			ref='input'
 			:class='$style.input'
-			:value='value'
+			:value='modelValue'
 			:readonly
 			:disabled
-			@input='value = $event.target.value'
+			@input="$emit('update:modelValue', $event.target.value)"
 		/>
 
 		<span
