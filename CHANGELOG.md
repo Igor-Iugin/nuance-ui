@@ -1,6 +1,56 @@
 # Changelog
 
 
+## v0.1.38
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.37...v0.1.38)
+
+### 🚀 Enhancements
+
+- **new:** Calendar components: Day, Header, Level, LevelsGroup, Month ([7c5e0e7](https://github.com/Igor-Iugin/nuance-ui/commit/7c5e0e7))
+- Install @internationalize/date ([98b4adc](https://github.com/Igor-Iugin/nuance-ui/commit/98b4adc))
+- Rework calendar logic ([97211ac](https://github.com/Igor-Iugin/nuance-ui/commit/97211ac))
+- Created core Calendar components ([9c538f6](https://github.com/Igor-Iugin/nuance-ui/commit/9c538f6))
+- Styled default calendar components ([9602a99](https://github.com/Igor-Iugin/nuance-ui/commit/9602a99))
+- Styled content ([ffb5826](https://github.com/Igor-Iugin/nuance-ui/commit/ffb5826))
+- Add render for couple of months ([d911119](https://github.com/Igor-Iugin/nuance-ui/commit/d911119))
+- Remove dublicates dates in months ([6ea885a](https://github.com/Igor-Iugin/nuance-ui/commit/6ea885a))
+- Extra props have been removed ([f8f4282](https://github.com/Igor-Iugin/nuance-ui/commit/f8f4282))
+- Remove grid from state ([7bd1ce1](https://github.com/Igor-Iugin/nuance-ui/commit/7bd1ce1))
+- Simplify calendar structure ([524c856](https://github.com/Igor-Iugin/nuance-ui/commit/524c856))
+- Added flags for hiding prev/next btns ([d21564b](https://github.com/Igor-Iugin/nuance-ui/commit/d21564b))
+- Separate levels & add year level ([d34e162](https://github.com/Igor-Iugin/nuance-ui/commit/d34e162))
+- Added decade level ([9904062](https://github.com/Igor-Iugin/nuance-ui/commit/9904062))
+- Hightly optimized calendar rendering ([a102bfd](https://github.com/Igor-Iugin/nuance-ui/commit/a102bfd))
+- Pass slots ([728f093](https://github.com/Igor-Iugin/nuance-ui/commit/728f093))
+- Separate logic by levels ([02137ec](https://github.com/Igor-Iugin/nuance-ui/commit/02137ec))
+- Separated navigation logic ([baefd4e](https://github.com/Igor-Iugin/nuance-ui/commit/baefd4e))
+- Added selection logic ([e8187f8](https://github.com/Igor-Iugin/nuance-ui/commit/e8187f8))
+- Polishing Calendar component and types ([9965946](https://github.com/Igor-Iugin/nuance-ui/commit/9965946))
+- **new:** Calendar ([a2fd451](https://github.com/Igor-Iugin/nuance-ui/commit/a2fd451))
+
+### 🩹 Fixes
+
+- **Badge:** Fix badge styles ([efc46ba](https://github.com/Igor-Iugin/nuance-ui/commit/efc46ba))
+- Fixed weeks calculation ([28f632b](https://github.com/Igor-Iugin/nuance-ui/commit/28f632b))
+- NavLink props warning ([642537a](https://github.com/Igor-Iugin/nuance-ui/commit/642537a))
+- Current year calc ([8f80dcb](https://github.com/Igor-Iugin/nuance-ui/commit/8f80dcb))
+- Stupid logic ([0876e86](https://github.com/Igor-Iugin/nuance-ui/commit/0876e86))
+
+### 📦 Build
+
+- Add .vscode ([3742bfb](https://github.com/Igor-Iugin/nuance-ui/commit/3742bfb))
+- **config:** Fix *.module.css ts errors ([2579c62](https://github.com/Igor-Iugin/nuance-ui/commit/2579c62))
+
+### 🏡 Chore
+
+- **release:** V0.1.37 ([5f328fb](https://github.com/Igor-Iugin/nuance-ui/commit/5f328fb))
+
+### ❤️ Contributors
+
+- Gigorbyte ([@Igor-Iugin](https://github.com/Igor-Iugin))
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.37
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.36...v0.1.37)
