@@ -4,11 +4,11 @@ import { nextTick, watch } from 'vue'
 import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
 import type { InputProps } from '../input'
 
-import Button from '../button/button.vue'
 import { useCombobox, useComboboxData } from '../combobox'
 import ComboboxOptionsDropdown from '../combobox/combobox-options-dropdown.vue'
 import ComboboxRoot from '../combobox/combobox-root.vue'
 import ComboboxTarget from '../combobox/combobox-target.vue'
+import ButtonInput from '../input/button-input.vue'
 import Input from '../input/input.vue'
 
 
@@ -106,7 +106,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 	>
 		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
 			<component
-				:is='searchable ? Input : Button'
+				:is='searchable ? Input : ButtonInput'
 				:id='store.listId'
 				v-bind='{ ...rest, ...$attrs }'
 				v-model='search'
@@ -114,7 +114,6 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 				:right-section-p-e
 				:readonly='readonly || !searchable'
 				:class='$style.input'
-				@focus='() => searchable && store.openDropdown()'
 				@blur='() => {
 					searchable && store.closeDropdown()
 					search = value?.label ?? ""

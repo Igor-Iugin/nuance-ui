@@ -2,7 +2,6 @@ import type { NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { createInjectionState } from '@vueuse/core'
-import { computed } from 'vue'
 
 import type { InputVariant } from '../types'
 
@@ -22,7 +21,7 @@ export interface WrapperContext {
 }
 
 const injectionKey = Symbol('InputWrapper')
-const [useProvide, useState] = createInjectionState(init => computed(() => init), {
+const [useProvide, useState] = createInjectionState(init => init, {
 	injectionKey,
 })
 

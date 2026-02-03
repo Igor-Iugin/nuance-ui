@@ -1,14 +1,15 @@
 <script setup lang='ts'>
-import { useId } from 'vue'
+import { unrefElement } from '@vueuse/core'
+import { useId, useTemplateRef } from 'vue'
 
 import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
-import BaseInput from './ui/input-base.vue'
+import Button from '../button/button.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface InputProps extends InputWrapperProps, InputBaseProps {
+export interface ButtonInputProps extends InputWrapperProps, InputBaseProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 
@@ -16,22 +17,33 @@ export interface InputProps extends InputWrapperProps, InputBaseProps {
 	withAria?: boolean
 }
 
-const { id, ...rest } = defineProps<InputProps>()
+const { id, ...rest } = defineProps<ButtonInputProps>()
 const value = defineModel<any>()
 
+const ref = useTemplateRef('button')
+
 const uid = id ?? useId()
+
+defineExpose({
+	get $el() {
+		return unrefElement(ref.value) as HTMLElement
+	},
+})
 </script>
 
 <template>
 	<InputWrapper :id='uid' v-bind='rest'>
-		<BaseInput :id='uid' v-model='value' v-bind='$attrs'>
+		<Button :id='uid' v-bind='$attrs' ref='button' :class='$style.button'>
 			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
+			<slot>
+				{{ value }}
+			</slot>
 			<template v-if='!!$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
-		</BaseInput>
+		</Button>
 
 		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
@@ -44,3 +56,10 @@ const uid = id ?? useId()
 		</template>
 	</InputWrapper>
 </template>
+
+<style lang="postcss" module>
+.button {
+	width: 100%;
+	min-width: rem(150px);
+}
+</style>

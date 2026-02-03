@@ -24,7 +24,10 @@ const {
 	variant = 'default',
 	size = 'sm',
 	radius = 'sm',
-	...props
+	leftSectionPE,
+	rightSectionPE,
+	multiline,
+	resize,
 } = defineProps<InputWrapperProps>()
 
 const uid = id ?? useId()
@@ -38,7 +41,10 @@ useProvideInputWrapper({
 	variant,
 	size,
 	radius,
-	...props,
+	leftSectionPE,
+	rightSectionPE,
+	multiline,
+	resize,
 })
 
 const style = computed(() => ({

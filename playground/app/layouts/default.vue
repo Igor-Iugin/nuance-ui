@@ -15,6 +15,9 @@ const theme = useTheme()
 			<NNavLink to='/file'>
 				Files
 			</NNavLink>
+			<NNavLink to='/inputs'>
+				Inputs
+			</NNavLink>
 			<NNavLink to='/action-icon'>
 				Action Icon
 			</NNavLink>

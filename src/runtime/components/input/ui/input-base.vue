@@ -2,6 +2,7 @@
 import type { Component } from 'vue'
 
 import { getFontSize, getRadius, getSize } from '@nui/utils'
+import { unrefElement } from '@vueuse/core'
 import { computed, useTemplateRef } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
@@ -14,22 +15,17 @@ import { useInputWrapperState } from '../lib/input-wrapper.context'
 export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'> {
 	id: string
 	is?: 'input' | 'textarea' | Component
-	modelValue?: string | number
 }
 
 const {
 	is = 'input',
-	modelValue = '',
 	readonly,
 	disabled,
 	...props
 } = defineProps<BaseInputProps>()
 
-defineEmits<{
-	'update:modelValue': [value: string | number | undefined]
-}>()
-
-const api = useInputWrapperState() ?? computed(() => props)
+const api = computed(() => useInputWrapperState() ?? props)
+const value = defineModel<string | number>({ default: '' })
 
 const style = computed(() => ({
 	'--input-height': getSize(api.value.size, 'input-height'),
@@ -42,7 +38,12 @@ const style = computed(() => ({
 }))
 
 const ref = useTemplateRef('input')
-defineExpose({ ref })
+
+defineExpose({
+	get $el() {
+		return unrefElement(ref.value)
+	},
+})
 </script>
 
 <template>
@@ -69,10 +70,10 @@ defineExpose({ ref })
 			v-bind='{ ...$attrs, disabled, class: undefined }'
 			ref='input'
 			:class='$style.input'
-			:value='modelValue'
+			:value='value'
 			:readonly
 			:disabled
-			@input="$emit('update:modelValue', $event.target.value)"
+			@input='value = $event.target.value'
 		/>
 
 		<span

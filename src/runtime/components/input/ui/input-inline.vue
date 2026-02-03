@@ -27,22 +27,17 @@ const {
 	description,
 	error,
 	label,
-	mod: _mod,
+	mod,
 } = defineProps<InlineInputProps>()
 
 const style = computed(() => ({
 	'--label-fz': getFontSize(size),
 	'--label-lh': getSize(size),
 }))
-
-const mod = computed(() => [
-	{ 'label-position': labelPosition },
-	_mod,
-])
 </script>
 
 <template>
-	<Box :style :class='$style.root' :mod>
+	<Box :style :class='$style.root' :mod='[{ "label-position": labelPosition }, mod]'>
 		<div :class='$style.body'>
 			<slot />
 

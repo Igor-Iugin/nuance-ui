@@ -10,10 +10,7 @@ export interface InputLabelProps {
 	size?: NuanceSize | string
 }
 
-const {
-	required = false,
-	size = 'sm',
-} = defineProps<InputLabelProps>()
+const { required = false,	size = 'sm' } = defineProps<InputLabelProps>()
 
 const style = computed(() => ({
 	'--input-label-size': getFontSize(size),
@@ -35,7 +32,7 @@ const style = computed(() => ({
 
 	cursor: default;
 
-	display: inline-block;
+	display: block;
 
 	font-size: var(--input-label-size);
 	font-weight: 500;
