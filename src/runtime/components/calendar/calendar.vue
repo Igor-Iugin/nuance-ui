@@ -2,8 +2,8 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import type { CalendarLevel, SelectionMode } from './model'
-import type { CalendarRootProps } from './ui/core'
+import type { CalendarLevel, DateSelection, SelectionMode } from './model'
+import type { CalendarHeaderEmits, CalendarRootProps } from './ui/core'
 
 import { useCalendarNavigation } from './lib/use-calendar-navigation'
 import {	CalendarHeader, CalendarRoot } from './ui/core'
@@ -23,8 +23,15 @@ export interface CalendarProps<T extends SelectionMode = 'single'> extends Calen
 	/** Callback function to determine whether the next button should be disabled */
 	nextDisabled?: (date: DateInput, level: CalendarLevel) => boolean
 
+	/** Min level that user can go up to @default 'month' */
 	minLevel?: CalendarLevel
+
+	/** Max level that user can go up to @default 'decade' */
 	maxLevel?: CalendarLevel
+
+	/** Detects the presence of spaces between cells. @default `true` */
+	withCellSpacing?: boolean
+
 }
 
 const props = withDefaults(defineProps<CalendarProps<T>>(), {
@@ -40,13 +47,20 @@ const props = withDefaults(defineProps<CalendarProps<T>>(), {
 	highlightToday: true,
 	mode: 'single' as any,
 
+	withCellSpacing: true,
+
 	withWeekNumbers: false,
 	minLevel: 'month',
 	maxLevel: 'decade',
 })
 
+defineEmits<CalendarHeaderEmits & {
+	select: [DateSelection<T>]
+}>()
+
 const date = defineModel<DateInput>('date', { default: new Date() })
 const level = defineModel<CalendarLevel>('level', { default: ({ minLevel }) => minLevel })
+const select = defineModel<DateSelection<T>>('value')
 
 const [calendars, nav] = useCalendarNavigation({
 	date,
@@ -66,8 +80,10 @@ const [calendars, nav] = useCalendarNavigation({
 	<CalendarRoot
 		v-slot='{ config }'
 		v-model:date='date'
+		v-model:select='select'
 		v-bind='props'
 		:class='$style.content'
+		@select='select => $emit("select", select)'
 	>
 		<section v-for='(calendar, ix) in calendars' :key='`calendar-${ix}`'>
 			<CalendarHeader
@@ -75,9 +91,18 @@ const [calendars, nav] = useCalendarNavigation({
 				:with-next='ix === calendars.length - 1'
 				:prev-disabled='nav.isPrevDisabled'
 				:next-disabled='nav.isNextDisabled'
-				@prev='nav.move(-1)'
-				@next='nav.move(1)'
-				@level='level = nav.nextLevel()'
+				@prev='() => {
+					nav.move(-1)
+					$emit("prev")
+				}'
+				@next='() => {
+					nav.move(1)
+					$emit("next")
+				}'
+				@level='() => {
+					level = nav.nextLevel()
+					$emit("level")
+				}'
 			>
 				<slot name='level' :config>
 					{{ nav.getLevelLabel(calendar, config) }}
@@ -87,7 +112,8 @@ const [calendars, nav] = useCalendarNavigation({
 			<CalendarMonth
 				v-if='level === "month"'
 				:month='calendar'
-				:with-week-numbers
+				:with-week-numbers='props.withWeekNumbers'
+				:with-cell-spacing='props.withCellSpacing'
 				:size
 			>
 				<template v-if='!!$slots.weekday' #weekday>
@@ -102,10 +128,10 @@ const [calendars, nav] = useCalendarNavigation({
 				:size
 				:selectable='props.minLevel === "year"'
 				@select='month => {
-					if (props.minLevel !== "year")
+					if (props.minLevel !== "year"){
 						level = nav.prevLevel()
-
-					date = month
+						date = month
+					}
 				}'
 			/>
 			<CalendarDecade
@@ -114,10 +140,10 @@ const [calendars, nav] = useCalendarNavigation({
 				:size
 				:selectable='props.minLevel === "decade"'
 				@select='year => {
-					if (props.minLevel !== "decade")
+					if (props.minLevel !== "decade"){
 						level = nav.prevLevel()
-
-					date = year
+						date = year
+					}
 				}'
 			/>
 		</section>
@@ -126,6 +152,8 @@ const [calendars, nav] = useCalendarNavigation({
 
 <style lang="postcss" module>
 .content {
+	--calendar-cell-spacing: rem(1px);
+
 	display: flex;
 	gap: var(--spacing-sm);
 	width: fit-content;

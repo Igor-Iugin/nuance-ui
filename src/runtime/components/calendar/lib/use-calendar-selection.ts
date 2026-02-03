@@ -1,38 +1,34 @@
 import type { DateInput } from '@formkit/tempo'
 import type { DateConfig } from '@nui/composals'
+import type { DateMatcher } from '@nui/helpers/date'
 import type { ModelRef } from 'vue'
 
 import { sameDay, weekEnd, weekStart } from '@formkit/tempo'
 import { createStrictInjection } from '@nui/helpers'
-import { getWeekNumber, isSameWeek } from '@nui/helpers/date'
+import { isSameWeek } from '@nui/helpers/date'
 
-import type { CalendarSelection, MultipleSelection, RangeSelection, SelectionMode, SingleSelection, WeekSelection } from '../model'
+import type { DateSelection, SelectionMode } from '../model'
 
 
 export interface UseCalendarSelectionProps<T extends SelectionMode = 'single'> {
 	mode: T
-	value: ModelRef<CalendarSelection<T>>
+	value: ModelRef<DateSelection<T>>
 	config: DateConfig
 	readonly?: boolean
-	onSelect?: (value: CalendarSelection<T>) => void
+	onSelect?: (value: DateSelection<T>) => void
 }
 
 export interface UseCalendarSelectionReturn<T extends SelectionMode = 'single'> {
 	mode: T
-	value: ModelRef<CalendarSelection<T>>
+	value: ModelRef<DateSelection<T>>
 
 	// Selection state checks
-	isSelected: (date: DateInput) => boolean
-	isInRange: (date: DateInput) => boolean
-	isFirstInRange: (date: DateInput) => boolean
-	isLastInRange: (date: DateInput) => boolean
+	isSelected: DateMatcher
+	isInRange: DateMatcher
+	isFirstInRange: DateMatcher
+	isLastInRange: DateMatcher
 
-	// Selection handlers
-	handleDaySelect: (date: DateInput) => void
-	handleMonthSelect: (date: DateInput) => void
-	handleYearSelect: (date: DateInput) => void
-
-	// Helpers
+	select: (date: DateInput) => void
 	clear: () => void
 }
 
@@ -57,34 +53,31 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 	onSelect,
 }: UseCalendarSelectionProps<T>): UseCalendarSelectionReturn<T> {
 	// ===== Selection State Checks =====
-	const isSelected = (date: DateInput): boolean => {
+	const isSelected: DateMatcher = date => {
 		if (!value.value)
 			return false
 
 		switch (mode) {
 			case 'single': {
-				const val = value.value as SingleSelection
+				const val = value.value as DateSelection<'single'>
 				return val ? sameDay(date, val) : false
 			}
 			case 'range': {
-				const val = value.value as RangeSelection
-				if (!val.start && !val.end)
+				const [start, end] = value.value as DateSelection<'range'>
+				if (!start && !end)
 					return false
-				if (val.start && val.end) {
-					return sameDay(date, val.start) || sameDay(date, val.end)
-				}
-				if (val.start)
-					return sameDay(date, val.start)
+				if (start || end)
+					return sameDay(date, start) || sameDay(date, end)
 				return false
 			}
 			case 'week': {
-				const val = value.value as WeekSelection
-				if (!val.start)
+				const [start] = value.value as DateSelection<'week'>
+				if (!start)
 					return false
-				return isSameWeek(date, val.start, config.firstDayOfWeek)
+				return isSameWeek(date, start, config.firstDayOfWeek)
 			}
 			case 'multiple': {
-				const val = value.value as MultipleSelection
+				const val = value.value as DateSelection<'multiple'>
 				return val.some(d => sameDay(d, date))
 			}
 			default:
@@ -92,117 +85,101 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 		}
 	}
 
-	const isInRange = (date: DateInput): boolean => {
+	const isInRange: DateMatcher = date => {
 		if (mode !== 'range' && mode !== 'week')
 			return false
 
 		if (mode === 'range') {
-			const val = value.value as RangeSelection
-			if (!val.start || !val.end)
+			const [start, end] = value.value as DateSelection<'range'>
+			if (!start || !end)
 				return false
 
-			const startDate = new Date(val.start)
-			const endDate = new Date(val.end)
+			const startDate = new Date(start)
+			const endDate = new Date(end)
 			const current = new Date(date)
 
 			return current >= startDate && current <= endDate
 		}
 
 		if (mode === 'week') {
-			const val = value.value as WeekSelection
-			if (!val.start)
+			const [start] = value.value as DateSelection<'week'>
+			if (!start)
 				return false
-			return isSameWeek(date, val.start, config.firstDayOfWeek)
+			return isSameWeek(date, start, config.firstDayOfWeek)
 		}
 
 		return false
 	}
 
-	const isFirstInRange = (date: DateInput): boolean => {
-		if (mode === 'range') {
-			const val = value.value as RangeSelection
-			return val.start ? sameDay(date, val.start) : false
-		}
-
-		if (mode === 'week') {
-			const val = value.value as WeekSelection
-			if (!val.start)
-				return false
-			return sameDay(date, val.start)
+	const isFirstInRange: DateMatcher = date => {
+		if (mode === 'range' || mode === 'week') {
+			const [start] = value.value as DateSelection<'range'>
+			return start ? sameDay(date, start) : false
 		}
 
 		return false
 	}
 
-	const isLastInRange = (date: DateInput): boolean => {
-		if (mode === 'range') {
-			const val = value.value as RangeSelection
-			return val.end ? sameDay(date, val.end) : false
-		}
-
-		if (mode === 'week') {
-			const val = value.value as WeekSelection
-			if (!val.end)
-				return false
-			return sameDay(date, val.end)
+	const isLastInRange: DateMatcher = date => {
+		if (mode === 'range' || mode === 'week') {
+			const [_, end] = value.value as DateSelection<'range'>
+			return end ? sameDay(date, end) : false
 		}
 
 		return false
 	}
 
-	// ===== Selection Handlers =====
-
-	const handleDaySelect = (date: DateInput): void => {
+	// ===== Handlers =====
+	const select = (date: DateInput): void => {
 		if (readonly)
 			return
 
-		let newValue: CalendarSelection<T>
+		let newValue: DateSelection<T>
 
 		switch (mode) {
 			case 'single': {
-				newValue = date as CalendarSelection<T>
+				newValue = date as DateSelection<T>
 				break
 			}
 			case 'range': {
-				const val = value.value as RangeSelection
-				if (!val.start || (val.start && val.end)) {
+				const [start, end] = value.value as DateSelection<'range'>
+				if (!start || (start && end)) {
 					// Start new range
-					newValue = { start: date, end: null } as CalendarSelection<T>
+					newValue = [date, null] as DateSelection<T>
 				}
 				else {
 					// Complete range
-					const start = new Date(val.start)
-					const end = new Date(date)
+					const startDate = new Date(start)
+					const endDate = new Date(date)
 
-					if (start <= end) {
-						newValue = { start: val.start, end: date } as CalendarSelection<T>
+					if (startDate <= endDate) {
+						newValue = [start, date] as DateSelection<T>
 					}
 					else {
 						// Swap if end is before start
-						newValue = { start: date, end: val.start } as CalendarSelection<T>
+						newValue = [date, start] as DateSelection<T>
 					}
 				}
 				break
 			}
 			case 'week': {
-				newValue = {
-					start: weekStart(date, config.firstDayOfWeek),
-					end: weekEnd(date, config.firstDayOfWeek),
-					number: getWeekNumber(date, config.firstDayOfWeek),
-				} as CalendarSelection<T>
+				newValue = [
+					weekStart(date, config.firstDayOfWeek),
+					weekEnd(date, config.firstDayOfWeek),
+				] as DateSelection<T>
 				break
 			}
 			case 'multiple': {
-				const val = (value.value as MultipleSelection) || []
+				const val = (value.value as DateSelection<'multiple'>) || []
 				const exists = val.findIndex(d => sameDay(d, date))
 
 				if (exists >= 0) {
 					// Remove if already selected
-					newValue = val.filter((_, ix) => ix !== exists) as CalendarSelection<T>
+					newValue = val.filter((_, ix) => ix !== exists) as DateSelection<T>
 				}
 				else {
 					// Add new date
-					newValue = [...val, date] as CalendarSelection<T>
+					newValue = [...val, date] as DateSelection<T>
 				}
 				break
 			}
@@ -214,46 +191,22 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 		onSelect?.(newValue)
 	}
 
-	const handleMonthSelect = (date: DateInput): void => {
-		if (readonly)
-			return
-
-		// When selecting a month in year view, use the first day of selected month
-		const firstDayOfMonth = new Date(date)
-		firstDayOfMonth.setDate(1)
-
-		handleDaySelect(firstDayOfMonth)
-	}
-
-	const handleYearSelect = (date: DateInput): void => {
-		if (readonly)
-			return
-
-		// When selecting a year in decade view, use January 1st of selected year
-		const firstDayOfYear = new Date(date)
-		firstDayOfYear.setMonth(0, 1)
-
-		handleDaySelect(firstDayOfYear)
-	}
-
 	const clear = (): void => {
 		if (readonly)
 			return
 
-		let newValue: CalendarSelection<T>
+		let newValue: DateSelection<T>
 
 		switch (mode) {
 			case 'single':
-				newValue = null as CalendarSelection<T>
+				newValue = null as DateSelection<T>
 				break
 			case 'range':
-				newValue = { start: null, end: null } as CalendarSelection<T>
-				break
 			case 'week':
-				newValue = { start: null, end: null, number: null } as CalendarSelection<T>
+				newValue = [null, null] as DateSelection<T>
 				break
 			case 'multiple':
-				newValue = [] as unknown as CalendarSelection<T>
+				newValue = [] as unknown as DateSelection<T>
 				break
 			default:
 				return
@@ -270,9 +223,7 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 		isInRange,
 		isFirstInRange,
 		isLastInRange,
-		handleDaySelect,
-		handleMonthSelect,
-		handleYearSelect,
+		select,
 		clear,
 	})
 }

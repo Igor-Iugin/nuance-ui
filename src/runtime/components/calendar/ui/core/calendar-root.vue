@@ -7,7 +7,7 @@ import { range } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { computed } from 'vue'
 
-import type { CalendarSelection, SelectionMode } from '../../model'
+import type { DateSelection, SelectionMode } from '../../model'
 
 import Box from '../../../box.vue'
 import { useProvideCalendarState } from '../../lib/context'
@@ -18,7 +18,7 @@ export interface CalendarRootProps<T extends SelectionMode> {
 	/** Selection mode @default 'single' */
 	mode?: T
 
-	/** The number of months to display at once */
+	/** The number of months to display at once @default `1` */
 	numberOfMonths?: number
 
 	/** `@formkit/tempo` format for weekdays names @default `'ddd'` */
@@ -69,6 +69,8 @@ const props = withDefaults(defineProps<CalendarRootProps<T>>(), {
 	mode: 'single' as any,
 })
 
+const emit = defineEmits<{ select: [DateSelection<T>] }>()
+
 const date = defineModel<DateInput>('date', { required: true })
 
 const config = computed(() => props.config ?? useDatesConfig())
@@ -87,19 +89,19 @@ const weekdays = computed(() => {
 	return days
 })
 
-const select = defineModel<CalendarSelection<T>>('select', {
+const select = defineModel<DateSelection<T>>('select', {
 	default: ({ mode }) => {
 		switch (mode) {
 			case 'single':
-				return null as CalendarSelection<T>
+				return null
 			case 'range':
-				return { start: null, end: null } as CalendarSelection<T>
+				return [null, null]
 			case 'week':
-				return { start: null, end: null, number: null } as CalendarSelection<T>
+				return [null, null]
 			case 'multiple':
-				return [] as unknown as CalendarSelection<T>
+				return []
 			default:
-				return null as CalendarSelection<T>
+				return null
 		}
 	},
 })
@@ -124,6 +126,7 @@ useCalendarSelection({
 	mode: props.mode,
 	config: config.value,
 	readonly: props.readonly,
+	onSelect: data => emit('select', data),
 })
 </script>
 

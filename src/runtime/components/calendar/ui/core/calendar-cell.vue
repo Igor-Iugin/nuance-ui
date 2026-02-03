@@ -115,7 +115,7 @@ const style = computed(() => ({
 
 	&:where([data-selected]) {
 		background-color: var(--color-primary-filled);
-		color: var(--color-primary-contrast);
+		color: var(--color-white);
 
 		&:hover {
 			&:where(:not(:disabled, [data-static])) {

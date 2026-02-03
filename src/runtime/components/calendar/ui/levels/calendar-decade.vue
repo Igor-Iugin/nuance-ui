@@ -78,7 +78,7 @@ function handleSelect(year: number) {
 	if (isDisabled(year) || !selectable || ctx.readonly)
 		return
 
-	selection.handleYearSelect(yearDate)
+	selection.select(yearDate)
 }
 </script>
 

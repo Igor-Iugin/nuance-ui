@@ -71,7 +71,7 @@ function handleSelect(month: number) {
 	if (isDisabled(month) || !selectable || ctx.readonly)
 		return
 
-	selection.handleMonthSelect(monthDate)
+	selection.select(monthDate)
 }
 </script>
 

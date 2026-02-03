@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
+import type { DateMatcher } from '@nui/helpers/date'
 import type { NuanceSize } from '@nui/types'
 
 import { isAfter, isBefore, sameDay } from '@formkit/tempo'
 import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
 import { shallowRef, watch } from 'vue'
 
+import Box from '../../../box.vue'
 import { useCalendarState } from '../../lib/context'
 import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
@@ -14,6 +16,9 @@ import { CalendarCell } from '../core'
 export interface CalendarMonthProps {
 	month: string
 
+	/** Detects the presence of spaces between cells. @default `true` */
+	withCellSpacing?: boolean
+
 	/** Controls size */
 	size?: NuanceSize
 
@@ -21,13 +26,11 @@ export interface CalendarMonthProps {
 	withWeekNumbers?: boolean
 }
 
-const { month, size, withWeekNumbers } = defineProps<CalendarMonthProps>()
-
+const { month, size, withWeekNumbers, withCellSpacing = true } = defineProps<CalendarMonthProps>()
 
 const emit = defineEmits<{
 	select: [date: DateInput]
 }>()
-
 
 const ctx = useCalendarState()
 const weeks = shallowRef(createMonth({
@@ -49,10 +52,10 @@ watch(() => month, (date, oldDate) => {
 
 const today = new Date()
 
-const isWeekend = (day: DateInput) => isWeekendDay(day, ctx.config.value.firstDayOfWeek)
-const isOutside = (day: DateInput) => !isSameMonth(day, month)
-const isToday = (day: DateInput) => !!ctx.highlightToday && sameDay(day, today)
-function isDisabled(day: DateInput) {
+const isWeekend: DateMatcher = day => isWeekendDay(day, ctx.config.value.firstDayOfWeek)
+const isOutside: DateMatcher = day => !isSameMonth(day, month)
+const isToday: DateMatcher = day => !!ctx.highlightToday && sameDay(day, today)
+const isDisabled: DateMatcher = day => {
 	if (ctx.excludeDate?.(day) || ctx.disabled)
 		return true
 	if (ctx.maxDate && isAfter(day, ctx.maxDate))
@@ -73,12 +76,12 @@ function handleSelect(event: PointerEvent) {
 		return
 
 	emit('select', day)
-	selection.handleDaySelect(day)
+	selection.select(day)
 }
 </script>
 
 <template>
-	<table role='grid' tabindex='-1'>
+	<table :class='$style.table' role='grid' tabindex='-1'>
 		<thead>
 			<tr>
 				<th v-if='withWeekNumbers' :class='$style.weekday'>
@@ -93,11 +96,24 @@ function handleSelect(event: PointerEvent) {
 		</thead>
 
 		<tbody @click='handleSelect'>
-			<tr v-for='(week, weekIx) in weeks' :key='`week-${weekIx}`'>
+			<Box
+				is='tr'
+				v-for='(week, weekIx) in weeks'
+				:key='`week-${weekIx}`'
+				:class='$style.row'
+				:mod='{ selectable: selection.mode === "week" }'
+			>
 				<td v-if='withWeekNumbers' :class='$style.weeknumber'>
 					{{ getWeekNumber(week[0]!, 1) }}
 				</td>
-				<td v-for='(day, dayIx) in week' :key='`day-${dayIx}`' role='gridcell'>
+				<Box
+					is='td'
+					v-for='(day, dayIx) in week'
+					:key='`day-${dayIx}`'
+					:class='$style.cell'
+					role='gridcell'
+					:mod='{ "with-spacing": withCellSpacing }'
+				>
 					<CalendarCell
 						:size
 						:mod='{
@@ -117,13 +133,36 @@ function handleSelect(event: PointerEvent) {
 							{{ new Date(day).getDate() }}
 						</slot>
 					</CalendarCell>
-				</td>
-			</tr>
+				</Box>
+			</Box>
 		</tbody>
 	</table>
 </template>
 
 <style lang="postcss" module>
+.table {
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.row:where([data-selectable]):hover {
+	@mixin light {
+		background-color: var(--color-gray-0);
+	}
+
+	@mixin dark {
+		background-color: var(--color-dark-5);
+	}
+}
+
+.cell {
+	padding: 0;
+
+	&:where(&[data-with-spacing]) {
+		padding: var(--calendar-cell-spacing);
+	}
+}
+
 .weekday {
   color: var(--color-dimmed);
   font-weight: normal;
