@@ -156,6 +156,7 @@ const [calendars, nav] = useCalendarNavigation({
 
 	display: flex;
 	gap: var(--spacing-sm);
+
 	width: fit-content;
 }
 </style>

@@ -113,12 +113,16 @@ function handleSelect(month: number) {
 	--day-size-lg: 3rem;
 	--day-size-xl: 3.375rem;
 
-	height: var(--day-size);
-	width: calc((var(--day-size) * 7) / 3 + .09375rem);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: calc((var(--day-size) * 7) / 3 + .09375rem);
+
+	height: var(--day-size);
+
 	text-transform: capitalize;
 }
 </style>

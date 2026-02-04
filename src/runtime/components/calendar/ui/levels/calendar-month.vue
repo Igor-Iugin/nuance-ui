@@ -164,10 +164,11 @@ function handleSelect(event: PointerEvent) {
 }
 
 .weekday {
-	color: var(--color-dimmed);
-	font-weight: normal;
-	font-size: var(--wr-fz, var(--font-size-sm));
-	text-transform: capitalize;
 	padding-bottom: calc(var(--wr-spacing, var(--spacing-sm)) / 2);
+
+	font-size: var(--wr-fz, var(--font-size-sm));
+	font-weight: normal;
+	color: var(--color-dimmed);
+	text-transform: capitalize;
 }
 </style>

@@ -74,28 +74,31 @@ export interface CalendarHeaderEmits {
 
 <style lang="postcss" module>
 .header {
-  --dch-control-size-xs: rem(30px);
-  --dch-control-size-sm: rem(36px);
-  --dch-control-size-md: rem(42px);
-  --dch-control-size-lg: rem(48px);
-  --dch-control-size-xl: rem(54px);
-  --dch-control-size: var(--dch-control-size-sm);
+	--dch-control-size-xs: rem(30px);
+	--dch-control-size-sm: rem(36px);
+	--dch-control-size-md: rem(42px);
+	--dch-control-size-lg: rem(48px);
+	--dch-control-size-xl: rem(54px);
+	--dch-control-size: var(--dch-control-size-sm);
 
-  --dch-control-radius: var(--radius-default);
+	--dch-control-radius: var(--radius-default);
 
 	display: flex;
 }
 
 .level,
 .control {
+	cursor: pointer;
+	user-select: none;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	height: var(--dch-control-size);
 	border-radius: var(--dch-control-radius);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	user-select: none;
+
 	opacity: 1;
-	cursor: pointer;
 
 	&:where([data-static]) {
 		cursor: default;
@@ -114,16 +117,18 @@ export interface CalendarHeaderEmits {
 	}
 
 	&:where(:disabled) {
-		opacity: 0.2;
 		cursor: not-allowed;
+
+		opacity: 0.2;
 	}
 }
 
 .level {
-  flex: 1;
-  font-size: var(--dch-fz, var(--font-size-sm));
-  font-weight: 500;
-  text-transform: capitalize;
+	flex: 1;
+
+	font-size: var(--dch-fz, var(--font-size-sm));
+	font-weight: 500;
+	text-transform: capitalize;
 }
 
 .control {

@@ -35,17 +35,21 @@ const style = computed(() => ({
 	--day-size-xl: rem(54px);
 	--day-size: var(--day-size-sm);
 
+	cursor: pointer;
+	user-select: none;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
 	width: var(--day-size, var(--day-size-sm));
 	height: var(--day-size, var(--day-size-sm));
-	font-size: calc(var(--day-size) / 2.8);
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	user-select: none;
-	cursor: pointer;
-	background-color: transparent;
 	border-radius: var(--radius-default);
+
+	font-size: calc(var(--day-size) / 2.8);
 	color: var(--color-text);
+
+	background-color: transparent;
 
 	&:hover {
 		&:where(:not([data-static], &:disabled, [data-selected], [data-in-range])) {
@@ -60,8 +64,8 @@ const style = computed(() => ({
 	}
 
 	&:where([data-static]) {
-		user-select: auto;
 		cursor: default;
+		user-select: auto;
 	}
 
 	&:where([data-weekend]) {
@@ -69,6 +73,7 @@ const style = computed(() => ({
 	}
 
 	&:where([data-outside]) {
+		/* stylelint-disable-next-line function-no-unknown */
 		color: alpha(var(--color-dimmed), .5);
 	}
 
@@ -87,8 +92,9 @@ const style = computed(() => ({
 	}
 
 	&:where([data-in-range]) {
-		background-color: var(--color-primary-light-hover);
 		border-radius: 0;
+
+		background-color: var(--color-primary-light-hover);
 
 		&:hover {
 			&:where(:not(:disabled, [data-static])) {
@@ -105,8 +111,8 @@ const style = computed(() => ({
 
 	&:where([data-last-in-range]) {
 		border-radius: 0;
-		border-end-end-radius: var(--radius-default);
 		border-start-end-radius: var(--radius-default);
+		border-end-end-radius: var(--radius-default);
 	}
 
 	&:where([data-last-in-range][data-first-in-range]) {
@@ -114,8 +120,9 @@ const style = computed(() => ({
 	}
 
 	&:where([data-selected]) {
-		background-color: var(--color-primary-filled);
 		color: var(--color-white);
+
+		background-color: var(--color-primary-filled);
 
 		&:hover {
 			&:where(:not(:disabled, [data-static])) {
@@ -125,9 +132,11 @@ const style = computed(() => ({
 	}
 
 	&:where(:disabled) {
-		color: alpha(var(--color-disabled), .5);
-		cursor: not-allowed;
 		pointer-events: none;
+		cursor: not-allowed;
+
+		/* stylelint-disable-next-line function-no-unknown */
+		color: alpha(var(--color-disabled), .5);
 	}
 }
 </style>
