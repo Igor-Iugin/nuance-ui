@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang='ts' generic='Value = string'>
 import { unrefElement } from '@vueuse/core'
 import { useId, useTemplateRef } from 'vue'
 
@@ -9,21 +9,25 @@ import Button from '../button/button.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface ButtonInputProps extends InputWrapperProps, InputBaseProps {
+export interface ButtonInputProps<T = string> extends InputWrapperProps, InputBaseProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 
 	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
 	withAria?: boolean
+
+	/** Getter function for visible value */
+	getValue?: (value: T) => string
 }
 
-const { id, ...rest } = defineProps<ButtonInputProps>()
-const value = defineModel<any>()
+defineOptions({ inheritAttrs: false })
 
-const ref = useTemplateRef<HTMLElement>('button')
+const { id, getValue, ...rest } = defineProps<ButtonInputProps<Value>>()
 
 const uid = id ?? useId()
+const value = defineModel<Value>({ required: true })
 
+const ref = useTemplateRef<HTMLElement>('button')
 defineExpose({
 	get $el() {
 		return unrefElement(ref.value)
@@ -33,13 +37,24 @@ defineExpose({
 
 <template>
 	<InputWrapper :id='uid' v-bind='rest'>
-		<Button :id='uid' v-bind='$attrs' ref='button' :class='$style.button'>
+		<Button
+			:id='uid'
+			v-bind='$attrs'
+			ref='button'
+			:classes='{
+				root: $style.button,
+				section: $style.section,
+			}'
+			:mod='{ multiline: rest.multiline }'
+		>
 			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
+
 			<slot>
-				{{ value }}
+				{{ getValue?.(value) ?? value }}
 			</slot>
+
 			<template v-if='!!$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
@@ -61,5 +76,16 @@ defineExpose({
 .button {
 	width: 100%;
 	min-width: rem(150px);
+
+	&:where([data-multiline]) {
+		height: auto;
+		min-height: calc(var(--button-height) + var(--button-padding-x) / 2);
+		padding-block: calc(var(--button-padding-x) / 2);
+	}
+}
+
+.section {
+	font-size: var(--font-size-lg);
+	color: var(--color-dimmed);
 }
 </style>

@@ -45,7 +45,7 @@ const { store: { targetRef } } = useComboboxState()
 </script>
 
 <template>
-	<PopoverTarget ref='targetRef' v-bind='aria'>
+	<PopoverTarget ref='targetRef' v-bind='aria' disabled>
 		<slot />
 	</PopoverTarget>
 </template>

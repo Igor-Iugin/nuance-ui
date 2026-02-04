@@ -120,7 +120,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 				}'
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'
 			>
-				{{ value?.value ?? null }}
+				{{ value?.label ?? value?.value ?? null }}
 
 				<template v-if='$slots?.label' #label>
 					<slot name='label' />

@@ -22,7 +22,7 @@
 			]'
 		/>
 	</div>
-	<NDateInput label='Date input' />
+	<NDatePicker label='Date picker' mode='range' />
 </template>
 
 <style lang="postcss" module>

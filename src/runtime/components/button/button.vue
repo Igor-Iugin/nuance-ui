@@ -23,10 +23,10 @@ export interface ButtonProps extends BoxProps {
 
 	/** Styles API */
 	classes?: {
-		root?: string
-		inner?: string
-		label?: string
-		section?: string
+		root?: string | string[]
+		inner?: string | string[]
+		label?: string | string[]
+		section?: string | string[]
 	}
 	/** section pointer-events */
 	leftSectionPE?: CSSStyleDeclaration['pointerEvents']

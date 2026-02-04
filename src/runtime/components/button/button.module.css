@@ -32,6 +32,8 @@
 	--button-radius: var(--radius-default);
 	--button-hover: var(--color-primary-filled-hover);
 
+	--button-section-size: calc(var(--button-height) - .25rem);
+
 	cursor: pointer;
 
 	user-select: none;
@@ -58,11 +60,11 @@
 	transition: background-color 200ms ease-in, color 200ms ease-in;
 
 	&:where([data-with-left-section]) {
-		padding-inline-start: calc(var(--button-padding-x) / 1.5);
+		padding-inline-start: 0;
 	}
 
 	&:where([data-with-right-section]) {
-		padding-inline-end: calc(var(--button-padding-x) / 1.5);
+		padding-inline-end: 0;
 	}
 
 	&:where([data-variant='gradient-outline']) {
@@ -143,6 +145,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	gap: var(--spacing-xs);
 
 	height: 100%;
 	width: 100%;
@@ -175,14 +178,9 @@
 
 	display: flex;
 	align-items: center;
-
-	&:where([data-position='left']) {
-		margin-inline-end: var(--spacing-xs);
-	}
-
-	&:where([data-position='right']) {
-		margin-inline-start: var(--spacing-xs);
-	}
+	justify-content: center;
+	width: var(--button-section-size);
+	height: 100%;
 }
 
 .loader {

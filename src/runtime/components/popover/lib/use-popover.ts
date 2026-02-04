@@ -28,6 +28,7 @@ export interface UsePopoverReturn {
 	arrowRef: ShallowRef<HTMLElement | null>
 	targetRef: ShallowRef<HTMLElement | null>
 	dropdownRef: ShallowRef<HTMLElement | null>
+	opened: ModelRef<boolean>
 }
 
 export function usePopover(options: PopoverOptions): UsePopoverReturn {
@@ -81,5 +82,6 @@ export function usePopover(options: PopoverOptions): UsePopoverReturn {
 		arrowRef,
 		targetRef,
 		dropdownRef,
+		opened,
 	}
 }

@@ -133,49 +133,62 @@ const style = computed(() => useStyleResolver(theme => {
 	--badge-border-width: 1px;
 	--badge-bd: var(--badge-border-width) solid transparent;
 
-	-webkit-tap-highlight-color: transparent;
-	font-size: var(--badge-fz);
-	border-radius: var(--badge-radius);
-	height: var(--badge-height);
-	line-height: var(--badge-lh);
-	text-decoration: none;
-	padding: 0 var(--badge-padding-x);
+	cursor: default;
+
+	overflow: hidden;
 	display: inline-grid;
 	align-items: center;
 	justify-content: center;
+
 	width: fit-content;
-	text-transform: uppercase;
-	font-weight: 700;
-	letter-spacing: 0.25px;
-	cursor: default;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	color: var(--badge-color);
-	background: var(--badge-bg);
+	height: var(--badge-height);
+	padding: 0 var(--badge-padding-x);
 	border: var(--badge-bd);
+	border-radius: var(--badge-radius);
+
+	font-size: var(--badge-fz);
+	font-weight: 700;
+	line-height: var(--badge-lh);
+	color: var(--badge-color);
+	text-decoration: none;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+	letter-spacing: 0.25px;
+
+	background: var(--badge-bg);
+
+	-webkit-tap-highlight-color: transparent;
 
 	&:where([data-with-left-section], [data-variant='dot']) {
 		grid-template-columns: auto 1fr;
+
+		padding-left: calc(var(--badge-padding-x) - calc(var(--spacing-xs) / 2));
 	}
 
 	&:where([data-with-right-section]) {
 		grid-template-columns: 1fr auto;
+
+		padding-right: calc(var(--badge-padding-x) - calc(var(--spacing-xs) / 2));
 	}
 
 	&:where([data-with-left-section][data-with-right-section],
 		[data-variant='dot'][data-with-right-section]) {
 		grid-template-columns: auto 1fr auto;
+
+		padding: 0 calc(var(--spacing-xs) / 2);
 	}
 
 	&:where([data-block]) {
 		display: flex;
+
 		width: 100%;
 	}
 
 	&:where([data-circle]) {
-		padding-inline: 2px;
 		display: flex;
+
 		width: var(--badge-height);
+		padding-inline: 2px;
 	}
 }
 
@@ -183,41 +196,49 @@ const style = computed(() => useStyleResolver(theme => {
 	--badge-dot-size: calc(var(--badge-height) / 2);
 
 	display: block;
+
 	width: var(--badge-dot-size);
 	height: var(--badge-dot-size);
-	border-radius: var(--badge-dot-size);
 	margin-inline-end: calc(var(--badge-dot-size) / 2);
+	border-radius: var(--badge-dot-size);
+
+	background-color: var(--badge-dot-color, var(--badge-color));
 
 	@mixin where-light {
-		background-color: var(--color-white);
 		border-color: var(--color-gray-4);
+
 		color: var(--color-black);
+
+		background-color: var(--color-white);
 	}
 
 	@mixin where-dark {
-		background-color: var(--color-dark-5);
 		border-color: var(--color-dark-5);
-		color: var(--color-white);
-	}
 
-	background-color: var(--badge-dot-color, var(--badge-color));
+		color: var(--color-white);
+
+		background-color: var(--color-dark-5);
+	}
 }
 
 
 .label {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
 	cursor: inherit;
+
+	overflow: hidden;
+
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .section {
 	--badge-section-margin: calc(var(--spacing-xs) / 2);
 
 	display: inline-flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
+
 	max-height: calc(var(--badge-height) - var(--badge-border-width) * 2);
 
 	&:where([data-position='left']) {

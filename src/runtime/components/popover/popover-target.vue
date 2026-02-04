@@ -3,11 +3,21 @@ import Renderless from '../renderless/renderless.vue'
 import { usePopoverState } from './lib/context'
 
 
-const { id, store: { targetRef }, disabled } = usePopoverState()
+const { disable = false } = defineProps<{
+	/** Disables auto click targeting @default `false` */
+	disable?: boolean
+}>()
+
+const { id, store: { targetRef, opened }, disabled } = usePopoverState()
 </script>
 
 <template>
-	<Renderless ref='targetRef' :disabled :popovertarget='id'>
+	<Renderless
+		ref='targetRef'
+		:disabled
+		:popovertarget='id'
+		@click.stop.prevent='!disable && (opened = !opened)'
+	>
 		<slot />
 	</Renderless>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang='ts'>
 import type { TextInputProps } from './index'
 
-import ActionIcon from '../action-icon/action-icon.vue'
 import TextInput from './text-input.vue'
 
 
@@ -12,9 +11,7 @@ const props = defineProps<TextInputProps>()
 	<TextInput type='email' v-bind='props'>
 		<template #leftSection>
 			<slot name='leftSection'>
-				<ActionIcon variant='subtle'>
-					<Icon name='gravity-ui:at' />
-				</ActionIcon>
+				<Icon name='gravity-ui:at' />
 			</slot>
 		</template>
 
