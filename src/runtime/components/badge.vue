@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStyleResolver } from '#imports'
+import { useStyleResolver } from '@nui/composals'
 import { computed } from 'vue'
 
 import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '../types'
