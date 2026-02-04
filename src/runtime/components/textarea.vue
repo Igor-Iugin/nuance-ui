@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { useTextareaAutosize } from '@vueuse/core'
+import { unrefElement, useTextareaAutosize } from '@vueuse/core'
 import { useId, useTemplateRef } from 'vue'
 
 import type { InputWrapperProps } from './input'
@@ -15,11 +15,11 @@ const { id: uid, ...props } = defineProps<TextareaProps>()
 
 const modelValue = defineModel<string>()
 
-const inputRef = useTemplateRef('inputRef')
+const inputRef = useTemplateRef<HTMLTextAreaElement>('inputRef')
 const { input } = useTextareaAutosize({
 	input: modelValue.value,
 	styleProp: 'minHeight',
-	element: inputRef.value?.ref as unknown as HTMLTextAreaElement,
+	element: unrefElement(inputRef.value),
 })
 
 const id = uid ?? useId()
