@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { unrefElement } from '@vueuse/core'
-import { computed, useId, useTemplateRef, watch } from 'vue'
+import { computed, useId, useTemplateRef } from 'vue'
 
 import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
@@ -24,8 +24,6 @@ export interface TextInputProps extends InputWrapperProps, InputBaseProps {
 
 const { classes, id: uid, ...props } = defineProps<TextInputProps>()
 const value = defineModel<string>({ default: '' })
-
-watch(value, v => console.log('value', v))
 
 const id = computed(() => uid ?? useId())
 
@@ -53,6 +51,7 @@ defineExpose({
 				<slot name='rightSection' />
 			</template>
 		</BaseInput>
+
 		<template v-if='$slots.label' #label>
 			<slot name='label' />
 		</template>

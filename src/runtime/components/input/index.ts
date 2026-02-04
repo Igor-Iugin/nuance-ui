@@ -1,7 +1,5 @@
 export type * from './button-input.vue'
 
-export type * from './c-input.vue'
-
 export { useInputWrapperState, type WrapperContext } from './lib/input-wrapper.context'
 
 export type * from './number-input.vue'
