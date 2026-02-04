@@ -50,6 +50,8 @@ const style = computed(() => ({
 	border: 1px solid var(--popover-border-color);
 	border-radius: var(--popover-radius);
 
+	color: var(--color-text);
+
 	opacity: 0;
 	box-shadow: var(--popover-shadow);
 
