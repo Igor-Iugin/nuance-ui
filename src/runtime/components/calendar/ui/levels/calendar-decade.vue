@@ -18,7 +18,7 @@ export interface CalendarDecadeProps extends CalendarCellProps {
 	date: DateInput
 
 	/** Controls size */
-	size?: NuanceSize
+	size?: NuanceSize | string
 
 	selectable?: boolean
 }

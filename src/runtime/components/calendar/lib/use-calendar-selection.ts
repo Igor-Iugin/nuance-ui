@@ -64,10 +64,12 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 			}
 			case 'range': {
 				const [start, end] = value.value as DateSelection<'range'>
-				if (!start && !end)
-					return false
-				if (start || end)
-					return sameDay(date, start) || sameDay(date, end)
+
+				if (start || end) {
+					const isStart = !!start && sameDay(date, start)
+					const isEnd = !!end && sameDay(date, end)
+					return isStart || isEnd
+				}
 				return false
 			}
 			case 'week': {

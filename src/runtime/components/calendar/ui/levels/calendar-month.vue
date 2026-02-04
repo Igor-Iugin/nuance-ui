@@ -20,7 +20,7 @@ export interface CalendarMonthProps {
 	withCellSpacing?: boolean
 
 	/** Controls size */
-	size?: NuanceSize
+	size?: NuanceSize | string
 
 	/** Determines whether week numbers should be displayed @default `false` */
 	withWeekNumbers?: boolean
@@ -164,10 +164,10 @@ function handleSelect(event: PointerEvent) {
 }
 
 .weekday {
-  color: var(--color-dimmed);
-  font-weight: normal;
-  font-size: var(--wr-fz, var(--font-size-sm));
-  text-transform: capitalize;
-  padding-bottom: calc(var(--wr-spacing, var(--spacing-sm)) / 2);
+	color: var(--color-dimmed);
+	font-weight: normal;
+	font-size: var(--wr-fz, var(--font-size-sm));
+	text-transform: capitalize;
+	padding-bottom: calc(var(--wr-spacing, var(--spacing-sm)) / 2);
 }
 </style>
