@@ -2,20 +2,20 @@
 import { nextTick, watch } from 'vue'
 
 import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
-import type { InputProps } from '../input'
+import type { TextInputProps } from '../input'
 
 import { useCombobox, useComboboxData } from '../combobox'
 import ComboboxOptionsDropdown from '../combobox/combobox-options-dropdown.vue'
 import ComboboxRoot from '../combobox/combobox-root.vue'
 import ComboboxTarget from '../combobox/combobox-target.vue'
 import ButtonInput from '../input/button-input.vue'
-import Input from '../input/c-input.vue'
+import TextInput from '../input/text-input.vue'
 
 
 export interface SelectProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends Omit<InputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'> {
+> extends Omit<TextInputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'> {
 	data: ComboboxData<Value, Ext>
 
 	/** Determines whether the select should be searchable @default `false` */
@@ -106,7 +106,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 	>
 		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
 			<component
-				:is='searchable ? Input : ButtonInput'
+				:is='searchable ? TextInput : ButtonInput'
 				:id='store.listId'
 				v-bind='{ ...rest, ...$attrs }'
 				v-model='search'
