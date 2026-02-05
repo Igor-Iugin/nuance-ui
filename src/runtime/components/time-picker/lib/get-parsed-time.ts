@@ -3,7 +3,7 @@ import type { TimePickerAmPmLabels, TimePickerFormat } from '../model'
 import { splitTimeString } from './split-time-string'
 
 
-export function convertTimeTo12HourFormat({
+function convertTimeTo12HourFormat({
 	hours,
 	minutes,
 	seconds,
@@ -14,9 +14,8 @@ export function convertTimeTo12HourFormat({
 	seconds: number | null
 	amPmLabels: TimePickerAmPmLabels
 }) {
-	if (hours === null) {
+	if (hours === null)
 		return { hours: null, minutes: null, seconds: null, amPm: null }
-	}
 
 	const amPm = hours >= 12 ? amPmLabels.pm : amPmLabels.am
 	const hour12 = hours % 12 === 0 ? 12 : hours % 12
@@ -34,17 +33,13 @@ export function getParsedTime({ time, format, amPmLabels }: {
 	format: TimePickerFormat
 	amPmLabels: TimePickerAmPmLabels
 }) {
-	if (time === '') {
+	if (time === '')
 		return { hours: null, minutes: null, seconds: null, amPm: null }
-	}
 
-	const { hours, minutes, seconds } = splitTimeString(time)
+	const parsed = splitTimeString(time)
 
-	const parsed = { hours, minutes, seconds }
-
-	if (format === '12h') {
+	if (format === '12h')
 		return convertTimeTo12HourFormat({ ...parsed, amPmLabels })
-	}
 
 	return { ...parsed, amPm: null }
 }

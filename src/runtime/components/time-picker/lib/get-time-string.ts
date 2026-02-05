@@ -61,7 +61,6 @@ export function getTimeString({
 	if (amPm === null)
 		return { valid: false, value: '' }
 
-
 	return {
 		valid: true,
 		value: convertTo24HourFormat({ hours, minutes, seconds, amPm, amPmLabels, withSeconds }),

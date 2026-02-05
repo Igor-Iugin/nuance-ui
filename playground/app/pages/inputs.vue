@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const time = ref('')
+</script>
+
 <template>
 	<section :class='$style.root'>
 		<div :class='$style.flex'>
@@ -30,7 +34,7 @@
 		</div>
 		<div :class='$style.flex'>
 			<NDatePicker label='Date picker' mode='range' />
-			<NTimePicker label='Time picker' />
+			<NTimePicker v-model='time' label='Time picker' clearable />
 		</div>
 	</section>
 </template>

@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import type { Classes } from '@nui/types'
 
+import { computed } from 'vue'
+
 import type { InputBaseProps } from '../input'
 import type { InputWrapperProps } from '../input/ui/input-wrapper.vue'
 import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from './model'
 
+import ActionIcon from '../action-icon/action-icon.vue'
 import InputBase from '../input/ui/input-base.vue'
 import InputWrapper from '../input/ui/input-wrapper.vue'
 import SpinInput from '../input/ui/spin-input.vue'
+import { getParsedTime } from './lib/get-parsed-time'
+import { useTimePicker } from './lib/use-time-picker'
 
 
 export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
@@ -17,13 +22,13 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** `name` prop passed down to the hidden input */
 	name?: string
 
-	/** Min possible time value in `hh:mm:ss` format */
+	/** Min possible time value in `hh:mm:ss` format @default `00:00:00` */
 	min?: string
 
-	/** Max possible time value in `hh:mm:ss` format */
+	/** Max possible time value in `hh:mm:ss` format @default `23:59:59` */
 	max?: string
 
-	/** Time format, `'24h'` by default */
+	/** Time format, @default `24h` */
 	format?: TimePickerFormat
 
 	/** Number by which hours are incremented/decremented @default `1` */
@@ -53,23 +58,8 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Labels used for am/pm values @default `{ am: 'AM', pm: 'PM' }` */
 	amPmLabels?: TimePickerAmPmLabels
 
-	/** Determines whether the dropdown with time controls list should be visible when the input has focus @default `false` */
-	withDropdown?: boolean
-
-	/** If set, the value cannot be updated */
-	readOnly?: boolean
-
-	/** If set, the component becomes disabled */
-	disabled?: boolean
-
 	/** A function to transform paste values, by default time in 24h format can be parsed on paste for example `23:34:22` */
 	pasteSplit?: TimePickerPasteSplit
-
-	/** Maximum height of the content displayed in the dropdown in px @default `200` */
-	maxDropdownContentHeight?: number
-
-	/** If set, the time controls list are reversed, @default `false` */
-	reverseTimeControlsList?: boolean
 
 	/** Hours input placeholder, @default `--` */
 	hoursPlaceholder?: string
@@ -80,17 +70,73 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Seconds input placeholder, @default `--` */
 	secondsPlaceholder?: string
 
-	classes?: Classes<'wrapper' | 'input'>
+	classes?: Classes<'root' | 'input' | 'section' | 'field'>
 }
 
-const props = defineProps<TimePickerProps>()
+const {
+	amPmLabels = { am: 'AM', pm: 'PM' },
+	format = '24h',
+	pasteSplit = getParsedTime,
+	withSeconds = true,
 
-const value = defineModel<string>()
+	hoursPlaceholder,
+	minutesPlaceholder,
+	secondsPlaceholder,
+
+	hoursInputLabel,
+	minutesInputLabel,
+	secondsInputLabel,
+
+	hoursStep = 1,
+	minutesStep = 1,
+	secondsStep = 1,
+	name,
+
+	required,
+	clearable,
+	disabled,
+	readonly,
+
+	classes,
+
+	rightSectionPE = 'all',
+	...props
+} = defineProps<TimePickerProps>()
+
+const model = defineModel<string>({ default: '' })
+
+const {
+	values: {
+		hours,
+		minutes,
+		seconds,
+		amPm,
+	},
+	refs: { hoursRef, minutesRef, secondsRef },
+	clear,
+	focus,
+} = useTimePicker({
+	model,
+	amPmLabels,
+	format,
+	max: props.max,
+	min: props.min,
+	withSeconds,
+	pasteSplit,
+})
+
+const isClearable = computed(() => clearable && !readonly && !disabled && (
+	hours.value !== null || minutes.value !== null	|| seconds.value !== null	|| amPm.value !== null
+))
 </script>
 
 <template>
-	<InputWrapper v-bind='props' :class='[$attrs.class]'>
-		<InputBase>
+	<InputWrapper
+		v-bind='props'
+		:right-section-p-e
+		:class='[$attrs.class, classes?.root]'
+	>
+		<InputBase :classes='{ root: classes?.input, section: classes?.section }' @click='focus("hours")'>
 			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
@@ -101,43 +147,72 @@ const value = defineModel<string>()
 						<div :class='$style.group'>
 							<!-- Hours -->
 							<SpinInput
+								ref='hoursRef'
+								v-model='hours'
 								:min='0'
 								:max='23'
-								:step='1'
-								:class='$style.field'
+								:step='hoursStep'
+								:placeholder='hoursPlaceholder'
+								:class='classes?.field'
+								:aria-label='hoursInputLabel'
+								@next='focus("minutes")'
 							/>
 							<span>:</span>
 							<!-- Minutes -->
 							<SpinInput
+								ref='minutesRef'
+								v-model='minutes'
 								:min='0'
 								:max='59'
-								:step='1'
-								:class='$style.field'
+								:step='minutesStep'
+								:placeholder='minutesPlaceholder'
+								:class='classes?.field'
+								:aria-label='minutesInputLabel'
+								@next='focus("seconds")'
 							/>
-							<!-- Seconds -->
-							<SpinInput
-								v-if='withSeconds'
-								:min='0'
-								:max='59'
-								:step='1'
-								:class='$style.field'
-							/>
+							<template v-if='withSeconds'>
+								<span>:</span>
+								<!-- Seconds -->
+								<SpinInput
+									v-if='withSeconds'
+									ref='secondsRef'
+									v-model='seconds'
+									:min='0'
+									:max='59'
+									:step='secondsStep'
+									:placeholder='secondsPlaceholder'
+									:aria-label='secondsInputLabel'
+									:class='classes?.field'
+								/>
+							</template>
 						</div>
 					</div>
 				</div>
 				<input
 					v-bind='{ ...$attrs, class: css }'
 					:id
-					v-model='value'
+					v-model='model'
+					:name
 					type='hidden'
-					:required='props.required'
-					:disabled='props.disabled'
-					:readonly='props.readonly'
+					:required
+					:disabled
+					:readonly
 				>
 			</template>
 
-			<template v-if='$slots.rightSection' #rightSection>
-				<slot name='rightSection' />
+			<template
+				v-if='(!$slots.rightSection && isClearable) || !!$slots.rightSection'
+				#rightSection
+			>
+				<slot name='rightSection'>
+					<ActionIcon
+						icon='gravity-ui:xmark'
+						variant='subtle'
+						color='gray'
+						size='sm'
+						@click.stop='clear'
+					/>
+				</slot>
 			</template>
 		</InputBase>
 
@@ -278,55 +353,6 @@ const value = defineModel<string>()
 
 		@mixin where-dark {
 			background-color: var(--color-dark-4);
-		}
-	}
-}
-
-.field {
-	position: relative;
-
-	width: calc(2ch + 0.3em);
-	height: 100%;
-	padding-inline: 0.15em;
-	border: 0;
-	border-radius: 2px;
-
-	font-variant-numeric: tabular-nums;
-	line-height: 1;
-	color: var(--input-color);
-	text-align: center;
-	text-align-last: center;
-
-	appearance: none;
-	background-color: transparent;
-	caret-color: transparent;
-
-	&:where([data-am-pm]) {
-		width: auto;
-	}
-
-	&:where(:disabled) {
-		cursor: not-allowed;
-	}
-
-	&::selection {
-		background-color: transparent;
-	}
-
-	&::placeholder {
-		color: inherit;
-
-		opacity: 1;
-	}
-
-	&:focus {
-		color: var(--color-white);
-
-		background-color: var(--color-primary-filled);
-		outline: 0;
-
-		&::placeholder {
-			color: var(--color-white);
 		}
 	}
 }

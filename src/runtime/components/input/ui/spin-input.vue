@@ -52,9 +52,8 @@ const value = computed({
 
 		model.value = clampedValue
 
-		if (clampedValue > maxDigit.value || newValue.startsWith('00')) {
+		if (clampedValue > maxDigit.value || newValue.startsWith('00'))
 			emit('next')
-		}
 	},
 })
 
@@ -129,8 +128,60 @@ function handleKeyDown(event: KeyboardEvent) {
 		inputMode='numeric'
 		:placeholder
 		:readonly
+		:class='$style.field'
 		@keydown='handleKeyDown'
 		@focus='($event?.target as HTMLInputElement).select()'
 		@click.stop='($event?.target as HTMLInputElement).select()'
 	>
 </template>
+
+<style lang="postcss" module>
+.field {
+	position: relative;
+
+	width: calc(2ch + 0.3em);
+	height: 100%;
+	padding-inline: 0.15em;
+	border: 0;
+	border-radius: 2px;
+
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+	color: var(--input-color);
+	text-align: center;
+	text-align-last: center;
+
+	appearance: none;
+	background-color: transparent;
+	caret-color: transparent;
+
+	&:where([data-am-pm]) {
+		width: auto;
+	}
+
+	&:where(:disabled) {
+		cursor: not-allowed;
+	}
+
+	&::selection {
+		background-color: transparent;
+	}
+
+	&::placeholder {
+		color: inherit;
+
+		opacity: 1;
+	}
+
+	&:focus {
+		color: var(--color-white);
+
+		background-color: var(--color-primary-filled);
+		outline: 0;
+
+		&::placeholder {
+			color: var(--color-white);
+		}
+	}
+}
+</style>
