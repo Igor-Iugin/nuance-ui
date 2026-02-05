@@ -22,7 +22,11 @@ export interface ButtonInputProps<T = string> extends InputWrapperProps, InputBa
 
 defineOptions({ inheritAttrs: false })
 
-const { id, getValue, ...rest } = defineProps<ButtonInputProps<Value>>()
+const {
+	id,
+	getValue,
+	...rest
+} = defineProps<ButtonInputProps<Value>>()
 
 const uid = id ?? useId()
 const value = defineModel<Value>({ required: true })
@@ -76,6 +80,8 @@ defineExpose({
 .button {
 	width: 100%;
 	min-width: rem(150px);
+
+	font-weight: 400;
 
 	&:where([data-multiline]) {
 		height: auto;

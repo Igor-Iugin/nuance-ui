@@ -51,7 +51,7 @@ const value = defineModel<string>()
 const select = ref<DateSelection<Mode>>()
 
 function formatValue(date: DateInput) {
-	return format({ date, format: valueFormat, ...config	})
+	return format({ date, format: valueFormat, ...config.value	})
 }
 
 watch(select, date => {
