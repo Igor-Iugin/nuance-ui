@@ -1,33 +1,28 @@
 <script lang='ts' setup>
-import type { Component } from 'vue'
+import type { Classes } from '@nui/types'
 
 import { getFontSize, getRadius, getSize } from '@nui/utils'
-import { unrefElement } from '@vueuse/core'
-import { computed, useTemplateRef } from 'vue'
+import { computed } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
-import type { InputBaseProps } from '../types'
 
 import Box from '../../box.vue'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
-export interface BaseInputProps extends InputBaseProps, Omit<WrapperContext, 'id'> {
-	id: string
-	is?: 'input' | 'textarea' | Component
-	modelValue?: string | number
+export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
+	classes?: Classes<'root' | 'section'>
 }
 
 const {
-	is = 'input',
-	readonly,
-	disabled,
-	modelValue = '',
+	classes,
 	...props
 } = defineProps<BaseInputProps>()
 
-defineEmits<{
-	'update:modelValue': [value: string | number | undefined]
+defineSlots<{
+	leftSection: []
+	default: (props: { id: string, css: string }) => any
+	rightSection: []
 }>()
 
 const api = computed(() => useInputWrapperState() ?? props)
@@ -41,20 +36,12 @@ const style = computed(() => ({
 	'--input-right-section-pointer-events': api.value.rightSectionPE,
 	'--input-resize': api.value.resize,
 }))
-
-const ref = useTemplateRef('input')
-
-defineExpose({
-	get $el() {
-		return unrefElement(ref.value)
-	},
-})
 </script>
 
 <template>
 	<Box
 		:style
-		:class='[$style.root, $attrs?.class]'
+		:class='[$style.root, classes?.root]'
 		:mod='[{
 			"with-left-section": !!$slots.leftSection,
 			"with-right-section": !!$slots.rightSection,
@@ -63,27 +50,17 @@ defineExpose({
 	>
 		<span
 			v-if='$slots.leftSection'
-			:class='$style.section'
+			:class='[$style.section, classes?.section]'
 			data-position='left'
 		>
 			<slot name='leftSection' />
 		</span>
 
-		<Box
-			:is
-			:id='api.id'
-			v-bind='{ ...$attrs, disabled, class: undefined }'
-			ref='input'
-			:class='$style.input'
-			:value='modelValue'
-			:readonly
-			:disabled
-			@input="$emit('update:modelValue', $event.target.value)"
-		/>
+		<slot :id='api.id' :css='$style.input' />
 
 		<span
 			v-if='$slots.rightSection'
-			:class='$style.section'
+			:class='[$style.section, classes?.section]'
 			data-position='right'
 		>
 			<slot name='rightSection' />

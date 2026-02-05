@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { clamp } from '@vueuse/core'
-import { shallowRef, useId } from 'vue'
+import { shallowRef } from 'vue'
 
 import type { InputWrapperProps } from './index'
 import type { InputBaseProps } from './types'
@@ -29,13 +29,10 @@ const {
 	max = Number.MAX_SAFE_INTEGER,
 	step = 1,
 	hideControls,
-	disabled,
-	readonly,
 	rightSectionPE = 'all',
 	...rest
 } = defineProps<NumberInputProps>()
 
-const id = useId()
 const focused = shallowRef<boolean>(false)
 
 const value = defineModel<number>({ default: 0 })
@@ -64,23 +61,27 @@ function handleBlur() {
 </script>
 
 <template>
-	<InputWrapper v-bind='rest' :id :class='$style.root' :right-section-p-e>
-		<BaseInput
-			:id
-			v-model='value'
-			:min
-			:max
-			:step
-			:readonly
-			:disabled
-			type='number'
-			@focus='focused = true'
-			@blur='handleBlur()'
-			@wheel.prevent='handleWheel'
-		>
+	<InputWrapper v-bind='rest' :class='$style.root' :right-section-p-e>
+		<BaseInput>
 			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
+
+			<template #default='{ id, css }'>
+				<input
+					:id
+					v-model='value'
+					:class='css'
+					:min
+					:max
+					:step
+					type='number'
+					@focus='focused = true'
+					@blur='handleBlur()'
+					@wheel.prevent='handleWheel'
+				>
+			</template>
+
 			<template v-if='$slots.rightSection || !hideControls' #rightSection>
 				<slot name='rightSection'>
 					<div :class='$style.controls'>

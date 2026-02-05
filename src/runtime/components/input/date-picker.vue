@@ -17,7 +17,7 @@ import PopoverTarget from '../popover/popover-target.vue'
 import Popover from '../popover/popover.vue'
 import ButtonInput from './button-input.vue'
 
-
+// TODO Add presets & add missing props & add `Presentation-Value Separation`
 export interface DatePickerProps<Mode extends SelectionMode> extends CalendarProps<Mode>, ButtonInputProps {
 	/** Tempo format for value */
 	valueFormat?: Format

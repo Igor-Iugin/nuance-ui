@@ -1,6 +1,8 @@
 <script setup lang='ts'>
+import type { Classes } from '@nui/types'
+
 import { unrefElement } from '@vueuse/core'
-import { computed, useId, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 
 import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
@@ -16,16 +18,11 @@ export interface TextInputProps extends InputWrapperProps, InputBaseProps {
 	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
 	withAria?: boolean
 
-	classes?: {
-		wrapper?: string
-		input?: string
-	}
+	classes?: Classes<'wrapper' | 'input'>
 }
 
-const { classes, id: uid, ...props } = defineProps<TextInputProps>()
+const { classes, ...props } = defineProps<TextInputProps>()
 const value = defineModel<string>({ default: '' })
-
-const id = computed(() => uid ?? useId())
 
 const ref = useTemplateRef<HTMLElement>('input')
 defineExpose({
@@ -36,17 +33,24 @@ defineExpose({
 </script>
 
 <template>
-	<InputWrapper :id v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
-		<BaseInput
-			:id
-			ref='input'
-			v-bind='{ ...$attrs, class: classes?.input }'
-			v-model='value'
-			:required
-		>
+	<InputWrapper v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
+		<BaseInput>
 			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
+
+			<template #default='{ id, css }'>
+				<input
+					v-bind='{ ...$attrs, class: css }'
+					:id
+					ref='input'
+					v-model='value'
+					:required
+					:disabled
+					:readonly
+				>
+			</template>
+
 			<template v-if='$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
