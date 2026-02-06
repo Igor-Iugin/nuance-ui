@@ -33,8 +33,9 @@ const time = ref('')
 			/>
 		</div>
 		<div :class='$style.flex'>
-			<NDatePicker label='Date picker' mode='range' />
+			<NDatePicker label='Date picker' />
 			<NTimePicker v-model='time' label='Time picker' clearable />
+			<NDateTimePicker label='Date time picker' />
 		</div>
 	</section>
 </template>

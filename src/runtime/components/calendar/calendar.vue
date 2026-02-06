@@ -31,7 +31,6 @@ export interface CalendarProps<T extends SelectionMode = 'single'> extends Calen
 
 	/** Detects the presence of spaces between cells. @default `true` */
 	withCellSpacing?: boolean
-
 }
 
 const props = withDefaults(defineProps<CalendarProps<T>>(), {

@@ -1,4 +1,4 @@
-export type * from './button-input.vue'
+export type * from './ui/button-input.vue'
 
 export { useInputWrapperState, type WrapperContext } from './lib/input-wrapper.context'
 

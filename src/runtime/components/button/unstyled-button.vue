@@ -12,13 +12,13 @@ const { is = 'button', ...props } = defineProps<UnstyledButtonProps>()
 </script>
 
 <template>
-	<Box :is v-bind='props' :class='$style.root' type='button'>
+	<Box :is :class='$style.unstyled' v-bind='props' type='button'>
 		<slot />
 	</Box>
 </template>
 
 <style module lang='postcss'>
-.root {
+:where(.unstyled) {
 	touch-action: manipulation;
 	cursor: pointer;
 

@@ -34,7 +34,7 @@ const ctx = useCalendarState()
 const dateYear = computed(() => date(year).getFullYear())
 
 const monthList = computed(() => {
-	const months =	range('MMMM', ctx.config.value.locale, ctx.config.value.genitive)
+	const months =	range('MMMM', ctx.config.locale, ctx.config.genitive)
 		.map((label, ix) => ({ label, ix }))
 	return chunk(months, 3)
 })

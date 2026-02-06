@@ -168,7 +168,7 @@ export function useCalendarSelection<T extends SelectionMode = 'single'>({
 				newValue = [
 					weekStart(date, config.firstDayOfWeek),
 					weekEnd(date, config.firstDayOfWeek),
-				] as DateSelection<T>
+				] as unknown as DateSelection<T>
 				break
 			}
 			case 'multiple': {

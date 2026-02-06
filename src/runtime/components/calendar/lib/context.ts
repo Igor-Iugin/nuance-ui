@@ -10,7 +10,7 @@ interface State {
 	date: ModelRef<DateInput>
 	hideOutsideDates: Ref<boolean>
 	weekdays: Ref<string[]>
-	config: Ref<DateConfig>
+	config: DateConfig
 	weekdayFormat?: FormatToken
 	fixedWeeks?: boolean
 	minDate?: DateInput

@@ -70,16 +70,16 @@ const emit = defineEmits<{ select: [DateSelection<T>] }>()
 
 const date = defineModel<DateInput>('date', { required: true })
 
-const config = computed(() => props.config ?? useDatesConfig())
+const config = useDatesConfig(props.config)
 const hideOutsideDates = computed(() => (props.numberOfMonths && props.numberOfMonths > 1) || props.hideOutsideDates)
 
 const weekdays = computed(() => {
-	const days = range(props.weekdayFormat, config.value?.locale, config.value?.genitive)
+	const days = range(props.weekdayFormat, config?.locale, config?.genitive)
 
-	if (config.value.firstDayOfWeek === 1) {
+	if (config.firstDayOfWeek === 1) {
 		return [
-			...days.slice(config.value.firstDayOfWeek),
-			...days.slice(0, config.value.firstDayOfWeek),
+			...days.slice(config.firstDayOfWeek),
+			...days.slice(0, config.firstDayOfWeek),
 		]
 	}
 
@@ -121,7 +121,7 @@ useProvideCalendarState({
 useCalendarSelection({
 	value: select,
 	mode: props.mode,
-	config: config.value,
+	config,
 	readonly: props.readonly,
 	onSelect: data => emit('select', data),
 })

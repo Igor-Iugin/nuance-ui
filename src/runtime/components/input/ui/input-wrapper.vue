@@ -54,7 +54,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<div :style :class='$style.root'>
+	<div :style :class='$style.wrapper'>
 		<InputLabel
 			:data-v-hidden='(!label && !$slots.label) || null'
 			:for='uid'
@@ -84,7 +84,7 @@ const style = computed(() => ({
 </template>
 
 <style lang='postcss' module>
-.root {
+.wrapper {
 	--input-error-size: calc(var(--font-size-sm) - rem(2px));
 	--input-description-size: calc(var(--font-size-sm) - rem(2px));
 

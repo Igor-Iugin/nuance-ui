@@ -1,20 +1,24 @@
 <script setup lang='ts' generic='Value = string'>
 import { unrefElement } from '@vueuse/core'
-import { useId, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 
-import type { InputBaseProps } from './types'
-import type { InputWrapperProps } from './ui/input-wrapper.vue'
+import type { InputBaseProps } from '../types'
+import type { BaseInputProps } from './input-base.vue'
+import type { InputWrapperProps } from './input-wrapper.vue'
 
-import Button from '../button/button.vue'
-import InputWrapper from './ui/input-wrapper.vue'
+import UnstyledButton from '../../button/unstyled-button.vue'
+import InputBase from './input-base.vue'
+import InputWrapper from './input-wrapper.vue'
 
 
-export interface ButtonInputProps<T = string> extends InputWrapperProps, InputBaseProps {
+export interface ButtonInputProps<T = string> extends InputWrapperProps, BaseInputProps, InputBaseProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 
 	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
 	withAria?: boolean
+
+	name?: string
 
 	/** Getter function for visible value */
 	getValue?: (value: T) => string
@@ -22,14 +26,8 @@ export interface ButtonInputProps<T = string> extends InputWrapperProps, InputBa
 
 defineOptions({ inheritAttrs: false })
 
-const {
-	id,
-	getValue,
-	...rest
-} = defineProps<ButtonInputProps<Value>>()
-
-const uid = id ?? useId()
-const value = defineModel<Value>({ required: true })
+const props = defineProps<ButtonInputProps<Value>>()
+const model = defineModel<unknown>()
 
 const ref = useTemplateRef<HTMLElement>('button')
 defineExpose({
@@ -40,29 +38,39 @@ defineExpose({
 </script>
 
 <template>
-	<InputWrapper :id='uid' v-bind='rest'>
-		<Button
-			:id='uid'
-			v-bind='$attrs'
-			ref='button'
-			:classes='{
-				root: $style.button,
-				section: $style.section,
-			}'
-			:mod='{ multiline: rest.multiline }'
-		>
+	<InputWrapper v-bind='props'>
+		<InputBase :class='$style.base'>
 			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
 
-			<slot>
-				{{ getValue?.(value) ?? value }}
-			</slot>
+			<template #default='{ id, css }'>
+				<UnstyledButton
+					:id
+					ref='button'
+					v-bind='{ ...$attrs, class: null }'
+					:disabled
+					:readonly
+					:class='[css, $style.button]'
+					:mod='{ multiline: props.multiline }'
+				>
+					<slot />
+				</UnstyledButton>
+				<input
+					:id
+					v-model='model'
+					:name
+					type='hidden'
+					:required
+					:disabled
+					:readonly
+				>
+			</template>
 
 			<template v-if='!!$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
-		</Button>
+		</InputBase>
 
 		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
@@ -77,6 +85,10 @@ defineExpose({
 </template>
 
 <style lang="postcss" module>
+.base {
+	--input-cursor: pointer;
+}
+
 .button {
 	width: 100%;
 	min-width: rem(150px);
@@ -85,8 +97,7 @@ defineExpose({
 
 	&:where([data-multiline]) {
 		height: auto;
-		min-height: calc(var(--button-height) + var(--button-padding-x) / 2);
-		padding-block: calc(var(--button-padding-x) / 2);
+		padding-block: calc(var(--input-padding-inline-end) / 2);
 	}
 }
 

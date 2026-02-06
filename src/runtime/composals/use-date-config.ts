@@ -1,6 +1,7 @@
 import type { FormatOptions } from '@formkit/tempo'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createInjectionState } from '@vueuse/core'
+import defu from 'defu'
 
 
 const injectionKey = Symbol('dates-config')
@@ -31,12 +32,11 @@ function getFirstDayOfWeek(locale?: string, forceDay?: number): number {
 	}
 }
 
-const [Provide, Inject] = createStrictInjection((state?: Partial<DateConfig>) => ({
+const [Provide, Inject] = createInjectionState((state?: Partial<DateConfig>) => ({
 	...state,
 	firstDayOfWeek: getFirstDayOfWeek(state?.locale, state?.firstDayOfWeek),
 }), {
 	injectionKey,
-	name: 'DatesConfig',
 })
 
 /**
@@ -48,5 +48,10 @@ export const useProvideDatesConfig = Provide
 /**
  * Hook to inject the dates configuration in a component.
  * Used in components that depend on the dates configuration.
+ *
+ * @param localValue merges new values with ctx with `defu`
  */
-export const useDatesConfig = Inject
+export function useDatesConfig(localValue?: ReturnType<typeof Inject>) {
+	const injected = Inject()
+	return defu(localValue, injected)
+}

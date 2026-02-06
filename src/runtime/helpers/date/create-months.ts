@@ -7,13 +7,7 @@ import { chunk } from '@nui/utils'
 import { getDaysBetween } from './get-days-between'
 
 
-interface CreateMonthProps {
-	date: DateInput
-	fixedWeeks?: boolean
-	config: DateConfig
-}
-
-export function createMonth({ date, fixedWeeks, config }: CreateMonthProps): string[][] {
+export function createMonth(date: DateInput,	config: DateConfig, fixedWeeks?: boolean): string[][] {
 	const startOfMonth = monthStart(date)
 	const endOfMonth = monthEnd(date)
 

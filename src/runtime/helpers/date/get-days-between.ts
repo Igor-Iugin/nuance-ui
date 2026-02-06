@@ -9,7 +9,10 @@ export function getDaysBetween(
 
 	let date = start
 	while (isBefore(date, end)) {
-		days.push(date.toISOString())
+		const year = date.getFullYear()
+		const month = `${date.getMonth() + 1}`.padStart(2, '0')
+		const day = `${date.getDate()}`.padStart(2, '0')
+		days.push(`${year}-${month}-${day}`)
 		date = addDay(date, 1)
 	}
 

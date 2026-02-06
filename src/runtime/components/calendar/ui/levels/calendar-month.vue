@@ -33,26 +33,18 @@ const emit = defineEmits<{
 }>()
 
 const ctx = useCalendarState()
-const weeks = shallowRef(createMonth({
-	date: month,
-	config: ctx.config.value,
-	fixedWeeks: ctx.fixedWeeks,
-}))
+const weeks = shallowRef(createMonth(month,	ctx.config,	ctx.fixedWeeks))
 
 watch(() => month, (date, oldDate) => {
 	if (date === oldDate)
 		return
 
-	weeks.value = createMonth({
-		date,
-		config: ctx.config.value,
-		fixedWeeks: ctx.fixedWeeks,
-	})
+	weeks.value = createMonth(date, ctx.config, ctx.fixedWeeks)
 })
 
 const today = new Date()
 
-const isWeekend: DateMatcher = day => isWeekendDay(day, ctx.config.value.firstDayOfWeek)
+const isWeekend: DateMatcher = day => isWeekendDay(day, ctx.config.firstDayOfWeek)
 const isOutside: DateMatcher = day => !isSameMonth(day, month)
 const isToday: DateMatcher = day => !!ctx.highlightToday && sameDay(day, today)
 const isDisabled: DateMatcher = day => {

@@ -1,13 +1,13 @@
 <script setup lang="ts" generic='Mode extends SelectionMode'>
 import type { DateInput, Format } from '@formkit/tempo'
 
-import { format, parse, sameDay } from '@formkit/tempo'
+import { format } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 
 import type { DateSelection, Selection, SelectionMode } from '../calendar'
 import type { CalendarProps } from '../calendar/calendar.vue'
-import type { ButtonInputProps } from './button-input.vue'
+import type { ButtonInputProps } from './ui/button-input.vue'
 
 import ActionIcon from '../action-icon/action-icon.vue'
 import Badge from '../badge.vue'
@@ -15,9 +15,13 @@ import Calendar from '../calendar/calendar.vue'
 import PopoverDropdown from '../popover/popover-dropdown.vue'
 import PopoverTarget from '../popover/popover-target.vue'
 import Popover from '../popover/popover.vue'
-import ButtonInput from './button-input.vue'
+import ButtonInput from './ui/button-input.vue'
 
-// TODO Add presets & add missing props & add `Presentation-Value Separation`
+
+// TODO
+/**
+ * - presets
+ */
 export interface DatePickerProps<Mode extends SelectionMode> extends CalendarProps<Mode>, ButtonInputProps {
 	/** Tempo format for value */
 	valueFormat?: Format
@@ -45,59 +49,44 @@ const {
 	config: cfg,
 	...props
 } = defineProps<DatePickerProps<Mode>>()
-const config = computed(() => cfg ?? useDatesConfig())
 
-const value = defineModel<string>()
-const select = ref<DateSelection<Mode>>()
+/** ISO string(s) */
+const model = defineModel<Selection | Selection[]>()
 
-function formatValue(date: DateInput) {
-	return format({ date, format: valueFormat, ...config.value	})
-}
+const config = useDatesConfig(cfg)
+const formatValue = (date: DateInput) => format({ date, format: valueFormat, ...config	})
 
-watch(select, date => {
-	if (!date)
-		return value.value = ''
+const visible = computed(() => {
+	if (!model.value)
+		return null
 
 	switch (mode) {
 		case 'single':
-			return value.value = formatValue(date as DateInput)
+			return formatValue(model.value as string)
 		case 'week':
 		case 'range':{
-			const [start, end] = date as DateSelection<'range'>
+			const [start, end] = model.value as string[]
 
 			if (!start)
-				return
+				return null
 
 			if (end && start !== end)
-				return value.value = `${formatValue(start)} - ${formatValue(end)}`
+				return `${formatValue(start)} - ${formatValue(end)}`
 			else
-				return value.value = formatValue(start)
+				return formatValue(start)
 		}
 		case 'multiple':
-			return value.value = (date as DateInput[]).map(d => formatValue(d)).join(', ')
+			return (model.value as string[]).map(formatValue)
+		default:
+			return null
 	}
-})
-
-const items = computed(() => {
-	if (!value.value || mode !== 'multiple')
-		return []
-
-	if (value.value.length === 0)
-		return []
-
-	return value.value.split(', ')
 })
 </script>
 
 <template>
 	<Popover>
 		<PopoverTarget>
-			<ButtonInput
-				v-bind='props'
-				v-model='value!'
-				:multiline='mode === "multiple"'
-				type='text'
-			>
+			<ButtonInput v-bind='props' :multiline='mode === "multiple"'>
 				<template #leftSection>
 					<slot name='leftSection'>
 						<Icon name='gravity-ui:calendar' />
@@ -109,7 +98,7 @@ const items = computed(() => {
 
 				<div v-if='mode === "multiple"' :class='$style.list'>
 					<Badge
-						v-for='date in items'
+						v-for='(date, ix) in visible'
 						:key='date'
 						variant='light'
 						color='gray'
@@ -123,13 +112,15 @@ const items = computed(() => {
 								color='gray'
 								size='xs'
 								@click.stop.prevent='() => {
-									select = (select as Selection[])
-										?.filter(val => !sameDay(parse(date, valueFormat), val)) as DateSelection<Mode>
+									model = (model as Selection[])!.filter((_, _ix) => _ix !== ix)
 								}'
 							/>
 						</template>
 					</Badge>
 				</div>
+				<template v-else>
+					{{ visible }}
+				</template>
 
 				<template v-if='!!$slots.label' #label>
 					<slot name='label' />
@@ -144,7 +135,7 @@ const items = computed(() => {
 		</PopoverTarget>
 		<PopoverDropdown>
 			<Calendar
-				v-model:value='select'
+				v-model:value='model as DateSelection<Mode>'
 				:mode
 				:fixed-weeks
 				:with-cell-spacing

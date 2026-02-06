@@ -14,10 +14,7 @@ export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
 	classes?: Classes<'root' | 'section'>
 }
 
-const {
-	classes,
-	...props
-} = defineProps<BaseInputProps>()
+const { classes,	...props } = defineProps<BaseInputProps>()
 
 defineSlots<{
 	leftSection: []

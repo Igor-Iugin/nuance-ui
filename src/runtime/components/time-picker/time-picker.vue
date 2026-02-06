@@ -14,8 +14,8 @@ import SpinInput from '../input/ui/spin-input.vue'
 import { getParsedTime } from './lib/get-parsed-time'
 import { useTimePicker } from './lib/use-time-picker'
 
+// TODO
 /**
- * TODO
  * - presets
  * - dropdown select
  * - am/pm select
@@ -170,6 +170,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 								:class='classes?.field'
 								:aria-label='minutesInputLabel'
 								@next='focus("seconds")'
+								@prev='focus("hours")'
 							/>
 							<template v-if='withSeconds'>
 								<span>:</span>
@@ -184,6 +185,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 									:placeholder='secondsPlaceholder'
 									:aria-label='secondsInputLabel'
 									:class='classes?.field'
+									@prev='focus("minutes")'
 								/>
 							</template>
 						</div>

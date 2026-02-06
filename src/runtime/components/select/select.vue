@@ -8,7 +8,7 @@ import { useCombobox, useComboboxData } from '../combobox'
 import ComboboxOptionsDropdown from '../combobox/combobox-options-dropdown.vue'
 import ComboboxRoot from '../combobox/combobox-root.vue'
 import ComboboxTarget from '../combobox/combobox-target.vue'
-import ButtonInput from '../input/button-input.vue'
+import ButtonInput from '../input/ui/button-input.vue'
 import TextInput from '../input/text-input.vue'
 
 
