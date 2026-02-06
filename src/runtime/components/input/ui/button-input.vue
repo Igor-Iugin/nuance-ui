@@ -1,4 +1,4 @@
-<script setup lang='ts' generic='Value = string'>
+<script setup lang='ts'>
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
@@ -11,22 +11,16 @@ import InputBase from './input-base.vue'
 import InputWrapper from './input-wrapper.vue'
 
 
-export interface ButtonInputProps<T = string> extends InputWrapperProps, BaseInputProps, InputBaseProps {
+export interface ButtonInputProps extends InputWrapperProps, BaseInputProps, InputBaseProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 
-	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
-	withAria?: boolean
-
 	name?: string
-
-	/** Getter function for visible value */
-	getValue?: (value: T) => string
 }
 
 defineOptions({ inheritAttrs: false })
 
-const props = defineProps<ButtonInputProps<Value>>()
+const props = defineProps<ButtonInputProps>()
 const model = defineModel<unknown>()
 
 const ref = useTemplateRef<HTMLElement>('button')

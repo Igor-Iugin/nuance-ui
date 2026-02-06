@@ -1,2 +1,6 @@
+export * from './lib/clamp-time'
+export * from './lib/get-time-string'
 export * from './lib/pad-time'
+export * from './lib/split-time-string'
 export * from './model'
+export type * from './time-picker.vue'

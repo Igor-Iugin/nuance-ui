@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const time = ref('')
+
+
 </script>
 
 <template>
@@ -34,8 +35,8 @@ const time = ref('')
 		</div>
 		<div :class='$style.flex'>
 			<NDatePicker label='Date picker' />
-			<NTimePicker v-model='time' label='Time picker' clearable />
-			<NDateTimePicker label='Date time picker' />
+			<NTimePicker label='Time picker' clearable />
+			<NDateTimePicker label='Datetime picker' />
 		</div>
 	</section>
 </template>

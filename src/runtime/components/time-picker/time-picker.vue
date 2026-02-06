@@ -19,6 +19,8 @@ import { useTimePicker } from './lib/use-time-picker'
  * - presets
  * - dropdown select
  * - am/pm select
+ * - blur
+ * - paste
  */
 export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Determines whether the clear button should be displayed @default `false` */
@@ -82,7 +84,7 @@ const {
 	amPmLabels = { am: 'AM', pm: 'PM' },
 	format = '24h',
 	pasteSplit = getParsedTime,
-	withSeconds = true,
+	withSeconds = false,
 
 	hoursPlaceholder,
 	minutesPlaceholder,
