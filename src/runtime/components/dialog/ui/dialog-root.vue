@@ -6,14 +6,14 @@ import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
 import { onClickOutside, unrefElement } from '@vueuse/core'
 import { computed, onMounted, shallowRef, watch } from 'vue'
 
-import type { BoxProps } from '../box.vue'
-import type { TransitionName } from '../transition'
-import type { DialogEmits, DialogModel } from './types'
+import type { BoxProps } from '../../box.vue'
+import type { TransitionName } from '../../transition'
+import type { DialogEmits, DialogModel } from '../model'
 
-import Box from '../box.vue'
-import NTransition from '../transition/transition.vue'
+import Box from '../../box.vue'
+import NTransition from '../../transition/transition.vue'
+import { useProvideDialogState } from '../lib'
 import css from './dialog.module.css'
-import { useProvideDialogState } from './lib'
 
 
 export interface DialogRootProps extends BoxProps {

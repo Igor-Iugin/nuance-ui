@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 import type { DialogEmits, DialogModel, DialogRootProps } from '../dialog'
 
-import DialogRoot from '../dialog/dialog-root.vue'
+import DialogRoot from '../dialog/ui/dialog-root.vue'
 import css from './drawer.module.css'
 
 

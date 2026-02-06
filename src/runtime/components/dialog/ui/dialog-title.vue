@@ -1,7 +1,7 @@
 <script lang='ts' setup>
-import type { TitleProps } from '../title.vue'
+import type { TitleProps } from '../../title.vue'
 
-import Title from '../title.vue'
+import Title from '../../title.vue'
 import css from './dialog.module.css'
 
 

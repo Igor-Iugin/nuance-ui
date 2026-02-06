@@ -1,7 +1,7 @@
 <script lang='ts' setup>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../../box.vue'
 
-import Box from '../box.vue'
+import Box from '../../box.vue'
 import css from './dialog.module.css'
 
 

@@ -1,8 +1,10 @@
 .root {
 	height: 100%;
-	overflow-y: auto;
+	overflow: hidden;
 
 	&[data-position='left'] {
+		max-height: 100dvh;
+
 		.content {
 			border-radius: 0 var(--dialog-radius) var(--dialog-radius) 0;
 		}
@@ -11,6 +13,7 @@
 	&[data-position='right'] {
 		left: unset;
 		right: var(--dialog-x-offset);
+		max-height: 100dvh;
 
 		.content {
 			border-radius: var(--dialog-radius) 0 0 var(--dialog-radius);
@@ -37,4 +40,8 @@
 			border-radius: var(--dialog-radius) var(--dialog-radius) 0 0;
 		}
 	}
+}
+
+.content {
+	min-height: 0;
 }

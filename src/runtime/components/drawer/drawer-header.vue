@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import type { DialogHeaderProps } from '../dialog'
 
-import DialogHeader from '../dialog/dialog-header.vue'
+import DialogHeader from '../dialog/ui/dialog-header.vue'
 
 
 export interface DrawerHeaderProps extends DialogHeaderProps {
