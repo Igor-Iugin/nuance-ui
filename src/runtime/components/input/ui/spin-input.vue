@@ -84,12 +84,10 @@ function handleKeyDown(event: KeyboardEvent) {
 	if (event.key === 'Backspace' || event.key === 'Delete') {
 		event.preventDefault()
 
-		if (model.value !== null) {
+		if (model.value !== null)
 			model.value = null
-		}
-		else {
+		else
 			emit('prev')
-		}
 	}
 
 	if (event.key === 'ArrowRight') {

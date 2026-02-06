@@ -14,7 +14,12 @@ import SpinInput from '../input/ui/spin-input.vue'
 import { getParsedTime } from './lib/get-parsed-time'
 import { useTimePicker } from './lib/use-time-picker'
 
-
+/**
+ * TODO
+ * - presets
+ * - dropdown select
+ * - am/pm select
+ */
 export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Determines whether the clear button should be displayed @default `false` */
 	clearable?: boolean
@@ -131,11 +136,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 </script>
 
 <template>
-	<InputWrapper
-		v-bind='props'
-		:right-section-p-e
-		:class='[$attrs.class, classes?.root]'
-	>
+	<InputWrapper v-bind='props' :right-section-p-e :class='classes?.root'>
 		<InputBase :classes='{ root: classes?.input, section: classes?.section }' @click='focus("hours")'>
 			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
@@ -189,7 +190,6 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 					</div>
 				</div>
 				<input
-					v-bind='{ ...$attrs, class: css }'
 					:id
 					v-model='model'
 					:name
