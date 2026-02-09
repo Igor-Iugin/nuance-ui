@@ -147,7 +147,13 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 
 <template>
 	<InputWrapper v-bind='props' :right-section-p-e :class='classes?.root'>
-		<InputBase :classes='{ root: classes?.input, section: classes?.section }' @click='focus("hours")'>
+		<InputBase
+			:classes='{
+				root: classes?.input,
+				section: classes?.section,
+			}'
+			@click='focus("hours")'
+		>
 			<template #default='{ id, css }'>
 				<div :class='css'>
 					<div :class='$style.root' dir='ltr'>
