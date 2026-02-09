@@ -1,6 +1,21 @@
 <script setup lang="ts">
+import { splitTimeString } from '@nui/components'
 
 
+const date = ref(new Date().toISOString())
+const time = computed({
+	get: () => date.value,
+	set: (newTime: string) => {
+		const data = new Date()
+		const { hours, minutes, seconds } = splitTimeString(newTime)
+
+		hours && data.setHours(hours)
+		minutes && data.setMinutes(minutes)
+		seconds && data.setSeconds(seconds)
+
+		date.value = data.toISOString()
+	},
+})
 </script>
 
 <template>
@@ -34,9 +49,9 @@
 			/>
 		</div>
 		<div :class='$style.flex'>
-			<NDatePicker label='Date picker' />
-			<NTimePicker label='Time picker' />
-			<NDateTimePicker label='Datetime picker' />
+			<NDatePicker v-model='time' label='Date picker' />
+			<NTimePicker v-model='time' label='Time picker' with-seconds />
+			<NDateTimePicker v-model='time' label='Datetime picker' with-seconds />
 		</div>
 	</section>
 </template>

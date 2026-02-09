@@ -1,5 +1,6 @@
 import type { ModelRef } from 'vue'
 
+import { iso8601, format as lFormat } from '@formkit/tempo'
 import { unrefElement } from '@vueuse/core'
 import { computed, ref, shallowRef, watch } from 'vue'
 
@@ -41,7 +42,10 @@ export function useTimePicker({
 		amPm: null,
 	})
 
-	const parsed = computed(() => getParsedTime({ time: model.value ?? '', format, amPmLabels }))
+	const parsed = computed(() => {
+		const time = iso8601(model.value!) ? lFormat(model.value!, 'HH:mm:ss') : model.value ?? ''
+		return getParsedTime({ time, format, amPmLabels })
+	})
 
 	/** Sync `intermediate` state with `parsed` value */
 	watch(parsed, v => intermediate.value = v, { immediate: true })
