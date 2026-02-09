@@ -2,8 +2,8 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import type { CalendarLevel, DateSelection, SelectionMode } from './model'
-import type { CalendarHeaderEmits, CalendarRootProps } from './ui/core'
+import type { CalendarEmits, CalendarLevel, DateSelection, SelectionMode } from './model'
+import type { CalendarRootProps } from './ui/core'
 
 import { useCalendarNavigation } from './lib/use-calendar-navigation'
 import {	CalendarHeader, CalendarRoot } from './ui/core'
@@ -53,9 +53,7 @@ const props = withDefaults(defineProps<CalendarProps<T>>(), {
 	maxLevel: 'decade',
 })
 
-defineEmits<CalendarHeaderEmits & {
-	select: [DateSelection<T>]
-}>()
+defineEmits<CalendarEmits<T>>()
 
 const date = defineModel<DateInput>('date', { default: new Date() })
 const level = defineModel<CalendarLevel>('level', { default: ({ minLevel }) => minLevel })

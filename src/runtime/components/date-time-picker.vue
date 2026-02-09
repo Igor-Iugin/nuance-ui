@@ -5,9 +5,10 @@ import { format } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { computed } from 'vue'
 
-import type { DateSelection } from './calendar'
+import type { CalendarEmits, DateSelection } from './calendar'
 import type { CalendarProps } from './calendar/calendar.vue'
 import type { ButtonInputProps } from './input/ui/button-input.vue'
+import type { PopoverEmits } from './popover'
 import type { TimePickerProps } from './time-picker/time-picker.vue'
 
 import ActionIcon from './action-icon/action-icon.vue'
@@ -48,6 +49,8 @@ const {
 
 	...props
 } = defineProps<DatePickerProps>()
+
+defineEmits<PopoverEmits & CalendarEmits>()
 
 /** ISO string */
 const model = defineModel<string | Date>()
@@ -109,7 +112,7 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 </script>
 
 <template>
-	<Popover>
+	<Popover @open='$emit("open")' @close='$emit("close")'>
 		<PopoverTarget>
 			<ButtonInput v-bind='props' :right-section-p-e>
 				<template #leftSection>
@@ -152,6 +155,10 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 			<Calendar
 				v-model:value='date'
 				v-bind='calendarProps'
+				@next='$emit("next")'
+				@prev='$emit("prev")'
+				@level='$emit("level")'
+				@select='d => $emit("select", d)'
 			/>
 			<TimePicker
 				v-model='time'

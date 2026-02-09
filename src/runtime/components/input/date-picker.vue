@@ -5,8 +5,9 @@ import { format } from '@formkit/tempo'
 import { useDatesConfig } from '@nui/composals'
 import { computed } from 'vue'
 
-import type { DateSelection, Selection, SelectionMode } from '../calendar'
+import type { CalendarEmits, DateSelection, SelectionMode } from '../calendar'
 import type { CalendarProps } from '../calendar/calendar.vue'
+import type { PopoverEmits } from '../popover'
 import type { ButtonInputProps } from './ui/button-input.vue'
 
 import ActionIcon from '../action-icon/action-icon.vue'
@@ -21,6 +22,7 @@ import ButtonInput from './ui/button-input.vue'
 // TODO
 /**
  * - presets
+ * - value type DateSelection
  */
 export interface DatePickerProps<Mode extends SelectionMode> extends CalendarProps<Mode>, ButtonInputProps {
 	/** Tempo format for value */
@@ -50,8 +52,10 @@ const {
 	...props
 } = defineProps<DatePickerProps<Mode>>()
 
+defineEmits<PopoverEmits & CalendarEmits<Mode>>()
+
 /** ISO string(s) */
-const model = defineModel<Selection | Selection[]>()
+const model = defineModel<DateSelection<Mode>>()
 
 const config = useDatesConfig(cfg)
 const formatValue = (date: DateInput) => format({ date, format: valueFormat, ...config	})
@@ -84,7 +88,7 @@ const visible = computed(() => {
 </script>
 
 <template>
-	<Popover>
+	<Popover @open='$emit("open")' @close='$emit("close")'>
 		<PopoverTarget>
 			<ButtonInput v-bind='props' :multiline='mode === "multiple"'>
 				<template #leftSection>
@@ -112,7 +116,8 @@ const visible = computed(() => {
 								color='gray'
 								size='xs'
 								@click.stop.prevent='() => {
-									model = (model as Selection[])!.filter((_, _ix) => _ix !== ix)
+									// @ts-expect-error
+									model = (model as DateSelection<"multiple">)?.filter((_, _ix) => _ix !== ix)
 								}'
 							/>
 						</template>
@@ -152,6 +157,9 @@ const visible = computed(() => {
 				:weekday-format
 				:with-week-numbers
 				:config
+				@prev='$emit("prev")'
+				@next='$emit("next")'
+				@select='d => $emit("select", d as any)'
 			/>
 		</PopoverDropdown>
 	</Popover>
