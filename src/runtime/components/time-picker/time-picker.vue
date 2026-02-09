@@ -22,6 +22,29 @@ import { useTimePicker } from './lib/use-time-picker'
  * - blur
  * - paste
  */
+
+interface FieldStep {
+	/** Number by which hours are incremented/decremented @default `1` */
+	hours?: number
+
+	/** Number by which minutes are incremented/decremented @default `1` */
+	minutes?: number
+
+	/** Number by which seconds are incremented/decremented @default `1` */
+	seconds?: number
+}
+
+interface FieldPlaceholder {
+	/** Hours input placeholder, @default `--` */
+	hours?: string
+
+	/** Minutes input placeholder, @default `--` */
+	minutes?: string
+
+	/** Seconds input placeholder, @default `--` */
+	seconds?: string
+}
+
 export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Determines whether the clear button should be displayed @default `false` */
 	clearable?: boolean
@@ -38,14 +61,11 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Time format, @default `24h` */
 	format?: TimePickerFormat
 
-	/** Number by which hours are incremented/decremented @default `1` */
-	hoursStep?: number
+	/** Number by which fields are incremented/decremented @default `1` */
+	step?: number | FieldStep
 
-	/** Number by which minutes are incremented/decremented @default `1` */
-	minutesStep?: number
-
-	/** Number by which seconds are incremented/decremented @default `1` */
-	secondsStep?: number
+	/** Fields placeholder @default `--` */
+	placeholder?: string | FieldPlaceholder
 
 	/** Determines whether the seconds input should be displayed @default `false` */
 	withSeconds?: boolean
@@ -59,44 +79,32 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** `aria-label` of seconds input */
 	secondsInputLabel?: string
 
-	/** `aria-label` of am/pm input */
+	/** `aria-label` of am/pm input @todo @deprecated */
 	amPmInputLabel?: string
 
-	/** Labels used for am/pm values @default `{ am: 'AM', pm: 'PM' }` */
+	/** Labels used for am/pm values @default `{ am: 'AM', pm: 'PM' }` @todo @deprecated */
 	amPmLabels?: TimePickerAmPmLabels
 
-	/** A function to transform paste values, by default time in 24h format can be parsed on paste for example `23:34:22` */
+	/** A function to transform pasted values, by default time in 24h format can be parsed on paste for example `23:34:22` */
 	pasteSplit?: TimePickerPasteSplit
-
-	/** Hours input placeholder, @default `--` */
-	hoursPlaceholder?: string
-
-	/** Minutes input placeholder, @default `--` */
-	minutesPlaceholder?: string
-
-	/** Seconds input placeholder, @default `--` */
-	secondsPlaceholder?: string
 
 	classes?: Classes<'root' | 'input' | 'section' | 'field'>
 }
 
 const {
-	amPmLabels = { am: 'AM', pm: 'PM' },
 	format = '24h',
 	pasteSplit = getParsedTime,
 	withSeconds = false,
-
-	hoursPlaceholder,
-	minutesPlaceholder,
-	secondsPlaceholder,
+	placeholder = '--',
 
 	hoursInputLabel,
 	minutesInputLabel,
 	secondsInputLabel,
 
-	hoursStep = 1,
-	minutesStep = 1,
-	secondsStep = 1,
+	amPmLabels = { am: 'AM', pm: 'PM' },
+	amPmInputLabel: _,
+
+	step = 1,
 	name,
 
 	required,
@@ -140,10 +148,6 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 <template>
 	<InputWrapper v-bind='props' :right-section-p-e :class='classes?.root'>
 		<InputBase :classes='{ root: classes?.input, section: classes?.section }' @click='focus("hours")'>
-			<template v-if='$slots.leftSection' #leftSection>
-				<slot name='leftSection' />
-			</template>
-
 			<template #default='{ id, css }'>
 				<div :class='css'>
 					<div :class='$style.root' dir='ltr'>
@@ -154,8 +158,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 								v-model='hours'
 								:min='0'
 								:max='23'
-								:step='hoursStep'
-								:placeholder='hoursPlaceholder'
+								:step='typeof step === "object" ? step?.hours ?? 1 : step'
+								:placeholder='typeof placeholder === "object" ? placeholder?.hours : placeholder'
 								:class='classes?.field'
 								:aria-label='hoursInputLabel'
 								@next='focus("minutes")'
@@ -167,8 +171,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 								v-model='minutes'
 								:min='0'
 								:max='59'
-								:step='minutesStep'
-								:placeholder='minutesPlaceholder'
+								:step='typeof step === "object" ? step?.minutes ?? 1 : step'
+								:placeholder='typeof placeholder === "object" ? placeholder?.minutes : placeholder'
 								:class='classes?.field'
 								:aria-label='minutesInputLabel'
 								@next='focus("seconds")'
@@ -183,8 +187,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 									v-model='seconds'
 									:min='0'
 									:max='59'
-									:step='secondsStep'
-									:placeholder='secondsPlaceholder'
+									:step='typeof step === "object" ? step?.seconds ?? 1 : step'
+									:placeholder='typeof placeholder === "object" ? placeholder?.seconds : placeholder'
 									:aria-label='secondsInputLabel'
 									:class='classes?.field'
 									@prev='focus("minutes")'
@@ -202,6 +206,12 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 					:disabled
 					:readonly
 				>
+			</template>
+
+			<template #leftSection>
+				<slot name='leftSection'>
+					<Icon name='gravity-ui:clock' />
+				</slot>
 			</template>
 
 			<template

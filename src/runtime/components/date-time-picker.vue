@@ -10,6 +10,7 @@ import type { CalendarProps } from './calendar/calendar.vue'
 import type { ButtonInputProps } from './input/ui/button-input.vue'
 import type { TimePickerProps } from './time-picker/time-picker.vue'
 
+import ActionIcon from './action-icon/action-icon.vue'
 import Calendar from './calendar/calendar.vue'
 import ButtonInput from './input/ui/button-input.vue'
 import PopoverDropdown from './popover/popover-dropdown.vue'
@@ -25,20 +26,25 @@ import TimePicker from './time-picker/time-picker.vue'
  * - separate props for time-picker, calendar, input
  * - clearable
  */
-
-export interface DatePickerProps extends ButtonInputProps {
+export interface DatePickerProps extends ButtonInputProps, Pick<TimePickerProps, 'withSeconds'> {
 	/** Tempo format for date value @default `DD.MM.YYYY HH:mm` */
 	format?: Format
 
-	timePickerProps?: Partial<TimePickerProps>
 	calendarProps?: Partial<Omit<CalendarProps, 'numberOfMonths' | 'mode'>>
+	timePickerProps?: Omit<Partial<TimePickerProps>, 'withSeconds' | 'name'>
+
+	clearable?: boolean
 }
 
 const {
-	format: lFormat = 'DD.MM.YYYY HH:mm',
-
-	timePickerProps,
+	format: lFormat,
 	calendarProps,
+	timePickerProps,
+
+	rightSectionPE = 'all',
+
+	withSeconds = false,
+	clearable = false,
 
 	...props
 } = defineProps<DatePickerProps>()
@@ -91,20 +97,40 @@ const time = computed({
 })
 
 const config = useDatesConfig(calendarProps?.config)
-const visible = computed(() => model.value ? format({ date: model.value, format: lFormat, ...config }) : null)
+const visible = computed(() => {
+	if (!model.value)
+		return null
+
+	const _format = lFormat ?? withSeconds ? 'DD.MM.YYYY HH:mm:ss' : 'DD.MM.YYYY HH:mm'
+	return format({ date: model.value, format: _format, ...config })
+})
+
+const isClearable = computed(() => clearable && !props.disabled && !props.readonly && !!model.value)
 </script>
 
 <template>
 	<Popover>
 		<PopoverTarget>
-			<ButtonInput v-bind='props'>
+			<ButtonInput v-bind='props' :right-section-p-e>
 				<template #leftSection>
 					<slot name='leftSection'>
 						<Icon name='gravity-ui:calendar' />
 					</slot>
 				</template>
-				<template v-if='!!$slots.rightSection' #rightSection>
-					<slot name='rightSection' />
+
+				<template
+					v-if='(!$slots.rightSection && isClearable) || !!$slots.rightSection'
+					#rightSection
+				>
+					<slot name='rightSection'>
+						<ActionIcon
+							icon='gravity-ui:xmark'
+							variant='subtle'
+							color='gray'
+							size='sm'
+							@click.stop='model = ""'
+						/>
+					</slot>
 				</template>
 
 				<template #default>
@@ -123,15 +149,16 @@ const visible = computed(() => model.value ? format({ date: model.value, format:
 			</ButtonInput>
 		</PopoverTarget>
 		<PopoverDropdown>
-			<Calendar v-model:value='date' v-bind='calendarProps' />
+			<Calendar
+				v-model:value='date'
+				v-bind='calendarProps'
+			/>
 			<TimePicker
 				v-model='time'
 				v-bind='timePickerProps'
-			>
-				<template #leftSection>
-					<Icon name='gravity-ui:clock' />
-				</template>
-			</TimePicker>
+				:with-seconds
+				:clearable
+			/>
 		</PopoverDropdown>
 	</Popover>
 </template>

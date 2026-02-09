@@ -35,7 +35,7 @@
 		</div>
 		<div :class='$style.flex'>
 			<NDatePicker label='Date picker' />
-			<NTimePicker label='Time picker' clearable />
+			<NTimePicker label='Time picker' />
 			<NDateTimePicker label='Datetime picker' />
 		</div>
 	</section>
