@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.40
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.39...v0.1.40)
+
+### 🩹 Fixes
+
+- 🐛  Add parsing ISO string in time-picker value ([b50dbcc](https://github.com/Igor-Iugin/nuance-ui/commit/b50dbcc))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.39
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.38...v0.1.39)
