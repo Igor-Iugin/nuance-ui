@@ -1,6 +1,58 @@
 # Changelog
 
 
+## v0.1.39
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.38...v0.1.39)
+
+### 🚀 Enhancements
+
+- Added simple date-input ([d21f2cf](https://github.com/Igor-Iugin/nuance-ui/commit/d21f2cf))
+- **DateInput:** Added select logic by mode ([c3c6fdd](https://github.com/Igor-Iugin/nuance-ui/commit/c3c6fdd))
+- ✨  Reworked BaseInput replaced input by slot ([ebefad7](https://github.com/Igor-Iugin/nuance-ui/commit/ebefad7))
+- 🎉  Created initial time-picker logic ([f3511ce](https://github.com/Igor-Iugin/nuance-ui/commit/f3511ce))
+- ✨  Created **DateTimePicker** component ([246bbd2](https://github.com/Igor-Iugin/nuance-ui/commit/246bbd2))
+- 🎨  Add clearable prop to date-time-picker ([bc9f346](https://github.com/Igor-Iugin/nuance-ui/commit/bc9f346))
+
+### 🩹 Fixes
+
+- **Select:** Fix types for combobox dropdown ([e3fdcd0](https://github.com/Igor-Iugin/nuance-ui/commit/e3fdcd0))
+- Fix input core elements ([7ce5763](https://github.com/Igor-Iugin/nuance-ui/commit/7ce5763))
+- **Popover:** Fix dark mode color ([bb6e239](https://github.com/Igor-Iugin/nuance-ui/commit/bb6e239))
+- **Select:** Replace Input > TextInput as search component ([74b17d4](https://github.com/Igor-Iugin/nuance-ui/commit/74b17d4))
+- Remove debug log ([c8fc96f](https://github.com/Igor-Iugin/nuance-ui/commit/c8fc96f))
+- **Textarea:** Fix element ref exposing ([a09c7d9](https://github.com/Igor-Iugin/nuance-ui/commit/a09c7d9))
+- Import name ([e5308af](https://github.com/Igor-Iugin/nuance-ui/commit/e5308af))
+- **Calendar:** Fix selected flag in range mode ([3ae762c](https://github.com/Igor-Iugin/nuance-ui/commit/3ae762c))
+- Stylelint fix ([cb8f1a0](https://github.com/Igor-Iugin/nuance-ui/commit/cb8f1a0))
+- Fix so many style and logic bugs in Popover, Badge, Button ([3000127](https://github.com/Igor-Iugin/nuance-ui/commit/3000127))
+- 💄  Fix ButtonInput default font-weight ([8490d9e](https://github.com/Igor-Iugin/nuance-ui/commit/8490d9e))
+- 💄  Add styles for simple scrolling inside dialogs ([58dc52e](https://github.com/Igor-Iugin/nuance-ui/commit/58dc52e))
+- 🎨  Optimize value handler in date-picker, fix timezone in month days ([b040f2a](https://github.com/Igor-Iugin/nuance-ui/commit/b040f2a))
+- 🐛  Input styles are applied as expected in case of errors ([c501e17](https://github.com/Igor-Iugin/nuance-ui/commit/c501e17))
+- 🎨  Fix import order ([62d1816](https://github.com/Igor-Iugin/nuance-ui/commit/62d1816))
+
+### 💅 Refactors
+
+- ⚡️  Rework state controlling in useTimePicker ([74ed950](https://github.com/Igor-Iugin/nuance-ui/commit/74ed950))
+
+### 📦 Build
+
+- **deps:** Update all deps ([b91b17f](https://github.com/Igor-Iugin/nuance-ui/commit/b91b17f))
+- **config:** Add missing rules ([7267b20](https://github.com/Igor-Iugin/nuance-ui/commit/7267b20))
+
+### 🏡 Chore
+
+- **release:** V0.1.38 ([8904575](https://github.com/Igor-Iugin/nuance-ui/commit/8904575))
+
+### 🎨 Styles
+
+- 📝  Added todo for future, code styling ([9f560d5](https://github.com/Igor-Iugin/nuance-ui/commit/9f560d5))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.38
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.37...v0.1.38)
