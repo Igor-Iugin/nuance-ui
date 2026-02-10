@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.41
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.39...v0.1.41)
+
+### 🚀 Enhancements
+
+- ✨  Added spacing configuration NavLink ([7f0ca99](https://github.com/Igor-Iugin/nuance-ui/commit/7f0ca99))
+
+### 🩹 Fixes
+
+- 🐛  Add parsing ISO string in time-picker value ([b50dbcc](https://github.com/Igor-Iugin/nuance-ui/commit/b50dbcc))
+- 🎨  Added emits to date-picker, date-time-picker ([67fe439](https://github.com/Igor-Iugin/nuance-ui/commit/67fe439))
+
+### 🏡 Chore
+
+- **release:** V0.1.40 ([4d95c55](https://github.com/Igor-Iugin/nuance-ui/commit/4d95c55))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.40
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.39...v0.1.40)
