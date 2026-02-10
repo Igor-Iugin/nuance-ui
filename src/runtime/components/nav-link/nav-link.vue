@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { NuanceColor } from '@nui/types'
+import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
 import { useStyleResolver } from '@nui/composals'
-import { createVariantColorResolver } from '@nui/utils'
+import { createVariantColorResolver, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
@@ -22,6 +22,9 @@ export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'cu
 
 	/** Key of `theme.colors` of any valid CSS color to control active styles @default `theme.primaryColor` */
 	color?: NuanceColor
+
+	/** Spacing between left/right section and content */
+	spacing?: NuanceSpacing
 
 	/** If set, label and description do not wrap to the next line @default `false` */
 	noWrap?: boolean
@@ -43,6 +46,7 @@ const {
 		color,
 		noWrap,
 		description,
+		spacing,
 	},
 } = pickLinkProps(props)
 
@@ -52,6 +56,7 @@ const style = computed(() => useStyleResolver(theme => {
 		'--nl-bg': variant ? background : undefined,
 		'--nl-hover': variant ? hover : undefined,
 		'--nl-color': variant ? text : undefined,
+		'--nl-spacing': getSize(spacing, 'nl-spacing'),
 	}
 }))
 </script>
@@ -93,13 +98,21 @@ const style = computed(() => useStyleResolver(theme => {
 
 <style module lang='postcss'>
 .root {
+	--nl-spacing-xs: .25rem;
+	--nl-spacing-sm: .5rem;
+	--nl-spacing-md: .75rem;
+	--nl-spacing-lg: 1rem;
+	--nl-spacing-xl: 1.25rem;
+
 	--nl-bg: var(--color-primary-light);
 	--nl-hover: var(--color-primary-light-hover);
 	--nl-color: var(--color-primary-light-color);
+	--nl-spacing: var(--nl-spacing-xs);
 
 	user-select: none;
 
 	display: flex;
+	gap: var(--nl-spacing);
 	align-items: center;
 
 	width: 100%;
@@ -145,16 +158,8 @@ const style = computed(() => useStyleResolver(theme => {
 
 	transition: transform 150ms ease;
 
-	& > svg {
+	&>svg {
 		display: block;
-	}
-
-	&:where([data-position='left']) {
-		margin-inline-end: var(--spacing-sm);
-	}
-
-	&:where([data-position='right']) {
-		margin-inline-start: var(--spacing-sm);
 	}
 
 	&:where([data-rotate]) {
@@ -179,7 +184,6 @@ const style = computed(() => useStyleResolver(theme => {
 
 .description {
 	overflow: hidden;
-	display: block;
 
 	font-size: var(--font-size-xs);
 	color: var(--description-color, var(--color-dimmed));
