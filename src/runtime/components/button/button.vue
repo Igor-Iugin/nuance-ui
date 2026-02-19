@@ -3,7 +3,7 @@ import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui
 import type { HTMLAttributes } from 'vue'
 
 import { useStyleResolver } from '@nui/composals'
-import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
+import { createVariantColorResolver, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
@@ -15,6 +15,7 @@ import css from './button.module.css'
 
 export interface ButtonProps extends BoxProps {
 	size?: NuanceSize | `compact-${NuanceSize}`
+	spacing?: NuanceSize | string
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
 	gradient?: NuanceGradient
 	loading?: boolean
@@ -38,8 +39,9 @@ export interface ButtonProps extends BoxProps {
 
 const {
 	color,
-	size = 'sm',
+	size,
 	variant = 'default',
+	spacing,
 	gradient,
 	loading,
 	classes,
@@ -73,6 +75,7 @@ const style = computed(() => useStyleResolver(theme => {
 			'--button-color': text,
 			'--button-bd': border,
 			'--button-radius': getRadius(radius),
+			'--button-spacing': getSpacing(spacing),
 		},
 		leftSection: {
 			'--section-pointer-events': leftSectionPE,
