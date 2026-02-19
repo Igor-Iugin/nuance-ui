@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.43
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.42...v0.1.43)
+
+### 🩹 Fixes
+
+- 🩹  Fix pass icon prop in FileUploadButton ([87917eb](https://github.com/Igor-Iugin/nuance-ui/commit/87917eb))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.42
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.41...v0.1.42)
