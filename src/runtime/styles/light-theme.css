@@ -35,8 +35,8 @@
 		--color-gray-filled-hover: var(--color-gray-7);
 		--color-gray-light: alpha(var(--color-gray-6), 0.1);
 		--color-gray-light-hover: alpha(var(--color-gray-6), 0.12);
-		--color-gray-light-color: var(--color-gray-6);
-		--color-gray-outline: var(--color-gray-6);
+		--color-gray-light-color: var(--color-gray-8);
+		--color-gray-outline: var(--color-gray-8);
 		--color-gray-outline-hover: alpha(var(--color-gray-6), 0.05);
 
 		--color-red-color: var(--color-red-filled);

@@ -9,6 +9,9 @@ const theme = useTheme()
 <template>
 	<NAppShell :class='$style.root' aside footer with-border :date-config='{ locale: "ru-RU" }'>
 		<NAppShellNavbar :class='$style.navbar'>
+			<NNavLink to='/button'>
+				Button
+			</NNavLink>
 			<NNavLink to='/badge'>
 				Badge
 			</NNavLink>
