@@ -1,4 +1,6 @@
 <script setup lang="ts" generic="TData extends TableData">
+import { FlexRender } from '@tanstack/vue-table'
+
 import type { ButtonProps } from '../../button/button.vue'
 import type { TableData } from '../model'
 import type { TableSortIconProps } from './table-sort-icon.vue'
@@ -26,7 +28,9 @@ const {
 		<template #leftSection>
 			<TableSortIcon :column :icons />
 		</template>
-		<slot />
+		<slot>
+			<FlexRender :render='column.columnDef.header' />
+		</slot>
 		<template v-if='!!$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
