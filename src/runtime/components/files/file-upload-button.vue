@@ -5,12 +5,14 @@ import type { MaybeRef } from 'vue'
 import { useFileDialog } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
-import type { ActionIconProps } from './action-icon/action-icon.vue'
+import type { ButtonProps } from '../button'
 
-import ActionIcon from './action-icon/action-icon.vue'
+import Button from '../button/button.vue'
 
 
-export interface FileUploadProps<M extends boolean> extends ActionIconProps, UseFileDialogOptions {
+export interface FileUploadButtonProps<M extends boolean> extends ButtonProps, UseFileDialogOptions {
+	/** Icon passed to leftSection */
+	icon?: string
 	/**
 	 * @default false
 	 */
@@ -38,9 +40,9 @@ const {
 	accept,
 	reset: _reset,
 	directory,
-	icon = 'gravity-ui:arrow-shape-up-from-line',
+	icon = 'gravity-ui:plus',
 	...props
-} = defineProps<FileUploadProps<Multiple>>()
+} = defineProps<FileUploadButtonProps<Multiple>>()
 
 const emit = defineEmits<{
 	change: [files: FileUploadFiles<Multiple>]
@@ -80,5 +82,14 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<ActionIcon :icon v-bind='props' @click='open' />
+	<Button :icon v-bind='props' @click='open'>
+		<template #leftSection>
+			<slot name='leftSection' />
+		</template>
+		<template v-if='!!$slots.rightSection' #rightSection>
+			<slot name='rightSection' />
+		</template>
+
+		<slot>Загрузить файл</slot>
+	</Button>
 </template>
