@@ -84,7 +84,9 @@ defineExpose({ files, reset })
 <template>
 	<Button :icon v-bind='props' @click='open'>
 		<template #leftSection>
-			<slot name='leftSection' />
+			<slot name='leftSection'>
+				<Icon :name='icon' />
+			</slot>
 		</template>
 		<template v-if='!!$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
