@@ -32,6 +32,7 @@ export default {
 			},
 		],
 		'at-rule-no-unknown': [null, { ignoreAtRules: ['@mixin', '@define-mixin'] }],
+		'function-no-unknown': [true, { ignoreFunctions: ['alpha'] }],
 		'no-descending-specificity': [null],
 		'declaration-property-value-no-unknown': null,
 	},
