@@ -27,11 +27,11 @@ import { reactivePick, unrefElement } from '@vueuse/core'
 import { useStyleResolver } from '#imports'
 import { computed, ref, useTemplateRef, watch } from 'vue'
 
-import type { TableColumn, TableData, TableProps, TableSlots } from './model'
+import type { TableColumn, TableData, TableProps, TableSlots } from '../model'
 
-import { getThemeColor } from '../../utils'
-import Box from '../box.vue'
-import { createRowHandlers, processColumns, resolveValue, valueUpdater } from './lib'
+import { getThemeColor } from '../../../utils'
+import Box from '../../box.vue'
+import { createRowHandlers, processColumns, resolveValue, valueUpdater } from '../lib'
 
 
 defineOptions({ inheritAttrs: false })
@@ -364,6 +364,20 @@ defineExpose({
 	--table-padding-y: .5rem;
 	--vertical-align: baseline;
 
+	position: relative;
+
+	overflow: auto;
+
+	&:not([data-virtualize]) {
+		.table {
+			overflow: clip;
+		}
+
+		.tbody>tr:not(:last-of-type) {
+			border-bottom: 1px solid var(--table-bd-color);
+		}
+	}
+
 	@mixin where-light {
 		--table-active-bg: alpha(var(--color-slate-1), .5);
 		--table-c: var(--color-slate-7);
@@ -375,24 +389,12 @@ defineExpose({
 		--table-c: var(--color-slate-4);
 		--table-bd-color: var(--color-slate-7);
 	}
-
-	position: relative;
-	overflow: auto;
-
-	&:not([data-virtualize]) {
-		.table {
-			overflow: clip;
-		}
-
-		.tbody > tr:not(:last-of-type) {
-			border-bottom: 1px solid var(--table-bd-color);
-		}
-	}
 }
 
 .table {
-	min-width: 100%;
 	border-collapse: collapse;
+
+	min-width: 100%;
 }
 
 .thead {
@@ -400,18 +402,22 @@ defineExpose({
 
 	&[data-loading]::after {
 		content: '';
+
 		position: absolute;
 		z-index: 1;
+
 		height: 1px;
+
 		background-color: alpha(var(--table-loader-color), .75);
+
 		animation: var(--table-loader-animation);
 	}
 
 	&[data-sticky] {
 		position: sticky;
+		z-index: 1;
 		top: 0;
 		inset-inline: 0rem;
-		z-index: 1;
 
 		background-color: alpha(var(--color-body), .75);
 		backdrop-filter: blur(8px);
@@ -419,11 +425,12 @@ defineExpose({
 }
 
 .th {
-	font-weight: 600;
 	padding-block: var(--table-padding-y);
 	padding-inline: var(--table-padding-x);
-	text-align: left;
+
+	font-weight: 600;
 	color: var(--table-c);
+	text-align: left;
 	vertical-align: var(--vertical-align);
 
 	&:has([role='checkbox']) {
@@ -435,6 +442,7 @@ defineExpose({
 .tr td[data-pinned] {
 	position: sticky;
 	z-index: 1;
+
 	background-color: alpha(var(--color-body), .75);
 }
 
@@ -447,9 +455,9 @@ defineExpose({
 
 	&[data-sticky] {
 		position: sticky;
+		z-index: 1;
 		bottom: 0;
 		inset-inline: 0rem;
-		z-index: 1;
 
 		background-color: var(--color-body);
 		backdrop-filter: blur(8px);
@@ -461,6 +469,7 @@ defineExpose({
 		&:hover {
 			background-color: var(--table-active-bg);
 		}
+
 		&:focus-visible {
 			outline: 1px solid var(--table-color);
 		}
@@ -471,10 +480,11 @@ defineExpose({
 	}
 
 	td {
-		white-space: nowrap;
 		padding-block: var(--table-padding-y);
 		padding-inline: var(--table-padding-x);
+
 		color: var(--table-c);
+		white-space: nowrap;
 		vertical-align: var(--vertical-align);
 
 		&:has([role='checkbox']) {
@@ -487,26 +497,31 @@ defineExpose({
 	position: absolute;
 	z-index: 1;
 	left: 0;
+
 	width: 100%;
 	height: 1px;
+
 	background-color: var(--table-bd-color);
 }
 
 .loading,
 .empty {
 	padding-inline: 1.5rem;
+
 	text-align: center;
 }
 
 @keyframes carousel {
-	0%, to{
-		width:50%
+	0% {
+		transform: translate(-100%);
+
+		width: 50%;
 	}
-	0%{
-		transform:translate(-100%)
-	}
-	to{
-		transform:translate(200%)
+
+	to {
+		transform: translate(200%);
+
+		width: 50%;
 	}
 }
 </style>
