@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.45
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.44...v0.1.45)
+
+### 🚀 Enhancements
+
+- ✨  new: TableSortIcon & TableSortableHeader ([93af22b](https://github.com/Igor-Iugin/nuance-ui/commit/93af22b))
+
+### 🩹 Fixes
+
+- 🐛  Fix badge styles ([1f3b59d](https://github.com/Igor-Iugin/nuance-ui/commit/1f3b59d))
+- 💄  Made gray color-scheme text color darker ([a394c47](https://github.com/Igor-Iugin/nuance-ui/commit/a394c47))
+
+### 🏡 Chore
+
+- Update stylelint config ([6160bd5](https://github.com/Igor-Iugin/nuance-ui/commit/6160bd5))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.44
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.43...v0.1.44)
