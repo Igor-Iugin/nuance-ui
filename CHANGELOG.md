@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.44
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.43...v0.1.44)
+
+### 🚀 Enhancements
+
+- ✨  Added spacing prop to button ([84f0d9a](https://github.com/Igor-Iugin/nuance-ui/commit/84f0d9a))
+- 📝  update playground page for File buttons ([3827328](https://github.com/Igor-Iugin/nuance-ui/commit/3827328))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.43
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.42...v0.1.43)
