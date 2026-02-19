@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.42
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.41...v0.1.42)
+
+### 🚀 Enhancements
+
+- ✨  Added FileUploadButton component ([cf1e085](https://github.com/Igor-Iugin/nuance-ui/commit/cf1e085))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.41
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.39...v0.1.41)
