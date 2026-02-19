@@ -190,6 +190,16 @@ const style = computed(() => useStyleResolver(theme => {
 		width: var(--badge-height);
 		padding-inline: 2px;
 	}
+
+	&:where([data-variant='dot']) {
+		@mixin where-light {
+			--badge-color: var(--color-black);
+		}
+
+		@mixin where-dark {
+			--badge-color: var(--color-white);
+		}
+	}
 }
 
 .dot {
@@ -203,22 +213,6 @@ const style = computed(() => useStyleResolver(theme => {
 	border-radius: var(--badge-dot-size);
 
 	background-color: var(--badge-dot-color, var(--badge-color));
-
-	@mixin where-light {
-		border-color: var(--color-gray-4);
-
-		color: var(--color-black);
-
-		background-color: var(--color-white);
-	}
-
-	@mixin where-dark {
-		border-color: var(--color-dark-5);
-
-		color: var(--color-white);
-
-		background-color: var(--color-dark-5);
-	}
 }
 
 
