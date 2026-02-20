@@ -63,7 +63,7 @@ function handleBlur() {
 <template>
 	<InputWrapper v-bind='rest' :class='$style.root' :right-section-p-e>
 		<BaseInput>
-			<template v-if='$slots.leftSection' #leftSection>
+			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
 
@@ -82,7 +82,7 @@ function handleBlur() {
 				>
 			</template>
 
-			<template v-if='$slots.rightSection || !hideControls' #rightSection>
+			<template v-if='!!$slots.rightSection || !hideControls' #rightSection>
 				<slot name='rightSection'>
 					<div :class='$style.controls'>
 						<UnstyledButton
@@ -104,13 +104,13 @@ function handleBlur() {
 			</template>
 		</BaseInput>
 
-		<template v-if='$slots.label' #label>
+		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
 		</template>
-		<template v-if='$slots.error' #error>
+		<template v-if='!!$slots.error' #error>
 			<slot name='error' />
 		</template>
-		<template v-if='$slots.description' #description>
+		<template v-if='!!$slots.description' #description>
 			<slot name='description' />
 		</template>
 	</InputWrapper>

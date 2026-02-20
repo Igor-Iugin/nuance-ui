@@ -15,17 +15,17 @@ const props = defineProps<TextInputProps>()
 			</slot>
 		</template>
 
-		<template #rightSection>
+		<template v-if='!!$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
 
-		<template v-if='$slots.label' #label>
+		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
 		</template>
-		<template v-if='$slots.error' #error>
+		<template v-if='!!$slots.error' #error>
 			<slot name='error' />
 		</template>
-		<template v-if='$slots.description' #description>
+		<template v-if='!!$slots.description' #description>
 			<slot name='description' />
 		</template>
 	</TextInput>

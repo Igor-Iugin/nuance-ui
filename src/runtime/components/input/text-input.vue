@@ -35,7 +35,7 @@ defineExpose({
 <template>
 	<InputWrapper v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
 		<BaseInput>
-			<template v-if='$slots.leftSection' #leftSection>
+			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
 
@@ -51,18 +51,18 @@ defineExpose({
 				>
 			</template>
 
-			<template v-if='$slots.rightSection' #rightSection>
+			<template v-if='!!$slots.rightSection' #rightSection>
 				<slot name='rightSection' />
 			</template>
 		</BaseInput>
 
-		<template v-if='$slots.label' #label>
+		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
 		</template>
-		<template v-if='$slots.error' #error>
+		<template v-if='!!$slots.error' #error>
 			<slot name='error' />
 		</template>
-		<template v-if='$slots.description' #description>
+		<template v-if='!!$slots.description' #description>
 			<slot name='description' />
 		</template>
 	</InputWrapper>

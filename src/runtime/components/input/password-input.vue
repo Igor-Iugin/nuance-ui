@@ -26,17 +26,17 @@ const password = ref<boolean>(true)
 			</slot>
 		</template>
 
-		<template v-if='$slots.leftSection' #leftSection>
+		<template v-if='!!$slots.leftSection' #leftSection>
 			<slot name='leftSection' />
 		</template>
 
-		<template v-if='$slots.label' #label>
+		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
 		</template>
-		<template v-if='$slots.error' #error>
+		<template v-if='!!$slots.error' #error>
 			<slot name='error' />
 		</template>
-		<template v-if='$slots.description' #description>
+		<template v-if='!!$slots.description' #description>
 			<slot name='description' />
 		</template>
 	</TextInput>

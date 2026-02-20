@@ -24,7 +24,7 @@ const time = computed({
 			<NEmailInput label='Email input' />
 			<NNumberInput label='Number input' />
 			<NPasswordInput label='Password input' />
-			<NTextInput label='Text input' />
+			<NTextInput label='Text input' autocomplete='off' />
 		</div>
 
 		<NTextarea label='Textarea' multiline />
