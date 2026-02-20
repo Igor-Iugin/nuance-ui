@@ -2,7 +2,7 @@
 </script>
 
 <template>
-	<NButton variant='subtle' color='gray'>
+	<NButton>
 		Test
 	</NButton>
 </template>

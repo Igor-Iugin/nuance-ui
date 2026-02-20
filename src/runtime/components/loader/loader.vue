@@ -29,10 +29,8 @@ const loaders: Record<LoaderType, Component> = {
 
 const style = computed(() => useStyleResolver(theme => {
 	const _color = parseThemeColor({ color, theme })
-	const _size = size?.includes('compact') ? size.replace('compact-', '') : size
-
 	return {
-		'--loader-size': getSize(_size, 'loader-size'),
+		'--loader-size': getSize(size, 'loader-size'),
 		'--loader-color': _color.value,
 	}
 }))
@@ -49,6 +47,13 @@ const style = computed(() => useStyleResolver(theme => {
 	--loader-size-md: rem(36px);
 	--loader-size-lg: rem(44px);
 	--loader-size-xl: rem(58px);
+
+	--loader-size-compact-xs: rem(14px);
+	--loader-size-compact-sm: var(--loader-size-xs);
+	--loader-size-compact-md: var(--loader-size-sm);
+	--loader-size-compact-lg: rem(24px);
+	--loader-size-compact-xl: rem(30px);
+
 	--loader-size: var(--loader-size-sm);
 	--loader-color: var(--color-primary-filled);
 }
