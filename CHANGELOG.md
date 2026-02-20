@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.48
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.47...v0.1.48)
+
+### 🩹 Fixes
+
+- 🐛  Fix disabled & readonly logic ([91bc877](https://github.com/Igor-Iugin/nuance-ui/commit/91bc877))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.47
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.46...v0.1.47)
