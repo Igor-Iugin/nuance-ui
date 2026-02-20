@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.49
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.48...v0.1.49)
+
+### 🚀 Enhancements
+
+- 🐛  Added compact sizes to loader ([8dc9cd7](https://github.com/Igor-Iugin/nuance-ui/commit/8dc9cd7))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.48
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.47...v0.1.48)
