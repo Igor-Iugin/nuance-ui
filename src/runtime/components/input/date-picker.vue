@@ -90,7 +90,11 @@ const visible = computed(() => {
 <template>
 	<Popover @open='$emit("open")' @close='$emit("close")'>
 		<PopoverTarget>
-			<ButtonInput v-bind='props' :multiline='mode === "multiple"'>
+			<ButtonInput
+				v-bind='props'
+				v-model='model'
+				:multiline='mode === "multiple"'
+			>
 				<template #leftSection>
 					<slot name='leftSection'>
 						<Icon name='gravity-ui:calendar' />

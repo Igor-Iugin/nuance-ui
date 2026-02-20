@@ -110,6 +110,47 @@ const style = computed(() => ({
 	--right-section-end: 1px;
 	--right-section-border-radius: 0 var(--input-radius) var(--input-radius) 0;
 
+	position: relative;
+
+	&[data-variant='unstyled'] {
+		--input-padding: 0;
+		--input-padding-y: 0;
+		--input-padding-inline-start: 0;
+		--input-padding-inline-end: 0;
+	}
+
+	&[data-pointer] {
+		--input-cursor: pointer;
+	}
+
+	&[data-multiline] {
+		--input-padding-y-xs: 4.5px;
+		--input-padding-y-sm: 5.5px;
+		--input-padding-y-md: 7px;
+		--input-padding-y-lg: 9.5px;
+		--input-padding-y-xl: 13px;
+
+		--input-size: auto;
+		--input-line-height: var(--line-height);
+		--input-padding-y: var(--input-padding-y-sm);
+	}
+
+	&[data-with-left-section] {
+		--input-padding-inline-start: var(--input-left-section-size);
+	}
+
+	&[data-with-right-section] {
+		--input-padding-inline-end: var(--input-right-section-size);
+	}
+
+	&[data-error] {
+		--input-color: var(--color-error);
+		--input-placeholder-color: var(--color-error);
+		--input-section-color: var(--color-error);
+
+		--input-bd: var(--color-error);
+	}
+
 	@mixin where-light {
 		--input-disabled-bg: var(--color-gray-1);
 		--input-disabled-color: var(--color-gray-6);
@@ -160,47 +201,6 @@ const style = computed(() => ({
 		--input-text-align: right;
 		--left-section-border-radius: 0 var(--input-radius) var(--input-radius) 0;
 		--right-section-border-radius: var(--input-radius) 0 0 var(--input-radius);
-	}
-
-	position: relative;
-
-	&[data-variant='unstyled'] {
-		--input-padding: 0;
-		--input-padding-y: 0;
-		--input-padding-inline-start: 0;
-		--input-padding-inline-end: 0;
-	}
-
-	&[data-pointer] {
-		--input-cursor: pointer;
-	}
-
-	&[data-multiline] {
-		--input-padding-y-xs: 4.5px;
-		--input-padding-y-sm: 5.5px;
-		--input-padding-y-md: 7px;
-		--input-padding-y-lg: 9.5px;
-		--input-padding-y-xl: 13px;
-
-		--input-size: auto;
-		--input-line-height: var(--line-height);
-		--input-padding-y: var(--input-padding-y-sm);
-	}
-
-	&[data-with-left-section] {
-		--input-padding-inline-start: var(--input-left-section-size);
-	}
-
-	&[data-with-right-section] {
-		--input-padding-inline-end: var(--input-right-section-size);
-	}
-
-	&[data-error] {
-		--input-color: var(--color-error);
-		--input-placeholder-color: var(--color-error);
-		--input-section-color: var(--color-error);
-
-		--input-bd: var(--color-error);
 	}
 }
 
@@ -268,6 +268,7 @@ const style = computed(() => ({
 
 	&[type='number'] {
 		-moz-appearance: textfield;
+		appearance: textfield;
 	}
 
 	&:disabled,

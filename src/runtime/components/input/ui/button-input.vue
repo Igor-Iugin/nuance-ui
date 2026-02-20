@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import type { Classes } from '@nui/types'
+
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
@@ -16,11 +18,13 @@ export interface ButtonInputProps extends InputWrapperProps, BaseInputProps, Inp
 	multiline?: boolean
 
 	name?: string
+
+	classes?: Classes<'root' | 'section' | 'input'>
 }
 
 defineOptions({ inheritAttrs: false })
 
-const props = defineProps<ButtonInputProps>()
+const { classes, ...props } = defineProps<ButtonInputProps>()
 const model = defineModel<unknown>()
 
 const ref = useTemplateRef<HTMLElement>('button')
@@ -32,8 +36,8 @@ defineExpose({
 </script>
 
 <template>
-	<InputWrapper v-bind='props'>
-		<InputBase :class='$style.base'>
+	<InputWrapper v-bind='props' :class='classes?.root'>
+		<InputBase :class='$style.base' :classes='{ section: classes?.section }'>
 			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>
@@ -45,7 +49,7 @@ defineExpose({
 					v-bind='{ ...$attrs, class: null }'
 					:disabled
 					:readonly
-					:class='[css, $style.button]'
+					:class='[css, $style.button, classes?.input]'
 					:mod='{ multiline: props.multiline }'
 				>
 					<slot />
@@ -85,7 +89,7 @@ defineExpose({
 
 .button {
 	width: 100%;
-	min-width: rem(150px);
+	min-width: rem(100px);
 
 	font-weight: 400;
 
