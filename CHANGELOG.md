@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.47
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.46...v0.1.47)
+
+### 🩹 Fixes
+
+- 💄  Fix button-input styles ([475e030](https://github.com/Igor-Iugin/nuance-ui/commit/475e030))
+- 🎨  Fix right-section render in email-input ([7bca3db](https://github.com/Igor-Iugin/nuance-ui/commit/7bca3db))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.46
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.45...v0.1.46)
