@@ -152,7 +152,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 				root: classes?.input,
 				section: classes?.section,
 			}'
-			@click='focus("hours")'
+			@click='!disabled && !readonly && focus("hours")'
 		>
 			<template #default='{ id, css }'>
 				<div :class='css'>
@@ -168,6 +168,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 								:placeholder='typeof placeholder === "object" ? placeholder?.hours : placeholder'
 								:class='classes?.field'
 								:aria-label='hoursInputLabel'
+								:readonly
+								:disabled
 								@next='focus("minutes")'
 							/>
 							<span>:</span>
@@ -181,6 +183,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 								:placeholder='typeof placeholder === "object" ? placeholder?.minutes : placeholder'
 								:class='classes?.field'
 								:aria-label='minutesInputLabel'
+								:readonly
+								:disabled
 								@next='focus("seconds")'
 								@prev='focus("hours")'
 							/>
@@ -197,6 +201,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 									:placeholder='typeof placeholder === "object" ? placeholder?.seconds : placeholder'
 									:aria-label='secondsInputLabel'
 									:class='classes?.field'
+									:readonly
+									:disabled
 									@prev='focus("minutes")'
 								/>
 							</template>

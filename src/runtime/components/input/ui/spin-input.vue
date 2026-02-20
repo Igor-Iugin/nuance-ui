@@ -13,6 +13,7 @@ export interface SpinInputProps {
 	allowTemporaryZero?: boolean
 	placeholder?: string
 	readonly?: boolean
+	disabled?: boolean
 }
 
 const {
@@ -21,6 +22,7 @@ const {
 	placeholder = '--',
 	step,
 	readonly,
+	disabled,
 	allowTemporaryZero = false,
 } = defineProps<SpinInputProps>()
 
@@ -35,7 +37,7 @@ const model = defineModel<number | null>({ default: null })
 const value = computed({
 	get: () => model.value == null ? '' : padTime(model.value),
 	set: (newValue: string) => {
-		if (readonly)
+		if (readonly || disabled)
 			return
 
 		const clearValue = newValue.replace(/\D/g, '')
@@ -60,9 +62,8 @@ const value = computed({
 const arrowsMax = computed(() => max + 1 - step)
 
 function handleKeyDown(event: KeyboardEvent) {
-	if (readonly)
+	if (readonly || disabled)
 		return
-
 
 	if (event.key === '0' || event.key === 'Num0') {
 		if (model.value === 0) {
@@ -126,10 +127,11 @@ function handleKeyDown(event: KeyboardEvent) {
 		inputMode='numeric'
 		:placeholder
 		:readonly
+		:disabled
 		:class='$style.field'
 		@keydown='handleKeyDown'
-		@focus='($event?.target as HTMLInputElement).select()'
-		@click.stop='($event?.target as HTMLInputElement).select()'
+		@focus='!readonly && !disabled && ($event?.target as HTMLInputElement).select()'
+		@click.stop='!readonly && !disabled && ($event?.target as HTMLInputElement).select()'
 	>
 </template>
 
@@ -171,7 +173,7 @@ function handleKeyDown(event: KeyboardEvent) {
 		opacity: 1;
 	}
 
-	&:focus {
+	&:not(:read-only):focus {
 		color: var(--color-white);
 
 		background-color: var(--color-primary-filled);
@@ -180,6 +182,10 @@ function handleKeyDown(event: KeyboardEvent) {
 		&::placeholder {
 			color: var(--color-white);
 		}
+	}
+
+	&:read-only:focus {
+		outline: 0;
 	}
 }
 </style>

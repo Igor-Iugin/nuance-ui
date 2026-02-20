@@ -16,7 +16,7 @@ const { id, store: { targetRef, opened }, disabled } = usePopoverState()
 		ref='targetRef'
 		:disabled
 		:popovertarget='id'
-		@click.stop.prevent='!disable && (opened = !opened)'
+		@click.stop.prevent='!disable && !disabled && (opened = !opened)'
 	>
 		<slot />
 	</Renderless>

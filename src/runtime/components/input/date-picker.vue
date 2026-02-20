@@ -88,7 +88,11 @@ const visible = computed(() => {
 </script>
 
 <template>
-	<Popover @open='$emit("open")' @close='$emit("close")'>
+	<Popover
+		:disabled='props?.disabled || props?.readonly'
+		@open='$emit("open")'
+		@close='$emit("close")'
+	>
 		<PopoverTarget>
 			<ButtonInput
 				v-bind='props'

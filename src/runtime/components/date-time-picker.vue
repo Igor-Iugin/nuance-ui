@@ -108,11 +108,12 @@ const visible = computed(() => {
 	return format({ date: model.value, format: _format, ...config })
 })
 
+const disabled = computed(() => props.disabled || props.readonly)
 const isClearable = computed(() => clearable && !props.disabled && !props.readonly && !!model.value)
 </script>
 
 <template>
-	<Popover @open='$emit("open")' @close='$emit("close")'>
+	<Popover :disabled @open='$emit("open")' @close='$emit("close")'>
 		<PopoverTarget>
 			<ButtonInput v-bind='props' :right-section-p-e>
 				<template #leftSection>
@@ -155,6 +156,8 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 			<Calendar
 				v-model:value='date'
 				v-bind='calendarProps'
+				:disabled='props.disabled'
+				:readonly='props.readonly'
 				@next='$emit("next")'
 				@prev='$emit("prev")'
 				@level='$emit("level")'
@@ -163,6 +166,8 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 			<TimePicker
 				v-model='time'
 				v-bind='timePickerProps'
+				:disabled='props.disabled'
+				:readonly='props.readonly'
 				:with-seconds
 				:clearable
 			/>
