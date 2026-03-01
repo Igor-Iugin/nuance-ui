@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.1.50
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.49...v0.1.50)
+
+### 🚀 Enhancements
+
+- 🐛  Added compact sizes to loader ([8dc9cd7](https://github.com/Igor-Iugin/nuance-ui/commit/8dc9cd7))
+
+### 🩹 Fixes
+
+- 💄  Fix AppShellMain styles for easy full height children ([94cbaf3](https://github.com/Igor-Iugin/nuance-ui/commit/94cbaf3))
+
+### 🏡 Chore
+
+- **release:** V0.1.49 ([b129227](https://github.com/Igor-Iugin/nuance-ui/commit/b129227))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.49
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.48...v0.1.49)
