@@ -74,6 +74,7 @@
 		"@nuxtjs/stylelint-module": "^5.2.1",
 		"@types/node": "latest",
 		"changelogen": "^0.6.2",
+		"es-toolkit": "^1.45.1",
 		"eslint": "^9.39.2",
 		"nuxt": "^4.3.0",
 		"stylelint": "^17.1.1",

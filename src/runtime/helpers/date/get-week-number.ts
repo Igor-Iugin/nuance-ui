@@ -1,6 +1,7 @@
 import type { DateInput } from '@formkit/tempo'
 
 import { addDay, weekStart, yearStart } from '@formkit/tempo'
+import { round } from 'es-toolkit'
 
 
 export function getWeekNumber(day: DateInput, firstDayOfWeek: number) {
@@ -14,5 +15,5 @@ export function getWeekNumber(day: DateInput, firstDayOfWeek: number) {
 		: firstWeekStart
 
 	const currentWeek = weekStart(day, firstDayOfWeek)
-	return Math.round((+currentWeek - +yearFirstWeek) / 604800000) + 1
+	return round((+currentWeek - +yearFirstWeek) / 604800000) + 1
 }
