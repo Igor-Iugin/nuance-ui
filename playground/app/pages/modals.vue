@@ -10,7 +10,7 @@ async function handleConfirm() {
 	try {
 		result.value = await openConfirmModal({
 			title: 'Подтвердите действие',
-			body: 'Вы уверены, что хотите продолжить?',
+			description: 'Вы уверены, что хотите продолжить?',
 		})
 	}
 	catch {
@@ -22,7 +22,7 @@ async function handleDelete() {
 	try {
 		result.value = await openConfirmModal({
 			title: 'Удалить запись?',
-			body: 'Это действие нельзя отменить.',
+			description: 'Это действие нельзя отменить.',
 			variant: 'danger',
 			labels: { confirm: 'Удалить', cancel: 'Отмена' },
 		})
@@ -39,17 +39,17 @@ const stepLog = ref<string[]>([])
 const wizardSteps: ConfirmModalProps[] = [
 	{
 		title: 'Шаг 1 из 3',
-		body: 'Начинаем процесс миграции данных. Продолжить?',
+		description: 'Начинаем процесс миграции данных. Продолжить?',
 		labels: { confirm: 'Далее', cancel: 'Отмена' },
 	},
 	{
 		title: 'Шаг 2 из 3',
-		body: 'Будет создана резервная копия. Это может занять несколько минут.',
+		description: 'Будет создана резервная копия. Это может занять несколько минут.',
 		labels: { confirm: 'Создать бэкап', cancel: 'Назад' },
 	},
 	{
 		title: 'Шаг 3 из 3',
-		body: 'Удалить старые данные после миграции? Это действие необратимо.',
+		description: 'Удалить старые данные после миграции? Это действие необратимо.',
 		variant: 'danger',
 		labels: { confirm: 'Удалить и завершить', cancel: 'Назад' },
 	},
