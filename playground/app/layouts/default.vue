@@ -48,6 +48,9 @@ const theme = useTheme()
 			<NNavLink to='/checkbox'>
 				Checkbox
 			</NNavLink>
+			<NNavLink to='/modals'>
+				Modals
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
@@ -59,6 +62,7 @@ const theme = useTheme()
 		<NAppShellMain>
 			<slot />
 		</NAppShellMain>
+		<NModalProvider />
 	</NAppShell>
 </template>
 
