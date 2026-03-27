@@ -3,6 +3,8 @@ import type { ConfirmModalProps } from '@nui/components'
 
 import { openConfirmModal } from '@nui/components'
 
+import { openHistoryBox } from '~/ui/test-modal'
+
 
 const result = ref<boolean | null>(null)
 
@@ -88,6 +90,10 @@ async function handleWizard() {
 
 <template>
 	<div :style='{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)", maxWidth: "400px" }'>
+		<NActionIcon
+			@click='openHistoryBox()'
+		/>
+
 		<NButton @click='handleConfirm'>
 			Confirm (default)
 		</NButton>

@@ -77,7 +77,10 @@ function overlayClick(event: MouseEvent) {
 
 function open(dialog: HTMLDialogElement | null | undefined) {
 	emit('open')
-	dialog?.showModal()
+	if (withoutOverlay)
+		dialog?.show()
+	else
+		dialog?.showModal()
 }
 
 const dialogRef = shallowRef<HTMLDialogElement | null>(null)

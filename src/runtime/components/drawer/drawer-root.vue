@@ -7,7 +7,7 @@ import DialogRoot from '../dialog/ui/dialog-root.vue'
 import css from './drawer.module.css'
 
 
-type OmittedDialogRootProps = Omit<DialogRootProps, 'modal' | 'closeOnClickOutside' | 'rootClass' | 'transition'>
+type OmittedDialogRootProps = Omit<DialogRootProps, 'rootClass' | 'transition'>
 
 export interface DrawerRootProps extends OmittedDialogRootProps {
 	/** Side of the screen on which drawer will be opened @default `'left'` */
