@@ -133,7 +133,9 @@ export class ModalManager {
 		Props extends object = object,
 		Resolve = unknown,
 		Reject = unknown,
-	>(id: string) {
+	>(
+		id: string,
+	) {
 		// @ts-expect-error
 		return computed<ModalState<Props, Resolve, Reject>>(() =>
 			this.#modals.value.get(id))

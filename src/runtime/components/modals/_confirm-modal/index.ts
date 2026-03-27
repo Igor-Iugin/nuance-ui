@@ -5,8 +5,6 @@ import type { ConfirmModalProps } from './confirm-modal.vue'
 import ConfirmModal from './confirm-modal.vue'
 
 
-export type { ConfirmModalProps }
-
 /**
  * Opens the confirm modal from any context.
  *
@@ -16,3 +14,5 @@ export const openConfirmModal = $modals.create<ConfirmModalProps, boolean>(
 	'confirm',
 	ConfirmModal,
 )
+
+export type { ConfirmModalProps }
