@@ -19,7 +19,7 @@ const {
 	centered,
 	fullScreen,
 	mod,
-	withinPortal = true,
+	withinPortal = false,
 	closeOnClickOutside = true,
 	withoutOverlay = false,
 	...rest

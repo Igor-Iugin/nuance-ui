@@ -35,6 +35,7 @@
 
 	top: var(--dialog-y-offset);
 	left: var(--dialog-x-offset);
+	z-index: 2;
 
 
 	&::backdrop {

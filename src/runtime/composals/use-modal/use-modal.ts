@@ -26,9 +26,9 @@ export function useModal<
 	 */
 	id: string,
 ) {
-	const state = $modals.state<Props, Resolve, Reject>(id)
+	const state = computed(() => $modals.state<Props, Resolve, Reject>(id))
 	const opened = computed({
-		get: () => state.value.opened,
+		get: () => state.value?.opened,
 		set: (opened: boolean) => opened
 			? $modals.show(id, state.value.props)
 			: $modals.reject(id),
@@ -45,6 +45,7 @@ export function useModal<
 		 */
 		opened,
 		/** closes the modal and resolves the promise */
-		resolve: (reason: Resolve) => $modals.hide(id, reason),
+		resolve: (reason: Resolve) => $modals.resolve(id, reason),
+		reject: () => $modals.reject(id),
 	}
 }

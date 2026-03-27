@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 
-import { computed, nextTick, shallowRef, triggerRef } from 'vue'
+import { markRaw, reactive } from 'vue'
 
 
 /**
@@ -42,7 +42,7 @@ export class ModalManager {
 	static #instance: ModalManager | null = null
 
 	/** Reactive map of active modals */
-	readonly #modals = shallowRef<Map<string, ModalState>>(new Map())
+	readonly #modals = reactive<Map<string, ModalState>>(new Map())
 	/** Eagerly registered components (id → Component) */
 	readonly #registered = new Map<string, Component>()
 	/** Lazily registered loaders (id → loader) */
@@ -110,8 +110,8 @@ export class ModalManager {
 	 * @param id     — modal identifier
 	 * @param result — value the promise resolves with
 	 */
-	hide(id: string, result?: any): void {
-		this.#hide(id, result)
+	resolve(id: string, result?: any): void {
+		this.#resolve(id, result)
 	}
 
 	/**
@@ -136,9 +136,7 @@ export class ModalManager {
 	>(
 		id: string,
 	) {
-		// @ts-expect-error
-		return computed<ModalState<Props, Resolve, Reject>>(() =>
-			this.#modals.value.get(id))
+		return this.#modals.get(id) as ModalState<Props, Resolve, Reject>
 	}
 
 	// ── Private implementation ──
@@ -159,7 +157,7 @@ export class ModalManager {
 		if (!component)
 			return Promise.reject(new Error(`Modal "${id}" is not registered`))
 
-		const existing = this.#modals.value.get(id)
+		const existing = this.#modals.get(id)
 
 		return new Promise<T>((resolve, reject) => {
 			if (existing) {
@@ -169,54 +167,34 @@ export class ModalManager {
 				existing.reject = reject
 			}
 			else {
-				this.#modals.value.set(id, {
+				this.#modals.set(id, {
 					id,
-					component,
+					component: markRaw(component),
 					props,
 					opened: true,
 					resolve: resolve as (value?: any) => void,
 					reject,
 				})
 			}
-			triggerRef(this.#modals)
 		})
 	}
 
-	#hide(id: string, result?: any): void {
-		const modal = this.#modals.value.get(id)
+	#resolve(id: string, result?: any): void {
+		const modal = this.#modals.get(id)
 		if (!modal)
 			return
 
 		modal.opened = false
 		modal.resolve?.(result)
-		triggerRef(this.#modals)
-
-		nextTick(() => {
-			const current = this.#modals.value.get(id)
-			// Only remove if the modal is still closed (wasn't reopened)
-			if (current && !current.opened) {
-				this.#modals.value.delete(id)
-				triggerRef(this.#modals)
-			}
-		})
 	}
 
 	#reject(id: string, reason?: any): void {
-		const modal = this.#modals.value.get(id)
+		const modal = this.#modals.get(id)
 		if (!modal)
 			return
 
 		modal.opened = false
 		modal.reject?.(reason)
-		triggerRef(this.#modals)
-
-		nextTick(() => {
-			const current = this.#modals.value.get(id)
-			if (current && !current.opened) {
-				this.#modals.value.delete(id)
-				triggerRef(this.#modals)
-			}
-		})
 	}
 }
 

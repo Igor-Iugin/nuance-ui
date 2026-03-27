@@ -49,6 +49,7 @@ const {
 	confirmProps,
 	onConfirm,
 	onCancel,
+	closeOnClickOutside = true,
 	...rest
 } = defineProps<ConfirmModalProps>()
 
@@ -73,7 +74,7 @@ async function hanleConfirm() {
 </script>
 
 <template>
-	<ModalRoot v-model:open='opened' v-bind='rest' size='sm'>
+	<ModalRoot v-model:open='opened' v-bind='rest' :close-on-click-outside size='sm'>
 		<ModalHeader>
 			<Title order='4'>
 				{{ title }}

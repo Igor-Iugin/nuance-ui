@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 import type { NuanceRadius, NuanceShadow, NuanceSize, NuanceSpacing } from '@nui/types'
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, RendererElement } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
 import { onClickOutside, unrefElement } from '@vueuse/core'
@@ -48,10 +48,13 @@ export interface DialogRootProps extends BoxProps {
 	rootClass?: string
 
 	transition?: TransitionName
+
+	/** Portal target to render element @default 'body' */
+	portalTarget?: string | RendererElement | null
 }
 
 const {
-	withinPortal = true,
+	withinPortal = false,
 	closeOnClickOutside = true,
 	mod,
 	xOffset,
@@ -63,6 +66,7 @@ const {
 	rootClass,
 	transition = 'fade-down',
 	withoutOverlay = false,
+	portalTarget = 'body',
 } = defineProps<DialogRootProps>()
 
 const emit = defineEmits<DialogEmits>()
@@ -97,7 +101,7 @@ watch(opened, isOpen => {
 	if (isOpen)
 		open(dialog)
 	else
-		dialog?.close()
+		dialog.close()
 }, { flush: 'post' })
 
 onMounted(() => {
@@ -118,7 +122,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Teleport :disabled='!withinPortal' to='body'>
+	<Teleport :disabled='!withinPortal' :to='portalTarget'>
 		<Box
 			is='dialog'
 			ref='dialogRef'
@@ -127,7 +131,7 @@ const style = computed(() => ({
 			:style
 			@click='overlayClick'
 			@close='$emit("close")'
-			@cancel.prevent='() => closeOnClickOutside && (opened = false)'
+			@cancel.prevent='opened = false'
 		>
 			<NTransition :name='transition'>
 				<Box is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
