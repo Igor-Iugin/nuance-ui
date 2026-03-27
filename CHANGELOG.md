@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.1.51
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.50...v0.1.51)
+
+### 🚀 Enhancements
+
+- ✨  Created modal-manager ([0237e6c](https://github.com/Igor-Iugin/nuance-ui/commit/0237e6c))
+
+### 🔥 Performance
+
+- ⚡️  Replace lodash with es-toolkit ([3db7089](https://github.com/Igor-Iugin/nuance-ui/commit/3db7089))
+
+### 🩹 Fixes
+
+- 🐛  fix prop name ([3167a59](https://github.com/Igor-Iugin/nuance-ui/commit/3167a59))
+
+### 🏡 Chore
+
+- **release:** V0.1.50 ([9060ee5](https://github.com/Igor-Iugin/nuance-ui/commit/9060ee5))
+
+### 🎨 Styles
+
+- 🎨  Move exports to file end ([d1eea1c](https://github.com/Igor-Iugin/nuance-ui/commit/d1eea1c))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.50
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.49...v0.1.50)
