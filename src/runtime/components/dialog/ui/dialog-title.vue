@@ -12,7 +12,9 @@ const { size = 'md', lh = '1', ...props } = defineProps<DialogTitleProps>()
 </script>
 
 <template>
-	<Title :class='css.title' :lh :size v-bind='props'>
-		<slot />
-	</Title>
+	<ClientOnly>
+		<Title :class='css.title' :lh :size v-bind='props'>
+			<slot />
+		</Title>
+	</ClientOnly>
 </template>

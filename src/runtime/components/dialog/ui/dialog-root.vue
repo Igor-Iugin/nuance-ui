@@ -124,22 +124,24 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Teleport :disabled='!withinPortal' :to='portalTarget'>
-		<Box
-			is='dialog'
-			ref='dialogRef'
-			:class='[css.root, rootClass]'
-			:mod='[{ "without-overlay": withoutOverlay }, mod]'
-			:style
-			@click='overlayClick'
-			@close='$emit("close")'
-			@cancel.prevent='opened = false'
-		>
-			<NTransition :name='transition'>
-				<Box is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
-					<slot />
-				</Box>
-			</NTransition>
-		</Box>
-	</Teleport>
+	<ClientOnly>
+		<Teleport :disabled='!withinPortal' :to='portalTarget'>
+			<Box
+				is='dialog'
+				ref='dialogRef'
+				:class='[css.root, rootClass]'
+				:mod='[{ "without-overlay": withoutOverlay }, mod]'
+				:style
+				@click='overlayClick'
+				@close='$emit("close")'
+				@cancel.prevent='opened = false'
+			>
+				<NTransition :name='transition'>
+					<Box is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
+						<slot />
+					</Box>
+				</NTransition>
+			</Box>
+		</Teleport>
+	</ClientOnly>
 </template>

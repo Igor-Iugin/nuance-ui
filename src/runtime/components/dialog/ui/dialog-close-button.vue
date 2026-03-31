@@ -10,13 +10,15 @@ const close = useDialogState()
 </script>
 
 <template>
-	<ActionIcon
-		:icon
-		:variant
-		tabindex='0'
-		v-bind='props'
-		@click='close'
-	>
-		<slot />
-	</ActionIcon>
+	<ClientOnly>
+		<ActionIcon
+			:icon
+			:variant
+			tabindex='0'
+			v-bind='props'
+			@click='close'
+		>
+			<slot />
+		</ActionIcon>
+	</ClientOnly>
 </template>

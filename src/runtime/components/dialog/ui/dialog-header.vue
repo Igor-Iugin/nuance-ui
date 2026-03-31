@@ -12,7 +12,9 @@ const { is = 'header', mod } = defineProps<DialogHeaderProps>()
 </script>
 
 <template>
-	<Box :is :mod :class='css.header'>
-		<slot />
-	</Box>
+	<ClientOnly>
+		<Box :is :mod :class='css.header'>
+			<slot />
+		</Box>
+	</ClientOnly>
 </template>

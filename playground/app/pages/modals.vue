@@ -91,7 +91,10 @@ async function handleWizard() {
 <template>
 	<div :style='{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)", maxWidth: "400px" }'>
 		<NActionIcon
-			@click='openHistoryBox()'
+			@click='() => {
+				openHistoryBox()
+				console.log($modals.state("map-history"))
+			}'
 		/>
 
 		<NButton @click='handleConfirm'>
