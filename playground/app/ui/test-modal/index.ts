@@ -1,3 +1,5 @@
+import { $modals } from '@nui/modals'
+
 import HistorySidebar from './history-sidebar.vue'
 
 

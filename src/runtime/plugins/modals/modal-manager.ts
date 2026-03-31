@@ -26,7 +26,7 @@ export interface ModalState<
 }
 
 /**
- * Singleton modal manager.
+ * Modal manager.
  *
  * Maintains a component registry and a reactive map of active modals.
  * Opening a modal returns a `Promise` that resolves via `hide`
@@ -39,8 +39,6 @@ export interface ModalState<
  * ```
  */
 export class ModalManager {
-	static #instance: ModalManager | null = null
-
 	/** Reactive map of active modals */
 	readonly #modals = reactive<Map<string, ModalState>>(new Map())
 	/** Eagerly registered components (id → Component) */
@@ -48,19 +46,9 @@ export class ModalManager {
 	/** Lazily registered loaders (id → loader) */
 	readonly #lazy = new Map<string, () => Promise<{ default: Component }>>()
 
-	private constructor() {}
-
-	/** Returns the singleton instance (creates on first access) */
-	static get instance(): ModalManager {
-		if (!ModalManager.#instance)
-			ModalManager.#instance = new ModalManager()
-
-		return ModalManager.#instance
-	}
-
 	/** Reactive map of all active modals. Used by `ModalProvider` for rendering */
 	get modals() {
-		return ModalManager.instance.#modals
+		return this.#modals
 	}
 
 	// ── Facade ──
@@ -197,6 +185,3 @@ export class ModalManager {
 		modal.reject?.(reason)
 	}
 }
-
-/** Global {@link ModalManager} instance for use throughout the application */
-export const $modals = ModalManager.instance

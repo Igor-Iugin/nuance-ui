@@ -1,4 +1,4 @@
-import { addComponentsDir, addImportsDir, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { addComponentsDir, addImportsDir, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import { defu } from 'defu'
 
 // Module options TypeScript interface definition
@@ -56,12 +56,25 @@ export default defineNuxtModule<ModuleOptions>({
 	setup(options, nuxt) {
 		const { resolve } = createResolver(import.meta.url)
 
-		nuxt.options.alias['@nui'] = resolve('./runtime')
-		nuxt.options.alias['@nui/composals'] = resolve('./runtime/composals')
-		nuxt.options.alias['@nui/components'] = resolve('./runtime/components')
-		nuxt.options.alias['@nui/utils'] = resolve('./runtime/utils')
-		nuxt.options.alias['@nui/helpers'] = resolve('./runtime/helpers')
-		nuxt.options.alias['@nui/types'] = resolve('./runtime/types')
+		nuxt.options.alias['@nui/composals']
+			= resolve('./runtime/composals')
+
+		nuxt.options.alias['@nui/components']
+			= resolve('./runtime/components')
+
+		nuxt.options.alias['@nui/utils']
+			= resolve('./runtime/utils')
+
+		nuxt.options.alias['@nui/helpers']
+			= resolve('./runtime/helpers')
+
+		nuxt.options.alias['@nui/types']
+			= resolve('./runtime/types')
+
+		nuxt.options.alias['@nui/modals']
+			= resolve('./runtime/plugins/modals')
+
+
 		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
 
 
@@ -101,6 +114,12 @@ export default defineNuxtModule<ModuleOptions>({
 			addImportsDir(resolve('./runtime/composals'))
 			addImportsDir(resolve('./runtime/helpers'))
 		}
+
+		// Add plugins
+		addPlugin({
+			src: resolve('./runtime/plugins/modals/plugin.client.ts'),
+			mode: 'client',
+		})
 
 		// Add global styles
 		nuxt.options.css.push(resolve('./runtime/styles/global.css'))

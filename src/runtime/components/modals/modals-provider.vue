@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { $modals } from '@nui/composals'
+import { $modals } from '../../plugins/modals'
 </script>
 
 <template>

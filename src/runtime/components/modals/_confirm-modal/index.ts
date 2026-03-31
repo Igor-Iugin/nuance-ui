@@ -1,7 +1,6 @@
-import { $modals } from '@nui/composals'
-
 import type { ConfirmModalProps } from './confirm-modal.vue'
 
+import { $modals } from '../../../plugins/modals'
 import ConfirmModal from './confirm-modal.vue'
 
 
