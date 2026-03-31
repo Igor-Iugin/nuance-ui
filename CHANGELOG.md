@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.1.52
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.51...v0.1.52)
+
+### 🚀 Enhancements
+
+- Добавлено управление overlay в модальных окнах ([def4c3d](https://github.com/Igor-Iugin/nuance-ui/commit/def4c3d))
+
+### 🩹 Fixes
+
+- 🚑️  Fix modal-manager reactivity ([7164ce5](https://github.com/Igor-Iugin/nuance-ui/commit/7164ce5))
+
+### 🏡 Chore
+
+- **release:** V0.1.51 ([8e90cd4](https://github.com/Igor-Iugin/nuance-ui/commit/8e90cd4))
+- **ai:** 📝  Added ai config ([5fb9403](https://github.com/Igor-Iugin/nuance-ui/commit/5fb9403))
+- Add conventional scopes ([398ff72](https://github.com/Igor-Iugin/nuance-ui/commit/398ff72))
+
+### 🎨 Styles
+
+- 🎨  Move exports to file end ([d1eea1c](https://github.com/Igor-Iugin/nuance-ui/commit/d1eea1c))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.51
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.50...v0.1.51)
