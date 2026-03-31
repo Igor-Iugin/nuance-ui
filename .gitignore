@@ -33,10 +33,6 @@ coverage
 *.lcov
 .nyc_output
 
-# VSCode
-.vscode
-!.vscode/extensions.json
-
 # Intellij idea
 *.iml
 .idea
