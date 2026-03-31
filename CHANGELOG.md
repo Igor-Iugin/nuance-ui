@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.53
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.52...v0.1.53)
+
+### 🩹 Fixes
+
+- 🚑️  Fix modal-manager instance & dialog attrs inheritence ([378d7d5](https://github.com/Igor-Iugin/nuance-ui/commit/378d7d5))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.52
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.51...v0.1.52)
