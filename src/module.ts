@@ -117,7 +117,7 @@ export default defineNuxtModule<ModuleOptions>({
 
 		// Add plugins
 		addPlugin({
-			src: resolve('./runtime/plugins/modals/plugin.client.ts'),
+			src: resolve('./runtime/plugins/modals/plugin.client'),
 			mode: 'client',
 		})
 
