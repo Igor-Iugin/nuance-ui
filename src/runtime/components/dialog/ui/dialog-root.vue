@@ -4,7 +4,7 @@ import type { CSSProperties, RendererElement } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
 import { onClickOutside, unrefElement } from '@vueuse/core'
-import { computed, onMounted, shallowRef, watch } from 'vue'
+import { computed, shallowRef, watch } from 'vue'
 
 import type { BoxProps } from '../../box.vue'
 import type { TransitionName } from '../../transition'
@@ -94,9 +94,10 @@ if (closeOnClickOutside) {
 	onClickOutside(dialogRef, () => opened.value = false)
 }
 
-// Следим за изменениями v-model и синхронизируем с dialog
-watch(opened, isOpen => {
-	const dialog = unrefElement(dialogRef)
+// Синхронизируем состояние v-model с нативным <dialog>.
+// Следим за обоими значениями: opened может стать true до появления элемента в DOM
+// (ClientOnly + Teleport), а элемент может появиться когда opened уже true.
+watch([opened, () => unrefElement(dialogRef)] as const, ([isOpen, dialog]) => {
 	if (!dialog)
 		return
 
@@ -105,13 +106,6 @@ watch(opened, isOpen => {
 	else
 		dialog.close()
 }, { flush: 'post' })
-
-onMounted(() => {
-	if (!opened.value)
-		return
-
-	open(unrefElement(dialogRef))
-})
 
 const style = computed(() => ({
 	'--dialog-size': getSize(size, 'dialog-size'),

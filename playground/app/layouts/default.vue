@@ -7,7 +7,13 @@ const theme = useTheme()
 </script>
 
 <template>
-	<NAppShell :class='$style.root' aside footer with-border :date-config='{ locale: "ru-RU" }'>
+	<NAppShell
+		:class='$style.root'
+		aside
+		footer
+		with-border
+		:date-config='{ locale: "ru-RU" }'
+	>
 		<NAppShellNavbar :class='$style.navbar'>
 			<NNavLink to='/button'>
 				Button
