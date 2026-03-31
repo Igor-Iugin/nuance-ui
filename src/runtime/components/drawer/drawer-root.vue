@@ -16,9 +16,10 @@ export interface DrawerRootProps extends OmittedDialogRootProps {
 
 const {
 	position = 'left',
-	withoutOverlay = true,
+	withoutOverlay = false,
+	withinPortal = false,
+	closeOnClickOutside = true,
 	mod,
-	withinPortal = true,
 	...rest
 } = defineProps<DrawerRootProps>()
 
@@ -47,6 +48,7 @@ const transition = computed(() => {
 		:class='css.content'
 		:within-portal
 		:without-overlay
+		:close-on-click-outside
 		:transition
 		v-bind='rest'
 		@open='$emit("open")'

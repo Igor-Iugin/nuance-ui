@@ -19,9 +19,9 @@ const {
 	centered,
 	fullScreen,
 	mod,
+	withoutOverlay = false,
 	withinPortal = false,
 	closeOnClickOutside = true,
-	withoutOverlay = false,
 	...rest
 } = defineProps<ModalRootProps>()
 defineEmits<DialogEmits>()

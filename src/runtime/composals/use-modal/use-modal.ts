@@ -31,7 +31,7 @@ export function useModal<
 		get: () => state.value?.opened,
 		set: (opened: boolean) => opened
 			? $modals.show(id, state.value.props)
-			: $modals.reject(id),
+			: $modals.reject(id, 'cancel'),
 	})
 
 	if (!state)

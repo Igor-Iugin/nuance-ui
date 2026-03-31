@@ -62,7 +62,7 @@ const theme = useTheme()
 		<NAppShellMain>
 			<slot />
 		</NAppShellMain>
-		<NModalProvider />
+		<NModalsProvider />
 	</NAppShell>
 </template>
 

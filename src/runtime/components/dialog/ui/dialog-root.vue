@@ -53,6 +53,8 @@ export interface DialogRootProps extends BoxProps {
 	portalTarget?: string | RendererElement | null
 }
 
+defineOptions({ inheritAttrs: false })
+
 const {
 	withinPortal = false,
 	closeOnClickOutside = true,
