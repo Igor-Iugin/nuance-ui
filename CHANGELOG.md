@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.54
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.53...v0.1.54)
+
+### 🩹 Fixes
+
+- 🚑️  Fix modal-manager instance separating ([9b66d26](https://github.com/Igor-Iugin/nuance-ui/commit/9b66d26))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.53
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.52...v0.1.53)
