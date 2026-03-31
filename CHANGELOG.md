@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.55
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.54...v0.1.55)
+
+### 🩹 Fixes
+
+- 🚑️  Fix plugin import url ([9c98e47](https://github.com/Igor-Iugin/nuance-ui/commit/9c98e47))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.54
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.53...v0.1.54)
