@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.58
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.57...v0.1.58)
+
+### 🩹 Fixes
+
+- 🚑️  Modals again... ([bc7a10c](https://github.com/Igor-Iugin/nuance-ui/commit/bc7a10c))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.57
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.56...v0.1.57)
