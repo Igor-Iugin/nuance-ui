@@ -4,7 +4,7 @@ import { markRaw, reactive } from 'vue'
 
 
 /**
- * Reactive state of a single modal within the modal manager.
+ * Reactive state of a single modal within {@link ModalManager}.
  */
 export interface ModalState<
 	Props extends object = object,
@@ -25,132 +25,11 @@ export interface ModalState<
 	reject: (reason?: Reject) => void
 }
 
-// ─── Module-scope state ───
-
-/** Reactive map of active modals */
-const modals = reactive<Map<string, ModalState>>(new Map())
-/** Eagerly registered components (id → Component) */
-const registered = new Map<string, Component>()
-/** Lazily registered loaders (id → loader) */
-const lazy = new Map<string, () => Promise<{ default: Component }>>()
-
-// ─── Private helpers ───
-
-async function show<T = unknown>(id: string, props: object = {}): Promise<T> {
-	if (!registered.has(id) && lazy.has(id)) {
-		const loader = lazy.get(id)!
-		try {
-			const loaded = await loader()
-			registered.set(id, loaded.default)
-		}
-		catch (err) {
-			return Promise.reject(err)
-		}
-	}
-
-	const component = registered.get(id)
-	if (!component)
-		return Promise.reject(new Error(`Modal "${id}" is not registered`))
-
-	const existing = modals.get(id)
-
-	return new Promise<T>((resolve, reject) => {
-		if (existing) {
-			existing.props = props
-			existing.opened = true
-			existing.resolve = resolve as (value?: any) => void
-			existing.reject = reject
-		}
-		else {
-			modals.set(id, {
-				id,
-				component: markRaw(component),
-				props,
-				opened: true,
-				resolve: resolve as (value?: any) => void,
-				reject,
-			})
-		}
-	})
-}
-
-// ─── Public API ───
-
-/**
- * Registers a modal component and returns a typed function to open it.
- */
-function create<
-	TProps extends object = object,
-	TResult = void,
->(
-	/** unique modal identifier */
-	id: string,
-	/** Vue component for the modal */
-	component: Component,
-): (props?: TProps) => Promise<TResult> {
-	registered.set(id, component)
-	return (props?: TProps) => show<TResult>(id, props ?? {})
-}
-
-/**
- * Registers a lazy modal — the component is loaded on first open.
- */
-function createLazy<
-	TProps extends object = object,
-	TResult = void,
->(
-	/** unique modal identifier */
-	id: string,
-	/** dynamic import function (`() => import('./my-modal.vue')`) */
-	loader: () => Promise<{ default: Component }>,
-): (props?: Omit<TProps, 'modalId'>) => Promise<TResult> {
-	lazy.set(id, loader)
-	return (props?: Omit<TProps, 'modalId'>) => show<TResult>(id, props ?? {})
-}
-
-/**
- * Closes the modal and resolves its promise with the given result.
- */
-function resolve(id: string, result?: any): void {
-	const modal = modals.get(id)
-	if (!modal)
-		return
-
-	modal.opened = false
-	modal.resolve?.(result)
-}
-
-/**
- * Closes the modal and rejects its promise with the given reason.
- */
-function reject(id: string, reason?: any): void {
-	const modal = modals.get(id)
-	if (!modal)
-		return
-
-	modal.opened = false
-	modal.reject?.(reason)
-}
-
-/**
- * Returns the reactive state of a specific modal.
- * Used inside a modal component (via {@link useModal}).
- */
-function state<
-	Props extends object = object,
-	Resolve = unknown,
-	Reject = unknown,
->(
-	id: string,
-) {
-	return modals.get(id) as ModalState<Props, Resolve, Reject>
-}
-
 /**
  * Modal manager.
  *
  * Maintains a component registry and a reactive map of active modals.
- * Opening a modal returns a `Promise` that resolves via `resolve`
+ * Opening a modal returns a `Promise` that resolves via `hide`
  * or rejects via `reject` / user dismissal.
  *
  * @example
@@ -159,12 +38,158 @@ function state<
  * const result = await open({ foo: 'bar' }) // result: string
  * ```
  */
-export const $modals = markRaw({
-	modals,
-	create,
-	createLazy,
-	show,
-	resolve,
-	reject,
-	state,
-})
+class ModalManager {
+	static #instance: ModalManager | null = null
+
+	/** Reactive map of active modals */
+	readonly modals = reactive<Map<string, ModalState>>(new Map())
+	/** Eagerly registered components (id → Component) */
+	readonly #registered = new Map<string, Component>()
+	/** Lazily registered loaders (id → loader) */
+	readonly #lazy = new Map<string, () => Promise<{ default: Component }>>()
+
+	private constructor() {}
+
+	// ── Facade ──
+
+	static get instance() {
+		if (!this.#instance)
+			this.#instance = new ModalManager()
+
+		return this.#instance
+	}
+
+	/**
+	 * Registers a modal component and returns a typed function to open it.
+	 */
+	create<
+		TProps extends object = object,
+		TResult = void,
+	>(
+		/** unique modal identifier */
+		id: string,
+		/** Vue component for the modal */
+		component: Component,
+	): (props?: TProps) => Promise<TResult> {
+		ModalManager.instance.#registered.set(id, component)
+		return (props?: TProps) => ModalManager.instance.#show<TResult>(id, props ?? {})
+	}
+
+	/**
+	 * Registers a lazy modal — the component is loaded on first open.
+	 */
+	createLazy<
+		TProps extends object = object,
+		TResult = void,
+	>(
+		/** unique modal identifier */
+		id: string,
+		/** dynamic import function (`() => import('./my-modal.vue')`) */
+		loader: () => Promise<{ default: Component }>,
+	): (props?: Omit<TProps, 'modalId'>) => Promise<TResult> {
+		ModalManager.instance.#lazy.set(id, loader)
+		return (props?: Omit<TProps, 'modalId'>) => ModalManager.instance.#show<TResult>(id, props ?? {})
+	}
+
+	/**
+	 * Opens a previously registered modal by its identifier.
+	 */
+	async show<T = unknown>(id: string, props: object = {}): Promise<T> {
+		return ModalManager.instance.#show(id, props)
+	}
+
+	/**
+	 * Closes the modal and resolves its promise with the given result.
+	 *
+	 * @param id     — modal identifier
+	 * @param result — value the promise resolves with
+	 */
+	resolve(id: string, result?: any): void {
+		ModalManager.instance.#resolve(id, result)
+	}
+
+	/**
+	 * Closes the modal and rejects its promise with the given reason.
+	 *
+	 * @param id     — modal identifier
+	 * @param reason — rejection reason
+	 */
+	reject(id: string, reason?: any): void {
+		ModalManager.instance.#reject(id, reason)
+	}
+
+	/**
+	 * Returns the reactive state of a specific modal as `ComputedRef<ModalState>`.
+	 *
+	 * Used inside a modal component (via {@link useModal}).
+	 */
+	state<
+		Props extends object = object,
+		Resolve = unknown,
+		Reject = unknown,
+	>(
+		id: string,
+	) {
+		return ModalManager.instance.modals.get(id) as ModalState<Props, Resolve, Reject>
+	}
+
+	// ── Private implementation ──
+
+	async #show<T = unknown>(id: string, props: object = {}): Promise<T> {
+		if (!this.#registered.has(id) && this.#lazy.has(id)) {
+			const loader = this.#lazy.get(id)!
+			try {
+				const loaded = await loader()
+				this.#registered.set(id, loaded.default)
+			}
+			catch (err) {
+				return Promise.reject(err)
+			}
+		}
+
+		const component = this.#registered.get(id)
+		if (!component)
+			return Promise.reject(new Error(`Modal "${id}" is not registered`))
+
+		const existing = this.modals.get(id)
+
+		return new Promise<T>((resolve, reject) => {
+			if (existing) {
+				existing.props = props
+				existing.opened = true
+				existing.resolve = resolve as (value?: any) => void
+				existing.reject = reject
+			}
+			else {
+				this.modals.set(id, {
+					id,
+					component: markRaw(component),
+					props,
+					opened: true,
+					resolve: resolve as (value?: any) => void,
+					reject,
+				})
+			}
+		})
+	}
+
+	#resolve(id: string, result?: any): void {
+		const modal = this.modals.get(id)
+		if (!modal)
+			return
+
+		modal.opened = false
+		modal.resolve?.(result)
+	}
+
+	#reject(id: string, reason?: any): void {
+		const modal = this.modals.get(id)
+		if (!modal)
+			return
+
+		modal.opened = false
+		modal.reject?.(reason)
+	}
+}
+
+export const $modals = markRaw(ModalManager.instance)

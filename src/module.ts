@@ -74,9 +74,6 @@ export default defineNuxtModule<ModuleOptions>({
 		nuxt.options.alias['@nui/modals']
 			= resolve('./runtime/modals')
 
-		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
-
-
 		// PostCSS config
 		nuxt.options.postcss = nuxt.options.postcss || {}
 		nuxt.options.postcss.plugins = nuxt.options.postcss.plugins || {}
