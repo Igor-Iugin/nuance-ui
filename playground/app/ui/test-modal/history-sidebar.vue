@@ -1,4 +1,7 @@
 <script setup lang='ts'>
+import { useModal } from '@nui/modals'
+
+
 const commands = computed(() => [])
 const cursor = computed(() => -1)
 

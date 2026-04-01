@@ -1,10 +1,9 @@
 <script setup lang='ts'>
-import type { ConfirmModalProps } from '@nui/components'
+import type { ConfirmModalProps } from '@nui/modals'
 
-import { openConfirmModal } from '@nui/components'
-import { $modals } from '@nui/modals'
+import { openConfirmModal } from '@nui/modals'
 
-import { openHistoryBox } from '~/ui/test-modal'
+import { openHistoryBox } from '../ui/test-modal'
 
 
 const result = ref<boolean | null>(null)
@@ -92,10 +91,7 @@ async function handleWizard() {
 <template>
 	<div :style='{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)", maxWidth: "400px" }'>
 		<NActionIcon
-			@click='() => {
-				openHistoryBox()
-				console.log($modals.state("map-history"))
-			}'
+			@click='openHistoryBox()'
 		/>
 
 		<NButton @click='handleConfirm'>

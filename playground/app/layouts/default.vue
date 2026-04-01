@@ -1,4 +1,7 @@
 <script lang='ts' setup>
+import { NModalsProvider } from '@nui/modals'
+
+
 useHead({
 	title: 'Компоненты',
 })

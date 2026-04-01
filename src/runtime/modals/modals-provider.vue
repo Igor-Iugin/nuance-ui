@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { $modals } from '../../plugins/modals'
+import { $modals } from './modal-manager'
 </script>
 
 <template>

@@ -72,8 +72,7 @@ export default defineNuxtModule<ModuleOptions>({
 			= resolve('./runtime/types')
 
 		nuxt.options.alias['@nui/modals']
-			= resolve('./runtime/plugins/modals')
-
+			= resolve('./runtime/modals')
 
 		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui || {}, defaultConfig)
 

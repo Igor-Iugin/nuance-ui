@@ -1,6 +1,6 @@
 import type { ConfirmModalProps } from './confirm-modal.vue'
 
-import { $modals } from '../../../plugins/modals'
+import { $modals } from '../modal-manager'
 import ConfirmModal from './confirm-modal.vue'
 
 

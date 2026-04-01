@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import type { MaybePromise } from '@nui/types'
-
-import { useModal } from '@nui/composals'
 import { ref } from 'vue'
 
-import type { ButtonProps } from '../../button/button.vue'
-import type { ModalRootProps } from '../../modal/modal-root.vue'
+import type { ButtonProps, ModalRootProps } from '../../components'
+import type { MaybePromise } from '../../types'
 
-import Button from '../../button/button.vue'
-import ModalCloseButton from '../../modal/modal-close-button.vue'
-import ModalHeader from '../../modal/modal-header.vue'
-import ModalRoot from '../../modal/modal-root.vue'
-import Title from '../../title.vue'
+import Button from '../../components/button/button.vue'
+import ModalCloseButton from '../../components/modal/modal-close-button.vue'
+import ModalHeader from '../../components/modal/modal-header.vue'
+import ModalRoot from '../../components/modal/modal-root.vue'
+import Title from '../../components/title.vue'
+import { useModal } from '../use-modal'
 
 
 type ConfirmLabels = Record<'confirm' | 'cancel', string>
 
-export interface ConfirmModalProps extends ModalRootProps {
+export interface ConfirmModalProps extends /* @vue-ignore */ ModalRootProps {
 	/** Modal title */
 	title: string
 	/** Description text displayed below the title */

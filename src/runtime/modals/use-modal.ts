@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { $modals } from '../plugins/modals'
+import { $modals } from './modal-manager'
 
 
 /**

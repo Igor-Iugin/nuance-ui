@@ -38,20 +38,26 @@ export interface ModalState<
  * const result = await open({ foo: 'bar' }) // result: string
  * ```
  */
-export class ModalManager {
+class ModalManager {
+	static #instance: ModalManager | null = null
+
 	/** Reactive map of active modals */
-	readonly #modals = reactive<Map<string, ModalState>>(new Map())
+	readonly modals = reactive<Map<string, ModalState>>(new Map())
 	/** Eagerly registered components (id → Component) */
 	readonly #registered = new Map<string, Component>()
 	/** Lazily registered loaders (id → loader) */
 	readonly #lazy = new Map<string, () => Promise<{ default: Component }>>()
 
-	/** Reactive map of all active modals. Used by `ModalProvider` for rendering */
-	get modals() {
-		return this.#modals
-	}
+	private constructor() {}
 
 	// ── Facade ──
+
+	static get instance() {
+		if (!this.#instance)
+			this.#instance = new ModalManager()
+
+		return this.#instance
+	}
 
 	/**
 	 * Registers a modal component and returns a typed function to open it.
@@ -65,8 +71,8 @@ export class ModalManager {
 		/** Vue component for the modal */
 		component: Component,
 	): (props?: TProps) => Promise<TResult> {
-		this.#registered.set(id, component)
-		return (props?: TProps) => this.#show<TResult>(id, props ?? {})
+		ModalManager.instance.#registered.set(id, component)
+		return (props?: TProps) => ModalManager.instance.#show<TResult>(id, props ?? {})
 	}
 
 	/**
@@ -81,15 +87,15 @@ export class ModalManager {
 		/** dynamic import function (`() => import('./my-modal.vue')`) */
 		loader: () => Promise<{ default: Component }>,
 	): (props?: Omit<TProps, 'modalId'>) => Promise<TResult> {
-		this.#lazy.set(id, loader)
-		return (props?: Omit<TProps, 'modalId'>) => this.#show<TResult>(id, props ?? {})
+		ModalManager.instance.#lazy.set(id, loader)
+		return (props?: Omit<TProps, 'modalId'>) => ModalManager.instance.#show<TResult>(id, props ?? {})
 	}
 
 	/**
 	 * Opens a previously registered modal by its identifier.
 	 */
 	async show<T = unknown>(id: string, props: object = {}): Promise<T> {
-		return this.#show(id, props)
+		return ModalManager.instance.#show(id, props)
 	}
 
 	/**
@@ -99,7 +105,7 @@ export class ModalManager {
 	 * @param result — value the promise resolves with
 	 */
 	resolve(id: string, result?: any): void {
-		this.#resolve(id, result)
+		ModalManager.instance.#resolve(id, result)
 	}
 
 	/**
@@ -109,7 +115,7 @@ export class ModalManager {
 	 * @param reason — rejection reason
 	 */
 	reject(id: string, reason?: any): void {
-		this.#reject(id, reason)
+		ModalManager.instance.#reject(id, reason)
 	}
 
 	/**
@@ -124,7 +130,7 @@ export class ModalManager {
 	>(
 		id: string,
 	) {
-		return this.#modals.get(id) as ModalState<Props, Resolve, Reject>
+		return ModalManager.instance.modals.get(id) as ModalState<Props, Resolve, Reject>
 	}
 
 	// ── Private implementation ──
@@ -145,7 +151,7 @@ export class ModalManager {
 		if (!component)
 			return Promise.reject(new Error(`Modal "${id}" is not registered`))
 
-		const existing = this.#modals.get(id)
+		const existing = this.modals.get(id)
 
 		return new Promise<T>((resolve, reject) => {
 			if (existing) {
@@ -155,7 +161,7 @@ export class ModalManager {
 				existing.reject = reject
 			}
 			else {
-				this.#modals.set(id, {
+				this.modals.set(id, {
 					id,
 					component: markRaw(component),
 					props,
@@ -168,7 +174,7 @@ export class ModalManager {
 	}
 
 	#resolve(id: string, result?: any): void {
-		const modal = this.#modals.get(id)
+		const modal = this.modals.get(id)
 		if (!modal)
 			return
 
@@ -177,7 +183,7 @@ export class ModalManager {
 	}
 
 	#reject(id: string, reason?: any): void {
-		const modal = this.#modals.get(id)
+		const modal = this.modals.get(id)
 		if (!modal)
 			return
 
@@ -185,3 +191,5 @@ export class ModalManager {
 		modal.reject?.(reason)
 	}
 }
+
+export const $modals = markRaw(ModalManager.instance)
