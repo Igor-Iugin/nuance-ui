@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.1.56
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.55...v0.1.56)
+
+### 🩹 Fixes
+
+- 🚑️  Fix plugin import url ([9c98e47](https://github.com/Igor-Iugin/nuance-ui/commit/9c98e47))
+- 🚑️  Trying to fix modals... ([d5c93ea](https://github.com/Igor-Iugin/nuance-ui/commit/d5c93ea))
+- 🚑️  COMPLETE fix modal-manager ([be03044](https://github.com/Igor-Iugin/nuance-ui/commit/be03044))
+
+### 🏡 Chore
+
+- **release:** V0.1.55 ([c938cd7](https://github.com/Igor-Iugin/nuance-ui/commit/c938cd7))
+
+### 🤖 CI
+
+- Remove tests in playground ([6233d87](https://github.com/Igor-Iugin/nuance-ui/commit/6233d87))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.55
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.54...v0.1.55)
