@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.57
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.56...v0.1.57)
+
+### 🩹 Fixes
+
+- 🚑️  Removed modals plugin and just reexports instance ([27176b2](https://github.com/Igor-Iugin/nuance-ui/commit/27176b2))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.56
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.55...v0.1.56)
