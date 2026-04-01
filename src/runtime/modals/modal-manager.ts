@@ -38,7 +38,7 @@ export interface ModalState<
  * const result = await open({ foo: 'bar' }) // result: string
  * ```
  */
-class ModalManager {
+export class ModalManager {
 	static #instance: ModalManager | null = null
 
 	/** Reactive map of active modals */
