@@ -38,9 +38,11 @@ export interface ModalState<
  * const result = await open({ foo: 'bar' }) // result: string
  * ```
  */
-export class ModalManager {
-	static #instance: ModalManager | null = null
+const GLOBAL_KEY = '__nui_modal_manager__'
 
+declare const globalThis: Record<string, unknown>
+
+export class ModalManager {
 	/** Reactive map of active modals */
 	readonly modals = reactive<Map<string, ModalState>>(new Map())
 	/** Eagerly registered components (id → Component) */
@@ -52,11 +54,11 @@ export class ModalManager {
 
 	// ── Facade ──
 
-	static get instance() {
-		if (!this.#instance)
-			this.#instance = new ModalManager()
+	static get instance(): ModalManager {
+		if (!globalThis[GLOBAL_KEY])
+			globalThis[GLOBAL_KEY] = new ModalManager()
 
-		return this.#instance
+		return globalThis[GLOBAL_KEY] as ModalManager
 	}
 
 	/**
@@ -71,8 +73,8 @@ export class ModalManager {
 		/** Vue component for the modal */
 		component: Component,
 	): (props?: TProps) => Promise<TResult> {
-		ModalManager.instance.#registered.set(id, component)
-		return (props?: TProps) => ModalManager.instance.#show<TResult>(id, props ?? {})
+		this.#registered.set(id, component)
+		return (props?: TProps) => this.#show<TResult>(id, props ?? {})
 	}
 
 	/**
@@ -87,15 +89,15 @@ export class ModalManager {
 		/** dynamic import function (`() => import('./my-modal.vue')`) */
 		loader: () => Promise<{ default: Component }>,
 	): (props?: Omit<TProps, 'modalId'>) => Promise<TResult> {
-		ModalManager.instance.#lazy.set(id, loader)
-		return (props?: Omit<TProps, 'modalId'>) => ModalManager.instance.#show<TResult>(id, props ?? {})
+		this.#lazy.set(id, loader)
+		return (props?: Omit<TProps, 'modalId'>) => this.#show<TResult>(id, props ?? {})
 	}
 
 	/**
 	 * Opens a previously registered modal by its identifier.
 	 */
 	async show<T = unknown>(id: string, props: object = {}): Promise<T> {
-		return ModalManager.instance.#show(id, props)
+		return this.#show(id, props)
 	}
 
 	/**
@@ -105,7 +107,7 @@ export class ModalManager {
 	 * @param result — value the promise resolves with
 	 */
 	resolve(id: string, result?: any): void {
-		ModalManager.instance.#resolve(id, result)
+		this.#resolve(id, result)
 	}
 
 	/**
@@ -115,7 +117,7 @@ export class ModalManager {
 	 * @param reason — rejection reason
 	 */
 	reject(id: string, reason?: any): void {
-		ModalManager.instance.#reject(id, reason)
+		this.#reject(id, reason)
 	}
 
 	/**
@@ -130,7 +132,7 @@ export class ModalManager {
 	>(
 		id: string,
 	) {
-		return ModalManager.instance.modals.get(id) as ModalState<Props, Resolve, Reject>
+		return this.modals.get(id) as ModalState<Props, Resolve, Reject>
 	}
 
 	// ── Private implementation ──
