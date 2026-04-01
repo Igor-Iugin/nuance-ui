@@ -2,6 +2,7 @@
 import type { ConfirmModalProps } from '@nui/components'
 
 import { openConfirmModal } from '@nui/components'
+import { $modals } from '@nui/modals'
 
 import { openHistoryBox } from '~/ui/test-modal'
 

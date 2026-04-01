@@ -1,5 +1,6 @@
-import { useNuxtApp } from '#app'
 import { computed } from 'vue'
+
+import { $modals } from '../plugins/modals'
 
 
 /**
@@ -25,13 +26,12 @@ export function useModal<
 	 */
 	id: string,
 ) {
-	const manager = useNuxtApp().$modals
-	const state = computed(() => manager.state<Props, Resolve, Reject>(id))
+	const state = computed(() => $modals.state<Props, Resolve, Reject>(id))
 	const opened = computed({
 		get: () => state.value?.opened,
 		set: (opened: boolean) => opened
-			? manager.show(id, state.value.props)
-			: manager.reject(id, 'cancel'),
+			? $modals.show(id, state.value.props)
+			: $modals.reject(id, 'cancel'),
 	})
 
 	if (!state)
@@ -45,7 +45,7 @@ export function useModal<
 		 */
 		opened,
 		/** closes the modal and resolves the promise */
-		resolve: (reason: Resolve) => manager.resolve(id, reason),
-		reject: () => manager.reject(id),
+		resolve: (reason: Resolve) => $modals.resolve(id, reason),
+		reject: () => $modals.reject(id),
 	}
 }

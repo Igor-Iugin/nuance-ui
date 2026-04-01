@@ -1,10 +1,5 @@
 <script lang="ts" setup>
-import { useNuxtApp } from '#app'
-import { ClientOnly } from '#components'
-import { computed } from 'vue'
-
-
-const modals = computed(() => useNuxtApp().$modals?.modals ?? [])
+import { $modals } from '../../plugins/modals'
 </script>
 
 <template>
@@ -12,7 +7,7 @@ const modals = computed(() => useNuxtApp().$modals?.modals ?? [])
 		<div id='nui-modals-root'>
 			<component
 				:is='entry.component'
-				v-for='[id, entry] in modals'
+				v-for='[id, entry] in $modals.modals'
 				:key='id'
 				v-bind='entry.props'
 			/>
