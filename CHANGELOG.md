@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.61
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.60...v0.1.61)
+
+### 🩹 Fixes
+
+- 🐛  Added globalThis for singleton logic ([182007d](https://github.com/Igor-Iugin/nuance-ui/commit/182007d))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.60
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.59...v0.1.60)
