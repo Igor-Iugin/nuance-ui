@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.59
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.58...v0.1.59)
+
+### 🩹 Fixes
+
+- Rewrite class into module-scope ([96c70c3](https://github.com/Igor-Iugin/nuance-ui/commit/96c70c3))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.58
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.57...v0.1.58)
