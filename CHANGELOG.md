@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.60
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.59...v0.1.60)
+
+### 🏡 Chore
+
+- 🐛  Added modal manager prop in provider ([affb706](https://github.com/Igor-Iugin/nuance-ui/commit/affb706))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.59
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.58...v0.1.59)
