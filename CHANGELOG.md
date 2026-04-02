@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.62...v0.2.0)
+
+### 🚀 Enhancements
+
+- ✨  Refactor TreeLoader for more compatibility ([3742e2e](https://github.com/Igor-Iugin/nuance-ui/commit/3742e2e))
+
+### 💅 Refactors
+
+- ♻️  Simplify module aliases and reorganize utils structure ([fb9cffb](https://github.com/Igor-Iugin/nuance-ui/commit/fb9cffb))
+
+### 🏡 Chore
+
+- **release:** V0.1.62 ([1fd1611](https://github.com/Igor-Iugin/nuance-ui/commit/1fd1611))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.1.62
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.61...v0.1.62)
