@@ -1,6 +1,5 @@
 import type { NuanceColor } from '@nui/types'
-import type { AsyncData, NuxtError } from '#app'
-import type { FetchError } from 'ofetch'
+import type { Ref } from 'vue'
 
 
 export interface TreeModels {
@@ -14,14 +13,30 @@ export interface TreeEmits {
 	delete: [path: string[]]
 }
 
+export interface TreeLoaderResult {
+	data: Ref<TreeItem[] | undefined>
+	pending: Ref<boolean>
+	execute: () => Promise<unknown>
+}
+
 /**
- *  Required pass instance of `useFetch`/`useAsyncData` with `{ immediate: false }`
- *  Root path will be queried immediate with path `/`
+ *  Returns an object with `data`, `pending`, and `execute` fields.
+ *  Root path will be queried immediately with path `/`.
+ *
+ *  @example Nuxt
+ *  ```ts
+ *  const loadBranch = (path: string) => useAsyncData(path, () => $fetch(`/api/tree${path}`), { immediate: false })
+ *  ```
+ *
+ *  @example vue-query
+ *  ```ts
+ *  const loadBranch = (path: string) => {
+ *    const { data, isPending, refetch } = useQuery({ queryKey: ['tree', path], queryFn: () => fetchTree(path) })
+ *    return { data, pending: isPending, execute: refetch }
+ *  }
+ *  ```
  */
-export type TreeLoader = (path: string) => AsyncData<
-	TreeItem[] | undefined,
-	FetchError<any> | NuxtError | undefined | null
->
+export type TreeLoader = (path: string) => TreeLoaderResult
 
 export type TreeItemType = 'file' | 'directory'
 
