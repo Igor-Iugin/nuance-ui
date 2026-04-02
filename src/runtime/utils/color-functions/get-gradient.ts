@@ -1,7 +1,7 @@
 import type { NuanceGradient, NuanceTheme } from '@nui/types'
 
 import { DEFAULT_GRADIENT } from '../../const'
-import { parseThemeColor } from '../parse-theme-color/parse-theme-color'
+import { parseThemeColor } from './parse-theme-color'
 
 
 export function getGradient(gradient: NuanceGradient | undefined, theme: NuanceTheme) {

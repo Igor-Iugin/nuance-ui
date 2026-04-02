@@ -1,15 +1,12 @@
 export { isFalsy } from './boolean/is-falsy'
-export * from './chunk'
 export { getGradient } from './color-functions/get-gradient'
+export { getThemeColor, parseThemeColor } from './color-functions/parse-theme-color'
+
 export { em, rem } from './converters/rem'
 
+export { createVariantColorResolver } from './create-variant-color-resolver'
+
 export * from './get-mod'
+export * from './get-size'
 
-export { getSafeId } from './get-safe-id'
-
-export * from './get-size/get-size'
-
-export { getThemeColor, parseThemeColor } from './parse-theme-color/parse-theme-color'
 export * from './tree'
-
-export { createVariantColorResolver } from './vars-resolver/create-variant-color-resolver'

@@ -1,6 +1,6 @@
 import type { NuanceColor, NuanceColorShade, NuanceDefaultThemeColor, NuanceTheme } from '@nui/types'
 
-import { getColorVar } from '../get-color-var'
+import { getColorVar } from './get-color-var'
 
 
 interface ParseThemeColorResult {

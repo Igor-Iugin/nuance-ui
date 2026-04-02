@@ -1,4 +1,9 @@
-import { addComponentsDir, addImportsDir, createResolver, defineNuxtModule } from '@nuxt/kit'
+import {
+	addComponentsDir,
+	addImportsDir,
+	createResolver,
+	defineNuxtModule,
+} from '@nuxt/kit'
 import { defu } from 'defu'
 
 // Module options TypeScript interface definition
@@ -56,25 +61,24 @@ export default defineNuxtModule<ModuleOptions>({
 	setup(options, nuxt) {
 		const { resolve } = createResolver(import.meta.url)
 
-		nuxt.options.alias['@nui/composals']
-			= resolve('./runtime/composals')
 
-		nuxt.options.alias['@nui/components']
-			= resolve('./runtime/components')
+		// ─── Types Templates ───
 
-		nuxt.options.alias['@nui/utils']
-			= resolve('./runtime/utils')
+		const aliases = {
+			composals: resolve('./runtime/composals'),
+			components: resolve('./runtime/components'),
+			utils: resolve('./runtime/utils'),
+			helpers: resolve('./runtime/helpers'),
+			types: resolve('./runtime/types'),
+			modals: resolve('./runtime/modals'),
+		}
 
-		nuxt.options.alias['@nui/helpers']
-			= resolve('./runtime/helpers')
+		for (const key in aliases) {
+			nuxt.options.alias[`@nui/${key}`] = aliases[key as keyof typeof aliases]
+		}
 
-		nuxt.options.alias['@nui/types']
-			= resolve('./runtime/types')
+		// ─── PostCSS config ───
 
-		nuxt.options.alias['@nui/modals']
-			= resolve('./runtime/modals')
-
-		// PostCSS config
 		nuxt.options.postcss = nuxt.options.postcss || {}
 		nuxt.options.postcss.plugins = nuxt.options.postcss.plugins || {}
 
@@ -93,7 +97,9 @@ export default defineNuxtModule<ModuleOptions>({
 			'autoprefixer': {},
 		})
 
-		// Add components
+
+		// ─── Add components ───
+
 		if (options.autoImport) {
 			addComponentsDir({
 				path: resolve('./runtime/components'),
@@ -111,7 +117,9 @@ export default defineNuxtModule<ModuleOptions>({
 			addImportsDir(resolve('./runtime/helpers'))
 		}
 
-		// Add global styles
+
+		// ─── Add global styles ───
+
 		nuxt.options.css.push(resolve('./runtime/styles/global.css'))
 	},
 })

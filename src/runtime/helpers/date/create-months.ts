@@ -2,7 +2,7 @@ import type { DateInput } from '@formkit/tempo'
 import type { DateConfig } from '@nui/composals'
 
 import { addDay, monthEnd, monthStart, weekEnd, weekStart } from '@formkit/tempo'
-import { chunk } from '@nui/utils'
+import { chunk } from 'es-toolkit'
 
 import { getDaysBetween } from './get-days-between'
 

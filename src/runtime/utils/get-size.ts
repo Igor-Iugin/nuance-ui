@@ -1,5 +1,5 @@
-import { isNumberLike } from '../boolean/is-number-like'
-import { rem } from '../converters/rem'
+import { isNumberLike } from './boolean/is-number-like'
+import { rem } from './converters/rem'
 
 
 export function getSize(size: unknown, prefix = 'size', convertToRem = true): string | undefined {

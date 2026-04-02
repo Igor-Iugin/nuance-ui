@@ -2,7 +2,7 @@
 Пиши ответы и комментарии на русском
 
 ## Architecture
-- **Frontend**: Nuxt + TypeScript
+- **Frontend**: Nuxt 4 + TypeScript
 
 ## Key Commands
 - `lint` — eslint linter
