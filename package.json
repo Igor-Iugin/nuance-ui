@@ -12,6 +12,50 @@
 		".": {
 			"types": "./dist/types.d.mts",
 			"import": "./dist/module.mjs"
+		},
+		"./composals": {
+			"types": "./dist/runtime/composals/index.d.ts",
+			"import": "./dist/runtime/composals/index.js"
+		},
+		"./composals/*": {
+			"types": "./dist/runtime/composals/*.d.ts",
+			"import": "./dist/runtime/composals/*.js"
+		},
+		"./components/*": {
+			"types": "./dist/runtime/components/*.d.ts",
+			"import": "./dist/runtime/components/*.js"
+		},
+		"./modals": {
+			"types": "./dist/runtime/modals/index.d.ts",
+			"import": "./dist/runtime/modals/index.js"
+		},
+		"./modals/*": {
+			"types": "./dist/runtime/modals/*.d.ts",
+			"import": "./dist/runtime/modals/*.js"
+		},
+		"./helpers": {
+			"types": "./dist/runtime/helpers/index.d.ts",
+			"import": "./dist/runtime/helpers/index.js"
+		},
+		"./helpers/*": {
+			"types": "./dist/runtime/helpers/*.d.ts",
+			"import": "./dist/runtime/helpers/*.js"
+		},
+		"./utils": {
+			"types": "./dist/runtime/utils/index.d.ts",
+			"import": "./dist/runtime/utils/index.js"
+		},
+		"./utils/*": {
+			"types": "./dist/runtime/utils/*.d.ts",
+			"import": "./dist/runtime/utils/*.js"
+		},
+		"./types": {
+			"types": "./dist/runtime/types/index.d.ts",
+			"import": "./dist/runtime/types/index.js"
+		},
+		"./types/*": {
+			"types": "./dist/runtime/types/*.d.ts",
+			"import": "./dist/runtime/types/*.js"
 		}
 	},
 	"main": "./dist/module.mjs",
@@ -19,6 +63,21 @@
 		"*": {
 			".": [
 				"./dist/types.d.mts"
+			],
+			"composals": [
+				"./dist/runtime/composals/index.d.ts"
+			],
+			"modals": [
+				"./dist/runtime/modals/index.d.ts"
+			],
+			"helpers": [
+				"./dist/runtime/helpers/index.d.ts"
+			],
+			"utils": [
+				"./dist/runtime/utils/index.d.ts"
+			],
+			"types": [
+				"./dist/runtime/types/index.d.ts"
 			]
 		}
 	},
