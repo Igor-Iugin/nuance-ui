@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.1
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.0...v0.2.1)
+
+### 📦 Build
+
+- **deps:** ⬆️  Updated most of deps ([470c551](https://github.com/Igor-Iugin/nuance-ui/commit/470c551))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.62...v0.2.0)
