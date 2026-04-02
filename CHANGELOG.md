@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.1...v0.2.2)
+
+### 📦 Build
+
+- Add subpath exports for runtime modules ([d2c313a](https://github.com/Igor-Iugin/nuance-ui/commit/d2c313a))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.1
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.0...v0.2.1)
