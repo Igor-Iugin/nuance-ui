@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.62
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.61...v0.1.62)
+
+### 🚀 Enhancements
+
+- ✨  Refactor TreeLoader for more compatibility ([3742e2e](https://github.com/Igor-Iugin/nuance-ui/commit/3742e2e))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.1.61
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.1.60...v0.1.61)
