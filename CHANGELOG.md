@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.4
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.3...v0.2.4)
+
+### 🏡 Chore
+
+- Add public access ([dfa0a1a](https://github.com/Igor-Iugin/nuance-ui/commit/dfa0a1a))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.2.3
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.2...v0.2.3)
