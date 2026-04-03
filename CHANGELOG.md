@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v0.2.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.4...v0.2.5)
+
 ## v0.2.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.3...v0.2.4)
