@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.2.3
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.2...v0.2.3)
+
+### 📦 Build
+
+- Add subpath exports for runtime modules ([d2c313a](https://github.com/Igor-Iugin/nuance-ui/commit/d2c313a))
+- ⬆️  Upgrade nuxt to 4.4.2 ([572492b](https://github.com/Igor-Iugin/nuance-ui/commit/572492b))
+
+### 🏡 Chore
+
+- **release:** V0.2.2 ([292b647](https://github.com/Igor-Iugin/nuance-ui/commit/292b647))
+- Rename package to @nuance/ui and clean up exports ([c4974a8](https://github.com/Igor-Iugin/nuance-ui/commit/c4974a8))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.2
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.1...v0.2.2)
