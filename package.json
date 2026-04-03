@@ -39,6 +39,9 @@
 		}
 	},
 	"main": "./dist/module.mjs",
+	"publishConfig": {
+		"access": "public"
+	},
 	"files": [
 		"dist"
 	],
