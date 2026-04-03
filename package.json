@@ -1,5 +1,5 @@
 {
-	"name": "@nuance/ui",
+	"name": "nuance-ui",
 	"version": "0.2.4",
 	"description": "A modern Vue UI library inspired by the best of the React ecosystem.",
 	"repository": {
