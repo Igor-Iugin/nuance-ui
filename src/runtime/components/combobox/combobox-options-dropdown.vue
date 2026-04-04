@@ -56,7 +56,7 @@ const filteredData = computed(() => typeof search.value === 'string'
 </script>
 
 <template>
-	<ComboboxDropdown data-composed>
+	<ComboboxDropdown>
 		<ComboboxOptionList :labelled-by='labelId' v-bind='$attrs'>
 			<template
 				v-for='item in filteredData'

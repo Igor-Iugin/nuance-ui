@@ -8,10 +8,6 @@
 		}
 	}
 
-	&[data-composed] {
-		padding-inline-end: 0;
-	}
-
 	&[data-hidden] {
 		display: none;
 	}

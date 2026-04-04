@@ -99,12 +99,12 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 
 const display = computed(() => {
 	const v = value.value
-	if (multiple && Array.isArray(v)) {
+	if (multiple && Array.isArray(v))
 		return v.map(val => options.value[val]?.label ?? val).join(', ')
-	}
-	if (v && typeof v === 'string') {
+
+	if (v && typeof v === 'string')
 		return options.value[v]?.label ?? v
-	}
+
 	return ''
 })
 
@@ -131,10 +131,6 @@ function onSubmit(val: string) {
 		store.closeDropdown()
 	}
 }
-
-function onBlur() {
-	focused.value = false
-}
 </script>
 
 <template>
@@ -158,7 +154,7 @@ function onBlur() {
 				:readonly='readonly || !searchable'
 				:class='$style.input'
 				@focus='focused = true'
-				@blur='onBlur'
+				@blur='focused = false'
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'
 			>
 				<slot v-if='display' name='selection' :value='value' :display='display'>

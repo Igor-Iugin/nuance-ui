@@ -1,8 +1,7 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
-import type { Mod } from '@nui/utils'
-
 import { computed } from 'vue'
 
+import type { Mod } from '../../utils'
 import type { BoxProps } from '../box.vue'
 import type { ComboboxItem, ComboboxItemExt, ComboboxItemProps } from './types'
 
@@ -62,7 +61,7 @@ const mod = computed(() => [
 		:mod
 		role='option'
 		:aria-selected='checked'
-		@click='() => !data?.disabled && onOptionSubmit?.(data.value, data)'
+		@mousedown='() => !data?.disabled && onOptionSubmit?.(data.value, data)'
 	>
 		<slot :with-check-icon :icon-position :data :checked>
 			<Icon
