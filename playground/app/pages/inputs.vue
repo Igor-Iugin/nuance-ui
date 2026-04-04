@@ -78,6 +78,14 @@ const select = ref(['2', '1'])
 			<NTimePicker v-model='time' label='Time picker' with-seconds />
 			<NDateTimePicker v-model='time' label='Datetime picker' with-seconds />
 		</div>
+
+		<div :class='$style.flex'>
+			<NSwitch size='xs' on-label='ON' off-label='OFF' />
+			<NSwitch size='sm' on-label='ON' off-label='OFF' />
+			<NSwitch size='md' on-label='ON' off-label='OFF' />
+			<NSwitch size='lg' on-label='ON' off-label='OFF' />
+			<NSwitch size='xl' on-label='ON' off-label='OFF' />
+		</div>
 	</section>
 </template>
 

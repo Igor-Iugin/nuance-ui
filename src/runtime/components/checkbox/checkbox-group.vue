@@ -25,16 +25,16 @@ useProvideCheckboxGroup({ value, size })
 
 <template>
 	<InputWrapper :id v-bind='rest'>
-		<template #label>
+		<template v-if='!!$slots.label' #label>
 			<slot name='label' />
 		</template>
 
 		<slot />
 
-		<template #description>
+		<template v-if='!!$slots.description' #description>
 			<slot name='description' />
 		</template>
-		<template #error>
+		<template v-if='!!$slots.error' #error>
 			<slot name='error' />
 		</template>
 

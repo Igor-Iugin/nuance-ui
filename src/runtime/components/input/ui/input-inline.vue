@@ -32,7 +32,7 @@ const {
 
 const style = computed(() => ({
 	'--label-fz': getFontSize(size),
-	'--label-lh': getSize(size),
+	'--label-lh': getSize(size, 'label-lh'),
 }))
 </script>
 
