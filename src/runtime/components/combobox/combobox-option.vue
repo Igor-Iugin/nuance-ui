@@ -25,7 +25,7 @@ const {
 	data,
 	iconPosition = 'left',
 	checkIcon = 'gravity-ui:check',
-	withCheckIcon,
+	withCheckIcon = true,
 	mod: _mod,
 	checked,
 	selected,
@@ -45,7 +45,6 @@ const { onOptionSubmit } = useComboboxState()
 
 const mod = computed(() => [
 	{
-		[COMBOBOX_ATTRS.option]: true,
 		[COMBOBOX_ATTRS.active]: checked,
 		[COMBOBOX_ATTRS.selected]: selected,
 		[COMBOBOX_ATTRS.disabled]: data?.disabled,
@@ -59,25 +58,21 @@ const mod = computed(() => [
 <template>
 	<Box
 		:class='css.option'
+		data-combobox-option
 		:mod
 		role='option'
 		:aria-selected='checked'
 		@click='() => !data?.disabled && onOptionSubmit?.(data.value, data)'
 	>
-		<slot
-			:with-check-icon
-			:icon-position
-			:data
-			:checked
-		>
+		<slot :with-check-icon :icon-position :data :checked>
 			<Icon
-				v-if='withCheckIcon && iconPosition === "left"'
+				v-if='checked && withCheckIcon && iconPosition === "left"'
 				:class='css.optionCheck'
 				:name='data?.icon ?? checkIcon'
 			/>
 			<span>{{ data.label }}</span>
 			<Icon
-				v-if='withCheckIcon && iconPosition === "right"'
+				v-if='checked && withCheckIcon && iconPosition === "right"'
 				:class='css.optionCheck'
 				:name='data?.icon ?? checkIcon'
 			/>

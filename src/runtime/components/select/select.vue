@@ -1,7 +1,7 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
-import { nextTick, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 
-import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
+import type { ComboboxData, ComboboxItemExt, ComboboxRootEmits } from '../combobox'
 import type { TextInputProps } from '../input'
 
 import { useCombobox, useComboboxData } from '../combobox'
@@ -16,10 +16,13 @@ export interface SelectProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > extends Omit<TextInputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'> {
-	data: ComboboxData<Value, Ext>
+	options: ComboboxData<Value, Ext>
 
 	/** Determines whether the select should be searchable @default `false` */
 	searchable?: boolean
+
+	/** If set, multiple options can be selected @default `false` */
+	multiple?: boolean
 
 	/** If set, the check icon is displayed near the selected option label @default `true` */
 	withCheckIcon?: boolean
@@ -36,36 +39,42 @@ export interface SelectProps<
 	/** If set, the clear button is displayed in the right section when the component has value @default `false` */
 	// clearable?: boolean
 
+	/** Icon displayed in the left section by default */
+	icon?: string
+
 	limit?: number
-	/** Props passed down to the underlying `ScrollArea` component in the dropdown */
-	// scrollAreaProps?: ScrollAreaProps
 
 	/** Input autocomplete attribute */
 	autoComplete?: string
 }
 
 const {
-	data,
+	options: data,
 	disabled,
 	searchable = false,
+	multiple = false,
 	rightSectionPE = 'none',
 	readonly = false,
 	allowDeselect = false,
 	autoComplete = 'off',
+	icon,
 	limit,
 	iconPosition,
 	nothingFoundMessage,
-	withCheckIcon,
+	withCheckIcon = true,
 	...rest
 } = defineProps<SelectProps<Value, Ext>>()
 
 const emit = defineEmits<ComboboxRootEmits>()
 
+/** Dropdown opened state */
 const opened = defineModel<boolean>('open', { default: false })
-const value = defineModel<ComboboxItem<Value, Ext> | null>({ default: null })
+/** Value handler */
+const value = defineModel<string | string[] | null>({ default: null })
+/** Search handler */
+const search = defineModel<string>('search', { default: '' })
 
 const { parsed, options } = useComboboxData<Value, Ext>(data)
-
 const store = useCombobox({
 	opened,
 	loop: true,
@@ -74,6 +83,8 @@ const store = useCombobox({
 	onClear: () => emit('clear'),
 	onOpenDropdown: source => {
 		emit('open', source)
+		if (searchable)
+			search.value = ''
 		store.updateSelectedOptionIx('active', { scrollIntoView: true })
 	},
 	onCloseDropdown: source => {
@@ -82,8 +93,48 @@ const store = useCombobox({
 	},
 })
 
-const search = defineModel<string>('search', { default: '' })
+// ─── Search ───
+
 watch(search, () => nextTick(() => store.resetSelectedOption()))
+
+const display = computed(() => {
+	const v = value.value
+	if (multiple && Array.isArray(v)) {
+		return v.map(val => options.value[val]?.label ?? val).join(', ')
+	}
+	if (v && typeof v === 'string') {
+		return options.value[v]?.label ?? v
+	}
+	return ''
+})
+
+const focused = ref(false)
+const inputValue = computed({
+	get: () => searchable && focused.value ? search.value : display.value,
+	set: (val: string) => { search.value = val },
+})
+
+// ─── Handlers ───
+
+function onSubmit(val: string) {
+	if (multiple) {
+		const current = Array.isArray(value.value) ? value.value : []
+		value.value = current.includes(val)
+			? current.filter(v => v !== val)
+			: [...current, val]
+		search.value = ''
+	}
+	else {
+		const nextValue = allowDeselect && value.value === val ? null : val
+		value.value = options.value[val] ? nextValue : null
+		search.value = ''
+		store.closeDropdown()
+	}
+}
+
+function onBlur() {
+	focused.value = false
+}
 </script>
 
 <template>
@@ -93,15 +144,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 		:store
 		@submit='(val, option) => {
 			$emit("submit", val, option)
-			const optionsLockup = allowDeselect
-				? options[val]?.value === value?.value ? null : options[val]
-				: options[val]
-			const nextValue: ComboboxItem<Value, Ext> | null = optionsLockup ? optionsLockup : null
-
-			value = nextValue
-			search = nextValue?.label ?? ""
-
-			store.closeDropdown()
+			onSubmit(val)
 		}'
 	>
 		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
@@ -109,18 +152,18 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 				:is='searchable ? TextInput : ButtonInput'
 				:id='store.listId'
 				v-bind='{ ...rest, ...$attrs }'
-				v-model='search'
+				v-model='inputValue'
 				:disabled
 				:right-section-p-e
 				:readonly='readonly || !searchable'
 				:class='$style.input'
-				@blur='() => {
-					searchable && store.closeDropdown()
-					search = value?.label ?? ""
-				}'
+				@focus='focused = true'
+				@blur='onBlur'
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'
 			>
-				{{ value?.label ?? value?.value ?? null }}
+				<slot v-if='display' name='selection' :value='value' :display='display'>
+					{{ display }}
+				</slot>
 
 				<template v-if='$slots?.label' #label>
 					<slot name='label' />
@@ -132,9 +175,9 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 					<slot name='error' />
 				</template>
 
-				<template v-if='$slots.leftSection || value?.icon' #leftSection>
+				<template v-if='$slots.leftSection || icon' #leftSection>
 					<slot name='leftSection'>
-						<Icon v-if='value?.icon' :name='value?.icon' />
+						<Icon v-if='icon' :name='icon' />
 					</slot>
 				</template>
 				<template #rightSection>
@@ -146,6 +189,7 @@ watch(search, () => nextTick(() => store.resetSelectedOption()))
 		</ComboboxTarget>
 		<ComboboxOptionsDropdown
 			v-model='value'
+			v-model:search='search'
 			:data='parsed'
 			:limit
 			:with-check-icon

@@ -16,6 +16,8 @@ const time = computed({
 		date.value = data.toISOString()
 	},
 })
+
+const select = ref(['2', '1'])
 </script>
 
 <template>
@@ -32,7 +34,18 @@ const time = computed({
 		<div :class='$style.flex'>
 			<NSelect
 				label='Select input'
-				:data='[
+				:options='[
+					{ value: "1", label: "first" },
+					{ value: "2", label: "second" },
+					{ value: "3", label: "third" },
+				]'
+			/>
+			<NSelect
+				v-model='select'
+				multiple
+				label='Select input'
+				searchable
+				:options='[
 					{ value: "1", label: "first" },
 					{ value: "2", label: "second" },
 					{ value: "3", label: "third" },
@@ -41,10 +54,22 @@ const time = computed({
 			<NSelect
 				label='Select input'
 				searchable
-				:data='[
-					{ value: "1", label: "first" },
-					{ value: "2", label: "second" },
-					{ value: "3", label: "third" },
+				:options='[
+					{
+						group: "Backend",
+						items: [
+							{ value: "express", label: "Express" },
+							{ value: "django", label: "Django" },
+						],
+					},
+					{
+						group: "Frontend",
+						items: [
+							{ value: "react", label: "React" },
+							{ value: "ng", label: "Angular" },
+						],
+					},
+
 				]'
 			/>
 		</div>

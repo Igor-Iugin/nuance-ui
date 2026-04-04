@@ -1,19 +1,20 @@
 import { computed } from 'vue'
 
-import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../types'
+import type { ComboboxData, ComboboxItem, ComboboxItemExt, ComboboxOption } from '../../types'
 
+import { isOptionsGroup } from '../utils'
 import { getParsedComboboxData } from './get-parsed-combobox-data'
 
 
 export function getOptionsLockup<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
->(options: ComboboxParsedItem<Value, Ext>[]): Record<string, ComboboxItem<Value, Ext>> {
+>(options: ComboboxOption<Value, Ext>[]): Record<string, ComboboxItem<Value, Ext>> {
 	return options.reduce<Record<string, ComboboxItem<Value, Ext>>>((acc, item) => {
-		if ('group' in item)
+		if (isOptionsGroup(item))
 			return { ...acc, ...getOptionsLockup(item.items) }
 
-		acc[(item as any).value] = item
+		acc[item.value] = item
 
 		return acc
 	}, {})
@@ -22,12 +23,12 @@ export function getOptionsLockup<
 export function getLabelsLockup<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
->(options: ComboboxParsedItem<Value, Ext>[]): Record<string, string> {
-	return options.reduce<Record<string, string>>((acc, item) => {
-		if ('group' in item)
+>(options: ComboboxOption<Value, Ext>[]): Record<string, ComboboxOption<Value, Ext>> {
+	return options.reduce<Record<string, ComboboxOption<Value, Ext>>>((acc, item) => {
+		if (isOptionsGroup(item))
 			return { ...acc, ...getLabelsLockup(item.items) }
 
-		acc[(item as any).label] = item as any
+		acc[item.label] = item
 
 		return acc
 	}, {})

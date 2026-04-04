@@ -2,13 +2,13 @@
 import { computed } from 'vue'
 
 import type { FilterOptionsInput } from './lib/utils'
-import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from './types'
+import type { ComboboxItemExt, ComboboxOption } from './types'
 
 import ComboboxDropdown from './combobox-dropdown.vue'
 import ComboboxEmpty from './combobox-empty.vue'
 import ComboboxGroup from './combobox-group.vue'
 import ComboboxOptionList from './combobox-option-list.vue'
-import ComboboxOption from './combobox-option.vue'
+import ComboboxOptions from './combobox-option.vue'
 import { defaultOptionsFilter, isEmptyComboboxData, isOptionsGroup, isValueChecked } from './lib/utils'
 
 
@@ -16,13 +16,11 @@ export interface ComboboxOptionsDropdownProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > {
-	data: ComboboxParsedItem<Value, Ext>[]
+	data: ComboboxOption<Value, Ext>[]
 
-	filter?: (input: FilterOptionsInput<Value, Ext>) => ComboboxParsedItem<Value, Ext>[]
+	filter?: (input: FilterOptionsInput<Value, Ext>) => ComboboxOption<Value, Ext>[]
 	limit?: number
-	withScrollArea?: boolean
 	maxDropdownHeight?: number | string
-	hiddenWhenEmpty?: boolean
 	filterOptions?: boolean
 	nothingFoundMessage?: string
 	labelId: string | undefined
@@ -45,7 +43,7 @@ const {
 } = defineProps<ComboboxOptionsDropdownProps<Value, Ext>>()
 
 const search = defineModel<string | undefined>('search')
-const value = defineModel<ComboboxItem<Value, Ext> | ComboboxItem<Value, Ext>[] | null>()
+const value = defineModel<string | string[] | null>()
 
 const isEmpty = computed(() => isEmptyComboboxData(data))
 const filteredData = computed(() => typeof search.value === 'string'
@@ -62,23 +60,24 @@ const filteredData = computed(() => typeof search.value === 'string'
 		<ComboboxOptionList :labelled-by='labelId' v-bind='$attrs'>
 			<template
 				v-for='item in filteredData'
-				:key='isOptionsGroup(item) ? item.group : (item as ComboboxItem<Value, Ext>)?.value'
+				:key='isOptionsGroup(item) ? item.group : item?.value'
 			>
 				<ComboboxGroup
 					v-if='isOptionsGroup(item)'
 					v-model:value='value'
+					:label='item.group'
 					:data='item'
 					:with-check-icon
 					:icon-position
 					:check-icon
 				/>
-				<ComboboxOption
+				<ComboboxOptions
 					v-else
 					:data='item'
 					:with-check-icon
 					:icon-position
 					:check-icon
-					:checked='isValueChecked(value, item)'
+					:checked='isValueChecked(value, item.value)'
 				/>
 			</template>
 			<ComboboxEmpty v-if='isEmpty'>

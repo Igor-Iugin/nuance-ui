@@ -93,7 +93,14 @@ export interface ComboboxStore {
 	focusTarget: () => void
 }
 
-export function useCombobox({ onSelect, onClear, onCloseDropdown, onOpenDropdown, opened, ..._options }: {
+export function useCombobox({
+	onSelect,
+	onClear,
+	onCloseDropdown,
+	onOpenDropdown,
+	opened,
+	..._options
+}: {
 	attrs?: ComboboxAttrs
 	scrollBehavior?: ScrollBehavior
 	loop?: boolean

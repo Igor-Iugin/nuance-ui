@@ -1,25 +1,28 @@
+import { isNumber } from 'es-toolkit'
+
 import type {
 	ComboboxData,
 	ComboboxItem,
 	ComboboxItemExt,
-	ComboboxItemGroup,
-	ComboboxParsedItem,
-	ComboboxParsedItemGroup,
+	ComboboxOption,
 } from '../../types'
 
 import { isOptionsGroup } from '../utils'
 
 
-function parseItem<Value extends string = string, Ext extends ComboboxItemExt = object>(
-	item: number | ComboboxItem<Value, Ext> | ComboboxItemGroup<Value, Ext>,
-): ComboboxItem<Value, Ext> | ComboboxParsedItemGroup<Value, Ext> {
-	if (typeof item === 'number')
+function parseItem<
+	Value extends string = string,
+	Ext extends ComboboxItemExt = object,
+>(
+	item: number | ComboboxOption<Value, Ext>,
+): ComboboxOption<Value, Ext> {
+	if (isNumber(item))
 		return { value: item.toString(), label: item.toString() } as ComboboxItem<Value, Ext>
 
 	if (isOptionsGroup(item)) {
 		return {
 			group: item.group,
-			items: item.items.map(i => parseItem(i) as ComboboxItem<Value, Ext>),
+			items: item.items.map(i => parseItem<Value, Ext>(i) as ComboboxItem<Value, Ext>),
 		}
 	}
 
@@ -38,7 +41,7 @@ export function getParsedComboboxData<
 	Ext extends ComboboxItemExt = object,
 >(
 	data: ComboboxData<Value, Ext> | undefined,
-): ComboboxParsedItem<Value, Ext>[] {
+): ComboboxOption<Value, Ext>[] {
 	if (!data)
 		return []
 

@@ -17,9 +17,6 @@ export interface ComboboxProps extends PopoverProps {
 	/** Determines whether arrow key presses should loop though items (first to last and last to first), `true` by default */
 	loop?: boolean
 
-	/** `behavior` passed down to `element.scrollIntoView`, `'instant'` by default */
-	scrollBehavior?: ScrollBehavior
-
 	/** Controls items `font-size` and `padding` @default `'sm'` */
 	size?: NuanceSize
 
@@ -31,7 +28,6 @@ export interface ComboboxProps extends PopoverProps {
 }
 
 const {
-	scrollBehavior = 'instant',
 	loop = true,
 	readOnly = false,
 	size = 'sm',
@@ -45,7 +41,7 @@ const opened = defineModel<boolean>('open', { default: false })
 
 const store = _store ?? useCombobox({
 	loop,
-	scrollBehavior,
+	scrollBehavior: 'instant',
 	onSelect: ix => emit('select', ix),
 	onClear: () => emit('clear'),
 	onOpenDropdown: source => emit('open', source),

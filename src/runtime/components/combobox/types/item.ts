@@ -12,25 +12,17 @@ export type ComboboxItem<
 	Ext extends ComboboxItemExt = object,
 > = BaseComboboxFields & { value: Value } & Ext
 
-export interface ComboboxParsedItemGroup<
-	Value extends string = string,
-	Ext extends ComboboxItemExt = object,
-> {
-	group: string
-	icon?: string
-	items: ComboboxItem<Value, Ext>[]
-}
-
-export type ComboboxParsedItem<
-	Value extends string = string,
-	Ext extends ComboboxItemExt = object,
-> = ComboboxItem<Value, Ext> | ComboboxParsedItemGroup<Value, Ext>
-
 export interface ComboboxItemGroup<
-	Value extends string = string,
+	_Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > {
 	group: string
 	icon?: string
-	items: ComboboxItem<Value, Ext>[]
+	// TODO Need fix inferring types
+	items: ComboboxItem<any, Ext>[]
 }
+
+export type ComboboxOption<
+	Value extends string = string,
+	Ext extends ComboboxItemExt = object,
+> = ComboboxItem<Value, Ext> | ComboboxItemGroup<Value, Ext>

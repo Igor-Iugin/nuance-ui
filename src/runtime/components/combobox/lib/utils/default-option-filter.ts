@@ -1,10 +1,10 @@
-import type { ComboboxItem, ComboboxItemExt, ComboboxParsedItem } from '../../types'
+import type { ComboboxItem, ComboboxItemExt, ComboboxOption } from '../../types'
 
-import { isOptionsGroup } from './is-options-group'
+import { isOptionsGroup } from './is-guards'
 
 
 export interface FilterOptionsInput<Value extends string = string, Ext extends ComboboxItemExt = object> {
-	options: ComboboxParsedItem<Value, Ext>[]
+	options: ComboboxOption<Value, Ext>[]
 	search: string
 	limit: number
 }
@@ -13,9 +13,9 @@ export function defaultOptionsFilter<Value extends string = string, Ext extends 
 	options,
 	search,
 	limit,
-}: FilterOptionsInput<Value, Ext>): ComboboxParsedItem<Value, Ext>[] {
+}: FilterOptionsInput<Value, Ext>): ComboboxOption<Value, Ext>[] {
 	const parsedSearch = search.trim().toLowerCase()
-	const result: ComboboxParsedItem<Value, Ext>[] = []
+	const result: ComboboxOption<Value, Ext>[] = []
 
 	for (let i = 0; i < options.length; i += 1) {
 		const item = options[i]!

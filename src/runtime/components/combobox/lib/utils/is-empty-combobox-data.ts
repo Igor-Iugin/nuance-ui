@@ -1,7 +1,7 @@
-import type { ComboboxParsedItem, ComboboxParsedItemGroup } from '../../types'
+import type { ComboboxItemGroup, ComboboxOption } from '../../types'
 
 
-export function isEmptyComboboxData(data: ComboboxParsedItem[]) {
+export function isEmptyComboboxData(data: ComboboxOption[]) {
 	if (data.length === 0)
 		return true
 
@@ -9,7 +9,7 @@ export function isEmptyComboboxData(data: ComboboxParsedItem[]) {
 		if (!('group' in item))
 			return false
 
-		if ((item as ComboboxParsedItemGroup).items.length > 0)
+		if ((item as ComboboxItemGroup).items.length > 0)
 			return false
 	}
 

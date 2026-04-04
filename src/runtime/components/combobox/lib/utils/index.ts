@@ -1,16 +1,13 @@
-import type { ComboboxItem, ComboboxItemExt } from '../../types'
-
-
 export * from './default-option-filter'
 export { isEmptyComboboxData } from './is-empty-combobox-data'
-export { isOptionsGroup } from './is-options-group'
+export { isOptionsGroup } from './is-guards'
 
 
-export function isValueChecked<
-	Value extends string = string,
-	Ext extends ComboboxItemExt = object,
->(value: ComboboxItem<Value, Ext> | ComboboxItem<Value, Ext>[] | undefined | null, optionValue: ComboboxItem<Value, Ext>) {
+export function isValueChecked(
+	value: string | string[] | null | undefined,
+	optionValue: string,
+): boolean {
 	return Array.isArray(value)
-		? value.some(({ value }) => value === optionValue.value)
-		: value?.value === optionValue.value
+		? value.includes(optionValue)
+		: value === optionValue
 }
