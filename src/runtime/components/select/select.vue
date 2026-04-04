@@ -36,6 +36,9 @@ export interface SelectProps<
 	/** If set, it becomes possible to deselect value by clicking on the selected option @default `true` */
 	allowDeselect?: boolean
 
+	/** If set, the dropdown will close after an option is selected @default `!multiple` */
+	closeOnSelect?: boolean
+
 	/** If set, the clear button is displayed in the right section when the component has value @default `false` */
 	// clearable?: boolean
 
@@ -56,6 +59,7 @@ const {
 	rightSectionPE = 'none',
 	readonly = false,
 	allowDeselect = false,
+	closeOnSelect,
 	autoComplete = 'off',
 	icon,
 	limit,
@@ -117,6 +121,8 @@ const inputValue = computed({
 // ─── Handlers ───
 
 function onSubmit(val: string) {
+	const shouldClose = closeOnSelect ?? !multiple
+
 	if (multiple) {
 		const current = Array.isArray(value.value) ? value.value : []
 		value.value = current.includes(val)
@@ -128,8 +134,10 @@ function onSubmit(val: string) {
 		const nextValue = allowDeselect && value.value === val ? null : val
 		value.value = options.value[val] ? nextValue : null
 		search.value = ''
-		store.closeDropdown()
 	}
+
+	if (shouldClose)
+		store.closeDropdown()
 }
 </script>
 
