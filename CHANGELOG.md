@@ -1,6 +1,40 @@
 # Changelog
 
 
+## v0.2.6
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.3...v0.2.6)
+
+### 🚀 Enhancements
+
+- ✨  Add prop closeOnSelect ([1006a49](https://github.com/Igor-Iugin/nuance-ui/commit/1006a49))
+
+### 🩹 Fixes
+
+- 🚸  Made selecting option on mousedown ([197df35](https://github.com/Igor-Iugin/nuance-ui/commit/197df35))
+- 🎨  Fix imports ([579596f](https://github.com/Igor-Iugin/nuance-ui/commit/579596f))
+
+### 💅 Refactors
+
+- **combobox:** Rework to text values, add multiple selection, fix search ([0de0aa9](https://github.com/Igor-Iugin/nuance-ui/commit/0de0aa9))
+
+### 📦 Build
+
+- ⬆️  Upgrade nuxt to 4.4.2 ([572492b](https://github.com/Igor-Iugin/nuance-ui/commit/572492b))
+
+### 🏡 Chore
+
+- Rename package to @nuance/ui and clean up exports ([c4974a8](https://github.com/Igor-Iugin/nuance-ui/commit/c4974a8))
+- **release:** V0.2.3 ([5e514cd](https://github.com/Igor-Iugin/nuance-ui/commit/5e514cd))
+- Add public access ([dfa0a1a](https://github.com/Igor-Iugin/nuance-ui/commit/dfa0a1a))
+- **release:** V0.2.4 ([d5b4ba4](https://github.com/Igor-Iugin/nuance-ui/commit/d5b4ba4))
+- **release:** V0.2.5 ([59e6add](https://github.com/Igor-Iugin/nuance-ui/commit/59e6add))
+- **ai:** Update rules ([3dad8ed](https://github.com/Igor-Iugin/nuance-ui/commit/3dad8ed))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.5
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.4...v0.2.5)
