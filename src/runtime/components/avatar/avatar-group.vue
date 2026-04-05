@@ -6,8 +6,8 @@ import { getSpacing } from '@nui/utils'
 import { computed } from 'vue'
 
 import Box from '../box.vue'
-import { useProvideAvatarGroup } from './_lib/context'
 import css from './avatar.module.css'
+import { useProvideAvatarGroup } from './lib/context'
 
 
 export interface AvatarGroupProps extends BoxProps {

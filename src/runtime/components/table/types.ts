@@ -1,3 +1,4 @@
+import type { NuanceColor } from '@nui/types'
 import type { RowData, TableMeta } from '@tanstack/table-core'
 import type {
 	CellContext,
@@ -20,8 +21,6 @@ import type {
 } from '@tanstack/vue-table'
 import type { VirtualizerOptions } from '@tanstack/vue-virtual'
 import type { CSSProperties, TableHTMLAttributes, WatchOptions } from 'vue'
-
-import type { NuanceColor } from '../../types'
 
 
 export type TableRow<T> = Row<T>

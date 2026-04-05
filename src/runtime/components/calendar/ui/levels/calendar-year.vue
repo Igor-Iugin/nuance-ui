@@ -3,7 +3,7 @@ import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
 import { date, isAfter, isBefore, range } from '@formkit/tempo'
-import { isSameMonth } from '@nui/helpers/date'
+import { isSameMonth } from '@nui/utils'
 import { chunk } from 'es-toolkit'
 import { computed } from 'vue'
 

@@ -1,8 +1,8 @@
 import type { NuanceColor, NuanceGradient, NuanceTheme } from '@nui/types'
 
-import { DEFAULT_GRADIENT } from '../const'
-import { getGradient, getGradientOutline } from './color-functions/get-gradient'
-import { getThemeColor, parseThemeColor } from './color-functions/parse-theme-color'
+import { DEFAULT_GRADIENT } from '../color/const'
+import { getGradient, getGradientOutline } from '../color/get-gradient'
+import { getThemeColor, parseThemeColor } from '../color/parse-theme-color'
 
 
 interface VariantColorResolverResult {

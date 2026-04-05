@@ -2,7 +2,7 @@
 import type { BoxProps } from '@nui/components'
 import type { NuanceColor } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 

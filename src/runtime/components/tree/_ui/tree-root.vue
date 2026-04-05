@@ -1,13 +1,13 @@
 <script setup lang='ts'>
 import type { ButtonProps } from '@nui/components'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
 import { onClickOutside, useEventListener } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
 import type { RovingFocusProps } from '../../roving-focus/roving-focus.vue'
-import type { TreeEmits, TreeFilter, TreeIconResolver, TreeLoader, TreeModels } from '../model'
+import type { TreeEmits, TreeFilter, TreeIconResolver, TreeLoader, TreeModels } from '../types'
 
 import Box from '../../box.vue'
 import RovingFocus from '../../roving-focus/roving-focus.vue'

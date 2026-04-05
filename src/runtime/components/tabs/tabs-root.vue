@@ -1,13 +1,14 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceRadius } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
-import { getRadius, getSafeId, getThemeColor } from '@nui/utils'
+import { useStyleResolver } from '@nui/composables'
+import { getRadius, getThemeColor } from '@nui/utils'
+import { computed, onMounted, useId } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
 import Box from '../box.vue'
-import { useProvideTabsContext } from '../tabs/lib'
+import { getSafeId, useProvideTabsContext } from './lib'
 import css from './tabs.module.css'
 
 

@@ -1,4 +1,9 @@
-import type { NuanceColor, NuanceColorShade, NuanceDefaultThemeColor, NuanceTheme } from '@nui/types'
+import type {
+	NuanceColor,
+	NuanceColorShade,
+	NuanceDefaultThemeColor,
+	NuanceTheme,
+} from '@nui/types'
 
 import { getColorVar } from './get-color-var'
 
@@ -31,6 +36,7 @@ const themeColors: (NuanceDefaultThemeColor | 'primary')[] = [
 	'white',
 	'primary',
 ]
+
 
 export function parseThemeColor({
 	color = 'primary',

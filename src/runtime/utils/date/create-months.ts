@@ -1,5 +1,5 @@
 import type { DateInput } from '@formkit/tempo'
-import type { DateConfig } from '@nui/composals'
+import type { DateConfig } from '@nui/composables'
 
 import { addDay, monthEnd, monthStart, weekEnd, weekStart } from '@formkit/tempo'
 import { chunk } from 'es-toolkit'

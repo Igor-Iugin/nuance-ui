@@ -3,7 +3,7 @@ import { unrefElement } from '@vueuse/core'
 import { computed, onBeforeUnmount, useTemplateRef } from 'vue'
 
 import Renderless from '../renderless/renderless.vue'
-import { useRovingFocus } from './_lib/context'
+import { useRovingFocus } from './lib/context'
 
 
 const { focus, focusElement, orientation, attr, onItemUnmount } = useRovingFocus() ?? {}

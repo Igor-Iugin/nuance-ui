@@ -1,10 +1,10 @@
 import type { NuanceSize } from '@nui/types'
 import type { CSSProperties, ModelRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createStrictInjection } from '@nui/composables'
 
 import type { ComboboxItem } from '../types'
-import type { ComboboxStore } from './use-combobox/use-combobox'
+import type { ComboboxStore } from './use-combobox'
 
 
 interface ComboboxState {

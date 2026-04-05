@@ -1,6 +1,6 @@
 import type { NuanceRadius, NuanceShadow } from '@nui/types'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createStrictInjection } from '@nui/composables'
 
 import type { UsePopoverReturn } from './use-popover'
 

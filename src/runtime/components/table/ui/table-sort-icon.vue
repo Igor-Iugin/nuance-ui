@@ -4,7 +4,7 @@ import type { Column, SortDirection } from '@tanstack/vue-table'
 import defu from 'defu'
 import { computed } from 'vue'
 
-import type { TableData } from '../model'
+import type { TableData } from '../types'
 
 
 export interface TableSortIconProps<TData extends TableData> {

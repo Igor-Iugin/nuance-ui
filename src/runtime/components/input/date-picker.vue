@@ -2,7 +2,7 @@
 import type { DateInput, Format } from '@formkit/tempo'
 
 import { format } from '@formkit/tempo'
-import { useDatesConfig } from '@nui/composals'
+import { useDatesConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { CalendarEmits, DateSelection, SelectionMode } from '../calendar'

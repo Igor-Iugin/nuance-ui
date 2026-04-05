@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceRadius } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius } from '@nui/utils'
 import { computed, useId } from 'vue'
 

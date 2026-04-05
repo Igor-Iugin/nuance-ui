@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue'
 
 import type { TreeRootProps } from './_ui/tree-root.vue'
-import type { TreeEmits, TreeModels } from './model'
+import type { TreeEmits, TreeModels } from './types'
 
 import UTreeItem from './_ui/tree-item.vue'
 import TreeRoot from './_ui/tree-root.vue'

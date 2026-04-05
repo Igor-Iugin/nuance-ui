@@ -1,13 +1,13 @@
 <script setup lang="ts" generic="T extends SelectionMode = 'single'">
 import type { DateInput, FormatToken } from '@formkit/tempo'
-import type { DateConfig } from '@nui/composals'
-import type { DateMatcher } from '@nui/helpers/date'
+import type { DateConfig } from '@nui/composables'
+import type { DateMatcher } from '@nui/utils'
 
 import { range } from '@formkit/tempo'
-import { useDatesConfig } from '@nui/composals'
+import { useDatesConfig } from '@nui/composables'
 import { computed } from 'vue'
 
-import type { DateSelection, SelectionMode } from '../../model'
+import type { DateSelection, SelectionMode } from '../../types'
 
 import Box from '../../../box.vue'
 import { useProvideCalendarState } from '../../lib/context'

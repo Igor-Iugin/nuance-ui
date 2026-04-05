@@ -1,4 +1,4 @@
-import { isFalsy } from './boolean/is-falsy'
+import { isFalsy } from '../boolean'
 
 
 export type Mod = Record<string, any>

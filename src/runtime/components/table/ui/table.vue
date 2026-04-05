@@ -15,6 +15,7 @@ import type {
 } from '@tanstack/vue-table'
 import type { Ref } from 'vue'
 
+import { getThemeColor } from '@nui/utils'
 import {
 	FlexRender,
 	getCoreRowModel,
@@ -27,9 +28,8 @@ import { reactivePick, unrefElement } from '@vueuse/core'
 import { useStyleResolver } from '#imports'
 import { computed, ref, useTemplateRef, watch } from 'vue'
 
-import type { TableColumn, TableData, TableProps, TableSlots } from '../model'
+import type { TableColumn, TableData, TableProps, TableSlots } from '../types'
 
-import { getThemeColor } from '../../../utils'
 import Box from '../../box.vue'
 import { createRowHandlers, processColumns, resolveValue, valueUpdater } from '../lib'
 

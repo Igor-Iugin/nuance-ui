@@ -2,7 +2,7 @@
 import { FlexRender } from '@tanstack/vue-table'
 
 import type { ButtonProps } from '../../button/button.vue'
-import type { TableData } from '../model'
+import type { TableData } from '../types'
 import type { TableSortIconProps } from './table-sort-icon.vue'
 
 import Button from '../../button/button.vue'

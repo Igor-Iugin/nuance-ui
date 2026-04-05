@@ -1,4 +1,4 @@
-import type { TreeFilter, TreeItem } from '../model'
+import type { TreeFilter, TreeItem } from '../types'
 
 
 export function filterTreeItems(items: TreeItem[] | undefined, filter?: TreeFilter) {

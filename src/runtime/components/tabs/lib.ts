@@ -1,6 +1,6 @@
 import type { ModelRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createStrictInjection } from '@nui/composables'
 
 
 export interface TabsContext {
@@ -94,3 +94,14 @@ export const useProvideTabsContext = useProvide
  * Предоставляет доступ к состоянию и методам управления вкладками.
  */
 export const useTabsState = useState
+
+
+export function getSafeId(uid: string, errorMessage: string) {
+	return (value: string) => {
+		if (typeof value !== 'string' || value.trim().length === 0) {
+			throw new Error(errorMessage)
+		}
+
+		return `${uid}-${value}`
+	}
+}

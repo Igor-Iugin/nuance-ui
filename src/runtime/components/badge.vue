@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useStyleResolver } from '@nui/composals'
+import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+
+import { useStyleResolver } from '@nui/composables'
+import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '../types'
 import type { BoxProps } from './box.vue'
 
-import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '../utils'
 import Box from './box.vue'
 
 

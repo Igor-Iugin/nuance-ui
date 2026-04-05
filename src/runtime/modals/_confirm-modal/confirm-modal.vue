@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { MaybePromise } from '@nui/types'
+
 import { ref } from 'vue'
 
 import type { ButtonProps, ModalRootProps } from '../../components'
-import type { MaybePromise } from '../../types'
 
 import Button from '../../components/button/button.vue'
 import ModalCloseButton from '../../components/modal/modal-close-button.vue'

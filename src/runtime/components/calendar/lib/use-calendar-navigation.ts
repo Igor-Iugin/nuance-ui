@@ -1,12 +1,12 @@
 import type { DateInput } from '@formkit/tempo'
-import type { DateConfig } from '@nui/composals'
+import type { DateConfig } from '@nui/composables'
 import type { ModelRef } from 'vue'
 
 import { addMonth, addYear, date as fDate, format, isAfter, isBefore, sameYear } from '@formkit/tempo'
-import { isSameMonth } from '@nui/helpers/date'
+import { isSameMonth } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { CalendarLevel } from '../model'
+import type { CalendarLevel } from '../types'
 
 
 const LEVEL_ORDER: CalendarLevel[] = ['month', 'year', 'decade']

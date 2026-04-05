@@ -1,6 +1,7 @@
 import type { NuanceSize } from '@nui/types'
 import type { ModelRef } from 'vue'
 
+import { useSelectableGroup } from '@nui/composables'
 import { createInjectionState } from '@vueuse/core'
 
 
@@ -11,14 +12,9 @@ export interface CheckboxGroupState {
 
 const injectionKey = Symbol('CheckboxGroup')
 const [useProvide, useState] = createInjectionState(({ value, size }: CheckboxGroupState) => {
-	const onUpdate = (newValue: string) => {
-		if (value.value.includes(newValue))
-			return value.value = value.value.filter(i => i !== newValue)
+	const { update } = useSelectableGroup(value)
 
-		return value.value.push(newValue)
-	}
-
-	return { value, size, onUpdate }
+	return { value, size, update }
 }, {
 	injectionKey,
 })

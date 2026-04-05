@@ -1,4 +1,4 @@
-import type { TimePickerAmPmLabels, TimePickerFormat } from '../model'
+import type { TimePickerAmPmLabels, TimePickerFormat } from '../types'
 
 import { splitTimeString } from './split-time-string'
 

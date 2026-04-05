@@ -35,8 +35,8 @@ const checked = computed(() => {
 })
 
 function onUpdate() {
-	if (_value && ctx?.onUpdate)
-		return ctx.onUpdate(_value)
+	if (_value && ctx?.update)
+		return ctx.update(_value)
 
 	return modelValue.value = !modelValue.value
 }

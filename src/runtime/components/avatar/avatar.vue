@@ -2,15 +2,15 @@
 import type { BoxProps } from '@nui/components'
 import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import Box from '../box.vue'
-import { useAvatarGroupState } from './_lib/context'
-import { getInitials } from './_lib/get-initials'
-import { getInitialsColor } from './_lib/get-initials-color'
 import css from './avatar.module.css'
+import { useAvatarGroupState } from './lib/context'
+import { getInitials } from './lib/get-initials'
+import { getInitialsColor } from './lib/get-initials-color'
 
 
 export interface AvatarProps extends BoxProps {

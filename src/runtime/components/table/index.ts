@@ -1,4 +1,4 @@
-export * from './model'
+export * from './types'
 export type * from './ui/table-sort-icon.vue'
 export type * from './ui/table-sortable-header.vue'
 export type * from './ui/table.vue'

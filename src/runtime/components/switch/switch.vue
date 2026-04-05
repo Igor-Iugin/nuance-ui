@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-import { useStyleResolver } from '#imports'
+import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+
+import { useStyleResolver } from '@nui/composables'
+import { getRadius, getSize, getThemeColor } from '@nui/utils'
 import { computed, useId } from 'vue'
 
-import type { NuanceColor, NuanceRadius, NuanceSize } from '../../types'
 import type { InlineInputProps } from '../input/ui/input-inline.vue'
 
-import { getRadius, getSize, getThemeColor } from '../../utils'
 import Box from '../box.vue'
 import InputInline from '../input/ui/input-inline.vue'
 import { useSwitchGroupState } from './lib/group.context'
@@ -78,7 +79,7 @@ const checked = computed({
 	},
 	set: (check: boolean) => {
 		if (ctx && value !== undefined)
-			return ctx.onUpdate(value)
+			return ctx.update(value)
 
 		modelValue.value = check
 	},

@@ -2,7 +2,7 @@
 import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getSize } from '@nui/utils'
 import { computed } from 'vue'
 

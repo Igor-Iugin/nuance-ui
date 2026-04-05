@@ -1,4 +1,4 @@
-import type { TimePickerAmPmLabels, TimePickerFormat } from '../model'
+import type { TimePickerAmPmLabels, TimePickerFormat } from '../types'
 
 import { padTime } from './pad-time'
 

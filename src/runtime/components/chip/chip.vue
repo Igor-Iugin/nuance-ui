@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
 import { computed, useId } from 'vue'
 
@@ -185,14 +185,14 @@ const style = computed(() => useStyleResolver(theme => {
 
 	opacity: 0;
 
-	&:focus-visible + .label {
+	&:focus-visible+.label {
 		outline: 2px solid var(--color-primary-filled);
 		outline-offset: 2px;
 	}
 }
 
 .input:disabled {
-	& + .label {
+	&+.label {
 		cursor: not-allowed;
 
 		color: var(--color-disabled-text);
@@ -202,7 +202,7 @@ const style = computed(() => useStyleResolver(theme => {
 }
 
 .input:not(:disabled) {
-	& + .label[data-variant='outline'] {
+	&+.label[data-variant='outline'] {
 		@mixin where-light {
 			border: 1px solid var(--color-gray-3);
 
@@ -226,8 +226,8 @@ const style = computed(() => useStyleResolver(theme => {
 		}
 	}
 
-	& + .label[data-variant='filled'],
-	& + .label[data-variant='light'] {
+	&+.label[data-variant='filled'],
+	&+.label[data-variant='light'] {
 		border: 1px solid transparent;
 
 		color: var(--color-text);
@@ -253,11 +253,11 @@ const style = computed(() => useStyleResolver(theme => {
 }
 
 .input:not(:disabled):checked {
-	& + .label {
+	&+.label {
 		padding: var(--chip-checked-padding);
 	}
 
-	& + .label[data-variant='outline'] {
+	&+.label[data-variant='outline'] {
 		--chip-icon-color: var(--chip-color);
 
 		border: var(--chip-bd);
@@ -267,8 +267,8 @@ const style = computed(() => useStyleResolver(theme => {
 		}
 	}
 
-	& + .label[data-variant='filled'],
-	& + .label[data-variant='light'] {
+	&+.label[data-variant='filled'],
+	&+.label[data-variant='light'] {
 		--chip-icon-color: var(--chip-color);
 
 		color: var(--chip-color);

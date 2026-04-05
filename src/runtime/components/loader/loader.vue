@@ -2,7 +2,7 @@
 import type { NuanceColor, NuanceSize } from '@nui/types'
 import type { Component } from 'vue'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getSize, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 

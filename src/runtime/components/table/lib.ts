@@ -1,7 +1,7 @@
 import type { Updater } from '@tanstack/vue-table'
 import type { Ref } from 'vue'
 
-import type { TableColumn, TableData, TableProps, TableRow } from './model'
+import type { TableColumn, TableData, TableProps, TableRow } from './types'
 
 
 export function processColumns<T extends TableData>(columns: TableColumn<T>[]): TableColumn<T>[] {

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -90,7 +90,7 @@ const style = computed(() => useStyleResolver(theme => {
 	border-radius: var(--checkbox-radius);
 
 	transition: border-color 100ms ease,
-	background-color 100ms ease;
+		background-color 100ms ease;
 	-webkit-tap-highlight-color: transparent;
 
 	&[data-indeterminate],
@@ -99,7 +99,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 		background-color: var(--checkbox-color);
 
-		& > .icon {
+		&>.icon {
 			transform: none;
 
 			color: var(--checkbox-icon-color);
@@ -115,7 +115,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 		background-color: var(--color-disabled);
 
-		&[data-checked] > .icon {
+		&[data-checked]>.icon {
 			@mixin light {
 				color: var(--color-gray-5);
 			}
@@ -140,13 +140,14 @@ const style = computed(() => useStyleResolver(theme => {
 }
 
 .indicator[data-variant='outline'] {
+
 	&[data-indeterminate]:not([data-disabled]),
 	&[data-checked]:not([data-disabled]) {
 		border-color: var(--checkbox-color);
 
 		background-color: transparent;
 
-		& > .icon {
+		&>.icon {
 			transform: none;
 
 			color: var(--checkbox-color);
@@ -170,6 +171,6 @@ const style = computed(() => useStyleResolver(theme => {
 	opacity: 1;
 
 	transition: transform 100ms ease,
-	opacity 100ms ease;
+		opacity 100ms ease;
 }
 </style>

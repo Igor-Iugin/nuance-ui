@@ -1,10 +1,10 @@
 import type { ButtonProps } from '@nui/components'
 import type { ModelRef, ShallowRef } from 'vue'
 
-import { createStrictInjection } from '@nui/helpers'
+import { createStrictInjection } from '@nui/composables'
 import { unrefElement } from '@vueuse/core'
 
-import type { TreeFilter, TreeIconResolver, TreeLoader } from '../model'
+import type { TreeFilter, TreeIconResolver, TreeLoader } from '../types'
 
 
 type EventType = 'select' | 'expand'

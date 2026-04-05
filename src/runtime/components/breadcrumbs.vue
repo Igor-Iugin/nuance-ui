@@ -2,7 +2,7 @@
 import type { NuanceSpacing } from '@nui/types'
 import type { MaybeRef } from 'vue'
 
-import { useTheme } from '@nui/composals'
+import { useTheme } from '@nui/composables'
 import { getSpacing } from '@nui/utils'
 import { computed, unref } from 'vue'
 
@@ -119,9 +119,9 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 	display: flex;
 	gap: .25rem;
 	align-items: center;
-	text-transform: capitalize;
 
 	font-weight: 600;
+	text-transform: capitalize;
 }
 
 .icon {

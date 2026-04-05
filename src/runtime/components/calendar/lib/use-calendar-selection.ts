@@ -1,13 +1,13 @@
 import type { DateInput } from '@formkit/tempo'
-import type { DateConfig } from '@nui/composals'
-import type { DateMatcher } from '@nui/helpers/date'
+import type { DateConfig } from '@nui/composables'
+import type { DateMatcher } from '@nui/utils'
 import type { ModelRef } from 'vue'
 
 import { sameDay, weekEnd, weekStart } from '@formkit/tempo'
-import { createStrictInjection } from '@nui/helpers'
-import { isSameWeek } from '@nui/helpers/date'
+import { createStrictInjection } from '@nui/composables'
+import { isSameWeek } from '@nui/utils'
 
-import type { DateSelection, SelectionMode } from '../model'
+import type { DateSelection, SelectionMode } from '../types'
 
 
 export interface UseCalendarSelectionProps<T extends SelectionMode = 'single'> {

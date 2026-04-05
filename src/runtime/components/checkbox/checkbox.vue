@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed, useId } from 'vue'
 
@@ -69,7 +69,7 @@ const style = computed(() => useStyleResolver(theme => {
 				type='checkbox'
 				:class='$style.input'
 				:disabled='rest.disabled'
-				@change='() => value && ctx ? ctx.onUpdate(value) : toggle()'
+				@change='() => value && ctx ? ctx.update(value) : toggle()'
 			>
 
 			<slot name='icon' :indeterminate='modelValue === "indeterminate"' :class='$style.icon'>
@@ -121,7 +121,7 @@ const style = computed(() => useStyleResolver(theme => {
 	appearance: none;
 
 	transition: border-color 100ms ease,
-	background-color 100ms ease;
+		background-color 100ms ease;
 	-webkit-tap-highlight-color: transparent;
 
 	&:where([data-error]) {
@@ -134,7 +134,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 		background-color: var(--checkbox-color);
 
-		& + .icon {
+		&+.icon {
 			transform: none;
 
 			opacity: 1;
@@ -148,7 +148,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 		background-color: var(--color-disabled);
 
-		& + .icon {
+		&+.icon {
 			color: var(--color-disabled);
 		}
 	}
@@ -167,7 +167,7 @@ const style = computed(() => useStyleResolver(theme => {
 }
 
 .input[data-variant='outline'] {
-	& + .icon {
+	&+.icon {
 		color: var(--checkbox-color);
 	}
 
@@ -177,7 +177,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 		background-color: transparent;
 
-		& + .icon {
+		&+.icon {
 			transform: none;
 
 			color: var(--checkbox-color);
@@ -202,6 +202,6 @@ const style = computed(() => useStyleResolver(theme => {
 	opacity: 0;
 
 	transition: transform 100ms ease,
-	opacity 100ms ease;
+		opacity 100ms ease;
 }
 </style>

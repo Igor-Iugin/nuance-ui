@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { DateConfig } from '@nui/composals'
+import type { DateConfig } from '@nui/composables'
 
-import { useProvideDatesConfig } from '@nui/composals'
+import { useProvideDatesConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'

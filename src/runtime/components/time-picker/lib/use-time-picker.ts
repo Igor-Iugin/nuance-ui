@@ -4,7 +4,7 @@ import { iso8601, format as lFormat } from '@formkit/tempo'
 import { unrefElement } from '@vueuse/core'
 import { computed, ref, shallowRef, watch } from 'vue'
 
-import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from '../model'
+import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from '../types'
 
 import { clampTime } from './clamp-time'
 import { getParsedTime } from './get-parsed-time'

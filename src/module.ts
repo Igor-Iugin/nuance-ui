@@ -65,10 +65,9 @@ export default defineNuxtModule<ModuleOptions>({
 		// ─── Types Templates ───
 
 		const aliases = {
-			composals: resolve('./runtime/composals'),
+			composables: resolve('./runtime/composables'),
 			components: resolve('./runtime/components'),
 			utils: resolve('./runtime/utils'),
-			helpers: resolve('./runtime/helpers'),
 			types: resolve('./runtime/types'),
 			modals: resolve('./runtime/modals'),
 		}
@@ -102,7 +101,7 @@ export default defineNuxtModule<ModuleOptions>({
 
 		if (options.autoImport) {
 			addComponentsDir({
-				path: resolve('./runtime/components'),
+				path: aliases.components,
 				prefix: options.prefix,
 				pathPrefix: false,
 				extensions: ['.vue'],
@@ -113,8 +112,8 @@ export default defineNuxtModule<ModuleOptions>({
 				],
 			})
 
-			addImportsDir(resolve('./runtime/composals'))
-			addImportsDir(resolve('./runtime/helpers'))
+			addImportsDir(aliases.composables)
+			addImportsDir(aliases.utils)
 		}
 
 

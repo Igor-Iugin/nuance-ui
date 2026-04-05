@@ -2,7 +2,7 @@
 import type { DateInput } from '@formkit/tempo'
 import type { NuanceSize } from '@nui/types'
 
-import type { CalendarEmits, CalendarLevel, DateSelection, SelectionMode } from './model'
+import type { CalendarEmits, CalendarLevel, DateSelection, SelectionMode } from './types'
 import type { CalendarRootProps } from './ui/core'
 
 import { useCalendarNavigation } from './lib/use-calendar-navigation'

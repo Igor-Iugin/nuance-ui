@@ -2,7 +2,7 @@
 import type { NuanceColor, NuanceGradient, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { useStyleResolver } from '@nui/composals'
+import { useStyleResolver } from '@nui/composables'
 import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 

@@ -1,1 +1,5 @@
 export { useTabsState } from './lib'
+export type * from './tabs-list.vue'
+export type * from './tabs-panel.vue'
+export type * from './tabs-root.vue'
+export type * from './tabs-tab.vue'

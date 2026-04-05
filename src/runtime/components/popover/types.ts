@@ -1,7 +1,6 @@
 import type { AlignedPlacement, OffsetOptions, Side, Strategy } from '@floating-ui/vue'
+import type { NuanceRadius, NuanceShadow } from '@nui/types'
 import type { CSSProperties } from 'vue'
-
-import type { NuanceRadius, NuanceShadow } from '~/src/runtime/types/theme'
 
 
 export type ArrowPosition = 'center' | 'side'

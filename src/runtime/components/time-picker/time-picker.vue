@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import type { InputBaseProps } from '../input'
 import type { InputWrapperProps } from '../input/ui/input-wrapper.vue'
-import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from './model'
+import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from './types'
 
 import ActionIcon from '../action-icon/action-icon.vue'
 import InputBase from '../input/ui/input-base.vue'

@@ -1,15 +1,15 @@
 <script setup lang='ts'>
-import { useTheme } from '@nui/composals'
+import { useTheme } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed, watch } from 'vue'
 
-import type { TreeItem } from '../model'
+import type { TreeItem } from '../types'
 
 import ActionIcon from '../../action-icon/action-icon.vue'
 import Button from '../../button/button.vue'
 import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
-import UTransition from '../../transition/transition.vue'
+import UTransition from '../../transition.vue'
 import { useTreeState } from '../lib/context'
 import { filterTreeItems } from '../lib/filter-tree-items'
 import { useTreeItemHandlers } from '../lib/item-handlers'

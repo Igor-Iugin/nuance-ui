@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
-import type { DateMatcher } from '@nui/helpers/date'
 import type { NuanceSize } from '@nui/types'
+import type { DateMatcher } from '@nui/utils'
 
 import { isAfter, isBefore, sameDay } from '@formkit/tempo'
-import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } from '@nui/helpers/date'
+import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } from '@nui/utils'
 import { shallowRef, watch } from 'vue'
 
 import Box from '../../../box.vue'
