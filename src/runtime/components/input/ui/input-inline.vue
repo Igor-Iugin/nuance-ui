@@ -17,6 +17,8 @@ export interface InlineInputProps extends BoxProps {
 	disabled?: boolean | undefined
 	size?: NuanceSize | string
 	labelPosition?: 'left' | 'right'
+	bodyElement?: keyof HTMLElementTagNameMap
+	labelElement?: keyof HTMLElementTagNameMap
 }
 
 const {
@@ -28,6 +30,8 @@ const {
 	error,
 	label,
 	mod,
+	bodyElement = 'div',
+	labelElement = 'label',
 } = defineProps<InlineInputProps>()
 
 const style = computed(() => ({
@@ -38,11 +42,11 @@ const style = computed(() => ({
 
 <template>
 	<Box :style :class='$style.root' :mod='[{ "label-position": labelPosition }, mod]'>
-		<div :class='$style.body'>
+		<Box :is='bodyElement' :for='bodyElement === "label" ? id : undefined' :class='$style.body'>
 			<slot />
 
 			<div :class='$style.wrapper'>
-				<Box is='label' v-if='label || $slots.label' :class='$style.label' :for='id' :mod='{ disabled }'>
+				<Box :is='labelElement' v-if='label || $slots.label' :class='$style.label' :for='labelElement === "label" ? id : undefined' :mod='{ disabled }'>
 					<slot name='label'>
 						{{ label }}
 					</slot>
@@ -60,7 +64,7 @@ const style = computed(() => ({
 					</slot>
 				</Box>
 			</div>
-		</div>
+		</Box>
 	</Box>
 </template>
 

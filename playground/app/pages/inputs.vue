@@ -80,11 +80,14 @@ const select = ref(['2', '1'])
 		</div>
 
 		<div :class='$style.flex'>
-			<NSwitch size='xs' on-label='ON' off-label='OFF' />
-			<NSwitch size='sm' on-label='ON' off-label='OFF' />
-			<NSwitch size='md' on-label='ON' off-label='OFF' />
-			<NSwitch size='lg' on-label='ON' off-label='OFF' />
-			<NSwitch size='xl' on-label='ON' off-label='OFF' />
+			<NSwitchGroup>
+				<NSwitch size='xs' value='1' label='test' on-label='ON' off-label='OFF' />
+				<NSwitch size='sm' value='2' on-label='ON' off-label='OFF' />
+				<NSwitch size='md' value='3' on-label='ON' off-label='OFF' />
+				<NSwitch size='lg' value='4' on-label='ON' off-label='OFF' />
+				<NSwitch size='xl' value='5' on-label='ON' off-label='OFF' />
+			</NSwitchGroup>
+			<NSwitch value='5' on-label='ON' off-label='OFF' />
 		</div>
 	</section>
 </template>

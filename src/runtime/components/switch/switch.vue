@@ -8,6 +8,7 @@ import type { InlineInputProps } from '../input/ui/input-inline.vue'
 import { getRadius, getSize, getThemeColor } from '../../utils'
 import Box from '../box.vue'
 import InputInline from '../input/ui/input-inline.vue'
+import { useSwitchGroupState } from './lib/group.context'
 
 
 export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
@@ -16,6 +17,9 @@ export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
 
 	/** Input name */
 	name?: string
+
+	/** Value used when `Switch` is inside `SwitchGroup` */
+	value?: string
 
 	/** Inner label when the `Switch` is in unchecked state */
 	offLabel?: string
@@ -42,15 +46,16 @@ export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
 const {
 	id,
 	radius,
-	size,
+	size: _size,
 	color,
 	name,
+	value,
 	error,
 	labelPosition,
 	onLabel,
 	offLabel,
 	withIndicator,
-	disabled,
+	disabled: _disabled,
 	description,
 	icon,
 	label,
@@ -59,15 +64,43 @@ const {
 
 const uuid = computed(() => id ?? useId())
 
-const checked = defineModel<boolean>({ default: false })
+const ctx = useSwitchGroupState()
+const size = computed(() => _size ?? ctx?.size)
+
+const modelValue = defineModel<boolean>({ default: false })
+
+const checked = computed({
+	get: () => {
+		if (ctx?.value.value && value !== undefined)
+			return ctx.value.value.includes(value)
+
+		return modelValue.value
+	},
+	set: (check: boolean) => {
+		if (ctx && value !== undefined)
+			return ctx.onUpdate(value)
+
+		modelValue.value = check
+	},
+})
+
+const disabled = computed(() => {
+	if (_disabled)
+		return true
+
+	if (ctx && value !== undefined)
+		return ctx.isDisabled(value)
+
+	return false
+})
 
 const style = computed(() => useStyleResolver(theme => ({
 	'--switch-radius': radius === undefined ? undefined : getRadius(radius),
-	'--switch-height': getSize(size, 'switch-height'),
-	'--switch-width': getSize(size, 'switch-width'),
-	'--switch-thumb-size': getSize(size, 'switch-thumb-size'),
-	'--switch-label-font-size': getSize(size, 'switch-label-font-size'),
-	'--switch-track-label-padding': getSize(size, 'switch-track-label-padding'),
+	'--switch-height': getSize(size.value, 'switch-height'),
+	'--switch-width': getSize(size.value, 'switch-width'),
+	'--switch-thumb-size': getSize(size.value, 'switch-thumb-size'),
+	'--switch-label-font-size': getSize(size.value, 'switch-label-font-size'),
+	'--switch-track-label-padding': getSize(size.value, 'switch-track-label-padding'),
 	'--switch-color': color ? getThemeColor(color, theme) : undefined,
 })))
 </script>
@@ -77,6 +110,8 @@ const style = computed(() => useStyleResolver(theme => ({
 		:id='uuid'
 		:style
 		:class='$style.root'
+		body-element='label'
+		label-element='span'
 		:label
 		:label-position
 		:description
@@ -90,10 +125,12 @@ const style = computed(() => useStyleResolver(theme => ({
 			v-model='checked'
 			:disabled
 			:name
+			:value
 			type='checkbox'
 			role='switch'
 			:class='$style.input'
 		>
+
 		<Box
 			is='span'
 			aria-hidden='true'

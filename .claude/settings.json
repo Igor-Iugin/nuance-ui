@@ -3,7 +3,8 @@
     "allow": [
       "WebSearch",
       "Bash(pnpm lint:*)",
-      "Bash(pnpm lint:ts)"
+      "Bash(pnpm lint:ts)",
+      "Bash(npm run:*)"
     ]
   }
 }
