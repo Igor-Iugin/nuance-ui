@@ -1,6 +1,43 @@
 # Changelog
 
 
+## v0.2.7
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.6...v0.2.7)
+
+### 🚀 Enhancements
+
+- ✨  Created Switch component ([d39481a](https://github.com/Igor-Iugin/nuance-ui/commit/d39481a))
+- ✨  New SwitchGroup component ([545bd90](https://github.com/Igor-Iugin/nuance-ui/commit/545bd90))
+
+### 🩹 Fixes
+
+- Rename composals -> composables ([0da42bf](https://github.com/Igor-Iugin/nuance-ui/commit/0da42bf))
+
+### 💅 Refactors
+
+- **button-group:** ♻️  Make group styles work with any child ([de88cc5](https://github.com/Igor-Iugin/nuance-ui/commit/de88cc5))
+- :broom: spring cleaning of runtime structure ([82a9438](https://github.com/Igor-Iugin/nuance-ui/commit/82a9438))
+
+### 📖 Documentation
+
+- 📝  Added JSDocs ([df98208](https://github.com/Igor-Iugin/nuance-ui/commit/df98208))
+- 📝 Added JSDocs ([980bec4](https://github.com/Igor-Iugin/nuance-ui/commit/980bec4))
+- 📝 Added JSDocs ([45ebfa9](https://github.com/Igor-Iugin/nuance-ui/commit/45ebfa9))
+- 📝 Added JSDocs ([7ef292e](https://github.com/Igor-Iugin/nuance-ui/commit/7ef292e))
+- 📝 Added JSDocs ([efa489b](https://github.com/Igor-Iugin/nuance-ui/commit/efa489b))
+
+### 🏡 Chore
+
+- 🎨  Added `type='button'` to buttons ([91e70e3](https://github.com/Igor-Iugin/nuance-ui/commit/91e70e3))
+- **ai:** Translated to en ([e747963](https://github.com/Igor-Iugin/nuance-ui/commit/e747963))
+- **ai:** Added JSDoc rules ([a882f26](https://github.com/Igor-Iugin/nuance-ui/commit/a882f26))
+- **ai:** Added JSDoc rules ([81bd0b3](https://github.com/Igor-Iugin/nuance-ui/commit/81bd0b3))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.6
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.3...v0.2.6)
