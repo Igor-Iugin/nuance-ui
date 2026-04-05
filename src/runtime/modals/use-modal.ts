@@ -4,15 +4,9 @@ import { $modals } from './modal-manager'
 
 
 /**
- * Composable for use inside a modal component.
- * Binds the component to {@link ModalManager} by identifier.
+ * Binds a modal component to the global modal manager by identifier.
  *
- * @example
- * ```ts
- * const { opened, resolve } = useModal<MyProps, string>('my-modal')
- * // template: <ModalRoot v-model:open="opened">
- * // on confirm: resolve('ok')
- * ```
+ * The `id` must match the one passed to `$modals.create()`.
  */
 export function useModal<
 	Props extends Record<string, unknown> = Record<string, unknown>,
@@ -38,14 +32,11 @@ export function useModal<
 		throw new Error(`Modal ${id} is not exist`)
 
 	return {
-		/**
-		 * Two-way binding for `v-model:open`.
-		 *
-		 * Setting to `true` reopens the modal, setting to `false` calls `reject`
-		 */
+		/** Two-way binding for `v-model:open`. Setting to `false` rejects the promise. */
 		opened,
-		/** closes the modal and resolves the promise */
+		/** Closes the modal and resolves its promise with the given value. */
 		resolve: (reason: Resolve) => $modals.resolve(id, reason),
+		/** Closes the modal and rejects its promise. */
 		reject: () => $modals.reject(id),
 	}
 }

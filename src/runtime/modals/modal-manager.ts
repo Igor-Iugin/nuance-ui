@@ -3,34 +3,36 @@ import type { Component } from 'vue'
 import { markRaw, reactive } from 'vue'
 
 
-/**
- * Reactive state of a single modal within {@link ModalManager}.
- */
+/** Reactive state of a single active modal. */
 export interface ModalState<
 	Props extends object = object,
 	Resolve = unknown,
 	Reject = unknown,
 > {
-	/** Unique modal identifier */
+	/** Unique modal identifier. */
 	id: string
-	/** Vue component rendered as the modal */
+	/** Vue component rendered as the modal. */
 	component: Component
-	/** Props passed when calling `show` or the opener function */
+	/** Props passed when opening the modal. */
 	props: Props
-	/** Current visibility state */
+	/** Current visibility state. */
 	opened: boolean
-	/** Resolves the promise created when the modal was opened */
+	/** Resolves the promise created when the modal was opened. */
 	resolve: (value?: Resolve) => void
-	/** Rejects the promise created when the modal was opened */
+	/** Rejects the promise created when the modal was opened. */
 	reject: (reason?: Reject) => void
 }
 
+const GLOBAL_KEY = '__nui_modal_manager__'
+
+declare const globalThis: Record<string, unknown>
+
 /**
- * Modal manager.
+ * Global modal manager.
  *
  * Maintains a component registry and a reactive map of active modals.
- * Opening a modal returns a `Promise` that resolves via `hide`
- * or rejects via `reject` / user dismissal.
+ * Opening a modal returns a promise that resolves via `resolve` or rejects
+ * via `reject` / user dismissal.
  *
  * @example
  * ```ts
@@ -38,16 +40,12 @@ export interface ModalState<
  * const result = await open({ foo: 'bar' }) // result: string
  * ```
  */
-const GLOBAL_KEY = '__nui_modal_manager__'
-
-declare const globalThis: Record<string, unknown>
-
 export class ModalManager {
 	/** Reactive map of active modals */
 	readonly modals = reactive<Map<string, ModalState>>(new Map())
-	/** Eagerly registered components (id → Component) */
+	/** Eagerly registered components */
 	readonly #registered = new Map<string, Component>()
-	/** Lazily registered loaders (id → loader) */
+	/** Lazily registered loaders */
 	readonly #lazy = new Map<string, () => Promise<{ default: Component }>>()
 
 	private constructor() {}
@@ -61,70 +59,46 @@ export class ModalManager {
 		return globalThis[GLOBAL_KEY] as ModalManager
 	}
 
-	/**
-	 * Registers a modal component and returns a typed function to open it.
-	 */
+	/** Registers a modal component and returns a typed opener function. */
 	create<
 		TProps extends object = object,
 		TResult = void,
 	>(
-		/** unique modal identifier */
 		id: string,
-		/** Vue component for the modal */
 		component: Component,
 	): (props?: TProps) => Promise<TResult> {
 		this.#registered.set(id, component)
 		return (props?: TProps) => this.#show<TResult>(id, props ?? {})
 	}
 
-	/**
-	 * Registers a lazy modal — the component is loaded on first open.
-	 */
+	/** Registers a lazy modal. The component is loaded on first open. */
 	createLazy<
 		TProps extends object = object,
 		TResult = void,
 	>(
-		/** unique modal identifier */
 		id: string,
-		/** dynamic import function (`() => import('./my-modal.vue')`) */
 		loader: () => Promise<{ default: Component }>,
 	): (props?: Omit<TProps, 'modalId'>) => Promise<TResult> {
 		this.#lazy.set(id, loader)
 		return (props?: Omit<TProps, 'modalId'>) => this.#show<TResult>(id, props ?? {})
 	}
 
-	/**
-	 * Opens a previously registered modal by its identifier.
-	 */
+	/** Opens a previously registered modal by its identifier. */
 	async show<T = unknown>(id: string, props: object = {}): Promise<T> {
 		return this.#show(id, props)
 	}
 
-	/**
-	 * Closes the modal and resolves its promise with the given result.
-	 *
-	 * @param id     — modal identifier
-	 * @param result — value the promise resolves with
-	 */
+	/** Closes the modal and resolves its promise with the given result. */
 	resolve(id: string, result?: any): void {
 		this.#resolve(id, result)
 	}
 
-	/**
-	 * Closes the modal and rejects its promise with the given reason.
-	 *
-	 * @param id     — modal identifier
-	 * @param reason — rejection reason
-	 */
+	/** Closes the modal and rejects its promise with the given reason. */
 	reject(id: string, reason?: any): void {
 		this.#reject(id, reason)
 	}
 
-	/**
-	 * Returns the reactive state of a specific modal as `ComputedRef<ModalState>`.
-	 *
-	 * Used inside a modal component (via {@link useModal}).
-	 */
+	/** Returns the reactive state of a specific modal. */
 	state<
 		Props extends object = object,
 		Resolve = unknown,
