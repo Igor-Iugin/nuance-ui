@@ -13,9 +13,9 @@
 			"types": "./dist/types.d.mts",
 			"import": "./dist/module.mjs"
 		},
-		"./composals": {
-			"types": "./dist/runtime/composals/index.d.ts",
-			"import": "./dist/runtime/composals/index.js"
+		"./composables": {
+			"types": "./dist/runtime/composables/index.d.ts",
+			"import": "./dist/runtime/composables/index.js"
 		},
 		"./components": {
 			"types": "./dist/runtime/components/index.d.ts",
@@ -24,10 +24,6 @@
 		"./modals": {
 			"types": "./dist/runtime/modals/index.d.ts",
 			"import": "./dist/runtime/modals/index.js"
-		},
-		"./helpers": {
-			"types": "./dist/runtime/helpers/index.d.ts",
-			"import": "./dist/runtime/helpers/index.js"
 		},
 		"./utils": {
 			"types": "./dist/runtime/utils/index.d.ts",
