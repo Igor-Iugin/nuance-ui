@@ -13,19 +13,23 @@ import Button from '../button/button.vue'
 export interface FileUploadButtonProps<M extends boolean> extends ButtonProps, UseFileDialogOptions {
 	/** Icon passed to leftSection */
 	icon?: string
+
 	/**
 	 * @default false
 	 */
 	multiple?: MaybeRef<M>
+
 	/**
 	 * @default '*'
 	 */
 	accept?: MaybeRef<string>
+
 	/**
 	 * Reset when open file dialog.
 	 * @default false
 	 */
 	reset?: MaybeRef<boolean>
+
 	/**
 	 * Select directories instead of files.
 	 * @see [HTMLInputElement webkitdirectory](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)

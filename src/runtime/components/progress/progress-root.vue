@@ -10,16 +10,16 @@ import css from './progress.module.css'
 
 
 export interface ProgressRootProps extends BoxProps {
-	/** Controls track height @default `'md'` */
+	/** Component size @default `'md'` */
 	size?: NuanceSize | string
 
-	/** Key of `theme.radius` or any valid CSS value to set `border-radius` @default `theme.defaultRadius` */
+	/** Border radius @default `theme.defaultRadius` */
 	radius?: NuanceRadius
 
-	/** Controls sections width transition duration, value is specified in ms @default `100` */
+	/** Sections width transition duration in ms @default `100` */
 	transitionDuration?: number
 
-	/** Controls orientation @default `'horizontal'` */
+	/** Orientation @default `'horizontal'` */
 	orientation?: 'horizontal' | 'vertical'
 }
 

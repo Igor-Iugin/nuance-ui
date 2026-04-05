@@ -13,37 +13,66 @@ import { useCheckboxGroupState } from './lib/group.context'
 
 
 export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
+	/** Id used to bind input and label, auto-generated if not provided */
+	id?: string
+
 	color?: NuanceColor
+
 	iconColor?: NuanceColor
+
+	/** Visual variant @default 'filled' */
 	variant?: 'filled' | 'outline'
+
 	radius?: NuanceSize
+
+	/** Component size @default 'sm' */
 	size?: NuanceSize
+
 	value?: string
 }
 
 const {
+	id,
 	size: _size = 'sm',
 	radius,
 	variant = 'filled',
 	color,
 	iconColor,
 	value,
+	disabled: _disabled,
 	...rest
 } = defineProps<CheckboxProps>()
 
-const id = useId()
-const modelValue = defineModel<boolean | 'indeterminate'>()
+const modelValue = defineModel<boolean | 'indeterminate'>({ default: false })
 const ctx = useCheckboxGroupState()
 
-const checked = computed(() => {
-	if (ctx?.value && value)
-		return ctx?.value.value.includes(value)
+const checked = computed({
+	get: () => {
+		if (ctx && value !== undefined)
+			return ctx.isSelected(value)
 
-	return !!modelValue.value
+		return modelValue.value
+	},
+	set: (check: boolean) => {
+		if (ctx && value !== undefined)
+			return ctx.update(value)
+
+		modelValue.value = check
+	},
 })
 
-const size = ctx?.size ?? _size
-const toggle = () => modelValue.value = !modelValue.value
+const disabled = computed(() => {
+	if (_disabled)
+		return true
+
+	if (ctx && value !== undefined)
+		return ctx.isDisabled(value)
+
+	return false
+})
+
+const uuid = computed(() => id ?? useId())
+const size = computed(() => _size ?? ctx?.size)
 
 const style = computed(() => useStyleResolver(theme => {
 	const parsed = parseThemeColor({ color, theme })
@@ -61,15 +90,14 @@ const style = computed(() => useStyleResolver(theme => {
 </script>
 
 <template>
-	<InputInline v-bind='rest' :id :class='$style.root' :style :size>
+	<InputInline v-bind='rest' :id='uuid' :class='$style.root' :style :size>
 		<Box :class='$style.inner' :mod='{ "label-position": rest?.labelPosition }'>
 			<input
 				:id
-				:checked
+				v-model='checked'
 				type='checkbox'
 				:class='$style.input'
-				:disabled='rest.disabled'
-				@change='() => value && ctx ? ctx.update(value) : toggle()'
+				:disabled
 			>
 
 			<slot name='icon' :indeterminate='modelValue === "indeterminate"' :class='$style.icon'>

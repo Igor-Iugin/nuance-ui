@@ -14,8 +14,16 @@ import OvalLoader from './_loaders/oval-loader.vue'
 export type LoaderType = 'bars' | 'dots' | 'oval'
 
 export interface LoaderProps {
+	/** Component size */
 	size?: NuanceSize | `compact-${NuanceSize}` | string
+
+	/** Color from theme */
 	color?: NuanceColor | string
+
+	/**
+	 * Loader animation type
+	 * @default `'oval'`
+	 */
 	type?: LoaderType
 }
 

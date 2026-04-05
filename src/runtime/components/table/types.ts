@@ -1,4 +1,4 @@
-import type { NuanceColor } from '@nui/types'
+import type { Classes, NuanceColor } from '@nui/types'
 import type { RowData, TableMeta } from '@tanstack/table-core'
 import type {
 	CellContext,
@@ -57,9 +57,13 @@ export type TableSlots<T extends TableData = TableData> = {
 export interface TableProps<T extends TableData = TableData>
 	extends TableOptions<T>, /** @vue-ignore */ Omit<TableHTMLAttributes, 'columns' | 'onSelect' | 'onContextmenu'> {
 	data?: T[]
+
 	columns?: TableColumn<T>[]
+
 	caption?: string
+
 	meta?: TableMeta<T>
+
 	/**
 	 * Enable virtualization for large datasets.
 	 * Note: when enabled, the divider between rows and sticky properties are not supported.
@@ -78,42 +82,50 @@ export interface TableProps<T extends TableData = TableData>
 		 */
 		estimateSize?: number | ((index: number) => number)
 	})
+
 	/**
 	 * The text to display when the table is empty.
 	 */
 	empty?: string
+
 	/**
 	 * Whether the table should have a sticky header or footer. True for both, 'header' for header only, 'footer' for footer only.
 	 * Note: this prop is not supported when `virtualize` is true.
 	 * @defaultValue false
 	 */
 	sticky?: boolean | 'header' | 'footer'
+
 	/** Whether the table should be in loading state. */
 	loading?: boolean
+
 	/**
 	 * @defaultValue 'primary'
 	 */
 	loadingColor?: NuanceColor | string
+
 	verticalAlign?: CSSProperties['verticalAlign']
 
 	onSelect?: (e: Event, row: TableRow<T>) => void
+
 	onHover?: (e: Event, row: TableRow<T> | null) => void
+
 	onContextmenu?: ((e: Event, row: TableRow<T>) => void) | Array<((e: Event, row: TableRow<T>) => void)>
 
-	classes?: {
-		root?: string
-		table?: string
-		thead?: string
-		th?: string
-		td?: string
-		tr?: string
-		tbody?: string
-		tfoot?: string
-		caption?: string
-		loading?: string
-		empty?: string
-		separator?: string
-	}
+	/** Styles API */
+	classes?: Classes<
+		| 'root'
+		| 'table'
+		| 'thead'
+		| 'th'
+		| 'td'
+		| 'tr'
+		| 'tbody'
+		| 'tfoot'
+		| 'caption'
+		| 'loading'
+		| 'empty'
+		| 'separator'
+	>
 
 	/**
 	 * Use the `watchOptions` prop to customize reactivity (for ex: disable deep watching for changes in your data or limiting the max traversal depth). This can improve performance by reducing unnecessary re-renders, but it should be used with caution as it may lead to unexpected behavior if not managed properly.
@@ -122,61 +134,73 @@ export interface TableProps<T extends TableData = TableData>
 	 * @defaultValue { deep: true }
 	 */
 	watchOptions?: WatchOptions
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/global-filtering#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/global-filtering)
 	 */
 	globalFilterOptions?: Omit<GlobalFilterOptions<T>, 'onGlobalFilterChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/column-filtering#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/column-filtering)
 	 */
 	columnFiltersOptions?: Omit<ColumnFiltersOptions<T>, 'getFilteredRowModel' | 'onColumnFiltersChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/column-pinning#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/column-pinning)
 	 */
 	columnPinningOptions?: Omit<ColumnPinningOptions, 'onColumnPinningChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/column-sizing#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/column-sizing)
 	 */
 	columnSizingOptions?: Omit<ColumnSizingOptions, 'onColumnSizingChange' | 'onColumnSizingInfoChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/column-visibility#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/column-visibility)
 	 */
 	visibilityOptions?: Omit<VisibilityOptions, 'onColumnVisibilityChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/sorting#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/sorting)
 	 */
 	sortingOptions?: Omit<SortingOptions<T>, 'getSortedRowModel' | 'onSortingChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/grouping#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/grouping)
 	 */
 	groupingOptions?: Omit<GroupingOptions, 'onGroupingChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/expanding#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/expanding)
 	 */
 	expandedOptions?: Omit<ExpandedOptions<T>, 'getExpandedRowModel' | 'onExpandedChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/row-selection#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/row-selection)
 	 */
 	rowSelectionOptions?: Omit<RowSelectionOptions<T>, 'onRowSelectionChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/row-pinning#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/row-pinning)
 	 */
 	rowPinningOptions?: Omit<RowPinningOptions<T>, 'onRowPinningChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/pagination#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/pagination)
 	 */
 	paginationOptions?: Omit<PaginationOptions, 'onPaginationChange'>
+
 	/**
 	 * @see [API](https://tanstack.com/table/v8/docs/api/features/column-faceting#table-options)
 	 * @see [Guide](https://tanstack.com/table/v8/docs/guide/column-faceting)

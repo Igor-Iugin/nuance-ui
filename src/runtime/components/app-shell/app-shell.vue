@@ -11,12 +11,20 @@ import { useProvideAppShell } from './context'
 
 
 export interface AppShellProps extends BoxProps {
-	/** Determines how Navbar/Aside are arranged relative to Header/Footer, `default` by default */
+	/**
+	 * Layout mode. `alt` stretches Navbar/Aside to the full viewport height,
+	 * pushing Header/Footer between them.
+	 * @default 'default'
+	 */
 	layout?: 'default' | 'alt'
 
+	/**
+	 * Renders dividers between shell sections
+	 * @default false
+	 */
 	withBorder?: boolean
 
-	/** Provide app config for dates */
+	/** Locale configuration for date-aware features */
 	dateConfig?: Partial<DateConfig>
 }
 

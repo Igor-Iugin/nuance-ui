@@ -15,25 +15,45 @@ import Button from './button/button.vue'
 
 
 export interface BreadcrumbsItem extends Omit<LinkProps, 'mod'> {
+	/** Marks item as active */
 	active?: boolean
+	/** Item label */
 	label: string
+	/** Icon displayed before the label */
 	icon?: string
+	/** Additional class applied to the item */
 	class?: string
+	/** Named slot used to render the item */
 	slot?: string
 }
 
 export interface BreadcrumbsProps extends BoxProps {
-	/** Manual items array */
+	/** Items array */
 	items?: MaybeRef<BreadcrumbsItem[]>
 
-	/** Separator icon between items @default `'gravity-ui:chevron-right'` */
+	/**
+	 * Separator icon between items
+	 * @default `'gravity-ui:chevron-right'`
+	 */
 	separator?: string
 
-	/** Controls spacing between separator and breadcrumb @default `'xs'` */
+	/** Spacing token */
 	spacing?: NuanceSpacing
 
+	/**
+	 * Visual variant
+	 * @default `'subtle'`
+	 */
 	variant?: ButtonProps['variant']
+	/**
+	 * Color from theme
+	 * @default `'primary'`
+	 */
 	color?: ButtonProps['color']
+	/**
+	 * Component size
+	 * @default `'compact-sm'`
+	 */
 	size?: ButtonProps['size']
 }
 

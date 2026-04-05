@@ -14,24 +14,28 @@ import { pickLinkProps } from '../link'
 
 
 export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
-	/** Link description, displayed below the label */
+	/** Link description displayed below the label */
 	description?: string
 
-	/** Determines whether the link should have active styles @default `false` */
+	/** Active state */
 	active?: boolean
 
-	/** Key of `theme.colors` of any valid CSS color to control active styles @default `theme.primaryColor` */
+	/** Color from theme */
 	color?: NuanceColor
 
-	/** Spacing between left/right section and content */
+	/** Spacing token */
 	spacing?: NuanceSpacing
 
-	/** If set, label and description do not wrap to the next line @default `false` */
+	/** Prevents label and description from wrapping */
 	noWrap?: boolean
 
-	/** If set, disabled styles will be added to the root element @default `false` */
+	/** Disables the component */
 	disabled?: boolean
 
+	/**
+	 * Visual variant
+	 * @default `'filled'`
+	 */
 	variant?: 'filled' | 'light' | 'subtle'
 }
 

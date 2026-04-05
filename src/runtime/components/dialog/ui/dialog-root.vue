@@ -47,6 +47,7 @@ export interface DialogRootProps extends BoxProps {
 	/** Passes a class to root element */
 	rootClass?: string
 
+	/** Animation on hide/show */
 	transition?: TransitionName
 
 	/** Portal target to render element @default 'body' */
@@ -94,9 +95,9 @@ if (closeOnClickOutside) {
 	onClickOutside(dialogRef, () => opened.value = false)
 }
 
-// Синхронизируем состояние v-model с нативным <dialog>.
-// Следим за обоими значениями: opened может стать true до появления элемента в DOM
-// (ClientOnly + Teleport), а элемент может появиться когда opened уже true.
+// Sync v-model state with the native <dialog>.
+// Watch both values: `opened` may become true before the element is mounted
+// (ClientOnly + Teleport), and the element may appear when `opened` is already true.
 watch([opened, () => unrefElement(dialogRef)] as const, ([isOpen, dialog]) => {
 	if (!dialog)
 		return

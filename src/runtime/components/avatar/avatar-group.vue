@@ -11,7 +11,7 @@ import { useProvideAvatarGroup } from './lib/context'
 
 
 export interface AvatarGroupProps extends BoxProps {
-	/** Negative space between Avatar components @default `'sm'` */
+	/** Negative spacing applied between child avatars to overlap them */
 	spacing?: NuanceSpacing | string
 }
 

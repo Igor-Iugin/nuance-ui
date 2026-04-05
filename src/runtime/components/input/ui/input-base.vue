@@ -11,6 +11,7 @@ import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
 export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
+	/** Styles API */
 	classes?: Classes<'root' | 'section'>
 }
 

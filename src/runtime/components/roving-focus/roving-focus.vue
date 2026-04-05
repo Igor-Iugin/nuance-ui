@@ -8,8 +8,10 @@ import { useProvideRovingFocus } from './lib/context'
 export interface RovingFocusProps {
 	/** Loop focus from last to first and vice versa */
 	loop?: boolean
+
 	/** Allowed arrow key directions */
 	orientation?: 'vertical' | 'horizontal' | 'both'
+
 	/** Custom attribute instead of data-roving-item */
 	attr?: string
 }

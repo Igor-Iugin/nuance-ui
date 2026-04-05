@@ -11,16 +11,38 @@ import { useProvideCheckboxGroup } from './lib/group.context'
 
 
 export interface CheckboxGroupProps extends Omit<InputWrapperProps, 'resize' | 'multiline' | 'id' | 'size'> {
-	name: string
+	/** Input name */
+	name?: string
+
+	/** Component size */
 	size?: NuanceSize
+
+	/** Prevents value changes */
+	readOnly?: boolean
+
+	/** Disables the component */
+	disabled?: boolean
+
+	/**
+	 * Maximum number of checkboxes that can be selected.
+	 * Unselected switches are disabled once the limit is reached
+	 */
+	maxSelectedValues?: number
 }
 
-const { size, name, ...rest } = defineProps<CheckboxGroupProps>()
-const value = defineModel<string[]>({ default: [] as string[] })
+const {
+	size,
+	name,
+	maxSelectedValues,
+	disabled,
+	readOnly,
+	...rest
+} = defineProps<CheckboxGroupProps>()
+const value = defineModel<string[]>({ default: [] })
 
 const id = useId()
 
-useProvideCheckboxGroup({ value, size })
+useProvideCheckboxGroup({ value, size, maxSelectedValues, disabled,	readOnly })
 </script>
 
 <template>

@@ -7,6 +7,10 @@ import { computed } from 'vue'
 
 
 export interface BoxProps {
+	/**
+	 * Rendered element or component
+	 * @default `'div'`
+	 */
 	is?: keyof HTMLElementTagNameMap | Component
 	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[] | Mod[][] | null

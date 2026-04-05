@@ -10,6 +10,7 @@ import { pickLinkProps } from './lib'
 
 
 export interface LinkProps extends Omit<NuxtLinkProps, 'href' | 'custom'>, Omit<TextProps, 'is'> {
+	/** Underline the link text */
 	underline?: boolean
 }
 

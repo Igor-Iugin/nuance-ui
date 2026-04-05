@@ -36,13 +36,13 @@ export interface PopoverProps {
 	/** Arrow position */
 	arrowPosition?: ArrowPosition
 
-	/** Key of `theme.radius` or any valid CSS value to set border-radius @default `theme.defaultRadius` */
+	/** Border radius @default `theme.defaultRadius` */
 	radius?: NuanceRadius
 
-	/** Key of `theme.shadows` or any other valid CSS `box-shadow` value */
+	/** Shadow token */
 	shadow?: NuanceShadow
 
-	/** If set, popover dropdown will not be rendered */
+	/** Disables the component */
 	disabled?: boolean
 
 	/** Changes floating ui [position strategy](https://floating-ui.com/docs/usefloating#strategy) @default `'absolute'` */
@@ -51,12 +51,13 @@ export interface PopoverProps {
 
 
 export interface PopoverModel {
+	/** Open state */
 	open: boolean
 }
 
 export interface PopoverEmits {
-	/** Event handler called when the popover open */
+	/** Fired when the popover opens */
 	open: []
-	/** Event handler called when the popover closed */
+	/** Fired when the popover closes */
 	close: []
 }

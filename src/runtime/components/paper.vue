@@ -11,6 +11,8 @@ import Box from './box.vue'
 
 export interface PaperProps extends BoxProps {
 	shadow?: NuanceShadow
+
+	/** Border radius @default 'theme.defaultRadius' */
 	radius?: NuanceRadius
 	withBorder?: boolean
 }

@@ -7,15 +7,24 @@ import type { InputVariant } from '../types'
 
 
 export interface WrapperContext {
+	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string | null
+
 	required?: boolean
+
 	radius?: NuanceSize | string
+
 	size?: NuanceSize | string
+
 	variant?: InputVariant
+
 	multiline?: boolean
+
 	resize?: CSSProperties['resize']
+
 	/** section pointer-events */
 	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
+
 	/** section pointer-events */
 	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
 }

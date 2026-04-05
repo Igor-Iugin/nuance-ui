@@ -35,13 +35,13 @@ interface FieldStep {
 }
 
 interface FieldPlaceholder {
-	/** Hours input placeholder, @default `--` */
+	/** Hours input placeholder @default `--` */
 	hours?: string
 
-	/** Minutes input placeholder, @default `--` */
+	/** Minutes input placeholder @default `--` */
 	minutes?: string
 
-	/** Seconds input placeholder, @default `--` */
+	/** Seconds input placeholder @default `--` */
 	seconds?: string
 }
 
@@ -49,7 +49,7 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Determines whether the clear button should be displayed @default `false` */
 	clearable?: boolean
 
-	/** `name` prop passed down to the hidden input */
+	/** Input name */
 	name?: string
 
 	/** Min possible time value in `hh:mm:ss` format @default `00:00:00` */
@@ -58,7 +58,7 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Max possible time value in `hh:mm:ss` format @default `23:59:59` */
 	max?: string
 
-	/** Time format, @default `24h` */
+	/** Time format @default `24h` */
 	format?: TimePickerFormat
 
 	/** Number by which fields are incremented/decremented @default `1` */
@@ -85,9 +85,10 @@ export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
 	/** Labels used for am/pm values @default `{ am: 'AM', pm: 'PM' }` @todo @deprecated */
 	amPmLabels?: TimePickerAmPmLabels
 
-	/** A function to transform pasted values, by default time in 24h format can be parsed on paste for example `23:34:22` */
+	/** Transform pasted values; by default parses 24h format like `23:34:22` */
 	pasteSplit?: TimePickerPasteSplit
 
+	/** Styles API */
 	classes?: Classes<'root' | 'input' | 'section' | 'field'>
 }
 

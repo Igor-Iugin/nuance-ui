@@ -10,14 +10,27 @@ import Box from '../../box.vue'
 
 
 export interface InlineInputProps extends BoxProps {
+	/** Input id */
 	id: string
+
 	label?: string
+
 	description?: string
+
 	error?: string
+
+	/** Disabled input prop */
 	disabled?: boolean | undefined
+
+	/** Component size */
 	size?: NuanceSize | string
+
 	labelPosition?: 'left' | 'right'
+
+	/** Body html element */
 	bodyElement?: keyof HTMLElementTagNameMap
+
+	/** Label html element */
 	labelElement?: keyof HTMLElementTagNameMap
 }
 

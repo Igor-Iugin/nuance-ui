@@ -8,18 +8,25 @@ import { pickLinkProps } from '../link'
 
 
 export interface NavIconLinkProps extends ActionIconProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+	/** Link target */
 	to: NuxtLinkProps['to']
 
-	/** Key of `theme.colors` of any valid CSS color to control active styles @default `theme.primaryColor` */
+	/** Color from theme */
 	color?: NuanceColor
 
-	/** Shorthand for passing icon */
+	/** Icon name shorthand */
 	icon?: string
 
-	/** Variant for active state @default `filled` */
+	/**
+	 * Variant applied in active state
+	 * @default `'filled'`
+	 */
 	active?: ActionIconProps['variant']
 
-	/** Variant for not active state @default `filled` */
+	/**
+	 * Variant applied in inactive state
+	 * @default `'default'`
+	 */
 	notActive?: ActionIconProps['variant']
 }
 

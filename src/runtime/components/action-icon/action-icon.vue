@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
@@ -13,20 +13,37 @@ import css from './action-icon.module.css'
 
 
 export interface ActionIconProps {
+	/** Component size */
 	size?: NuanceSize | `input-${NuanceSize}` | string
+
+	/**
+	 * Visual variant
+	 * @default 'default'
+	 */
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
+
+	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
+
+	/** Loading state */
 	loading?: boolean
+
+	/** Color from theme */
 	color?: NuanceColor
+
+	/** Border radius */
 	radius?: NuanceRadius
 
 	/** Styles API */
-	classes?: {
-		root?: string
-		icon?: string
-	}
+	classes?: Classes<'root' | 'icon'>
+
+	/** Modifiers passed through to the underlying `Box` */
 	mod?: BoxProps['mod']
+
+	/** Icon name rendered inside the button when no default slot is provided */
 	icon?: string
+
+	/** Disables the component */
 	disabled?: boolean
 }
 

@@ -10,8 +10,12 @@ import InputLabel from './input-label.vue'
 
 export interface InputWrapperProps extends WrapperContext {
 	error?: string
+
 	description?: string
+
 	label?: string
+
+	/** Required input prop @default false */
 	required?: boolean
 }
 

@@ -18,6 +18,7 @@ export interface TextInputProps extends InputWrapperProps, InputBaseProps {
 	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
 	withAria?: boolean
 
+	/** Styles API */
 	classes?: Classes<'wrapper' | 'input'>
 }
 

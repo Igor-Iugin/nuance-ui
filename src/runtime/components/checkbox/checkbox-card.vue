@@ -12,36 +12,58 @@ import { useCheckboxGroupState } from './lib/group.context'
 
 export interface CheckboxCardProps {
 	mod?: Mod | Mod[]
+
 	withBorder?: boolean
+
+	/** Border radius */
 	radius?: NuanceRadius
+
+	/** Disabled input prop */
+	disabled?: boolean | undefined
+
 	value?: string
 }
 
 const {
 	withBorder,
-	value: _value,
+	value,
 	mod,
 	radius,
+	disabled: _disabled,
 } = defineProps<CheckboxCardProps>()
 
 const ctx = useCheckboxGroupState()
 const modelValue = defineModel<boolean>({ default: false })
 
-const checked = computed(() => {
-	if (ctx?.value && _value)
-		return ctx?.value.value.includes(_value)
+const checked = computed({
+	get: () => {
+		if (ctx && value !== undefined)
+			return ctx.isSelected(value)
 
-	return modelValue.value
+		return modelValue.value
+	},
+	set: (check: boolean) => {
+		if (ctx && value !== undefined)
+			return ctx.update(value)
+
+		modelValue.value = check
+	},
 })
 
-function onUpdate() {
-	if (_value && ctx?.update)
-		return ctx.update(_value)
+const disabled = computed(() => {
+	if (_disabled)
+		return true
 
-	return modelValue.value = !modelValue.value
-}
+	if (ctx && value !== undefined)
+		return ctx.isDisabled(value)
 
-useProvideCheckboxCard({ value: checked, onUpdate })
+	return false
+})
+
+useProvideCheckboxCard({
+	value: checked,
+	onUpdate: () => checked.value = !checked.value,
+})
 
 const style = computed(() => ({
 	'--card-radius': getRadius(radius),
@@ -51,10 +73,11 @@ const style = computed(() => ({
 <template>
 	<UnstyledButton
 		:mod='[{ checked, "with-border": withBorder }, mod]'
-		:value='_value'
+		:value='checked'
 		:class='$style.root'
 		:style
-		@click='onUpdate()'
+		:disabled
+		@click='checked = !checked'
 	>
 		<slot />
 	</UnstyledButton>

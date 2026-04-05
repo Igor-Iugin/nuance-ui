@@ -5,7 +5,10 @@ import Box from '../box.vue'
 
 
 export interface AppShellSectionProps extends BoxProps {
-	/** Determines whether the section should take all available space, `false` by default */
+	/**
+	 * Stretches the section to fill all available space
+	 * @default false
+	 */
 	grow?: boolean
 }
 

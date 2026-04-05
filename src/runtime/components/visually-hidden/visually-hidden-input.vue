@@ -5,8 +5,11 @@ import VisuallyHidden from './visually-hidden.vue'
 
 
 export interface VisuallyHiddenInputProps extends VisuallyHiddenProps {
+	/** Input name */
 	name?: string
+
 	required?: boolean
+
 	disabled?: boolean
 }
 

@@ -11,14 +11,24 @@ import { useChipGroupState, useChipState } from './lib'
 
 export interface ChipProps {
 	radius?: NuanceRadius
+
 	size?: NuanceSize
+
 	type?: 'radio' | 'checkbox'
+
 	color?: NuanceColor
+
+	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string
+
 	variant?: 'filled' | 'outline' | 'light'
+
 	value?: string
+
 	icon?: string
+
 	hideIcon?: boolean
+
 	disabled?: boolean
 }
 

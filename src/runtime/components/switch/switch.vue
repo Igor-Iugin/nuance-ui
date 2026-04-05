@@ -13,34 +13,34 @@ import { useSwitchGroupState } from './lib/group.context'
 
 
 export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
-	/** Id used to bind input and label, if not passed, unique id will be generated instead */
+	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string
 
 	/** Input name */
 	name?: string
 
-	/** Value used when `Switch` is inside `SwitchGroup` */
+	/** Value used when inside `SwitchGroup` */
 	value?: string
 
-	/** Inner label when the `Switch` is in unchecked state */
+	/** Inner label shown in unchecked state */
 	offLabel?: string
 
-	/** Inner label when the `Switch` is in checked state */
+	/** Inner label shown in checked state */
 	onLabel?: string
 
-	/** Key of `theme.colors` or any valid CSS color to set input color in checked state @default theme.primaryColor */
+	/** Color from theme */
 	color?: NuanceColor
 
-	/** Controls size of all elements */
+	/** Component size */
 	size?: NuanceSize
 
-	/** Key of `theme.radius` or any valid CSS value to set `border-radius` @default 'xl' */
+	/** Border radius */
 	radius?: NuanceRadius
 
-	/** Icon inside the thumb of the switch */
+	/** Icon inside the thumb */
 	icon?: string
 
-	/** If set, displays a colored dot inside the thumb that matches the track background color @default true */
+	/** Displays a colored dot inside the thumb matching the track background */
 	withIndicator?: boolean
 }
 
@@ -72,8 +72,8 @@ const modelValue = defineModel<boolean>({ default: false })
 
 const checked = computed({
 	get: () => {
-		if (ctx?.value.value && value !== undefined)
-			return ctx.value.value.includes(value)
+		if (ctx && value !== undefined)
+			return ctx.isSelected(value)
 
 		return modelValue.value
 	},

@@ -10,8 +10,10 @@ import Box from './box.vue'
 
 
 export interface BackgroundImageProps extends BoxProps {
+	/** Border radius */
 	radius?: NuanceRadius | string
-	/** Image url */
+
+	/** Image URL */
 	src: string
 }
 

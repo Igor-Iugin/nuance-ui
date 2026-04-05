@@ -43,14 +43,19 @@ export type TreeItemType = 'file' | 'directory'
 export interface TreeItem {
 	/** @IconifyIcon */
 	icon?: string
+
 	/** Path given to this item */
 	path: string
+
 	/** Item name */
 	name?: string
+
 	/** @IconifyIcon */
 	trailingIcon?: string
+
 	/** Item disabled state */
 	disabled?: boolean
+
 	/**
 	 *  Type of item
 	 *  @default `file`

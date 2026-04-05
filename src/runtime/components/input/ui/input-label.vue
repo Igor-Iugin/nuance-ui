@@ -6,7 +6,10 @@ import { computed } from 'vue'
 
 
 export interface InputLabelProps {
+	/** Required input prop @default false */
 	required?: boolean
+	
+	/** Component size @default 'sm' */
 	size?: NuanceSize | string
 }
 

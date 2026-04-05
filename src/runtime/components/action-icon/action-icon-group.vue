@@ -6,6 +6,10 @@ import css from './action-icon.module.css'
 
 
 export interface ActionIconGroupProps extends BoxProps {
+	/**
+	 * Layout direction of the group
+	 * @default 'horizontal'
+	 */
 	orientation?: 'horizontal' | 'vertical'
 }
 

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceRadius } from '@nui/types'
+import type { Classes, NuanceColor, NuanceRadius } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius } from '@nui/utils'
@@ -12,12 +12,16 @@ import Box from './box.vue'
 
 
 export interface AlertProps extends BoxProps {
+	/**
+	 * Visual variant
+	 * @default 'light'
+	 */
 	variant?: 'filled' | 'light' | 'outline' | 'default'
 
-	/** Key of `theme.radius` or any valid CSS value to set border-radius @default `theme.defaultRadius` */
+	/** Border radius */
 	radius?: NuanceRadius
 
-	/** Key of `theme.colors` or any valid CSS color @default `theme.primaryColor`  */
+	/** Color from theme */
 	color?: NuanceColor
 
 	/** Alert title */
@@ -26,25 +30,17 @@ export interface AlertProps extends BoxProps {
 	/** Icon displayed next to the title */
 	icon?: string
 
-	/** Determines whether close button should be displayed @default `false` */
+	/** Renders a close button in the top-right corner */
 	withCloseButton?: boolean
 
 	/** Called when the close button is clicked */
 	onClose?: () => void
 
-	/** Close button `aria-label` */
+	/** `aria-label` for the close button */
 	closeButtonLabel?: string
 
 	/** Styles API */
-	classes?: {
-		root?: string
-		icon?: string
-		body?: string
-		title?: string
-		label?: string
-		message?: string
-		closeButton?: string
-	}
+	classes?: Classes<'root' | 'icon' | 'body' | 'title' | 'label' | 'message' | 'closeButton'>
 }
 
 const {

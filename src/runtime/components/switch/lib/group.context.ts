@@ -6,10 +6,19 @@ import { createInjectionState } from '@vueuse/core'
 
 
 export interface SwitchGroupState {
+	/** Selected values */
 	value: ModelRef<string[]>
+
+	/** Component size */
 	size?: NuanceSize
+
+	/** Disables the component */
 	disabled?: boolean
+
+	/** Prevents value changes */
 	readOnly?: boolean
+
+	/** Maximum number of switches that can be selected */
 	maxSelectedValues?: number
 }
 

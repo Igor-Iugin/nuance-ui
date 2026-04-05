@@ -31,9 +31,13 @@ export interface DatePickerProps extends ButtonInputProps, Pick<TimePickerProps,
 	/** Tempo format for date value @default `DD.MM.YYYY HH:mm` */
 	format?: Format
 
+	/** Props forwarded to the inner `Calendar` */
 	calendarProps?: Partial<Omit<CalendarProps, 'numberOfMonths' | 'mode'>>
+
+	/** Props forwarded to the inner `TimePicker` */
 	timePickerProps?: Omit<Partial<TimePickerProps>, 'withSeconds' | 'name'>
 
+	/** Shows a button to clear the value @default `false` */
 	clearable?: boolean
 }
 

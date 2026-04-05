@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 import type { HTMLAttributes } from 'vue'
 
 import { useStyleResolver } from '@nui/composables'
@@ -14,26 +14,49 @@ import css from './button.module.css'
 
 
 export interface ButtonProps extends BoxProps {
+	/** Component size */
 	size?: NuanceSize | `compact-${NuanceSize}`
+
+	/** Spacing token */
 	spacing?: NuanceSize | string
+
+	/**
+	 * Visual variant
+	 * @default `'default'`
+	 */
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+
+	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
+
+	/** Loading state */
 	loading?: boolean
+
+	/** Color from theme */
 	color?: NuanceColor
+
+	/** Border radius */
 	radius?: NuanceRadius
 
 	/** Styles API */
-	classes?: {
-		root?: string | string[]
-		inner?: string | string[]
-		label?: string | string[]
-		section?: string | string[]
-	}
-	/** section pointer-events */
+	classes?: Classes<'root' | 'inner' | 'label' | 'section'>
+
+	/**
+	 * `pointer-events` value for the left section
+	 * @default `'none'`
+	 */
 	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
+
+	/** Extra attributes forwarded to the left section element */
 	leftSectionProps?: HTMLAttributes
-	/** section pointer-events */
+
+	/**
+	 * `pointer-events` value for the right section
+	 * @default `'all'`
+	 */
 	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
+
+	/** Extra attributes forwarded to the right section element */
 	rightSectionProps?: HTMLAttributes
 }
 

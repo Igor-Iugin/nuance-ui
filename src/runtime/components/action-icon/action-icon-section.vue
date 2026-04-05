@@ -12,11 +12,25 @@ import css from './action-icon.module.css'
 
 
 export interface ActionIconSectionProps extends BoxProps {
+	/** Component size */
 	size?: NuanceSize | `compact-${NuanceSize}`
+
+	/**
+	 * Visual variant
+	 * @default 'default'
+	 */
 	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
+
+	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
+
+	/** Loading state */
 	loading?: boolean
+
+	/** Color from theme */
 	color?: NuanceColor
+
+	/** Border radius */
 	radius?: NuanceRadius
 }
 

@@ -6,15 +6,31 @@ import { createInjectionState } from '@vueuse/core'
 
 
 export interface CheckboxGroupState {
+	/** Selected values */
 	value: ModelRef<string[]>
+
+	/** Component size */
 	size?: NuanceSize
+
+	/** Disables the component */
+	disabled?: boolean
+
+	/** Prevents value changes */
+	readOnly?: boolean
+
+	/** Maximum number of switches that can be selected */
+	maxSelectedValues?: number
 }
 
 const injectionKey = Symbol('CheckboxGroup')
-const [useProvide, useState] = createInjectionState(({ value, size }: CheckboxGroupState) => {
-	const { update } = useSelectableGroup(value)
-
-	return { value, size, update }
+const [useProvide, useState] = createInjectionState((state: CheckboxGroupState) => {
+	const { value, size, disabled, readOnly, maxSelectedValues } = state
+	const { update, isSelected, isDisabled } = useSelectableGroup(value, {
+		disabled,
+		readOnly,
+		maxSelectedValues,
+	})
+	return { value, size, update, isDisabled, isSelected }
 }, {
 	injectionKey,
 })

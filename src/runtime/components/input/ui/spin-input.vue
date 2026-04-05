@@ -7,12 +7,19 @@ import { padTime } from '../../time-picker'
 
 export interface SpinInputProps {
 	min: number
+
 	max: number
+
 	step: number
+
 	focusable?: boolean
+
 	allowTemporaryZero?: boolean
+
 	placeholder?: string
+
 	readonly?: boolean
+
 	disabled?: boolean
 }
 

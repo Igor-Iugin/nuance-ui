@@ -11,6 +11,10 @@ import Box from './box.vue'
 
 
 export interface BadgeProps extends BoxProps {
+	/**
+	 * Visual variant
+	 * @default `'filled'`
+	 */
 	variant?:
 		| 'filled'
 		| 'light'
@@ -19,25 +23,34 @@ export interface BadgeProps extends BoxProps {
 		| 'default'
 		| 'gradient'
 
-	/** Controls `font-size`, `height` and horizontal `padding` @default `'md'` */
+	/**
+	 * Component size
+	 * @default `'md'`
+	 */
 	size?: NuanceSize | string
 
-	/** If set, badge `min-width` becomes equal to its `height` and horizontal padding is removed */
+	/** Makes the badge width equal to its height and removes horizontal padding */
 	circle?: boolean
 
-	/** Key of `theme.radius` or any valid CSS value to set `border-radius` @default `'xl'` */
+	/**
+	 * Border radius
+	 * @default `'sm'`
+	 */
 	radius?: NuanceRadius
 
-	/** Key of `theme.colors` or any valid CSS color @default `theme.primaryColor` */
+	/** Color from theme */
 	color?: NuanceColor | string
 
-	/** Gradient configuration used when `variant=\"gradient\"` @default `theme.defaultGradient` */
+	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
 
-	/** Determines whether Badge should take 100% of its parent width @default `false` */
+	/**
+	 * Stretches the badge to fill its parent width
+	 * @default `false`
+	 */
 	fullWidth?: boolean
 
-	/** Icon displayed before to the label */
+	/** Icon displayed before the label */
 	icon?: string
 }
 

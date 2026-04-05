@@ -11,13 +11,19 @@ import { useProvideSwitchGroup } from './lib/group.context'
 
 
 export interface SwitchGroupProps extends Omit<InputWrapperProps, 'resize' | 'multiline' | 'id' | 'size'> {
+	/** Input name */
 	name?: string
+
+	/** Component size */
 	size?: NuanceSize
-	/** If set, value cannot be changed */
+
+	/** Prevents value changes */
 	readOnly?: boolean
-	/** Sets `disabled` attribute, prevents interactions */
+
+	/** Disables the component */
 	disabled?: boolean
-	/** Maximum number of switches that can be selected. When the limit is reached, unselected switches will be disabled */
+
+	/** Maximum number of switches that can be selected; unselected switches are disabled once the limit is reached */
 	maxSelectedValues?: number
 }
 
