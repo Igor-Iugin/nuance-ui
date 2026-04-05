@@ -33,6 +33,54 @@ globs: ["*.vue", "*.ts"]
 - **Поля интерфейсов и типов (включая экспортируемые)** — да, короткими однострочниками.
 - **Утилиты** — одна-две фразы по сути. Если поведение неочевидно (например, расширение falsy на пустые массивы, обработка CSS-единиц), кратко объяснить суть.
 
+### Стандартные фразы для общих пропсов компонентов
+
+Для единообразия общие пропсы документируются одними и теми же короткими фразами. Не писать `or custom value`, `token or custom value` и т.п.
+
+```ts
+/** Component size */
+size?: ...
+
+/** Border radius */
+radius?: ...
+
+/** Color from theme */
+color?: ...
+
+/** Gradient configuration (used with `variant="gradient"`) */
+gradient?: ...
+
+/** Spacing token */
+spacing?: ...
+
+/** Padding token */
+padding?: ...
+
+/** Margin token */
+margin?: ...
+
+/** Shadow token */
+shadow?: ...
+
+/** Font size token */
+fs?: ...
+
+/** Line height token */
+lh?: ...
+
+/** Visual variant */
+variant?: ...
+
+/** Disables the component */
+disabled?: boolean
+
+/** Loading state */
+loading?: boolean
+
+/** Styles API */
+classes?: ...
+```
+
 ### Эталон минималистичного стиля
 
 ```ts
