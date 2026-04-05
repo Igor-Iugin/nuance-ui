@@ -2,47 +2,27 @@ import type { ModelRef } from 'vue'
 
 
 export interface UseSelectableGroupOptions {
-	/** If set, value cannot be changed */
+	/** When `true`, the value cannot be changed. */
 	readOnly?: boolean
-	/** If set, all items in the group are disabled */
+	/** When `true`, all items in the group are disabled. */
 	disabled?: boolean
-	/** Maximum number of items that can be selected. When reached, unselected items become disabled */
+	/** Maximum number of items that can be selected. When reached, unselected items become disabled. */
 	maxSelectedValues?: number
 }
 
 export interface UseSelectableGroupReturn<T> {
-	/** Updates given value in the selection array (immutable update) */
+	/** Toggles the given value in the selection array. */
 	update: (value: T) => void
-	/** Checks if given value is currently selected */
+	/** Returns `true` when the value is currently selected. */
 	isSelected: (value: T) => boolean
-	/**
-	 * Checks if an item with given value should be disabled.
-	 * Returns `true` when the group is disabled or when `maxSelectedValues` is reached
-	 * and the item is not already selected.
-	 */
+	/** Returns `true` when an item with the given value should be disabled. */
 	isDisabled: (value: T) => boolean
 }
 
 /**
- * Shared logic for multi-select group components (CheckboxGroup, SwitchGroup, etc).
+ * Shared selection logic for multi-select group components.
  *
- * Centralizes the add/remove/max-limit/read-only rules so each group component
- * does not have to re-implement them. Uses immutable updates (`[...value, item]`)
- * so that `defineModel` reactivity propagates correctly to children — mutating the
- * array via `.push()` does not trigger model updates.
- *
- * @param value - `defineModel` ref containing the array of selected values
- * @param options - Group-level options (disabled, readOnly, maxSelectedValues)
- *
- * @example
- * ```ts
- * const value = defineModel<string[]>({ default: [] })
- * const { toggle, isSelected, isDisabled } = useSelectableGroup(value, {
- *   disabled,
- *   readOnly,
- *   maxSelectedValues,
- * })
- * ```
+ * Centralizes the add/remove, max-limit and read-only rules.
  */
 export function useSelectableGroup<T extends string = string>(
 	value: ModelRef<T[]>,

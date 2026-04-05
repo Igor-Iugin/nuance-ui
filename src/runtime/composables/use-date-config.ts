@@ -7,13 +7,12 @@ import defu from 'defu'
 const injectionKey = Symbol('dates-config')
 
 
+/** Locale configuration for date-aware features. */
 export type DateConfig = Omit<FormatOptions, 'date' | 'format'> & {
+	/** Index of the first day of the week (0 = Sunday, 1 = Monday, ...). */
 	firstDayOfWeek: number
 }
 
-/**
- * Get first day of week from Intl.Locale
- */
 function getFirstDayOfWeek(locale?: string, forceDay?: number): number {
 	if (forceDay)
 		return forceDay
@@ -23,7 +22,7 @@ function getFirstDayOfWeek(locale?: string, forceDay?: number): number {
 
 	try {
 		const intlLocale = new Intl.Locale(locale)
-		// weekInfo может быть undefined в старых браузерах
+		// `weekInfo` may be undefined in older browsers
 		// @ts-expect-error
 		return intlLocale.weekInfo?.firstDay ?? intlLocale.getWeekInfo?.()?.firstDay ?? 1
 	}
@@ -40,16 +39,19 @@ const [Provide, Inject] = createInjectionState((state?: Partial<DateConfig>) => 
 })
 
 /**
- * Hook to provide the dates configuration in a root or parent component.
- * Necessary for initializing the configuration that will be used by child components.
+ * Provides the shared date configuration to the component subtree.
+ *
+ * Call once in a root or layout component.
+ *
+ * When `firstDayOfWeek` is omitted, it is resolved from the locale.
  */
 export const useProvideDatesConfig = Provide
 
 /**
- * Hook to inject the dates configuration in a component.
- * Used in components that depend on the dates configuration.
+ * Reads the shared date configuration provided by `useProvideDatesConfig`.
  *
- * @param localValue merges new values with ctx with `defu`
+ * A local override can be passed in and will be shallow-merged on top of the
+ * injected config.
  */
 export function useDatesConfig(localValue?: ReturnType<typeof Inject>) {
 	const injected = Inject()
