@@ -1,5 +1,5 @@
 ## Documentation
-Пиши ответы и комментарии на русском
+Write JSDoc and code comments in English. Chat replies to the user stay in Russian.
 
 ## Architecture
 - **Frontend**: Nuxt 4 + TypeScript
@@ -8,19 +8,19 @@
 - `lint` — eslint linter
 - `lint:ts` — typescript linter
 
-## CRITICAL RULES - ОБЯЗАТЕЛЬНО
-- NEVER удалять файлы без подтверждения
-- Одна задача за раз. НЕ делать несколько изменений одновременно
-- Если не уверен - СПРОСИ, не угадывай
+## CRITICAL RULES - MANDATORY
+- NEVER delete files without confirmation
+- One task at a time. Do NOT make several changes simultaneously
+- If unsure — ASK, do not guess
 
 ## Working style
-- Сначала план потом код
-- Используй субагентов для исследования кодовой базы
+- Plan first, then code
+- Use subagents to research the codebase
 
 ## Agents
-- Use `planner` agent для планирования
-- Use `code-reviewer` agent перед коммитами
+- Use the `planner` agent for planning
+- Use the `code-reviewer` agent before commits
 
 ## Effort levels
-- Для сложных архитектурных решений `/effort high`
-- Для простых правок `/effort low`
+- For complex architectural decisions use `/effort high`
+- For simple edits use `/effort low`
