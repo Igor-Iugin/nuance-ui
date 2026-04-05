@@ -8,8 +8,8 @@ export function getWeekNumber(day: DateInput, firstDayOfWeek: number) {
 	const firstDayOfYear = yearStart(day)
 	const firstWeekStart = weekStart(firstDayOfYear, firstDayOfWeek)
 
-	// Первая неделя года - это неделя, которая содержит 1 января
-	// Если начало недели в прошлом году, сдвигаем на неделю вперед
+	// First week of the year is the one containing January 1st.
+	// If the week starts in the previous year, shift it forward by a week.
 	const yearFirstWeek = firstWeekStart < firstDayOfYear
 		? addDay(firstWeekStart, 7)
 		: firstWeekStart

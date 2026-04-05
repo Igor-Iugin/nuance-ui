@@ -7,6 +7,15 @@ import { chunk } from 'es-toolkit'
 import { getDaysBetween } from './get-days-between'
 
 
+/**
+ * Builds the week-by-week day grid for a calendar month.
+ *
+ * Leading and trailing days from adjacent months are included so that every
+ * row has a full week.
+ *
+ * When `fixedWeeks` is `true`, the grid is padded to 6
+ * rows (42 days) so the layout height stays stable across months.
+ */
 export function createMonth(date: DateInput,	config: DateConfig, fixedWeeks?: boolean): string[][] {
 	const startOfMonth = monthStart(date)
 	const endOfMonth = monthEnd(date)

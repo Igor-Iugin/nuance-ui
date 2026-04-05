@@ -6,12 +6,24 @@ import { getThemeColor, parseThemeColor } from '../color/parse-theme-color'
 
 
 interface VariantColorResolverResult {
+	/** Base background CSS value. */
 	background: string
+	/** Background CSS value applied on hover. */
 	hover: string
+	/** Text color CSS value. */
 	text: string
+	/** Border shorthand CSS value. */
 	border: string
 }
 
+/**
+ * Resolves the set of CSS values (`background`, `hover`, `text`, `border`)
+ * for a given color/variant/theme combination.
+ *
+ * Covers every Nuance variant — `filled`, `light`, `outline`, `subtle`,
+ * `default`, `gradient`, `gradient-outline`, `dot` — and falls back to the
+ * default `--color-*` tokens when no explicit shade is provided.
+ */
 export function createVariantColorResolver({
 	color = 'primary',
 	variant,

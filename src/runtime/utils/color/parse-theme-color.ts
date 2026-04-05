@@ -9,10 +9,15 @@ import { getColorVar } from './get-color-var'
 
 
 interface ParseThemeColorResult {
+	/** Color name without its shade suffix. */
 	color: string
+	/** Resolved CSS value, typically a `var(...)` reference. */
 	value: string
+	/** Parsed shade index, or `undefined` when the color has no shade. */
 	shade: NuanceColorShade | undefined
+	/** Matching CSS custom property, or `undefined` for non-theme colors. */
 	variable: `--${string}` | undefined
+	/** `true` when the color belongs to the Nuance theme palette. */
 	isThemeColor: boolean
 }
 
@@ -38,6 +43,17 @@ const themeColors: (NuanceDefaultThemeColor | 'primary')[] = [
 ]
 
 
+/**
+ * Parses a color descriptor (`'red.5'`, `'primary'`, `'dimmed'`, a raw CSS
+ * color, ...) into its resolved CSS value plus metadata.
+ *
+ * Theme colors produce a `var(...)` reference and expose the matching
+ * custom property via `variable`.
+ *
+ * The special `dimmed` keyword picks a muted gray depending on the current theme.
+ *
+ * Arbitrary CSS colors are returned as-is with `isThemeColor: false`.
+ */
 export function parseThemeColor({
 	color = 'primary',
 	theme,
@@ -98,6 +114,12 @@ export function parseThemeColor({
 	}
 }
 
+/**
+ * Resolves a color descriptor to a usable CSS value.
+ *
+ * Theme colors are returned as a `var(...)` reference; arbitrary CSS colors
+ * are returned unchanged.
+ */
 export function getThemeColor(color: string | undefined, theme: NuanceTheme) {
 	const parsed = parseThemeColor({ color, theme })
 	return parsed.variable ? `var(${parsed.variable})` : color!

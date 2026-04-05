@@ -1,3 +1,11 @@
+/**
+ * Checks whether a value can be treated as a CSS length-like value.
+ *
+ * Returns `true` for numbers, strings with a known CSS unit (`px`, `rem`,
+ * `em`, viewport units, container query units, `%`, ...), `calc(...)`,
+ * `var(...)` expressions, and whitespace-separated lists where every token
+ * passes the same check.
+ */
 export function isNumberLike(value: unknown) {
 	if (typeof value === 'number')
 		return true

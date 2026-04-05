@@ -1,23 +1,13 @@
 import type { DateInput } from '@formkit/tempo'
 
 
+/** Predicate that tests a single date. */
 export type DateMatcher = (date: DateInput) => boolean
 
+/** Week-by-week day grid representing a calendar month. */
 export interface CalendarGrid<T = string> {
-	/**
-	 * A `DateInput` used to represent the month. Since days
-	 * from the previous and next months may be included in the
-	 * calendar grid, we need a source of truth for the value
-	 * the grid is representing.
-	 */
+	/** Reference date identifying which month the grid represents. */
 	value: DateInput
-
-	/**
-	 * An array of arrays representing the weeks in the calendar.
-	 * Each sub-array represents a week, and contains the dates for each
-	 * day in that week. This structure is useful for rendering the calendar
-	 * grid using a table, where each row represents a week and each cell
-	 * represents a day.
-	 */
+	/** Weeks of the grid, each week is an array of day cells. */
 	rows: T[][]
 }

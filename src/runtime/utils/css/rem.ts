@@ -58,5 +58,14 @@ function createConverter(units: string, { shouldScale = false } = {}) {
 	return converter
 }
 
+/**
+ * Converts a pixel or number value to a scaled `rem` string.
+ *
+ * Multi-value inputs (comma- or space-separated) are converted piece by
+ * piece, and `calc(...)` / `clamp(...)` / `rgba(...)` expressions are
+ * returned unchanged.
+ */
 export const rem = createConverter('rem', { shouldScale: true })
+
+/** Converts a pixel or number value to an `em` string. */
 export const em = createConverter('em')

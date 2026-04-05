@@ -1,6 +1,10 @@
 import { addDay, isBefore } from '@formkit/tempo'
 
 
+/**
+ * Returns every day between `start` (inclusive) and `end` (exclusive) as
+ * `YYYY-MM-DD` strings.
+ */
 export function getDaysBetween(
 	start: Date,
 	end: Date,

@@ -8,7 +8,7 @@ import { computed } from 'vue'
 
 export interface BoxProps {
 	is?: keyof HTMLElementTagNameMap | Component
-	/** Element modifiers transformed into `data-` attributes, for example, `{ 'data-size': 'xl' }`, falsy values are removed */
+	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[] | Mod[][] | null
 }
 

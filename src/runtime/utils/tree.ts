@@ -1,19 +1,13 @@
-/** Represents a tree node with a value and optional children. */
+/** Node of a generic string-keyed tree. */
 export interface TreeNode<T extends string = string> {
-	/** The value stored in this tree node */
+	/** Path-like identifier of the node. */
 	path: string
-	/** Optional array of child nodes */
+	/** Child nodes of this node. */
 	children?: TreeNode<T>[]
 }
 
 /**
  * Recursively traverses a tree and collects all nodes in depth-first order.
- * @template T - The type of node values
- * @param {TreeNode<T>[]} nodes - The array of tree nodes to traverse
- * @returns {TreeNode<T>[]} Flattened array containing all nodes
- * @example
- * const tree = [{ value: 'a', children: [{ value: 'b' }] }]
- * traverse(tree) // [{ value: 'a', children: [...] }, { value: 'b' }]
  */
 function traverse<T extends string = string>(nodes: TreeNode<T>[]): TreeNode<T>[] {
 	const result: TreeNode<T>[] = []
@@ -28,22 +22,10 @@ function traverse<T extends string = string>(nodes: TreeNode<T>[]): TreeNode<T>[
 }
 
 /**
- * Filters tree nodes based on a predicate function.
- * Returns a new tree containing only nodes that match the predicate.
- * Parent nodes are kept if they have matching children.
+ * Returns a new tree containing only the nodes that match the predicate.
  *
- * @template Node - The type of tree nodes
- * @param {Node[]} tree - The tree to filter
- * @param {(node: Node) => boolean} predicate - Function to test each node
- * @returns {Node[]} New filtered tree
- * @example
- * const tree = [
- *   { value: 'folder', children: [{ value: 'file1' }, { value: 'file2' }] },
- *   { value: 'file3' }
- * ]
- * // Keep only folders (nodes with children)
- * filterTree(tree, node => node.children && node.children.length > 0)
- * // Result: [{ value: 'folder', children: [{ value: 'file1' }, { value: 'file2' }] }]
+ * A parent is kept whenever at least one of its (recursively filtered)
+ * descendants matches, even if the parent itself does not.
  */
 export function filterTree<Node extends TreeNode = TreeNode>(
 	tree: Node[],
@@ -52,20 +34,18 @@ export function filterTree<Node extends TreeNode = TreeNode>(
 	const result: Node[] = []
 
 	for (const node of tree) {
-		// Рекурсивно фильтруем детей
 		const filteredChildren = node.children?.length
 			? filterTree(node.children as Node[], predicate)
 			: undefined
 
-		// Оставляем узел если:
-		// 1. Он соответствует предикату
-		// 2. ИЛИ у него есть отфильтрованные дети
+		// Keep a node when it matches the predicate, or when it has at
+		// least one surviving descendant after filtering.
 		if (predicate(node) || (filteredChildren && filteredChildren.length > 0)) {
 			const newNode: Node = { ...node }
 			if (filteredChildren && filteredChildren.length > 0)
 				newNode.children = filteredChildren
 			else
-				// Удаляем пустой массив children
+				// Drop an empty children array so leaves stay leaves.
 				delete newNode.children
 
 			result.push(newNode)
@@ -76,15 +56,9 @@ export function filterTree<Node extends TreeNode = TreeNode>(
 }
 
 /**
- * Searches for a tree item by its value using depth-first search.
- * @template T - The type of node values
- * @param {TreeNode<T>[]} items - The array of tree nodes to search in
- * @param {T} path - The value to search for
- * @returns {TreeNode<T> | null} The found node or null if not found
- * @example
- * const tree = [{ value: 'folder', children: [{ value: 'file' }] }]
- * findTreeItem(tree, 'file') // { value: 'file' }
- * findTreeItem(tree, 'missing') // null
+ * Finds a tree node by its `path` using depth-first search.
+ *
+ * Returns `null` when no matching node exists.
  */
 export function findTreeItem<T extends string = string>(
 	items: TreeNode<T>[],
@@ -103,40 +77,15 @@ export function findTreeItem<T extends string = string>(
 	return null
 }
 
-/**
- * Flattens a tree structure into a single-level array in depth-first order.
- * @template T - The type of node values
- * @param {TreeNode<T>[]} tree - The tree to flatten
- * @returns {TreeNode<T>[]} Flattened array containing all nodes
- * @example
- * const tree = [
- *   { value: 'root', children: [
- *     { value: 'child1' },
- *     { value: 'child2' }
- *   ]}
- * ]
- * flatTree(tree) // [{ value: 'root', ... }, { value: 'child1' }, { value: 'child2' }]
- */
+/** Flattens a tree into a single array in depth-first order. */
 export function flatTree<T extends string = string>(tree: TreeNode<T>[]): TreeNode<T>[] {
 	return traverse(tree)
 }
 
 /**
- * Gets all descendant values of a specific node in the tree.
+ * Returns all descendant paths of the node with the given `path`.
  *
- * @template T - The type of node values
- * @param {TreeNode<T>[]} tree - The tree to search in
- * @param {T} path - The path of the parent node
- * @returns {T[]} Array of all descendant values (empty if node not found or has no children)
- * @example
- * const tree = [
- *   { value: 'folder', children: [
- *     { value: 'file1' },
- *     { value: 'subfolder', children: [{ value: 'file2' }] }
- *   ]}
- * ]
- * getBranchChildren(tree, 'folder') // ['file1', 'subfolder', 'file2']
- * getBranchChildren(tree, 'file1') // []
+ * The result is empty when the node is not found or has no children.
  */
 export function getBranchChildren<T extends string = string>(
 	tree: TreeNode<T>[],
@@ -144,11 +93,9 @@ export function getBranchChildren<T extends string = string>(
 ): T[] {
 	const children: T[] = []
 
-	/** Recursively searches for the target node and extracts its children. */
 	function findAndExtract(nodes: TreeNode<T>[]): boolean {
 		for (const node of nodes) {
 			if (node.path === path) {
-				// Found the target node - extract all descendants
 				if (node.children?.length) {
 					const extracted = traverse<T>(node.children)
 					children.push(...extracted.map(i => i.path as T))
@@ -168,22 +115,12 @@ export function getBranchChildren<T extends string = string>(
 }
 
 /**
- * Gets all node values between two specified values (inclusive) in tree traversal order.
- * If start comes after end in traversal order, the range is automatically reversed.
- * Uses a single-pass algorithm that flattens and searches simultaneously.
- * @template T - The type of node values
- * @param {TreeNode<T>[]} tree - The tree to search in
- * @param {T} start - The starting value
- * @param {T} end - The ending value
- * @returns {T[]} Array of values between start and end (inclusive), empty if either value not found
- * @example
- * const tree = [
- *   { value: 'a', children: [{ value: 'b' }, { value: 'c' }] },
- *   { value: 'd' }
- * ]
- * getItemsBetween(tree, 'b', 'd') // ['b', 'c', 'd']
- * getItemsBetween(tree, 'd', 'b') // ['b', 'c', 'd'] (auto-reversed)
- * getItemsBetween(tree, 'a', 'missing') // []
+ * Returns all node paths between `start` and `end` (inclusive) in
+ * depth-first traversal order.
+ *
+ * If `start` comes after `end` in traversal order, the range is
+ * automatically reversed. Returns an empty array when either endpoint is
+ * missing.
  */
 export function getTreeItemsBetween<T extends string = string>(
 	tree: TreeNode<T>[],
@@ -221,20 +158,9 @@ export function getTreeItemsBetween<T extends string = string>(
 }
 
 /**
- * Removes nodes with specified values from the tree, including their subtrees.
- * Returns a new tree without modifying the original.
+ * Returns a new tree with the given paths and their subtrees removed.
  *
- * @template T - The type of node path
- * @param {TreeNode<T>[]} tree - The original tree (array of root nodes)
- * @param {T[]} valuesToRemove - Array of values to remove
- * @returns {TreeNode<T>[]} New tree with specified nodes and their subtrees removed
- * @example
- * const tree = [
- *   { value: 'a', children: [{ value: 'b' }, { value: 'c' }] },
- *   { value: 'd' }
- * ]
- * removeTreeNodes(tree, ['b', 'd']) // [{ value: 'a', children: [{ value: 'c' }] }]
- * removeTreeNodes(tree, ['a']) // [{ value: 'd' }]
+ * The input tree is not mutated.
  */
 export function removeTreeNodes<Node extends TreeNode = TreeNode, Path extends string = string>(
 	tree: Node[],
