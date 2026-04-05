@@ -65,6 +65,7 @@ const style = computed(() => useStyleResolver(theme => {
 <template>
 	<Box
 		is='button'
+		type='button'
 		:mod='[{ loading }, mod]'
 		:style
 		:class='[css.root, classes?.root]'

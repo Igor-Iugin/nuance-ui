@@ -90,6 +90,7 @@ const style = computed(() => useStyleResolver(theme => {
 <template>
 	<Box
 		:is
+		type='button'
 		:mod='[
 			{
 				"with-left-section": !!$slots?.leftSection,
