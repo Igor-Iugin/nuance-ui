@@ -50,6 +50,9 @@ export interface ButtonProps extends BoxProps {
 	/** Extra attributes forwarded to the left section element */
 	leftSectionProps?: HTMLAttributes
 
+	/** Icon displayed before the label */
+	icon?: string
+
 	/**
 	 * `pointer-events` value for the right section
 	 * @default `'all'`
@@ -68,6 +71,7 @@ const {
 	gradient,
 	loading,
 	classes,
+	icon,
 	leftSectionPE = 'none',
 	leftSectionProps,
 	rightSectionPE = 'all',
@@ -116,7 +120,7 @@ const style = computed(() => useStyleResolver(theme => {
 		type='button'
 		:mod='[
 			{
-				"with-left-section": !!$slots?.leftSection,
+				"with-left-section": !!$slots?.leftSection || !!icon,
 				"with-right-section": !!$slots?.rightSection,
 			},
 			mod,
@@ -131,13 +135,15 @@ const style = computed(() => useStyleResolver(theme => {
 
 		<span :class='[css.inner, classes?.inner]'>
 			<span
-				v-if='$slots.leftSection'
+				v-if='$slots.leftSection || icon'
 				:class='[css.section, classes?.section]'
 				data-position='left'
 				v-bind='leftSectionProps'
 				:style='style.leftSection'
 			>
-				<slot name='leftSection' />
+				<slot name='leftSection'>
+					<Icon v-if='icon' :name='icon' />
+				</slot>
 			</span>
 
 			<span :class='[css.label, classes?.label]'>

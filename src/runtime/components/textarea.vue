@@ -9,9 +9,11 @@ import InputWrapper from './input/ui/input-wrapper.vue'
 
 
 export interface TextareaProps extends InputWrapperProps, InputBaseProps {
+	/** Icon displayed in the left section */
+	icon?: string
 }
 
-const props = defineProps<TextareaProps>()
+const { icon, ...props } = defineProps<TextareaProps>()
 
 const model = defineModel<string>()
 
@@ -30,8 +32,10 @@ defineExpose({
 <template>
 	<InputWrapper v-bind='props' :multiline :class='$attrs?.class'>
 		<InputBase>
-			<template v-if='!!$slots.leftSection' #leftSection>
-				<slot name='leftSection' />
+			<template v-if='!!$slots.leftSection || icon' #leftSection>
+				<slot name='leftSection'>
+					<Icon v-if='icon' :name='icon' />
+				</slot>
 			</template>
 
 			<template #default='{ id, css }'>

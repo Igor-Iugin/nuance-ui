@@ -22,6 +22,9 @@ export interface NumberInputProps extends InputBaseProps, Omit<InputWrapperProps
 
 	/** Determines whether the up/down controls should be hidden, `false` by default */
 	hideControls?: boolean
+
+	/** Icon displayed in the left section */
+	icon?: string
 }
 
 const {
@@ -29,6 +32,7 @@ const {
 	max = Number.MAX_SAFE_INTEGER,
 	step = 1,
 	hideControls,
+	icon,
 	rightSectionPE = 'all',
 	...rest
 } = defineProps<NumberInputProps>()
@@ -63,8 +67,10 @@ function handleBlur() {
 <template>
 	<InputWrapper v-bind='rest' :class='$style.root' :right-section-p-e>
 		<BaseInput>
-			<template v-if='!!$slots.leftSection' #leftSection>
-				<slot name='leftSection' />
+			<template v-if='!!$slots.leftSection || icon' #leftSection>
+				<slot name='leftSection'>
+					<Icon v-if='icon' :name='icon' />
+				</slot>
 			</template>
 
 			<template #default='{ id, css }'>

@@ -20,9 +20,12 @@ export interface TextInputProps extends InputWrapperProps, InputBaseProps {
 
 	/** Styles API */
 	classes?: Classes<'wrapper' | 'input'>
+
+	/** Icon displayed in the left section */
+	icon?: string
 }
 
-const { classes, ...props } = defineProps<TextInputProps>()
+const { classes, icon, ...props } = defineProps<TextInputProps>()
 const value = defineModel<string>({ default: '' })
 
 const ref = useTemplateRef<HTMLElement>('input')
@@ -36,8 +39,10 @@ defineExpose({
 <template>
 	<InputWrapper v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
 		<BaseInput>
-			<template v-if='!!$slots.leftSection' #leftSection>
-				<slot name='leftSection' />
+			<template v-if='!!$slots.leftSection || icon' #leftSection>
+				<slot name='leftSection'>
+					<Icon v-if='icon' :name='icon' />
+				</slot>
 			</template>
 
 			<template #default='{ id, css }'>

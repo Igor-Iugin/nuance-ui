@@ -37,6 +37,9 @@ export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'cu
 	 * @default `'filled'`
 	 */
 	variant?: 'filled' | 'light' | 'subtle'
+
+	/** Icon displayed before the label */
+	icon?: string
 }
 
 const props = defineProps<NavLinkProps>()
@@ -51,6 +54,7 @@ const {
 		noWrap,
 		description,
 		spacing,
+		icon,
 	},
 } = pickLinkProps(props)
 
@@ -78,8 +82,10 @@ const style = computed(() => useStyleResolver(theme => {
 			:target='("target" in linkProps) ? linkProps?.target : undefined'
 			@click='navigate'
 		>
-			<span v-if='$slots.leftSection' :class='$style.section' data-position='left'>
-				<slot name='leftSection' />
+			<span v-if='$slots.leftSection || icon' :class='$style.section' data-position='left'>
+				<slot name='leftSection'>
+					<Icon v-if='icon' :name='icon' />
+				</slot>
 			</span>
 
 			<Box :class='$style.body' :mod='{ "no-wrap": noWrap }'>

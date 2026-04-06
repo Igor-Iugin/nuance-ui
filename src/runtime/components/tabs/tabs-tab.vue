@@ -14,9 +14,12 @@ export interface TabsTabProps {
 
 	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[]
+
+	/** Icon displayed before the label */
+	icon?: string
 }
 
-const { value, mod } = defineProps<TabsTabProps>()
+const { value, mod, icon } = defineProps<TabsTabProps>()
 const ctx = useTabsState()
 
 const active = computed(() => value === ctx?.active.value)
@@ -39,8 +42,10 @@ const active = computed(() => value === ctx?.active.value)
 		:aria-controls='ctx?.getPanelId(value)'
 		@click='ctx?.onUpdate(value)'
 	>
-		<span v-if='$slots.leftSection' :class='css.tabSection' data-position='left'>
-			<slot name='leftSection' />
+		<span v-if='$slots.leftSection || icon' :class='css.tabSection' data-position='left'>
+			<slot name='leftSection'>
+				<Icon v-if='icon' :name='icon' />
+			</slot>
 		</span>
 		<span v-if='$slots.default' :class='css.tabLabel'>
 			<slot />

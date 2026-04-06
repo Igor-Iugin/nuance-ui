@@ -4,15 +4,13 @@ import type { TextInputProps } from './index'
 import TextInput from './text-input.vue'
 
 
-const props = defineProps<TextInputProps>()
+const { icon = 'gravity-ui:at', ...rest } = defineProps<TextInputProps>()
 </script>
 
 <template>
-	<TextInput type='email' v-bind='props'>
-		<template #leftSection>
-			<slot name='leftSection'>
-				<Icon name='gravity-ui:at' />
-			</slot>
+	<TextInput type='email' :icon v-bind='rest'>
+		<template v-if='!!$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
 		</template>
 
 		<template v-if='!!$slots.rightSection' #rightSection>
