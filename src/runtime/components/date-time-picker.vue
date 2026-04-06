@@ -57,7 +57,7 @@ const {
 defineEmits<PopoverEmits & CalendarEmits>()
 
 /** ISO string */
-const model = defineModel<string | Date>()
+const model = defineModel<string | Date | null>()
 
 const date = computed({
 	get: () => model.value ? format(model.value, 'YYYY-MM-DD') : '',
