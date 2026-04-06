@@ -1,6 +1,6 @@
 {
 	"name": "nuance-ui",
-	"version": "0.2.8",
+	"version": "0.2.9",
 	"description": "A modern Vue UI library inspired by the best of the React ecosystem.",
 	"repository": {
 		"type": "git",

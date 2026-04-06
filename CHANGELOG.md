@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.2.9
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.8...v0.2.9)
+
+### 🚀 Enhancements
+
+- ✨  Added `icon` prop ([8d4c9e9](https://github.com/Igor-Iugin/nuance-ui/commit/8d4c9e9))
+
+### 🩹 Fixes
+
+- 🐛  Fix DateTimePicker model types ([cfb1f91](https://github.com/Igor-Iugin/nuance-ui/commit/cfb1f91))
+
+### 📖 Documentation
+
+- 📝 Added JSDocs ([838b16c](https://github.com/Igor-Iugin/nuance-ui/commit/838b16c))
+
+### 🏡 Chore
+
+- **release:** V0.2.8 ([a910a33](https://github.com/Igor-Iugin/nuance-ui/commit/a910a33))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.8
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.7...v0.2.8)
