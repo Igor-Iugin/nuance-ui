@@ -8,8 +8,10 @@ export interface VisuallyHiddenInputProps extends VisuallyHiddenProps {
 	/** Input name */
 	name?: string
 
+	/** Marks the input as required */
 	required?: boolean
 
+	/** Disables the input */
 	disabled?: boolean
 }
 

@@ -10,7 +10,10 @@ import Box from './box.vue'
 
 
 export interface ContainerProps extends BoxProps {
+	/** Component size */
 	size?: NuanceSize | string | number
+
+	/** Removes max-width constraint */
 	fluid?: boolean
 }
 

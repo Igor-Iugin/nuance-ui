@@ -14,12 +14,13 @@ import { CalendarCell } from '../core'
 
 
 export interface CalendarMonthProps {
+	/** ISO string of the month to render */
 	month: string
 
 	/** Detects the presence of spaces between cells. @default `true` */
 	withCellSpacing?: boolean
 
-	/** Controls size */
+	/** Component size */
 	size?: NuanceSize | string
 
 	/** Determines whether week numbers should be displayed @default `false` */

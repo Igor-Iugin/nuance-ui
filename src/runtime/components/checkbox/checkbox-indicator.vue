@@ -10,11 +10,22 @@ import { useCheckboxCardState } from './lib/card.context'
 
 
 export interface CheckboxIndicatorProps {
+	/** Color from theme */
 	color?: NuanceColor
+
+	/** Icon color */
 	iconColor?: NuanceColor
+
+	/** Visual variant */
 	variant?: 'filled' | 'outline'
+
+	/** Border radius */
 	radius?: NuanceSize
+
+	/** Component size */
 	size?: NuanceSize
+
+	/** Displays indeterminate icon */
 	indeterminate?: boolean
 }
 

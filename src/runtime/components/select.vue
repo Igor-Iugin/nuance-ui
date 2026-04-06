@@ -16,6 +16,7 @@ export interface SelectProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > extends Omit<TextInputProps, 'modelValue' | 'multiline' | 'resize' | 'is' | 'id'> {
+	/** List of options */
 	options: ComboboxData<Value, Ext>
 
 	/** Determines whether the select should be searchable @default `false` */
@@ -45,6 +46,7 @@ export interface SelectProps<
 	/** Icon displayed in the left section by default */
 	icon?: string
 
+	/** Maximum number of options rendered at a time */
 	limit?: number
 
 	/** Input autocomplete attribute */

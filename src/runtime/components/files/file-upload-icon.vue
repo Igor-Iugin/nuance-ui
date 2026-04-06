@@ -12,23 +12,25 @@ import ActionIcon from '../action-icon/action-icon.vue'
 
 export interface FileUploadIconProps<M extends boolean> extends ActionIconProps, UseFileDialogOptions {
 	/**
+	 * Allows selecting multiple files
 	 * @default false
 	 */
 	multiple?: MaybeRef<M>
 
 	/**
+	 * Accepted file types
 	 * @default '*'
 	 */
 	accept?: MaybeRef<string>
 
 	/**
-	 * Reset when open file dialog.
+	 * Resets selected files when the dialog opens
 	 * @default false
 	 */
 	reset?: MaybeRef<boolean>
 
 	/**
-	 * Select directories instead of files.
+	 * Selects directories instead of files
 	 * @see [HTMLInputElement webkitdirectory](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 	 * @default false
 	 */

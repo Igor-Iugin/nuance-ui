@@ -7,6 +7,7 @@ import css from './tabs.module.css'
 
 
 export interface TabsPanelProps extends BoxProps {
+	/** Panel value, must match the corresponding `TabsTab` value */
 	value: string
 }
 

@@ -30,14 +30,22 @@ export interface TextProps extends BoxProps {
 	/** Determines whether font properties should be inherited from the parent, `false` by default */
 	inherit?: boolean
 
-	/** Gradient configuration, ignored when `variant` is not `gradient`, `theme.defaultGradient` by default */
+	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
 
+	/** Visual variant */
 	variant?: 'text' | 'gradient'
 
+	/** Font size token */
 	fz?: NuanceSize | `h${TitleOrder}` | string
+
+	/** Line height token */
 	lh?: NuanceSize | string
+
+	/** Font weight */
 	fw?: CSSProperties['font-weight']
+
+	/** Text color from theme */
 	c?: NuanceColor | 'dimmed'
 }
 

@@ -15,8 +15,11 @@ export interface ComboboxOptionProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > extends BoxProps, ComboboxItemProps {
+	/** Option data */
 	data: ComboboxItem<Value, Ext>
+	/** Whether this option is the active (highlighted) option */
 	checked: boolean
+	/** Whether this option is selected in the current value */
 	selected?: boolean
 }
 

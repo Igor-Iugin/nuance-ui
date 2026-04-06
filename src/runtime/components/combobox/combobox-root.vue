@@ -12,18 +12,22 @@ import { useCombobox } from './lib/use-combobox'
 
 
 export interface ComboboxProps extends PopoverProps {
+	/** External combobox store; creates an internal one if omitted */
 	store?: ComboboxStore
 
-	/** Determines whether arrow key presses should loop though items (first to last and last to first), `true` by default */
+	/** Loops arrow-key navigation from last item to first and back */
 	loop?: boolean
 
-	/** Controls items `font-size` and `padding` @default `'sm'` */
+	/**
+	 * Component size
+	 * @default `'sm'`
+	 */
 	size?: NuanceSize
 
-	/** Controls `padding` of the dropdown @default `4` */
+	/** Padding token for the dropdown */
 	dropdownPadding?: NuanceSize | CSSProperties['padding']
 
-	/** Determines whether the `Combobox` value can be changed */
+	/** Prevents value changes */
 	readOnly?: boolean
 }
 

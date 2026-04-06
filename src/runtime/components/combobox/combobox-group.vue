@@ -17,6 +17,7 @@ export interface ComboboxGroupProps<
 	/** Group label */
 	label?: string
 
+	/** Group data including items */
 	data: ComboboxItemGroup<Value, Ext>
 }
 

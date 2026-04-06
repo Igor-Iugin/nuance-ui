@@ -16,17 +16,27 @@ export interface ComboboxOptionsDropdownProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
 > {
+	/** List of options to render */
 	data: ComboboxOption<Value, Ext>[]
 
+	/** Custom filter function applied to the options list */
 	filter?: (input: FilterOptionsInput<Value, Ext>) => ComboboxOption<Value, Ext>[]
+	/** Maximum number of options to display */
 	limit?: number
+	/** Maximum height of the dropdown */
 	maxDropdownHeight?: number | string
+	/** Filters options by the current search value */
 	filterOptions?: boolean
+	/** Text shown when no options match the search */
 	nothingFoundMessage?: string
+	/** Id of the element that labels the options list */
 	labelId: string | undefined
 
+	/** Shows a check icon next to the selected option */
 	withCheckIcon?: boolean
+	/** Position of the check icon relative to the label */
 	iconPosition?: 'left' | 'right'
+	/** Icon name for the check mark */
 	checkIcon?: string
 }
 

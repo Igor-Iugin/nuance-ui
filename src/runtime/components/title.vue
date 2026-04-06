@@ -7,7 +7,13 @@ import Text from './text.vue'
 
 
 export interface TitleProps extends Omit<TextProps, 'is'> {
+	/**
+	 * Heading level
+	 * @default `'2'`
+	 */
 	order?: '1' | '2' | '3' | '4' | '5' | '6'
+
+	/** CSS `text-wrap` value */
 	textWrap?: 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable'
 }
 

@@ -10,25 +10,34 @@ import { useChipGroupState, useChipState } from './lib'
 
 
 export interface ChipProps {
+	/** Border radius */
 	radius?: NuanceRadius
 
+	/** Component size */
 	size?: NuanceSize
 
+	/** Input type used when rendered without a group */
 	type?: 'radio' | 'checkbox'
 
+	/** Color from theme */
 	color?: NuanceColor
 
 	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string
 
+	/** Visual variant */
 	variant?: 'filled' | 'outline' | 'light'
 
+	/** Value used in chip group context */
 	value?: string
 
+	/** Check icon name */
 	icon?: string
 
+	/** Shows the check icon when the chip is checked */
 	hideIcon?: boolean
 
+	/** Disables the component */
 	disabled?: boolean
 }
 

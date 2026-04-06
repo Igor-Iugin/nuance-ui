@@ -37,7 +37,7 @@ export interface ActionIconProps {
 	/** Styles API */
 	classes?: Classes<'root' | 'icon'>
 
-	/** Modifiers passed through to the underlying `Box` */
+	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: BoxProps['mod']
 
 	/** Icon name rendered inside the button when no default slot is provided */

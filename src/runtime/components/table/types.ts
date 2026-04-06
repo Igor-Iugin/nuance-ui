@@ -56,12 +56,16 @@ export type TableSlots<T extends TableData = TableData> = {
 
 export interface TableProps<T extends TableData = TableData>
 	extends TableOptions<T>, /** @vue-ignore */ Omit<TableHTMLAttributes, 'columns' | 'onSelect' | 'onContextmenu'> {
+	/** Row data */
 	data?: T[]
 
+	/** Column definitions */
 	columns?: TableColumn<T>[]
 
+	/** Table caption text */
 	caption?: string
 
+	/** Table metadata passed to column defs and cell renderers */
 	meta?: TableMeta<T>
 
 	/**
@@ -95,20 +99,25 @@ export interface TableProps<T extends TableData = TableData>
 	 */
 	sticky?: boolean | 'header' | 'footer'
 
-	/** Whether the table should be in loading state. */
+	/** Loading state */
 	loading?: boolean
 
 	/**
+	 * Color of the loading overlay
 	 * @defaultValue 'primary'
 	 */
 	loadingColor?: NuanceColor | string
 
+	/** Vertical alignment of cell content */
 	verticalAlign?: CSSProperties['verticalAlign']
 
+	/** Called when a row is clicked */
 	onSelect?: (e: Event, row: TableRow<T>) => void
 
+	/** Called when a row is hovered or hover ends */
 	onHover?: (e: Event, row: TableRow<T> | null) => void
 
+	/** Called on right-click on a row */
 	onContextmenu?: ((e: Event, row: TableRow<T>) => void) | Array<((e: Event, row: TableRow<T>) => void)>
 
 	/** Styles API */

@@ -15,11 +15,13 @@ import { CalendarCell } from '../core'
 
 
 export interface CalendarDecadeProps extends CalendarCellProps {
+	/** Start date of the decade */
 	date: DateInput
 
-	/** Controls size */
+	/** Component size */
 	size?: NuanceSize | string
 
+	/** Allows selecting a year as the final value without drilling down */
 	selectable?: boolean
 }
 

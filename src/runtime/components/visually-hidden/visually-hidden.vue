@@ -5,6 +5,7 @@ import Box from '../box.vue'
 
 
 export interface VisuallyHiddenProps extends BoxProps {
+	/** Controls accessibility behaviour: `'focusable'` adds `aria-hidden`, `'fully-hidden'` removes from tab order */
 	feature?: 'focusable' | 'fully-hidden'
 }
 

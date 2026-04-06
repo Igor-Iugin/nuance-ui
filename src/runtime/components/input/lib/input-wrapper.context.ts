@@ -10,22 +10,28 @@ export interface WrapperContext {
 	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string | null
 
+	/** Marks the field as required */
 	required?: boolean
 
+	/** Border radius */
 	radius?: NuanceSize | string
 
+	/** Component size */
 	size?: NuanceSize | string
 
+	/** Visual variant */
 	variant?: InputVariant
 
+	/** Enables multiline (textarea) mode */
 	multiline?: boolean
 
+	/** CSS resize behavior for multiline inputs */
 	resize?: CSSProperties['resize']
 
-	/** section pointer-events */
+	/** `pointer-events` value for the left section */
 	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
 
-	/** section pointer-events */
+	/** `pointer-events` value for the right section */
 	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
 }
 

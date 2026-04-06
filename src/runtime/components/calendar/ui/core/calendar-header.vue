@@ -6,16 +6,25 @@ import UnstyledButton from '../../../button/unstyled-button.vue'
 
 
 export interface CalendarHeaderProps extends BoxProps {
+	/** Icon for the previous navigation button */
 	prevIcon?: string
+
+	/** Icon for the next navigation button */
 	nextIcon?: string
 
+	/** Whether the previous button is rendered */
 	withPrev?: boolean
+
+	/** Whether the next button is rendered */
 	withNext?: boolean
 
+	/** Returns true when the next button should be disabled */
 	nextDisabled?: () => boolean
+
+	/** Returns true when the previous button should be disabled */
 	prevDisabled?: () => boolean
 
-	/** Label disabled state  */
+	/** Disables the level label button */
 	disabled?: boolean
 }
 

@@ -15,14 +15,28 @@ import { useProvideTreeState } from '../lib/context'
 
 
 export type TreeRootProps = RovingFocusProps & {
+	/** Resolves the icon for a given tree item */
 	iconResolver?: TreeIconResolver
+
+	/** If set, selected items can be deleted with the Delete key */
 	removable?: boolean
+
+	/** If set, multiple items can be selected */
 	selectable?: boolean
+
+	/** Async loader for branch data */
 	loadBranch: TreeLoader
+
+	/** Filters which items are rendered */
 	filter?: TreeFilter
 
+	/** Visual variant */
 	variant?: ButtonProps['variant']
+
+	/** Color from theme */
 	color?: ButtonProps['color']
+
+	/** Component size */
 	size?: ButtonProps['size']
 }
 

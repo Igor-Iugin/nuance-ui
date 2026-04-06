@@ -26,10 +26,22 @@ export type TransitionName
 		| 'pop-bottom-right'
 
 export interface TransitionProps {
+	/**
+	 * Transition animation name
+	 * @default `'pop-bottom-left'`
+	 */
 	name?: TransitionName
-	/** Transition duration in ms, `250` default */
+
+	/**
+	 * Transition duration in ms
+	 * @default `250`
+	 */
 	duration?: number
-	/** Transition dilay in ms, `0` default */
+
+	/**
+	 * Transition delay in ms
+	 * @default `0`
+	 */
 	delay?: number
 }
 

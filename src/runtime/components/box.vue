@@ -12,6 +12,7 @@ export interface BoxProps {
 	 * @default `'div'`
 	 */
 	is?: keyof HTMLElementTagNameMap | Component
+
 	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[] | Mod[][] | null
 }

@@ -14,7 +14,7 @@ export interface ProgressSectionProps extends BoxProps {
 	/** Determines whether `aria-*` props should be added to the root element @default `true` */
 	withAria?: boolean
 
-	/** Key of `theme.colors` or any valid CSS value @default `theme.primaryColor` */
+	/** Color from theme */
 	color?: NuanceColor
 
 	/** If set, the section has stripes @default `false` */

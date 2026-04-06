@@ -79,6 +79,9 @@ loading?: boolean
 
 /** Styles API */
 classes?: ...
+
+/** Element modifiers transformed into `data-` attributes, falsy values are removed */
+mod?: ...
 ```
 
 ### Эталон минималистичного стиля

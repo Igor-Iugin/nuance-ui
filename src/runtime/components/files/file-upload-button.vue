@@ -15,23 +15,25 @@ export interface FileUploadButtonProps<M extends boolean> extends ButtonProps, U
 	icon?: string
 
 	/**
+	 * Allows selecting multiple files
 	 * @default false
 	 */
 	multiple?: MaybeRef<M>
 
 	/**
+	 * Accepted file types
 	 * @default '*'
 	 */
 	accept?: MaybeRef<string>
 
 	/**
-	 * Reset when open file dialog.
+	 * Resets selected files when the dialog opens
 	 * @default false
 	 */
 	reset?: MaybeRef<boolean>
 
 	/**
-	 * Select directories instead of files.
+	 * Selects directories instead of files
 	 * @see [HTMLInputElement webkitdirectory](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 	 * @default false
 	 */

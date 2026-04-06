@@ -13,24 +13,28 @@ export interface InlineInputProps extends BoxProps {
 	/** Input id */
 	id: string
 
+	/** Label text */
 	label?: string
 
+	/** Helper text displayed below the label */
 	description?: string
 
+	/** Error message displayed below the label */
 	error?: string
 
-	/** Disabled input prop */
+	/** Disables the component */
 	disabled?: boolean | undefined
 
 	/** Component size */
 	size?: NuanceSize | string
 
+	/** Position of the label relative to the input control */
 	labelPosition?: 'left' | 'right'
 
-	/** Body html element */
+	/** HTML element used for the body wrapper */
 	bodyElement?: keyof HTMLElementTagNameMap
 
-	/** Label html element */
+	/** HTML element used for the label */
 	labelElement?: keyof HTMLElementTagNameMap
 }
 

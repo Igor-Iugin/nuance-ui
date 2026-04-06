@@ -6,5 +6,6 @@ export interface DialogEmits {
 }
 
 export interface DialogModel {
+	/** Controls open/closed state */
 	open: boolean
 }

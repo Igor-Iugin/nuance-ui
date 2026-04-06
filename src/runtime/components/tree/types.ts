@@ -3,19 +3,32 @@ import type { Ref } from 'vue'
 
 
 export interface TreeModels {
+	/** Path of the active (focused) item */
 	active: string | null
+
+	/** Flat tree data */
 	tree: TreeItem[]
+
+	/** Paths of selected items */
 	selected: string[]
+
+	/** Paths of expanded directory items */
 	expanded: string[]
 }
 
 export interface TreeEmits {
+	/** Fired when selected items are deleted */
 	delete: [path: string[]]
 }
 
 export interface TreeLoaderResult {
+	/** Loaded branch data */
 	data: Ref<TreeItem[] | undefined>
+
+	/** Whether the branch is loading */
 	pending: Ref<boolean>
+
+	/** Triggers data fetching */
 	execute: () => Promise<unknown>
 }
 
@@ -62,6 +75,7 @@ export interface TreeItem {
 	 */
 	type?: TreeItemType
 
+	/** Nested child items */
 	children?: TreeItem[]
 }
 

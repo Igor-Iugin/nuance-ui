@@ -16,6 +16,7 @@ import { useTreeItemHandlers } from '../lib/item-handlers'
 
 
 export interface TreeItemProps extends TreeItem {
+	/** Nesting depth, starting at 1 for root items */
 	level: number
 }
 

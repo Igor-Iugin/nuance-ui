@@ -11,7 +11,10 @@ import css from './tabs.module.css'
 
 
 export interface TabsListProps extends BoxProps {
+	/** If set, tabs take all available width */
 	grow?: boolean
+
+	/** CSS `justify-content` value for the tab list */
 	justify?: CSSProperties['justify-content']
 }
 

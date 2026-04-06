@@ -6,8 +6,10 @@ import css from './card.module.css'
 
 
 export interface CardSectionProps extends BoxProps {
+	/** Shows a top border */
 	withBorder?: boolean
-	/** Determines whether the section should inherit padding from the parent `UiCard`, `false` by default */
+
+	/** Inherits horizontal padding from the parent card */
 	inheritPadding?: boolean
 }
 

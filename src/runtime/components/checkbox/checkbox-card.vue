@@ -11,16 +11,19 @@ import { useCheckboxGroupState } from './lib/group.context'
 
 
 export interface CheckboxCardProps {
+	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[]
 
+	/** Shows a border around the card */
 	withBorder?: boolean
 
 	/** Border radius */
 	radius?: NuanceRadius
 
-	/** Disabled input prop */
+	/** Disables the component */
 	disabled?: boolean | undefined
 
+	/** Value used in checkbox group context */
 	value?: string
 }
 

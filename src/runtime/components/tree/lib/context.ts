@@ -11,26 +11,41 @@ type EventType = 'select' | 'expand'
 type SelectMode = 'single' | 'multiple' | 'range'
 
 export interface TreeContext {
+	/** Ref to the root `<ul>` element */
 	root: ShallowRef<HTMLUListElement | null>
+	/** Path of the active (focused) item */
 	active: ModelRef<string | null>
+	/** Paths of selected items */
 	selected: ModelRef<string[]>
+	/** Paths of expanded directory items */
 	expanded: ModelRef<string[]>
 
+	/** Resolves the icon for a given tree item */
 	iconResolver: TreeIconResolver
+	/** Async loader for branch data */
 	loadBranch: TreeLoader
+	/** Filters which items are rendered */
 	filter?: TreeFilter
 
+	/** Whether multiple items can be selected */
 	selectable: boolean
 
+	/** Visual variant */
 	variant: ButtonProps['variant']
+	/** Color from theme */
 	color: ButtonProps['color']
+	/** Component size */
 	size: ButtonProps['size']
 }
 
 export interface TreeState extends Omit<TreeContext, 'root'> {
+	/** Toggles selection or expansion state of an item */
 	toggle: (type: EventType, path: string, mode?: SelectMode) => void
+	/** Activates selection or expansion for an item */
 	on: ((type: 'expand', path: string) => void) & ((type: 'select', path: string, mode?: SelectMode) => void)
+	/** Deactivates selection or expansion for an item */
 	off: (type: EventType, path: string) => void
+	/** Sets the active (focused) item path */
 	setActive: (path: string | null) => void
 }
 
@@ -112,7 +127,7 @@ const [useProvide, useState] = createStrictInjection(({
 		switch (type) {
 			case 'select': {
 				selected.value = selected.value.filter(i => i !== path)
-				// Если убираем активный элемент, сбрасываем active
+				// Reset active when the active item is removed
 				if (active.value === path)
 					active.value = selected.value[0] ?? null
 				return
@@ -129,15 +144,15 @@ const [useProvide, useState] = createStrictInjection(({
 			case 'select': {
 				const isSelected = selected.value.includes(path)
 
-				// В single mode всегда устанавливаем новое значение
+				// In single mode always set the new value
 				if (mode === 'single')
 					return on(type, path, mode)
 
-				// В multiple mode переключаем состояние
+				// In multiple mode toggle the state
 				if (mode === 'multiple')
 					return isSelected ? off(type, path) : on(type, path, mode)
 
-				// В range mode всегда добавляем диапазон
+				// In range mode always add the range
 				if (mode === 'range')
 					return on(type, path, mode)
 

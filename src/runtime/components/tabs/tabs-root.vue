@@ -13,37 +13,64 @@ import css from './tabs.module.css'
 
 
 export interface TabsRootProps extends BoxProps {
+	/** Value of the tab activated by default (uncontrolled) */
 	defaultTab?: string
 
-	/** Tabs orientation, `'horizontal'` by default */
+	/**
+	 * Tabs orientation
+	 * @default `'horizontal'`
+	 */
 	orientation?: 'vertical' | 'horizontal'
 
-	/** `TabsList` placement relative to `TabsPanel`, applicable only when `orientation="vertical"`, `'left'` by default */
+	/**
+	 * `TabsList` placement relative to `TabsPanel`, applicable only when `orientation="vertical"`
+	 * @default `'left'`
+	 */
 	placement?: 'left' | 'right'
 
+	/**
+	 * Visual variant
+	 * @default `'default'`
+	 */
 	variant?: 'default' | 'pills' | 'outline'
 
-	/** Determines whether arrow key presses should loop though items (first to last and last to first), `true` by default */
+	/**
+	 * Whether arrow key presses loop through items
+	 * @default `true`
+	 */
 	loop?: boolean
 
-	/** Determines whether tab should be activated with arrow key press, `true` by default */
+	/**
+	 * Whether a tab is activated on arrow key press
+	 * @default `true`
+	 */
 	activateTabWithKeyboard?: boolean
 
-	/** Determines whether tab can be deactivated, `false` by default */
+	/**
+	 * Whether a tab can be deactivated
+	 * @default `false`
+	 */
 	allowTabDeactivation?: boolean
 
-	/** Changes colors of `TabsTab` components when variant is `pills` or `default`, does nothing for other variants */
+	/** Color from theme */
 	color?: NuanceColor
 
-	/** Key of `theme.radius` or any valid CSS value to set `border-radius`, `theme.defaultRadius` by default */
+	/** Border radius */
 	radius?: NuanceRadius
 
-	/** Determines whether tabs should have inverted styles, `false` by default */
+	/**
+	 * Inverts tab styles
+	 * @default `false`
+	 */
 	inverted?: boolean
 
-	/** If set to `false`, `TabsPanel` content will be unmounted when the associated tab is not active, `true` by default */
+	/**
+	 * If `false`, panel content is unmounted when inactive
+	 * @default `true`
+	 */
 	keepMounted?: boolean
 
+	/** Root element id */
 	id?: string
 }
 

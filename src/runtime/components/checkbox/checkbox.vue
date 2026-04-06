@@ -16,18 +16,28 @@ export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 	/** Id used to bind input and label, auto-generated if not provided */
 	id?: string
 
+	/** Color from theme */
 	color?: NuanceColor
 
+	/** Icon color */
 	iconColor?: NuanceColor
 
-	/** Visual variant @default 'filled' */
+	/**
+	 * Visual variant
+	 * @default `'filled'`
+	 */
 	variant?: 'filled' | 'outline'
 
+	/** Border radius */
 	radius?: NuanceSize
 
-	/** Component size @default 'sm' */
+	/**
+	 * Component size
+	 * @default `'sm'`
+	 */
 	size?: NuanceSize
 
+	/** Value used in checkbox group context */
 	value?: string
 }
 

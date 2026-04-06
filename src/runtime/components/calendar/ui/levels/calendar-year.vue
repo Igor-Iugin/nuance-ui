@@ -16,11 +16,13 @@ import { CalendarCell } from '../core'
 
 
 export interface CalendarYearProps extends CalendarCellProps {
+	/** Year date used to generate the month grid */
 	year: DateInput
 
-	/** Controls size */
+	/** Component size */
 	size?: NuanceSize | string
 
+	/** Allows selecting a month as the final value without drilling down */
 	selectable?: boolean
 }
 

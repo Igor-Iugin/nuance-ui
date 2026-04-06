@@ -11,7 +11,7 @@ import {	CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
 
 
 export interface CalendarProps<T extends SelectionMode = 'single'> extends CalendarRootProps<T> {
-	/** Controls size */
+	/** Component size */
 	size?: NuanceSize | string
 
 	/** Determines whether week numbers should be displayed @default `false` */

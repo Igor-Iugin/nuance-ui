@@ -11,6 +11,7 @@ import css from './card.module.css'
 
 
 export interface CardProps extends PaperProps {
+	/** Padding token */
 	padding?: NuanceSpacing
 }
 

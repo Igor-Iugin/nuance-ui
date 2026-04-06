@@ -9,7 +9,10 @@ import css from './tabs.module.css'
 
 
 export interface TabsTabProps {
+	/** Tab value, must match the corresponding `TabsPanel` value */
 	value: string
+
+	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
 	mod?: Mod | Mod[]
 }
 

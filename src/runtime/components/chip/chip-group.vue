@@ -6,8 +6,11 @@ import { useProvideChipGroupState } from './lib'
 
 
 export interface ChipGroupProps<T extends boolean = false> {
+	/** Form input name */
 	name: string
+	/** Allows selecting multiple chips at once */
 	multiple?: T
+	/** Disables all chips in the group */
 	disabled?: boolean
 }
 
