@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.8
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.7...v0.2.8)
+
+### 🚀 Enhancements
+
+- ✨  Added `icon` prop ([8d4c9e9](https://github.com/Igor-Iugin/nuance-ui/commit/8d4c9e9))
+
+### 📖 Documentation
+
+- 📝 Added JSDocs ([838b16c](https://github.com/Igor-Iugin/nuance-ui/commit/838b16c))
+
+### ❤️ Contributors
+
+- Igor Iugin ([@Igor-Iugin](https://github.com/Igor-Iugin))
+
 ## v0.2.7
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.6...v0.2.7)
