@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.10
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.9...v0.2.10)
+
+### 🚀 Enhancements
+
+- ✨  Added props justify to Button ([5d0d881](https://github.com/Igor-Iugin/nuance-ui/commit/5d0d881))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.2.9
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.8...v0.2.9)
