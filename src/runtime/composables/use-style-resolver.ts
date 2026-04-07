@@ -1,5 +1,4 @@
-import type { NuanceTheme } from '@nui/types'
-import type { CSSProperties } from 'vue'
+import type { NuanceTheme, TransformVars } from '@nui/types'
 
 import { useTheme } from './use-theme'
 
@@ -7,7 +6,7 @@ import { useTheme } from './use-theme'
 /**
  * Builds a style object from a factory that receives the current theme.
  */
-export function useStyleResolver<T extends CSSProperties>(factory: (theme: NuanceTheme) => T) {
+export function useStyleResolver<T extends object>(factory: (theme: NuanceTheme) => TransformVars<T>) {
 	const theme = useTheme()
 	return factory(theme.value as NuanceTheme)
 }

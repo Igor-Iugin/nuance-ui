@@ -1,3 +1,4 @@
+export type * from './styling'
 export type * from './theme'
 
 /** Map of component part names to user-provided class names. */

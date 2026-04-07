@@ -1,4 +1,5 @@
 import type {
+	CssVariable,
 	NuanceColor,
 	NuanceColorShade,
 	NuanceDefaultThemeColor,
@@ -16,7 +17,7 @@ interface ParseThemeColorResult {
 	/** Parsed shade index, or `undefined` when the color has no shade. */
 	shade: NuanceColorShade | undefined
 	/** Matching CSS custom property, or `undefined` for non-theme colors. */
-	variable: `--${string}` | undefined
+	variable: CssVariable | undefined
 	/** `true` when the color belongs to the Nuance theme palette. */
 	isThemeColor: boolean
 }

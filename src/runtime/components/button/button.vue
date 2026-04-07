@@ -13,6 +13,22 @@ import Loader from '../loader/loader.vue'
 import css from './button.module.css'
 
 
+interface ButtonCSSVars {
+	root:
+		| '--button-justify'
+		| '--button-height'
+		| '--button-padding-x'
+		| '--button-fz'
+		| '--button-radius'
+		| '--button-bg'
+		| '--button-hover'
+		| '--button-color'
+		| '--button-bd'
+		| '--button-spacing'
+	leftSection: '--section-pointer-events'
+	rightSection: '--section-pointer-events'
+}
+
 export interface ButtonProps extends BoxProps {
 	/** Component size */
 	size?: NuanceSize | `compact-${NuanceSize}`
@@ -61,6 +77,12 @@ export interface ButtonProps extends BoxProps {
 
 	/** Extra attributes forwarded to the right section element */
 	rightSectionProps?: HTMLAttributes
+
+	/**
+	 * Sets `justify-content` of `inner` element, can be used to change distribution of sections and label
+	 *  @default 'center'
+	 */
+	justify?: CSSStyleDeclaration['justifyContent']
 }
 
 const {
@@ -79,10 +101,11 @@ const {
 	is = 'button',
 	radius,
 	mod: _mod,
+	justify,
 } = defineProps<ButtonProps>()
 
 const mod = computed(() => [{ loading, variant }, _mod])
-const style = computed(() => useStyleResolver(theme => {
+const style = computed(() => useStyleResolver<ButtonCSSVars>(theme => {
 	const {
 		background,
 		border,
@@ -92,6 +115,7 @@ const style = computed(() => useStyleResolver(theme => {
 
 	return {
 		root: {
+			'--button-justify': justify,
 			'--button-height': getSize(size, 'button-height'),
 			'--button-padding-x': getSize(size, 'button-padding-x'),
 			'--button-fz': size?.includes('compact')
