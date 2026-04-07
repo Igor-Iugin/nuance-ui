@@ -21,7 +21,7 @@ const { is = 'section', mod, grow } = defineProps<AppShellSectionProps>()
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	flex-grow: 0;
 

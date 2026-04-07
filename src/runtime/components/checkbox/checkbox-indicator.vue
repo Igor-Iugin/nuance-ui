@@ -72,7 +72,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .indicator {
 	--checkbox-size-xs: rem(16px);
 	--checkbox-size-sm: rem(20px);

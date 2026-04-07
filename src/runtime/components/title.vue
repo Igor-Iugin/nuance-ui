@@ -39,7 +39,7 @@ const style = computed(() => ({ '--title-text-wrap': textWrap }))
 	</Text>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--title-text-wrap: pretty;
 

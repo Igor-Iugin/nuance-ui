@@ -142,7 +142,7 @@ const {
 })
 
 const isClearable = computed(() => clearable && !readonly && !disabled && (
-	hours.value !== null || minutes.value !== null	|| seconds.value !== null	|| amPm.value !== null
+	hours.value !== null || minutes.value !== null || seconds.value !== null || amPm.value !== null
 ))
 </script>
 
@@ -255,7 +255,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 	</InputWrapper>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .root {
 	overflow: hidden;
 	display: flex;

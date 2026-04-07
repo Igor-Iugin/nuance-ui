@@ -29,7 +29,7 @@ const style = computed(() => ({
 	</PopoverDropdown>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .dropdown {
 	padding: 0;
 }

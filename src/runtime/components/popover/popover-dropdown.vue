@@ -39,7 +39,7 @@ const style = computed(() => ({
 	</div>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .dropdown {
 	--popover-radius: var(--radius-default);
 	--popover-shadow: none;

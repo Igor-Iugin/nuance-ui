@@ -90,7 +90,7 @@ const style = computed(() => ({
 	</div>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .wrapper {
 	--input-error-size: calc(var(--font-size-sm) - rem(2px));
 	--input-description-size: calc(var(--font-size-sm) - rem(2px));

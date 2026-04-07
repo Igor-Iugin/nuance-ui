@@ -27,7 +27,7 @@ const style = computed(() => ({
 	</UnstyledButton>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .cell {
 	--day-size-xs: rem(30px);
 	--day-size-sm: rem(36px);

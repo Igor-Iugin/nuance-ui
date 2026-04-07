@@ -118,7 +118,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</InputInline>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--checkbox-size-xs: rem(16px);
 	--checkbox-size-sm: rem(20px);

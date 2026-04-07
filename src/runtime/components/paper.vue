@@ -33,7 +33,7 @@ const style = computed(() => ({
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--paper-radius: var(--radius-default);
 	--paper-shadow: none;

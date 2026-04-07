@@ -13,7 +13,7 @@ const { mod } = defineProps<BoxProps>()
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	display: flex;
 	flex-direction: column;

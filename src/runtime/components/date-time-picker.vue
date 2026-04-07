@@ -179,7 +179,7 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 	</Popover>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .list {
 	display: flex;
 	flex-wrap: wrap;

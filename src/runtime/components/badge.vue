@@ -16,12 +16,12 @@ export interface BadgeProps extends BoxProps {
 	 * @default `'filled'`
 	 */
 	variant?:
-		| 'filled'
-		| 'light'
-		| 'outline'
-		| 'dot'
-		| 'default'
-		| 'gradient'
+	| 'filled'
+	| 'light'
+	| 'outline'
+	| 'dot'
+	| 'default'
+	| 'gradient'
 
 	/**
 	 * Component size
@@ -117,7 +117,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</Box>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .root {
 	--badge-height-xs: rem(16px);
 	--badge-height-sm: rem(18px);

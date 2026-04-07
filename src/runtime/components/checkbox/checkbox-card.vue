@@ -86,7 +86,7 @@ const style = computed(() => ({
 	</UnstyledButton>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--card-radius: var(--radius-default);
 

@@ -53,7 +53,7 @@ const { opened } = useModal('map-history')
 	</NModalRoot>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .sidebar {
 	position: absolute;
 	z-index: 2;

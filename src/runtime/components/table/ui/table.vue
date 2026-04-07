@@ -355,7 +355,7 @@ defineExpose({
 	</Box>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .root {
 	--table-color: var(--color-primary-4);
 	--table-loader-color: var(--table-color);

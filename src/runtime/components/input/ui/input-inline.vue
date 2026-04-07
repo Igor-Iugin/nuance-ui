@@ -85,7 +85,7 @@ const style = computed(() => ({
 	</Box>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .root {
 	--label-lh-xs: rem(16px);
 	--label-lh-sm: rem(20px);

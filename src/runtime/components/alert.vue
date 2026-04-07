@@ -121,7 +121,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--alert-radius: var(--radius-default);
 	--alert-bg: var(--color-primary-light);

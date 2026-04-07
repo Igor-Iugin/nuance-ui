@@ -160,7 +160,7 @@ const style = computed(() => useStyleResolver(theme => ({
 	</InputInline>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .root {
 	--switch-height-xs: rem(16px);
 	--switch-height-sm: rem(20px);

@@ -110,7 +110,7 @@ function handleSelect(year: number) {
 	</Box>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .table {
 	table-layout: fixed;
 }

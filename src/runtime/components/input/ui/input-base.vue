@@ -15,7 +15,7 @@ export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
 	classes?: Classes<'root' | 'section'>
 }
 
-const { classes,	...props } = defineProps<BaseInputProps>()
+const { classes, ...props } = defineProps<BaseInputProps>()
 
 defineSlots<{
 	leftSection: []
@@ -67,7 +67,7 @@ const style = computed(() => ({
 	</Box>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .root {
 	--input-height-xs: rem(30px);
 	--input-height-sm: rem(36px);

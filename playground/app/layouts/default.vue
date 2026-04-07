@@ -75,7 +75,7 @@ const theme = useTheme()
 	</NAppShell>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .root {
 	--app-shell-navbar-width: rem(250px);
 }

@@ -58,7 +58,7 @@ defineEmits<PopoverEmits & CalendarEmits<Mode>>()
 const model = defineModel<DateSelection<Mode>>()
 
 const config = useDatesConfig(cfg)
-const formatValue = (date: DateInput) => format({ date, format: valueFormat, ...config	})
+const formatValue = (date: DateInput) => format({ date, format: valueFormat, ...config })
 
 const visible = computed(() => {
 	if (!model.value)
@@ -68,7 +68,7 @@ const visible = computed(() => {
 		case 'single':
 			return formatValue(model.value as string)
 		case 'week':
-		case 'range':{
+		case 'range': {
 			const [start, end] = model.value as string[]
 
 			if (!start)
@@ -173,7 +173,7 @@ const visible = computed(() => {
 	</Popover>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .list {
 	display: flex;
 	flex-wrap: wrap;

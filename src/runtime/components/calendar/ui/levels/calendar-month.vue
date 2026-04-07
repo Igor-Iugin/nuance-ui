@@ -34,7 +34,7 @@ const emit = defineEmits<{
 }>()
 
 const ctx = useCalendarState()
-const weeks = shallowRef(createMonth(month,	ctx.config,	ctx.fixedWeeks))
+const weeks = shallowRef(createMonth(month, ctx.config, ctx.fixedWeeks))
 
 watch(() => month, (date, oldDate) => {
 	if (date === oldDate)
@@ -132,7 +132,7 @@ function handleSelect(event: PointerEvent) {
 	</table>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .table {
 	table-layout: fixed;
 	border-collapse: collapse;

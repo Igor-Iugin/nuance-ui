@@ -13,7 +13,7 @@ const { mod } = defineProps<BoxProps>()
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	position: fixed;
 
@@ -35,13 +35,13 @@ const { mod } = defineProps<BoxProps>()
 	transition-duration: var(--app-shell-transition-duration);
 	transition-property: transform, top, height;
 
-	:where([data-layout='alt']) > & {
+	:where([data-layout='alt'])>& {
 		top: 0;
 
 		height: 100dvh;
 	}
 
-	:where([data-with-border]) > & {
+	:where([data-with-border])>& {
 		border-inline-end: 1px solid var(--app-shell-border-color);
 	}
 }

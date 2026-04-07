@@ -90,7 +90,7 @@ const style = computed(() => useStyleResolver(theme => ({
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--text-fz: var(--font-size-sm);
 	--text-lh: var(--line-height-sm);

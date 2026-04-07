@@ -17,7 +17,7 @@ const { is = 'button', ...props } = defineProps<UnstyledButtonProps>()
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 :where(.unstyled) {
 	touch-action: manipulation;
 	cursor: pointer;

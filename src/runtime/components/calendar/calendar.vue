@@ -6,8 +6,8 @@ import type { CalendarEmits, CalendarLevel, DateSelection, SelectionMode } from 
 import type { CalendarRootProps } from './ui/core'
 
 import { useCalendarNavigation } from './lib/use-calendar-navigation'
-import {	CalendarHeader, CalendarRoot } from './ui/core'
-import {	CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
+import { CalendarHeader, CalendarRoot } from './ui/core'
+import { CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
 
 
 export interface CalendarProps<T extends SelectionMode = 'single'> extends CalendarRootProps<T> {
@@ -147,7 +147,7 @@ const [calendars, nav] = useCalendarNavigation({
 	</CalendarRoot>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .content {
 	--calendar-cell-spacing: rem(1px);
 

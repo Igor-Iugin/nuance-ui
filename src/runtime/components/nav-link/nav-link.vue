@@ -106,7 +106,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</NuxtLink>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--nl-spacing-xs: .25rem;
 	--nl-spacing-sm: .5rem;

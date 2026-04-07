@@ -142,7 +142,7 @@ function handleKeyDown(event: KeyboardEvent) {
 	>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .field {
 	position: relative;
 

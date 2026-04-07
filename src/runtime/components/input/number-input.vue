@@ -122,7 +122,7 @@ function handleBlur() {
 	</InputWrapper>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--ni-right-section-width-xs: rem(17px);
 	--ni-right-section-width-sm: rem(24px);

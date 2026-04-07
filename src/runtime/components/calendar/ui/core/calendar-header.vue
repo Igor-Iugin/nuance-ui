@@ -81,7 +81,7 @@ export interface CalendarHeaderEmits {
 	</Box>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .header {
 	--dch-control-size-xs: rem(30px);
 	--dch-control-size-sm: rem(36px);

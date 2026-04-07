@@ -24,7 +24,7 @@ const files = shallowRef<File[] | null>(null)
 	</NText>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .buttons {
 	display: flex;
 	gap: var(--spacing-sm);

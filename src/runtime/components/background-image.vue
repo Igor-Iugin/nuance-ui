@@ -29,7 +29,7 @@ const style = computed(() => ({
 	<Box :style :class='$style.root' v-bind='rest' />
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--bi-radius: 0rem;
 

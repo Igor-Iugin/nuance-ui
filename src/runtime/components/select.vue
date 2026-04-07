@@ -207,7 +207,7 @@ function onSubmit(val: string) {
 	</ComboboxRoot>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .input {
 	:where([readonly]) {
 		cursor: pointer;

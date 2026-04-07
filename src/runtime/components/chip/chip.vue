@@ -111,7 +111,7 @@ const style = computed(() => useStyleResolver(theme => {
 	</Box>
 </template>
 
-<style lang='postcss' module>
+<style module>
 .root {
 	--chip-size-xs: rem(23px);
 	--chip-size-sm: rem(28px);

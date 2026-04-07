@@ -41,7 +41,7 @@ const header = defineModel<boolean>('header', { default: false })
 const navbar = defineModel<boolean>('navbar', { default: false })
 const footer = defineModel<boolean>('footer', { default: false })
 
-useProvideAppShell({ aside, footer, header, navbar	})
+useProvideAppShell({ aside, footer, header, navbar })
 useProvideDatesConfig(dateConfig)
 
 const style = computed(() => ({
@@ -62,7 +62,7 @@ const style = computed(() => ({
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--app-shell-padding: var(--spacing-sm);
 	--app-shell-element-padding: .25rem;

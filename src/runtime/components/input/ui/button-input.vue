@@ -87,7 +87,7 @@ defineExpose({
 	</InputWrapper>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .base {
 	--input-cursor: pointer;
 }

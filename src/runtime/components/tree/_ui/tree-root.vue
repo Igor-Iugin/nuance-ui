@@ -106,7 +106,7 @@ if (removable) {
 	</RovingFocus>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--tree-icon-size: var(--spacing-md);
 

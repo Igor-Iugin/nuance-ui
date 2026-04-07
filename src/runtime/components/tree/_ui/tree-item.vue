@@ -128,7 +128,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 	</li>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .item {
 	display: grid;
 	gap: .25rem;

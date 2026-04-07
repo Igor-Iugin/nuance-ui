@@ -116,7 +116,7 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 	</Box>
 </template>
 
-<style module lang='postcss'>
+<style module>
 .root {
 	--bc-spacing: var(--spacing-xs);
 

@@ -92,7 +92,7 @@ const select = ref(['2', '1'])
 	</section>
 </template>
 
-<style lang="postcss" module>
+<style module>
 .root {
 	display: grid;
 	gap: 1.5rem;
