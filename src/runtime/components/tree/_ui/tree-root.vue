@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import type { ButtonProps } from '@nui/components'
+import type { ButtonProps, ButtonVariant } from '@nui/components'
+import type { NuanceColor } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
@@ -31,10 +32,10 @@ export type TreeRootProps = RovingFocusProps & {
 	filter?: TreeFilter
 
 	/** Visual variant */
-	variant?: ButtonProps['variant']
+	variant?: ButtonVariant
 
 	/** Color from theme */
-	color?: ButtonProps['color']
+	color?: NuanceColor
 
 	/** Component size */
 	size?: ButtonProps['size']

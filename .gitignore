@@ -37,6 +37,9 @@ coverage
 *.iml
 .idea
 
+# Worktrees
+.worktrees
+
 # OSX
 .DS_Store
 .AppleDouble

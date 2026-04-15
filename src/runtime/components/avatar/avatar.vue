@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -13,19 +13,34 @@ import { getInitials } from './lib/get-initials'
 import { getInitialsColor } from './lib/get-initials-color'
 
 
-export interface AvatarProps extends BoxProps {
-	/** Component size */
-	size?: NuanceSize | string
+type AvatarVariant = 'filled' | 'light' | 'gradient' | 'outline' | 'default'
 
+type AvatarClasses = 'root' | 'placeholder' | 'image'
+
+interface AvatarVars {
+	root:
+	| '--avatar-size'
+	| '--avatar-radius'
+	| '--avatar-bg'
+	| '--avatar-color'
+	| '--avatar-bd'
+}
+
+interface StyleProps {
 	/** Border radius */
-	radius?: NuanceRadius
+	radius?: NuanceRadius | AnyString
+
+	/** Component size */
+	size?: NuanceSize | AnyString
 
 	/** Color from theme. Pass `'initials'` to derive the color from the user's name. */
 	color?: NuanceColor | 'initials'
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
+}
 
+interface Props extends BoxProps, StyleProps {
 	/** Image URL. When the image fails to load or is `null`, a placeholder is shown instead. */
 	src?: string | null
 
@@ -43,53 +58,58 @@ export interface AvatarProps extends BoxProps {
 	 * @default 'gravity-ui:person'
 	 */
 	placeholder?: string
-
-	/** Visual variant */
-	variant?: | 'filled' | 'light' | 'gradient' | 'outline' | 'default'
 }
 
+type AvatarFactory = ComponentFactory<{
+	props: Props
+	vars: AvatarVars
+	variant: AvatarVariant
+	classes: AvatarClasses
+}>
+export type AvatarProps = AvatarFactory['props']
+
+
 const {
-	alt,
-	src,
-	mod,
 	name,
-	color,
-	allowedInitialsColors,
-	gradient,
-	variant,
-	size,
 	radius,
 	placeholder = 'gravity-ui:person',
+	...props
 } = defineProps<AvatarProps>()
 
 const initials = computed(() => name && getInitials(name))
 const ctx = useAvatarGroupState()
 
-const style = computed(() => useStyleResolver(theme => {
-	const _color = color === 'initials' && typeof name === 'string'
-		? getInitialsColor(name, allowedInitialsColors)
-		: color
+const style = useVarsResolver<AvatarFactory>(theme => {
+	const color = props.color === 'initials' && typeof name === 'string'
+		? getInitialsColor(name, props.allowedInitialsColors)
+		: props.color
 
 	const { background, text, border } = createVariantColorResolver({
-		color: _color || 'gray',
 		theme,
-		gradient,
-		variant: variant || 'light',
+		gradient: props.gradient,
+		color: color || 'gray',
+		variant: props.variant || 'light',
 	})
 
 	return {
-		'--avatar-size': getSize(size, 'avatar-size'),
-		'--avatar-radius': radius === undefined ? undefined : getRadius(radius),
-		'--avatar-bg': _color || variant ? background : undefined,
-		'--avatar-color': _color || variant ? text : undefined,
-		'--avatar-bd': _color || variant ? border : undefined,
+		root: {
+			'--avatar-size': getSize(props.size, 'avatar-size'),
+			'--avatar-radius': radius === undefined ? undefined : getRadius(radius),
+			'--avatar-bg': color || props.variant ? background : undefined,
+			'--avatar-color': color || props.variant ? text : undefined,
+			'--avatar-bd': color || props.variant ? border : undefined,
+		},
 	}
-}))
+})
 </script>
 
 <template>
-	<Box :style :class='css.root' :mod='[{ "within-group": ctx?.withinGroup }, mod]'>
-		<span v-if='!src' :class='css.placeholder' :title='alt'>
+	<Box
+		:style='style.root'
+		:class='[css.root, classes?.root]'
+		:mod='[{ "within-group": ctx?.withinGroup }, mod]'
+	>
+		<span v-if='!src' :class='[css.placeholder, classes?.placeholder]' :title='alt'>
 			<slot>
 				<Icon v-if='!src && !name' :name='placeholder' />
 				{{ initials }}
@@ -99,7 +119,7 @@ const style = computed(() => useStyleResolver(theme => {
 			v-else
 			:src
 			:alt
-			:class='css.image'
+			:class='[css.image, classes?.image]'
 		/>
 	</Box>
 </template>

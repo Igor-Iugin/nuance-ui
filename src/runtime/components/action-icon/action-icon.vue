@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useStyleResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
@@ -12,7 +12,7 @@ import Loader from '../loader/loader.vue'
 import css from './action-icon.module.css'
 
 
-export interface ActionIconProps {
+interface StyleProps {
 	/** Component size */
 	size?: NuanceSize | `input-${NuanceSize}` | string
 
@@ -25,14 +25,16 @@ export interface ActionIconProps {
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
 
-	/** Loading state */
-	loading?: boolean
-
 	/** Color from theme */
 	color?: NuanceColor
 
 	/** Border radius */
-	radius?: NuanceRadius
+	radius?: NuanceRadius | AnyString
+}
+
+export interface ActionIconProps extends StyleProps {
+	/** Loading state */
+	loading?: boolean
 
 	/** Styles API */
 	classes?: Classes<'root' | 'icon'>

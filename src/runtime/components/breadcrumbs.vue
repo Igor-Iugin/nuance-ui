@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceSpacing } from '@nui/types'
+import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { MaybeRef } from 'vue'
 
 import { useTheme } from '@nui/composables'
@@ -7,7 +7,7 @@ import { getSpacing } from '@nui/utils'
 import { computed, unref } from 'vue'
 
 import type { BoxProps } from './box.vue'
-import type { ButtonProps } from './button/button.vue'
+import type { ButtonProps, ButtonVariant } from './button/button.vue'
 import type { LinkProps } from './link'
 
 import Box from './box.vue'
@@ -44,12 +44,14 @@ export interface BreadcrumbsProps extends BoxProps {
 	 * Visual variant
 	 * @default `'subtle'`
 	 */
-	variant?: ButtonProps['variant']
+	variant?: ButtonVariant
+
 	/**
 	 * Color from theme
 	 * @default `'primary'`
 	 */
-	color?: ButtonProps['color']
+	color?: NuanceColor
+
 	/**
 	 * Component size
 	 * @default `'compact-sm'`

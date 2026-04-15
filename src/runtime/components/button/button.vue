@@ -1,10 +1,9 @@
 <script lang='ts' setup>
-import type { Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
-import type { HTMLAttributes } from 'vue'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { CSSProperties, HTMLAttributes } from 'vue'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
-import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -13,120 +12,118 @@ import Loader from '../loader/loader.vue'
 import css from './button.module.css'
 
 
-interface ButtonCSSVars {
+export type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
+
+export type ButtonVariant
+	= 'filled'
+	| 'light'
+	| 'outline'
+	| 'subtle'
+	| 'default'
+	| 'gradient'
+	| 'gradient-outline'
+
+export interface ButtonVars {
 	root:
-		| '--button-justify'
-		| '--button-height'
-		| '--button-padding-x'
-		| '--button-fz'
-		| '--button-radius'
-		| '--button-bg'
-		| '--button-hover'
-		| '--button-color'
-		| '--button-bd'
-		| '--button-spacing'
+	| '--button-justify'
+	| '--button-height'
+	| '--button-padding-x'
+	| '--button-fz'
+	| '--button-radius'
+	| '--button-bg'
+	| '--button-hover'
+	| '--button-color'
+	| '--button-bd'
+	| '--button-spacing'
 	leftSection: '--section-pointer-events'
 	rightSection: '--section-pointer-events'
 }
 
-export interface ButtonProps extends BoxProps {
+interface StyleProps {
+	/** Color from theme */
+	color?: NuanceColor
+
 	/** Component size */
 	size?: NuanceSize | `compact-${NuanceSize}`
 
 	/** Spacing token */
-	spacing?: NuanceSize | string
-
-	/**
-	 * Visual variant
-	 * @default `'default'`
-	 */
-	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	spacing?: NuanceSize | AnyString
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
 
+	/** Border radius */
+	radius?: NuanceRadius | AnyString
+
+	/** Sets `justify-content` of `inner` element @default 'center' */
+	justify?: CSSProperties['justify-content']
+
+	/** `pointer-events` value for the left section @default `'none'` */
+	leftSectionPE?: CSSProperties['pointer-events']
+
+	/** `pointer-events` value for the right section @default `'all'` */
+	rightSectionPE?: CSSProperties['pointer-events']
+}
+
+interface Props extends BoxProps, StyleProps {
 	/** Loading state */
 	loading?: boolean
-
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Border radius */
-	radius?: NuanceRadius
-
-	/** Styles API */
-	classes?: Classes<'root' | 'inner' | 'label' | 'section'>
-
-	/**
-	 * `pointer-events` value for the left section
-	 * @default `'none'`
-	 */
-	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
-
-	/** Extra attributes forwarded to the left section element */
-	leftSectionProps?: HTMLAttributes
 
 	/** Icon displayed before the label */
 	icon?: string
 
-	/**
-	 * `pointer-events` value for the right section
-	 * @default `'all'`
-	 */
-	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
+	/** Extra attributes forwarded to the left section element */
+	leftSectionProps?: HTMLAttributes
 
 	/** Extra attributes forwarded to the right section element */
 	rightSectionProps?: HTMLAttributes
 
-	/**
-	 * Sets `justify-content` of `inner` element, can be used to change distribution of sections and label
-	 *  @default 'center'
-	 */
-	justify?: CSSStyleDeclaration['justifyContent']
 }
 
+type ButtonFactory = ComponentFactory<{
+	props: Props
+	classes: ButtonClasses
+	variant: ButtonVariant
+	vars: ButtonVars
+}>
+
+export type ButtonProps = ButtonFactory['props']
+
 const {
-	color,
-	size,
+	is = 'button',
 	variant = 'default',
-	spacing,
-	gradient,
+	leftSectionPE = 'none',
+	rightSectionPE = 'all',
+	mod,
+	icon,
 	loading,
 	classes,
-	icon,
-	leftSectionPE = 'none',
-	leftSectionProps,
-	rightSectionPE = 'all',
 	rightSectionProps,
-	is = 'button',
-	radius,
-	mod: _mod,
-	justify,
+	...props
 } = defineProps<ButtonProps>()
 
-const mod = computed(() => [{ loading, variant }, _mod])
-const style = computed(() => useStyleResolver<ButtonCSSVars>(theme => {
-	const {
-		background,
-		border,
-		hover,
-		text,
-	} = createVariantColorResolver({ variant, color, theme, gradient })
+const style = useVarsResolver<ButtonFactory>(theme => {
+	const { background, border, hover, text } = createVariantColorResolver({
+		theme,
+		variant,
+		color: props.color,
+		gradient: props.gradient,
+	})
 
 	return {
 		root: {
-			'--button-justify': justify,
-			'--button-height': getSize(size, 'button-height'),
-			'--button-padding-x': getSize(size, 'button-padding-x'),
-			'--button-fz': size?.includes('compact')
-				? getFontSize(size.replace('compact-', ''))
-				: getFontSize(size),
+			'--button-justify': props.justify,
+			'--button-height': getSize(props.size, 'button-height'),
+			'--button-padding-x': getSize(props.size, 'button-padding-x'),
+			'--button-fz': props.size?.includes('compact')
+				? getFontSize(props.size.replace('compact-', ''))
+				: getFontSize(props.size),
 			'--button-bg': background,
 			'--button-hover': hover,
 			'--button-color': text,
 			'--button-bd': border,
-			'--button-radius': getRadius(radius),
-			'--button-spacing': getSpacing(spacing),
+			'--button-radius': getRadius(props.radius),
+			'--button-spacing': getSpacing(props.spacing),
 		},
 		leftSection: {
 			'--section-pointer-events': leftSectionPE,
@@ -135,20 +132,19 @@ const style = computed(() => useStyleResolver<ButtonCSSVars>(theme => {
 			'--section-pointer-events': rightSectionPE,
 		},
 	}
-}))
+})
 </script>
 
 <template>
 	<Box
 		:is
 		type='button'
-		:mod='[
-			{
-				"with-left-section": !!$slots?.leftSection || !!icon,
-				"with-right-section": !!$slots?.rightSection,
-			},
-			mod,
-		]'
+		:mod='[mod, {
+			"with-left-section": !!$slots?.leftSection || !!icon,
+			"with-right-section": !!$slots?.rightSection,
+			loading,
+			variant,
+		}]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:disabled='loading'
