@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 import { getFontSize } from '@nui/utils'
-import { computed, useId } from 'vue'
+import { computed, reactive, toRefs, useId } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
 
@@ -22,41 +22,19 @@ export interface InputWrapperProps extends WrapperContext {
 	required?: boolean
 }
 
-const {
-	id,
-	error,
-	description,
-	label,
-	required,
-	variant = 'default',
-	size = 'sm',
-	radius = 'sm',
-	leftSectionPE,
-	rightSectionPE,
-	multiline,
-	resize,
-} = defineProps<InputWrapperProps>()
-
-const uid = id ?? useId()
-
-useProvideInputWrapper({
-	id: uid,
-	error,
-	description,
-	label,
-	required,
-	variant,
-	size,
-	radius,
-	leftSectionPE,
-	rightSectionPE,
-	multiline,
-	resize,
+const props = withDefaults(defineProps<InputWrapperProps>(), {
+	variant: 'default',
+	size: 'sm',
+	radius: 'sm',
 })
 
+const uid = props.id ?? useId()
+
+useProvideInputWrapper(reactive({ ...toRefs(props), id: uid }))
+
 const style = computed(() => ({
-	'--input-error-size': `calc(${getFontSize(size)} - .125rem)`,
-	'--input-description-size': `calc(${getFontSize(size)} - .125rem)`,
+	'--input-error-size': `calc(${getFontSize(props.size)} - .125rem)`,
+	'--input-description-size': `calc(${getFontSize(props.size)} - .125rem)`,
 }))
 </script>
 

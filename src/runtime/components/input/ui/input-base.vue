@@ -156,19 +156,19 @@ const style = computed(() => ({
 		--input-disabled-bg: var(--color-gray-1);
 		--input-disabled-color: var(--color-gray-6);
 
-		&[data-variant='default'] {
+		&[data-variant='default']:not(&[data-error]) {
 			--input-bd: var(--color-gray-4);
 			--input-bg: var(--color-white);
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
-		&[data-variant='filled'] {
+		&[data-variant='filled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: var(--color-gray-1);
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
-		&[data-variant='unstyled'] {
+		&[data-variant='unstyled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: transparent;
 			--input-bd-focus: transparent;
@@ -179,19 +179,19 @@ const style = computed(() => ({
 		--input-disabled-bg: var(--color-dark-6);
 		--input-disabled-color: var(--color-dark-2);
 
-		&[data-variant='default'] {
+		&[data-variant='default']:not(&[data-error]) {
 			--input-bd: var(--color-dark-4);
 			--input-bg: var(--color-dark-6);
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
-		&[data-variant='filled'] {
+		&[data-variant='filled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: var(--color-dark-5);
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
-		&[data-variant='unstyled'] {
+		&[data-variant='unstyled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: transparent;
 			--input-bd-focus: transparent;
