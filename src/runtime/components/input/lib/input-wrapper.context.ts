@@ -29,10 +29,10 @@ export interface WrapperContext {
 	resize?: CSSProperties['resize']
 
 	/** `pointer-events` value for the left section */
-	leftSectionPE?: CSSStyleDeclaration['pointerEvents']
+	leftSectionPE?: CSSProperties['pointerEvents']
 
 	/** `pointer-events` value for the right section */
-	rightSectionPE?: CSSStyleDeclaration['pointerEvents']
+	rightSectionPE?: CSSProperties['pointerEvents']
 }
 
 const injectionKey = Symbol('InputWrapper')
