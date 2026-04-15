@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { Classes, NuanceColor, NuanceRadius } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceRadius } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius } from '@nui/utils'
-import { computed, useId } from 'vue'
+import { useId } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
@@ -11,37 +11,42 @@ import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box.vue'
 
 
-export interface AlertProps extends BoxProps {
-	/**
-	 * Visual variant
-	 * @default 'light'
-	 */
-	variant?: 'filled' | 'light' | 'outline' | 'default'
+export type AlertClasses = 'root' | 'icon' | 'body' | 'title' | 'label' | 'message' | 'closeButton'
 
-	/** Border radius */
-	radius?: NuanceRadius
+export type AlertVariant = 'filled' | 'light' | 'outline' | 'default'
 
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Alert title */
-	title?: string
-
-	/** Icon displayed next to the title */
-	icon?: string
-
-	/** Renders a close button in the top-right corner */
-	withCloseButton?: boolean
-
-	/** Called when the close button is clicked */
-	onClose?: () => void
-
-	/** `aria-label` for the close button */
-	closeButtonLabel?: string
-
-	/** Styles API */
-	classes?: Classes<'root' | 'icon' | 'body' | 'title' | 'label' | 'message' | 'closeButton'>
+export interface AlertVars {
+	root: '--alert-radius' | '--alert-bg' | '--alert-color' | '--alert-bd'
 }
+
+type AlertFactory = ComponentFactory<{
+	props: BoxProps & {
+		/** Border radius */
+		radius?: NuanceRadius
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Alert title */
+		title?: string
+
+		/** Icon displayed next to the title */
+		icon?: string
+
+		/** Renders a close button in the top-right corner */
+		withCloseButton?: boolean
+
+		/** Called when the close button is clicked */
+		onClose?: () => void
+
+		/** `aria-label` for the close button */
+		closeButtonLabel?: string
+	}
+	classes: AlertClasses
+	variant: AlertVariant
+}>
+
+export type AlertProps = AlertFactory['props']
 
 const {
 	mod,
@@ -60,25 +65,23 @@ defineEmits<{
 
 const id = useId()
 
-const style = computed(() => useStyleResolver(theme => {
-	const { background, border, text } = createVariantColorResolver({
-		variant,
-		color,
-		theme,
-	})
+const style = useVarsResolver<AlertFactory>(theme => {
+	const { background, border, text } = createVariantColorResolver({ variant, color, theme })
 	return {
-		'--alert-radius': radius === undefined ? undefined : getRadius(radius),
-		'--alert-bg': color || variant ? background : undefined,
-		'--alert-color': text,
-		'--alert-bd': color || variant ? border : undefined,
+		root: {
+			'--alert-radius': radius === undefined ? undefined : getRadius(radius),
+			'--alert-bg': color || variant ? background : undefined,
+			'--alert-color': text,
+			'--alert-bd': color || variant ? border : undefined,
+		},
 	}
-}))
+})
 </script>
 
 <template>
 	<Box
 		role='alert'
-		:style
+		:style='style.root'
 		:class='[$style.root, classes?.root]'
 		:mod='[{ variant }, mod]'
 		:aria-describedby='$slots.default ? `${id}-body` : undefined'

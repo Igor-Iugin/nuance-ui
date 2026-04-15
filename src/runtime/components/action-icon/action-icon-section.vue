@@ -1,25 +1,30 @@
 <script setup lang='ts'>
-import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
-import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
+import type { ActionIconSize, ActionIconVariant } from './action-icon.vue'
 
 import Box from '../box.vue'
 import css from './action-icon.module.css'
 
 
+export interface ActionIconSectionVars {
+	root:
+	| '--section-height'
+	| '--section-padding-x'
+	| '--section-fz'
+	| '--section-radius'
+	| '--section-bg'
+	| '--section-color'
+	| '--section-bd'
+}
+
 interface StyleProps {
 	/** Component size */
-	size?: NuanceSize | `compact-${NuanceSize}` | AnyString
-
-	/**
-	 * Visual variant
-	 * @default 'default'
-	 */
-	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
+	size?: ActionIconSize
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
@@ -31,10 +36,17 @@ interface StyleProps {
 	radius?: NuanceRadius | AnyString
 }
 
-export interface ActionIconSectionProps extends BoxProps, StyleProps {
-	/** Loading state */
-	loading?: boolean
-}
+type ActionIconSectionFactory = ComponentFactory<{
+	props: BoxProps & StyleProps & {
+		/** Loading state */
+		loading?: boolean
+	}
+	classes: never
+	variant: ActionIconVariant
+	vars: ActionIconSectionVars
+}>
+
+export type ActionIconSectionProps = ActionIconSectionFactory['props']
 
 const {
 	is,
@@ -46,27 +58,25 @@ const {
 	color,
 } = defineProps<ActionIconSectionProps>()
 
-const style = computed(() => useStyleResolver(theme => {
-	const {
-		background,
-		border,
-		text,
-	} = createVariantColorResolver({ variant, color, theme, gradient })
+const style = useVarsResolver<ActionIconSectionFactory>(theme => {
+	const { background, border, text } = createVariantColorResolver({ variant, color, theme, gradient })
 
 	return {
-		'--section-height': getSize(size, 'section-height'),
-		'--section-padding-x': getSize(size, 'section-padding-x'),
-		'--section-fz': getFontSize(size),
-		'--section-radius': radius === undefined ? undefined : getRadius(radius),
-		'--section-bg': color || variant ? background : undefined,
-		'--section-color': text,
-		'--section-bd': color || variant ? border : undefined,
+		root: {
+			'--section-height': getSize(size, 'section-height'),
+			'--section-padding-x': getSize(size, 'section-padding-x'),
+			'--section-fz': getFontSize(size),
+			'--section-radius': radius === undefined ? undefined : getRadius(radius),
+			'--section-bg': color || variant ? background : undefined,
+			'--section-color': text,
+			'--section-bd': color || variant ? border : undefined,
+		},
 	}
-}))
+})
 </script>
 
 <template>
-	<Box :is :mod='[mod, { variant }]' :style :class='css.section'>
+	<Box :is :mod='[mod, { variant }]' :style='style.root' :class='css.section'>
 		<slot />
 	</Box>
 </template>

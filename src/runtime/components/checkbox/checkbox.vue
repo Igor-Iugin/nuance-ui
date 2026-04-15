@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSize } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed, useId } from 'vue'
 
@@ -12,34 +12,45 @@ import InputInline from '../input/ui/input-inline.vue'
 import { useCheckboxGroupState } from './lib/group.context'
 
 
-export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
-	/** Id used to bind input and label, auto-generated if not provided */
-	id?: string
+export type CheckboxVariant = 'filled' | 'outline'
 
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Icon color */
-	iconColor?: NuanceColor
-
-	/**
-	 * Visual variant
-	 * @default `'filled'`
-	 */
-	variant?: 'filled' | 'outline'
-
-	/** Border radius */
-	radius?: NuanceSize
-
-	/**
-	 * Component size
-	 * @default `'sm'`
-	 */
-	size?: NuanceSize
-
-	/** Value used in checkbox group context */
-	value?: string
+interface CheckboxVars {
+	root:
+	| '--checkbox-size'
+	| '--checkbox-radius'
+	| '--checkbox-color'
+	| '--checkbox-icon-color'
 }
+
+type CheckboxFactory = ComponentFactory<{
+	props: Omit<InlineInputProps, 'id'> & {
+		/** Id used to bind input and label, auto-generated if not provided */
+		id?: string
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Icon color */
+		iconColor?: NuanceColor
+
+		/** Border radius */
+		radius?: NuanceSize
+
+		/**
+		 * Component size
+		 * @default `'sm'`
+		 */
+		size?: NuanceSize
+
+		/** Value used in checkbox group context */
+		value?: string
+	}
+	classes: never
+	variant: CheckboxVariant
+	vars: CheckboxVars
+}>
+
+export type CheckboxProps = CheckboxFactory['props']
 
 const {
 	id,
@@ -84,23 +95,31 @@ const disabled = computed(() => {
 const uuid = computed(() => id ?? useId())
 const size = computed(() => _size ?? ctx?.size)
 
-const style = computed(() => useStyleResolver(theme => {
+const style = useVarsResolver<CheckboxFactory>(theme => {
 	const parsed = parseThemeColor({ color, theme })
 	const outlineColor = parsed.isThemeColor && parsed.shade === undefined
 		? `var(--color-${parsed.color}-outline)`
 		: parsed.color
 
-	return ({
-		'--checkbox-size': getSize(size, 'checkbox-size'),
-		'--checkbox-radius': radius === undefined ? undefined : getRadius(radius),
-		'--checkbox-color': variant === 'outline' ? outlineColor : getThemeColor(color, theme),
-		'--checkbox-icon-color': iconColor ? getThemeColor(iconColor, theme) : undefined,
-	})
-}))
+	return {
+		root: {
+			'--checkbox-size': getSize(size, 'checkbox-size'),
+			'--checkbox-radius': radius === undefined ? undefined : getRadius(radius),
+			'--checkbox-color': variant === 'outline' ? outlineColor : getThemeColor(color, theme),
+			'--checkbox-icon-color': iconColor ? getThemeColor(iconColor, theme) : undefined,
+		},
+	}
+})
 </script>
 
 <template>
-	<InputInline v-bind='rest' :id='uuid' :class='$style.root' :style :size>
+	<InputInline
+		v-bind='rest'
+		:id='uuid'
+		:class='$style.root'
+		:style='style.root'
+		:size
+	>
 		<Box :class='$style.inner' :mod='{ "label-position": rest?.labelPosition }'>
 			<input
 				:id

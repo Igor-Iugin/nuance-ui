@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { NuanceColor } from '@nui/types'
+import type { ComponentFactory, NuanceColor } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -10,19 +10,29 @@ import Box from '../box.vue'
 import css from './progress.module.css'
 
 
-export interface ProgressSectionProps extends BoxProps {
-	/** Determines whether `aria-*` props should be added to the root element @default `true` */
-	withAria?: boolean
-
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** If set, the section has stripes @default `false` */
-	striped?: boolean
-
-	/** If set, the sections stripes are animated, `striped` prop is ignored @default `false` */
-	animated?: boolean
+export interface ProgressSectionVars {
+	root: '--progress-section-size' | '--progress-section-color'
 }
+
+type ProgressSectionFactory = ComponentFactory<{
+	props: BoxProps & {
+		/** Determines whether `aria-*` props should be added to the root element @default `true` */
+		withAria?: boolean
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** If set, the section has stripes @default `false` */
+		striped?: boolean
+
+		/** If set, the sections stripes are animated, `striped` prop is ignored @default `false` */
+		animated?: boolean
+	}
+	classes: never
+	vars: ProgressSectionVars
+}>
+
+export type ProgressSectionProps = ProgressSectionFactory['props']
 
 const {
 	withAria,
@@ -45,15 +55,17 @@ const ariaAttributes = computed(() => withAria
 	}
 	: {})
 
-const style = computed(() => useStyleResolver(theme => ({
-	'--progress-section-size': `${value.value}%`,
-	'--progress-section-color': getThemeColor(color, theme),
-})))
+const style = useVarsResolver<ProgressSectionFactory>(theme => ({
+	root: {
+		'--progress-section-size': `${value.value}%`,
+		'--progress-section-color': getThemeColor(color, theme),
+	},
+}))
 </script>
 
 <template>
 	<Box
-		:style
+		:style='style.root'
 		v-bind='ariaAttributes'
 		:class='css.section'
 		:mod='[{ striped: striped || animated, animated }, mod]'

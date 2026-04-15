@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSize } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -9,25 +9,39 @@ import Box from '../box.vue'
 import { useCheckboxCardState } from './lib/card.context'
 
 
-export interface CheckboxIndicatorProps {
-	/** Color from theme */
-	color?: NuanceColor
+type CheckboxIndicatorVariant = 'filled' | 'outline'
 
-	/** Icon color */
-	iconColor?: NuanceColor
-
-	/** Visual variant */
-	variant?: 'filled' | 'outline'
-
-	/** Border radius */
-	radius?: NuanceSize
-
-	/** Component size */
-	size?: NuanceSize
-
-	/** Displays indeterminate icon */
-	indeterminate?: boolean
+interface CheckboxIndicatorVars {
+	root:
+	| '--checkbox-size'
+	| '--checkbox-radius'
+	| '--checkbox-color'
+	| '--checkbox-icon-color'
 }
+
+type CheckboxIndicatorFactory = ComponentFactory<{
+	props: {
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Icon color */
+		iconColor?: NuanceColor
+
+		/** Border radius */
+		radius?: NuanceSize
+
+		/** Component size */
+		size?: NuanceSize
+
+		/** Displays indeterminate icon */
+		indeterminate?: boolean
+	}
+	classes: never
+	variant: CheckboxIndicatorVariant
+	vars: CheckboxIndicatorVars
+}>
+
+export type CheckboxIndicatorProps = CheckboxIndicatorFactory['props']
 
 const {
 	size = 'sm',
@@ -48,23 +62,25 @@ const checked = computed(() => {
 	return modelValue.value
 })
 
-const style = computed(() => useStyleResolver(theme => {
+const style = useVarsResolver<CheckboxIndicatorFactory>(theme => {
 	const parsed = parseThemeColor({ color, theme })
 	const outlineColor = parsed.isThemeColor && parsed.shade === undefined
 		? `var(--color-${parsed.color}-outline)`
 		: parsed.color
 
-	return ({
-		'--checkbox-size': getSize(size, 'checkbox-size'),
-		'--checkbox-radius': radius && getRadius(radius),
-		'--checkbox-color': variant === 'outline' ? outlineColor : getThemeColor(color, theme),
-		'--checkbox-icon-color': iconColor ? getThemeColor(iconColor, theme) : undefined,
-	})
-}))
+	return {
+		root: {
+			'--checkbox-size': getSize(size, 'checkbox-size'),
+			'--checkbox-radius': radius ? getRadius(radius) : undefined,
+			'--checkbox-color': variant === 'outline' ? outlineColor : getThemeColor(color, theme),
+			'--checkbox-icon-color': iconColor ? getThemeColor(iconColor, theme) : undefined,
+		},
+	}
+})
 </script>
 
 <template>
-	<Box :style :class='$style.indicator' :mod='{ checked }'>
+	<Box :style='style.root' :class='$style.indicator' :mod='{ checked }'>
 		<slot :indeterminate='indeterminate' :class='$style.icon' :mod='{ checked }'>
 			<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' :mod='{ checked }' />
 			<Icon v-else :class='$style.icon' name='gravity-ui:minus' :mod='{ checked }' />

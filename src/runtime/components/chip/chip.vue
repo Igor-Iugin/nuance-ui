@@ -1,45 +1,66 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
-import { computed, useId } from 'vue'
+import { useId } from 'vue'
 
 import Box from '../box.vue'
 import { useChipGroupState, useChipState } from './lib'
 
 
-export interface ChipProps {
-	/** Border radius */
-	radius?: NuanceRadius
+export type ChipVariant = 'filled' | 'outline' | 'light'
 
-	/** Component size */
-	size?: NuanceSize
-
-	/** Input type used when rendered without a group */
-	type?: 'radio' | 'checkbox'
-
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Id used to bind input and label, auto-generated if not provided */
-	id?: string
-
-	/** Visual variant */
-	variant?: 'filled' | 'outline' | 'light'
-
-	/** Value used in chip group context */
-	value?: string
-
-	/** Check icon name */
-	icon?: string
-
-	/** Shows the check icon when the chip is checked */
-	hideIcon?: boolean
-
-	/** Disables the component */
-	disabled?: boolean
+interface ChipVars {
+	root:
+	| '--chip-fz'
+	| '--chip-size'
+	| '--chip-radius'
+	| '--chip-checked-padding'
+	| '--chip-padding'
+	| '--chip-icon-size'
+	| '--chip-bg'
+	| '--chip-hover'
+	| '--chip-color'
+	| '--chip-bd'
+	| '--chip-spacing'
 }
+
+type ChipFactory = ComponentFactory<{
+	props: {
+		/** Border radius */
+		radius?: NuanceRadius
+
+		/** Component size */
+		size?: NuanceSize
+
+		/** Input type used when rendered without a group */
+		type?: 'radio' | 'checkbox'
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Id used to bind input and label, auto-generated if not provided */
+		id?: string
+
+		/** Value used in chip group context */
+		value?: string
+
+		/** Check icon name */
+		icon?: string
+
+		/** Shows the check icon when the chip is checked */
+		hideIcon?: boolean
+
+		/** Disables the component */
+		disabled?: boolean
+	}
+	classes: never
+	variant: ChipVariant
+	vars: ChipVars
+}>
+
+export type ChipProps = ChipFactory['props']
 
 const {
 	id: uid,
@@ -64,31 +85,29 @@ const { checked, onUpdate } = useChipState(ctx, modelValue, value)
 const disabled = ctx?.disabled || _disabled
 const type = ctx ? ctx.multiple ? 'checkbox' : 'radio' : _type
 
-const style = computed(() => useStyleResolver(theme => {
-	const colors = createVariantColorResolver({
-		color,
-		theme,
-		variant,
-	})
+const style = useVarsResolver<ChipFactory>(theme => {
+	const colors = createVariantColorResolver({ color, theme, variant })
 
 	return {
-		'--chip-fz': getFontSize(size),
-		'--chip-size': getSize(size, 'chip-size'),
-		'--chip-radius': radius === undefined ? undefined : getRadius(radius),
-		'--chip-checked-padding': getSize(size, 'chip-checked-padding'),
-		'--chip-padding': getSize(size, 'chip-padding'),
-		'--chip-icon-size': getSize(size, 'chip-icon-size'),
-		'--chip-bg': color || variant ? colors.background : undefined,
-		'--chip-hover': color || variant ? colors.hover : undefined,
-		'--chip-color': color || variant ? colors.text : undefined,
-		'--chip-bd': color || variant ? colors.border : undefined,
-		'--chip-spacing': getSize(size, 'chip-spacing'),
+		root: {
+			'--chip-fz': getFontSize(size),
+			'--chip-size': getSize(size, 'chip-size'),
+			'--chip-radius': radius === undefined ? undefined : getRadius(radius),
+			'--chip-checked-padding': getSize(size, 'chip-checked-padding'),
+			'--chip-padding': getSize(size, 'chip-padding'),
+			'--chip-icon-size': getSize(size, 'chip-icon-size'),
+			'--chip-bg': color || variant ? colors.background : undefined,
+			'--chip-hover': color || variant ? colors.hover : undefined,
+			'--chip-color': color || variant ? colors.text : undefined,
+			'--chip-bd': color || variant ? colors.border : undefined,
+			'--chip-spacing': getSize(size, 'chip-spacing'),
+		},
 	}
-}))
+})
 </script>
 
 <template>
-	<Box :style :class='[$style.root, $attrs?.style]'>
+	<Box :style='style.root' :class='[$style.root, $attrs?.style]'>
 		<input
 			v-bind='{
 				...$attrs,

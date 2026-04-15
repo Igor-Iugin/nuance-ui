@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
 import { useVarsResolver } from '@nui/composables'
@@ -12,7 +12,7 @@ import Loader from '../loader/loader.vue'
 import css from './button.module.css'
 
 
-export type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
+type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
 
 export type ButtonVariant
 	= 'filled'
@@ -23,7 +23,7 @@ export type ButtonVariant
 	| 'gradient'
 	| 'gradient-outline'
 
-export interface ButtonVars {
+interface ButtonVars {
 	root:
 	| '--button-justify'
 	| '--button-height'
@@ -47,7 +47,7 @@ interface StyleProps {
 	size?: NuanceSize | `compact-${NuanceSize}`
 
 	/** Spacing token */
-	spacing?: NuanceSize | AnyString
+	spacing?: NuanceSpacing | AnyString
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient

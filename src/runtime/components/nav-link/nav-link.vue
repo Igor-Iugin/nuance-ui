@@ -1,10 +1,9 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSpacing } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceSpacing } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getSize } from '@nui/utils'
-import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -13,34 +12,41 @@ import UnstyledButton from '../button/unstyled-button.vue'
 import { pickLinkProps } from '../link'
 
 
-export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
-	/** Link description displayed below the label */
-	description?: string
+export type NavLinkVariant = 'filled' | 'light' | 'subtle'
 
-	/** Active state */
-	active?: boolean
-
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Spacing token */
-	spacing?: NuanceSpacing
-
-	/** Prevents label and description from wrapping */
-	noWrap?: boolean
-
-	/** Disables the component */
-	disabled?: boolean
-
-	/**
-	 * Visual variant
-	 * @default `'filled'`
-	 */
-	variant?: 'filled' | 'light' | 'subtle'
-
-	/** Icon displayed before the label */
-	icon?: string
+export interface NavLinkVars {
+	root: '--nl-bg' | '--nl-hover' | '--nl-color' | '--nl-spacing'
 }
+
+type NavLinkFactory = ComponentFactory<{
+	props: BoxProps & Omit<NuxtLinkProps, 'href' | 'custom'> & {
+		/** Link description displayed below the label */
+		description?: string
+
+		/** Active state */
+		active?: boolean
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Spacing token */
+		spacing?: NuanceSpacing
+
+		/** Prevents label and description from wrapping */
+		noWrap?: boolean
+
+		/** Disables the component */
+		disabled?: boolean
+
+		/** Icon displayed before the label */
+		icon?: string
+	}
+	classes: never
+	variant: NavLinkVariant
+	vars: NavLinkVars
+}>
+
+export type NavLinkProps = NavLinkFactory['props']
 
 const props = defineProps<NavLinkProps>()
 
@@ -58,15 +64,17 @@ const {
 	},
 } = pickLinkProps(props)
 
-const style = computed(() => useStyleResolver(theme => {
+const style = useVarsResolver<NavLinkFactory>(theme => {
 	const { background, hover, text } = createVariantColorResolver({ variant, color, theme })
 	return {
-		'--nl-bg': variant ? background : undefined,
-		'--nl-hover': variant ? hover : undefined,
-		'--nl-color': variant ? text : undefined,
-		'--nl-spacing': getSize(spacing, 'nl-spacing'),
+		root: {
+			'--nl-bg': variant ? background : undefined,
+			'--nl-hover': variant ? hover : undefined,
+			'--nl-color': variant ? text : undefined,
+			'--nl-spacing': getSize(spacing, 'nl-spacing'),
+		},
 	}
-}))
+})
 </script>
 
 <template>
@@ -74,7 +82,7 @@ const style = computed(() => useStyleResolver(theme => {
 		<UnstyledButton
 			is='a'
 			:href
-			:style
+			:style='style.root'
 			:class='$style.root'
 			:mod='[{ active: isActive, disabled }, mod]'
 			:aria-current="isActive ? 'page' : undefined"

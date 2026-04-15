@@ -1,9 +1,8 @@
 <script setup lang='ts'>
-import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
-import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -12,15 +11,25 @@ import Loader from '../loader/loader.vue'
 import css from './action-icon.module.css'
 
 
+export type ActionIconClasses = 'root' | 'icon'
+
+export type ActionIconVariant = 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
+
+export type ActionIconSize = NuanceSize | `input-${NuanceSize}` | AnyString
+
+export interface ActionIconVars {
+	root:
+	| '--ai-size'
+	| '--ai-radius'
+	| '--ai-bg'
+	| '--ai-hover'
+	| '--ai-color'
+	| '--ai-bd'
+}
+
 interface StyleProps {
 	/** Component size */
-	size?: NuanceSize | `input-${NuanceSize}` | string
-
-	/**
-	 * Visual variant
-	 * @default 'default'
-	 */
-	variant?: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient'
+	size?: ActionIconSize
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
@@ -32,22 +41,26 @@ interface StyleProps {
 	radius?: NuanceRadius | AnyString
 }
 
-export interface ActionIconProps extends StyleProps {
-	/** Loading state */
-	loading?: boolean
+type ActionIconFactory = ComponentFactory<{
+	props: StyleProps & {
+		/** Loading state */
+		loading?: boolean
 
-	/** Styles API */
-	classes?: Classes<'root' | 'icon'>
+		/** Icon name rendered inside the button when no default slot is provided */
+		icon?: string
 
-	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
-	mod?: BoxProps['mod']
+		/** Disables the component */
+		disabled?: boolean
 
-	/** Icon name rendered inside the button when no default slot is provided */
-	icon?: string
+		/** Element modifiers transformed into `data-` attributes, falsy values are removed */
+		mod?: BoxProps['mod']
+	}
+	classes: ActionIconClasses
+	variant: ActionIconVariant
+	vars: ActionIconVars
+}>
 
-	/** Disables the component */
-	disabled?: boolean
-}
+export type ActionIconProps = ActionIconFactory['props']
 
 const {
 	color,
@@ -62,23 +75,20 @@ const {
 	disabled,
 } = defineProps<ActionIconProps>()
 
-const style = computed(() => useStyleResolver(theme => {
-	const {
-		background,
-		border,
-		hover,
-		text,
-	} = createVariantColorResolver({ variant, color, theme, gradient })
+const style = useVarsResolver<ActionIconFactory>(theme => {
+	const { background, border, hover, text } = createVariantColorResolver({ variant, color, theme, gradient })
 
 	return {
-		'--ai-size': getSize(size, 'ai-size'),
-		'--ai-radius': getRadius(radius),
-		'--ai-bg': background,
-		'--ai-hover': hover,
-		'--ai-color': text,
-		'--ai-bd': border,
+		root: {
+			'--ai-size': getSize(size, 'ai-size'),
+			'--ai-radius': getRadius(radius),
+			'--ai-bg': background,
+			'--ai-hover': hover,
+			'--ai-color': text,
+			'--ai-bd': border,
+		},
 	}
-}))
+})
 </script>
 
 <template>
@@ -86,7 +96,7 @@ const style = computed(() => useStyleResolver(theme => {
 		is='button'
 		type='button'
 		:mod='[{ loading }, mod]'
-		:style
+		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:disabled='(!disabled ? loading : disabled) || undefined'
 	>

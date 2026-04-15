@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+import type { ComponentFactory, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor } from '@nui/utils'
 import { computed, useId } from 'vue'
 
@@ -12,37 +12,54 @@ import InputInline from '../input/ui/input-inline.vue'
 import { useSwitchGroupState } from './lib/group.context'
 
 
-export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
-	/** Id used to bind input and label, auto-generated if not provided */
-	id?: string
-
-	/** Input name */
-	name?: string
-
-	/** Value used when inside `SwitchGroup` */
-	value?: string
-
-	/** Inner label shown in unchecked state */
-	offLabel?: string
-
-	/** Inner label shown in checked state */
-	onLabel?: string
-
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Component size */
-	size?: NuanceSize
-
-	/** Border radius */
-	radius?: NuanceRadius
-
-	/** Icon inside the thumb */
-	icon?: string
-
-	/** Displays a colored dot inside the thumb matching the track background */
-	withIndicator?: boolean
+export interface SwitchVars {
+	root:
+	| '--switch-radius'
+	| '--switch-height'
+	| '--switch-width'
+	| '--switch-thumb-size'
+	| '--switch-label-font-size'
+	| '--switch-track-label-padding'
+	| '--switch-color'
 }
+
+type SwitchFactory = ComponentFactory<{
+	props: Omit<InlineInputProps, 'id'> & {
+		/** Id used to bind input and label, auto-generated if not provided */
+		id?: string
+
+		/** Input name */
+		name?: string
+
+		/** Value used when inside `SwitchGroup` */
+		value?: string
+
+		/** Inner label shown in unchecked state */
+		offLabel?: string
+
+		/** Inner label shown in checked state */
+		onLabel?: string
+
+		/** Color from theme */
+		color?: NuanceColor
+
+		/** Component size */
+		size?: NuanceSize
+
+		/** Border radius */
+		radius?: NuanceRadius
+
+		/** Icon inside the thumb */
+		icon?: string
+
+		/** Displays a colored dot inside the thumb matching the track background */
+		withIndicator?: boolean
+	}
+	classes: never
+	vars: SwitchVars
+}>
+
+export type SwitchProps = SwitchFactory['props']
 
 const {
 	id,
@@ -95,21 +112,23 @@ const disabled = computed(() => {
 	return false
 })
 
-const style = computed(() => useStyleResolver(theme => ({
-	'--switch-radius': radius === undefined ? undefined : getRadius(radius),
-	'--switch-height': getSize(size.value, 'switch-height'),
-	'--switch-width': getSize(size.value, 'switch-width'),
-	'--switch-thumb-size': getSize(size.value, 'switch-thumb-size'),
-	'--switch-label-font-size': getSize(size.value, 'switch-label-font-size'),
-	'--switch-track-label-padding': getSize(size.value, 'switch-track-label-padding'),
-	'--switch-color': color ? getThemeColor(color, theme) : undefined,
-})))
+const style = useVarsResolver<SwitchFactory>(theme => ({
+	root: {
+		'--switch-radius': radius === undefined ? undefined : getRadius(radius),
+		'--switch-height': getSize(size.value, 'switch-height'),
+		'--switch-width': getSize(size.value, 'switch-width'),
+		'--switch-thumb-size': getSize(size.value, 'switch-thumb-size'),
+		'--switch-label-font-size': getSize(size.value, 'switch-label-font-size'),
+		'--switch-track-label-padding': getSize(size.value, 'switch-track-label-padding'),
+		'--switch-color': color ? getThemeColor(color, theme) : undefined,
+	},
+}))
 </script>
 
 <template>
 	<InputInline
 		:id='uuid'
-		:style
+		:style='style.root'
 		:class='$style.root'
 		body-element='label'
 		label-element='span'

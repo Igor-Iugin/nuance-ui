@@ -1,58 +1,66 @@
 <script setup lang="ts">
-import type { NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@nui/utils'
-import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
 
 import Box from './box.vue'
 
 
-export interface BadgeProps extends BoxProps {
-	/**
-	 * Visual variant
-	 * @default `'filled'`
-	 */
-	variant?:
-	| 'filled'
-	| 'light'
-	| 'outline'
-	| 'dot'
-	| 'default'
-	| 'gradient'
+export type BadgeVariant = 'filled' | 'light' | 'outline' | 'dot' | 'default' | 'gradient'
 
-	/**
-	 * Component size
-	 * @default `'md'`
-	 */
-	size?: NuanceSize | string
-
-	/** Makes the badge width equal to its height and removes horizontal padding */
-	circle?: boolean
-
-	/**
-	 * Border radius
-	 * @default `'sm'`
-	 */
-	radius?: NuanceRadius
-
-	/** Color from theme */
-	color?: NuanceColor | string
-
-	/** Gradient configuration (used with `variant="gradient"`) */
-	gradient?: NuanceGradient
-
-	/**
-	 * Stretches the badge to fill its parent width
-	 * @default `false`
-	 */
-	fullWidth?: boolean
-
-	/** Icon displayed before the label */
-	icon?: string
+export interface BadgeVars {
+	root:
+	| '--badge-height'
+	| '--badge-padding-x'
+	| '--badge-fz'
+	| '--badge-radius'
+	| '--badge-bg'
+	| '--badge-color'
+	| '--badge-bd'
+	| '--badge-dot-color'
 }
+
+type BadgeFactory = ComponentFactory<{
+	props: BoxProps & {
+		/**
+		 * Component size
+		 * @default `'md'`
+		 */
+		size?: NuanceSize | AnyString
+
+		/** Makes the badge width equal to its height and removes horizontal padding */
+		circle?: boolean
+
+		/**
+		 * Border radius
+		 * @default `'sm'`
+		 */
+		radius?: NuanceRadius
+
+		/** Color from theme */
+		color?: NuanceColor | AnyString
+
+		/** Gradient configuration (used with `variant="gradient"`) */
+		gradient?: NuanceGradient
+
+		/**
+		 * Stretches the badge to fill its parent width
+		 * @default `false`
+		 */
+		fullWidth?: boolean
+
+		/** Icon displayed before the label */
+		icon?: string
+	}
+	classes: never
+	variant: BadgeVariant
+	vars: BadgeVars
+}>
+
+export type BadgeProps = BadgeFactory['props']
 
 const {
 	variant = 'filled',
@@ -64,7 +72,7 @@ const {
 	icon,
 } = defineProps<BadgeProps>()
 
-const style = computed(() => useStyleResolver(theme => {
+const style = useVarsResolver<BadgeFactory>(theme => {
 	const { background, border, text } = createVariantColorResolver({
 		theme,
 		variant: variant === 'dot' ? 'default' : variant,
@@ -72,21 +80,23 @@ const style = computed(() => useStyleResolver(theme => {
 	})
 
 	return {
-		'--badge-height': getSize(size, 'badge-height'),
-		'--badge-padding-x': getSize(size, 'badge-padding-x'),
-		'--badge-fz': getSize(size, 'badge-fz'),
-		'--badge-radius': circle || radius === undefined ? undefined : getRadius(radius),
-		'--badge-bg': color || variant ? background : undefined,
-		'--badge-color': color || variant ? text : undefined,
-		'--badge-bd': color || variant ? border : undefined,
-		'--badge-dot-color': variant === 'dot' ? getThemeColor(color, theme) : undefined,
+		root: {
+			'--badge-height': getSize(size, 'badge-height'),
+			'--badge-padding-x': getSize(size, 'badge-padding-x'),
+			'--badge-fz': getSize(size, 'badge-fz'),
+			'--badge-radius': circle || radius === undefined ? undefined : getRadius(radius),
+			'--badge-bg': color || variant ? background : undefined,
+			'--badge-color': color || variant ? text : undefined,
+			'--badge-bd': color || variant ? border : undefined,
+			'--badge-dot-color': variant === 'dot' ? getThemeColor(color, theme) : undefined,
+		},
 	}
-}))
+})
 </script>
 
 <template>
 	<Box
-		:style
+		:style='style.root'
 		:class='$style.root'
 		:mod='[
 			{

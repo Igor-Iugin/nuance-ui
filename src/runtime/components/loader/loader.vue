@@ -1,10 +1,9 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSize } from '@nui/types'
+import type { AnyString, ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
 import type { Component } from 'vue'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getSize, parseThemeColor } from '@nui/utils'
-import { computed } from 'vue'
 
 import BarsLoader from './_loaders/bars-loader.vue'
 import DotsLoader from './_loaders/dots-loader.vue'
@@ -13,19 +12,29 @@ import OvalLoader from './_loaders/oval-loader.vue'
 
 export type LoaderType = 'bars' | 'dots' | 'oval'
 
-export interface LoaderProps {
-	/** Component size */
-	size?: NuanceSize | `compact-${NuanceSize}` | string
-
-	/** Color from theme */
-	color?: NuanceColor | string
-
-	/**
-	 * Loader animation type
-	 * @default `'oval'`
-	 */
-	type?: LoaderType
+export interface LoaderVars {
+	root: '--loader-size' | '--loader-color'
 }
+
+type LoaderFactory = ComponentFactory<{
+	props: {
+		/** Component size */
+		size?: NuanceSize | `compact-${NuanceSize}` | AnyString
+
+		/** Color from theme */
+		color?: NuanceColor | AnyString
+
+		/**
+		 * Loader animation type
+		 * @default `'oval'`
+		 */
+		type?: LoaderType
+	}
+	classes: never
+	vars: LoaderVars
+}>
+
+export type LoaderProps = LoaderFactory['props']
 
 const { size, color, type = 'oval' } = defineProps<LoaderProps>()
 
@@ -35,17 +44,19 @@ const loaders: Record<LoaderType, Component> = {
 	dots: DotsLoader,
 }
 
-const style = computed(() => useStyleResolver(theme => {
+const style = useVarsResolver<LoaderFactory>(theme => {
 	const _color = parseThemeColor({ color, theme })
 	return {
-		'--loader-size': getSize(size, 'loader-size'),
-		'--loader-color': _color.value,
+		root: {
+			'--loader-size': getSize(size, 'loader-size'),
+			'--loader-color': _color.value,
+		},
 	}
-}))
+})
 </script>
 
 <template>
-	<component :is='loaders[type]' :class='$style.root' :style />
+	<component :is='loaders[type]' :class='$style.root' :style='style.root' />
 </template>
 
 <style module>
