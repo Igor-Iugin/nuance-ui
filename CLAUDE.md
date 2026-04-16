@@ -17,10 +17,6 @@ Write JSDoc and code comments in English. Chat replies to the user stay in Russi
 - Plan first, then code
 - Use subagents to research the codebase
 
-## Agents
-- Use the `planner` agent for planning
-- Use the `code-reviewer` agent before commits
-
 ## Effort levels
 - For complex architectural decisions use `/effort high`
 - For simple edits use `/effort low`
