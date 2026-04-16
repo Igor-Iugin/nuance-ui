@@ -1,6 +1,48 @@
 # Changelog
 
 
+## v0.2.11
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.10...v0.2.11)
+
+### 🚀 Enhancements
+
+- ✨  Added props justify to Button ([5d0d881](https://github.com/Igor-Iugin/nuance-ui/commit/5d0d881))
+
+### 🩹 Fixes
+
+- 🐛  Fix input props reactivity ([d6671a4](https://github.com/Igor-Iugin/nuance-ui/commit/d6671a4))
+- Used CSSProperties ([59a13a3](https://github.com/Igor-Iugin/nuance-ui/commit/59a13a3))
+- 🎨  Eslint errors ([5980db0](https://github.com/Igor-Iugin/nuance-ui/commit/5980db0))
+
+### 💅 Refactors
+
+- Created component factory ([b9b5197](https://github.com/Igor-Iugin/nuance-ui/commit/b9b5197))
+- 🎨  Added factory types ([ac10a6f](https://github.com/Igor-Iugin/nuance-ui/commit/ac10a6f))
+- 🎨  Moved all components on useVarsResolver ([f1f0a60](https://github.com/Igor-Iugin/nuance-ui/commit/f1f0a60))
+- 🔥  Delete factory types ([a198c0f](https://github.com/Igor-Iugin/nuance-ui/commit/a198c0f))
+
+### 📦 Build
+
+- ⬆️  Update eslint config ([925fb1a](https://github.com/Igor-Iugin/nuance-ui/commit/925fb1a))
+
+### 🏡 Chore
+
+- **release:** V0.2.10 ([bcd9d83](https://github.com/Igor-Iugin/nuance-ui/commit/bcd9d83))
+- 🎨  Removed lang='postcss' ([e9d9b5a](https://github.com/Igor-Iugin/nuance-ui/commit/e9d9b5a))
+
+### 🎨 Styles
+
+- **ai:** Remove config files ([fff6b45](https://github.com/Igor-Iugin/nuance-ui/commit/fff6b45))
+
+### 🤖 CI
+
+- ⬆️  Upgrade node version ([7ced253](https://github.com/Igor-Iugin/nuance-ui/commit/7ced253))
+
+### ❤️ Contributors
+
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.2.10
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.9...v0.2.10)
