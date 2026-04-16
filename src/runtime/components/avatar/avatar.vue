@@ -19,11 +19,11 @@ type AvatarClasses = 'root' | 'placeholder' | 'image'
 
 interface AvatarVars {
 	root:
-	| '--avatar-size'
-	| '--avatar-radius'
-	| '--avatar-bg'
-	| '--avatar-color'
-	| '--avatar-bd'
+		| '--avatar-size'
+		| '--avatar-radius'
+		| '--avatar-bg'
+		| '--avatar-color'
+		| '--avatar-bd'
 }
 
 interface StyleProps {

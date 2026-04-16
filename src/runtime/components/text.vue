@@ -18,12 +18,12 @@ export type TextVariant = 'text' | 'gradient'
 
 interface TextVars {
 	root:
-	| '--text-fz'
-	| '--text-fw'
-	| '--text-lh'
-	| '--text-gradient'
-	| '--text-line-clamp'
-	| '--text-color'
+		| '--text-fz'
+		| '--text-fw'
+		| '--text-lh'
+		| '--text-gradient'
+		| '--text-line-clamp'
+		| '--text-color'
 }
 
 type TextFactory = ComponentFactory<{

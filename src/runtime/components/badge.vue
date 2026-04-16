@@ -13,14 +13,14 @@ export type BadgeVariant = 'filled' | 'light' | 'outline' | 'dot' | 'default' | 
 
 export interface BadgeVars {
 	root:
-	| '--badge-height'
-	| '--badge-padding-x'
-	| '--badge-fz'
-	| '--badge-radius'
-	| '--badge-bg'
-	| '--badge-color'
-	| '--badge-bd'
-	| '--badge-dot-color'
+		| '--badge-height'
+		| '--badge-padding-x'
+		| '--badge-fz'
+		| '--badge-radius'
+		| '--badge-bg'
+		| '--badge-color'
+		| '--badge-bd'
+		| '--badge-dot-color'
 }
 
 type BadgeFactory = ComponentFactory<{

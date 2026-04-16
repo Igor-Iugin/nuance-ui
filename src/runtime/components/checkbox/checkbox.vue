@@ -16,10 +16,10 @@ export type CheckboxVariant = 'filled' | 'outline'
 
 interface CheckboxVars {
 	root:
-	| '--checkbox-size'
-	| '--checkbox-radius'
-	| '--checkbox-color'
-	| '--checkbox-icon-color'
+		| '--checkbox-size'
+		| '--checkbox-radius'
+		| '--checkbox-color'
+		| '--checkbox-icon-color'
 }
 
 type CheckboxFactory = ComponentFactory<{

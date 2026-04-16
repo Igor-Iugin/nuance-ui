@@ -13,17 +13,17 @@ export type ChipVariant = 'filled' | 'outline' | 'light'
 
 interface ChipVars {
 	root:
-	| '--chip-fz'
-	| '--chip-size'
-	| '--chip-radius'
-	| '--chip-checked-padding'
-	| '--chip-padding'
-	| '--chip-icon-size'
-	| '--chip-bg'
-	| '--chip-hover'
-	| '--chip-color'
-	| '--chip-bd'
-	| '--chip-spacing'
+		| '--chip-fz'
+		| '--chip-size'
+		| '--chip-radius'
+		| '--chip-checked-padding'
+		| '--chip-padding'
+		| '--chip-icon-size'
+		| '--chip-bg'
+		| '--chip-hover'
+		| '--chip-color'
+		| '--chip-bd'
+		| '--chip-spacing'
 }
 
 type ChipFactory = ComponentFactory<{

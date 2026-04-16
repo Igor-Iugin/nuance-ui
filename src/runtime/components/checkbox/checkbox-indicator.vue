@@ -13,10 +13,10 @@ type CheckboxIndicatorVariant = 'filled' | 'outline'
 
 interface CheckboxIndicatorVars {
 	root:
-	| '--checkbox-size'
-	| '--checkbox-radius'
-	| '--checkbox-color'
-	| '--checkbox-icon-color'
+		| '--checkbox-size'
+		| '--checkbox-radius'
+		| '--checkbox-color'
+		| '--checkbox-icon-color'
 }
 
 type CheckboxIndicatorFactory = ComponentFactory<{

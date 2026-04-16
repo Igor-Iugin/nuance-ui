@@ -19,12 +19,12 @@ export type ActionIconSize = NuanceSize | `input-${NuanceSize}` | AnyString
 
 export interface ActionIconVars {
 	root:
-	| '--ai-size'
-	| '--ai-radius'
-	| '--ai-bg'
-	| '--ai-hover'
-	| '--ai-color'
-	| '--ai-bd'
+		| '--ai-size'
+		| '--ai-radius'
+		| '--ai-bg'
+		| '--ai-hover'
+		| '--ai-color'
+		| '--ai-bd'
 }
 
 interface StyleProps {

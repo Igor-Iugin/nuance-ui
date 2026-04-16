@@ -14,13 +14,13 @@ import { useSwitchGroupState } from './lib/group.context'
 
 export interface SwitchVars {
 	root:
-	| '--switch-radius'
-	| '--switch-height'
-	| '--switch-width'
-	| '--switch-thumb-size'
-	| '--switch-label-font-size'
-	| '--switch-track-label-padding'
-	| '--switch-color'
+		| '--switch-radius'
+		| '--switch-height'
+		| '--switch-width'
+		| '--switch-thumb-size'
+		| '--switch-label-font-size'
+		| '--switch-track-label-padding'
+		| '--switch-color'
 }
 
 type SwitchFactory = ComponentFactory<{

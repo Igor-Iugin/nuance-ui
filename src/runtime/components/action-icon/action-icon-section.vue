@@ -13,13 +13,13 @@ import css from './action-icon.module.css'
 
 export interface ActionIconSectionVars {
 	root:
-	| '--section-height'
-	| '--section-padding-x'
-	| '--section-fz'
-	| '--section-radius'
-	| '--section-bg'
-	| '--section-color'
-	| '--section-bd'
+		| '--section-height'
+		| '--section-padding-x'
+		| '--section-fz'
+		| '--section-radius'
+		| '--section-bg'
+		| '--section-color'
+		| '--section-bd'
 }
 
 interface StyleProps {
