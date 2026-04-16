@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import { getSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -11,7 +11,7 @@ import UnstyledButton from '../../../button/unstyled-button.vue'
 
 export interface CalendarCellProps extends BoxProps {
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 }
 
 const props = defineProps<CalendarCellProps>()

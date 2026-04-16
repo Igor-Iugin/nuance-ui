@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import type { NuanceColor, NuanceRadius } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getRadius, getThemeColor } from '@nui/utils'
-import { computed, onMounted, useId } from 'vue'
+import { onMounted, useId } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -12,10 +12,13 @@ import { getSafeId, useProvideTabsContext } from './lib'
 import css from './tabs.module.css'
 
 
-export interface TabsRootProps extends BoxProps {
-	/** Value of the tab activated by default (uncontrolled) */
-	defaultTab?: string
+interface TabsRootVars {
+	root: '--tabs-radius' | '--tabs-color'
+}
 
+export type TabsVariant = 'default' | 'pills' | 'outline'
+
+export interface TabsRootProps extends BoxProps {
 	/**
 	 * Tabs orientation
 	 * @default `'horizontal'`
@@ -28,11 +31,26 @@ export interface TabsRootProps extends BoxProps {
 	 */
 	placement?: 'left' | 'right'
 
+	/** Visual variant */
+	variant?: TabsVariant
+
+	/** Color from theme */
+	color?: NuanceColor
+
+	/** Border radius */
+	radius?: NuanceRadius
+
 	/**
-	 * Visual variant
-	 * @default `'default'`
+	 * Inverts tab styles
+	 * @default `false`
 	 */
-	variant?: 'default' | 'pills' | 'outline'
+	inverted?: boolean
+
+	/** Root element id */
+	id?: string
+
+	/** Value of the tab activated by default (uncontrolled) */
+	defaultTab?: string
 
 	/**
 	 * Whether arrow key presses loop through items
@@ -52,26 +70,11 @@ export interface TabsRootProps extends BoxProps {
 	 */
 	allowTabDeactivation?: boolean
 
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Border radius */
-	radius?: NuanceRadius
-
-	/**
-	 * Inverts tab styles
-	 * @default `false`
-	 */
-	inverted?: boolean
-
 	/**
 	 * If `false`, panel content is unmounted when inactive
 	 * @default `true`
 	 */
 	keepMounted?: boolean
-
-	/** Root element id */
-	id?: string
 }
 
 const {
@@ -88,8 +91,6 @@ const {
 	...rest
 } = defineProps<TabsRootProps>()
 
-const VALUE_ERROR = 'component was rendered with invalid value or without value'
-
 const uid = id ?? useId()
 const active = defineModel<string | null>({ default: null })
 
@@ -99,11 +100,14 @@ onMounted(() => {
 	}
 })
 
-const style = computed(() => useStyleResolver(theme => ({
-	'--tabs-radius': getRadius(radius),
-	'--tabs-color': getThemeColor(color, theme),
-})))
+const style = useVarsResolver<TabsRootVars>(theme => ({
+	root: {
+		'--tabs-radius': getRadius(radius),
+		'--tabs-color': getThemeColor(color, theme),
+	},
+}))
 
+const VALUE_ERROR = 'component was rendered with invalid value or without value'
 useProvideTabsContext({
 	...rest,
 	id: uid,

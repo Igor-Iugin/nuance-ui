@@ -1,6 +1,13 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type {
+	AnyString,
+	Classes,
+	NuanceColor,
+	NuanceGradient,
+	NuanceRadius,
+	NuanceSize,
+} from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
@@ -26,7 +33,7 @@ interface AvatarVars {
 		| '--avatar-bd'
 }
 
-interface StyleProps {
+export interface AvatarProps extends BoxProps {
 	/** Border radius */
 	radius?: NuanceRadius | AnyString
 
@@ -38,9 +45,7 @@ interface StyleProps {
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
-}
 
-interface Props extends BoxProps, StyleProps {
 	/** Image URL. When the image fails to load or is `null`, a placeholder is shown instead. */
 	src?: string | null
 
@@ -58,15 +63,13 @@ interface Props extends BoxProps, StyleProps {
 	 * @default 'gravity-ui:person'
 	 */
 	placeholder?: string
-}
 
-type AvatarFactory = ComponentFactory<{
-	props: Props
-	vars: AvatarVars
-	variant: AvatarVariant
-	classes: AvatarClasses
-}>
-export type AvatarProps = AvatarFactory['props']
+	/** Visual variant */
+	variant?: AvatarVariant
+
+	/** Styles API */
+	classes?: Classes<AvatarClasses>
+}
 
 
 const {
@@ -79,7 +82,7 @@ const {
 const initials = computed(() => name && getInitials(name))
 const ctx = useAvatarGroupState()
 
-const style = useVarsResolver<AvatarFactory>(theme => {
+const style = useVarsResolver<AvatarVars>(theme => {
 	const color = props.color === 'initials' && typeof name === 'string'
 		? getInitialsColor(name, props.allowedInitialsColors)
 		: props.color

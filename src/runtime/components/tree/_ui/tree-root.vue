@@ -2,7 +2,7 @@
 import type { ButtonProps, ButtonVariant } from '@nui/components'
 import type { NuanceColor } from '@nui/types'
 
-import { useStyleResolver } from '@nui/composables'
+import { useVarsResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
 import { onClickOutside, useEventListener } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
@@ -15,7 +15,11 @@ import RovingFocus from '../../roving-focus/roving-focus.vue'
 import { useProvideTreeState } from '../lib/context'
 
 
-export type TreeRootProps = RovingFocusProps & {
+interface TreeRootVars {
+	root: '--icon-size'
+}
+
+export interface TreeRootProps extends RovingFocusProps {
 	/** Resolves the icon for a given tree item */
 	iconResolver?: TreeIconResolver
 
@@ -31,14 +35,14 @@ export type TreeRootProps = RovingFocusProps & {
 	/** Filters which items are rendered */
 	filter?: TreeFilter
 
-	/** Visual variant */
-	variant?: ButtonVariant
-
 	/** Color from theme */
 	color?: NuanceColor
 
 	/** Component size */
 	size?: ButtonProps['size']
+
+	/** Visual variant */
+	variant?: ButtonVariant
 }
 
 const {
@@ -61,8 +65,10 @@ const active = defineModel<TreeModels['active']>('active', { default: null })
 const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
 const expanded = defineModel<TreeModels['expanded']>('expanded', { default: [] })
 
-const style = useStyleResolver(() => ({
-	'--icon-size': getSize(size),
+const style = useVarsResolver<TreeRootVars>(() => ({
+	root: {
+		'--icon-size': getSize(size),
+	},
 }))
 
 const root = useTemplateRef<HTMLUListElement>('parent')
@@ -98,7 +104,7 @@ if (removable) {
 			is='ul'
 			ref='parent'
 			role='tree'
-			:style
+			:style='style.root'
 			:class='$style.root'
 			@keydown.esc.prevent='selected = []'
 		>

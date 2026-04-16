@@ -1,8 +1,17 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+import type {
+	NuanceColor,
+	NuanceRadius,
+	NuanceSize,
+} from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
+import {
+	createVariantColorResolver,
+	getFontSize,
+	getRadius,
+	getSize,
+} from '@nui/utils'
 import { useId } from 'vue'
 
 import Box from '../box.vue'
@@ -26,41 +35,37 @@ interface ChipVars {
 		| '--chip-spacing'
 }
 
-type ChipFactory = ComponentFactory<{
-	props: {
-		/** Border radius */
-		radius?: NuanceRadius
+export interface ChipProps {
+	/** Border radius */
+	radius?: NuanceRadius
 
-		/** Component size */
-		size?: NuanceSize
+	/** Component size */
+	size?: NuanceSize
 
-		/** Input type used when rendered without a group */
-		type?: 'radio' | 'checkbox'
+	/** Input type used when rendered without a group */
+	type?: 'radio' | 'checkbox'
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Id used to bind input and label, auto-generated if not provided */
-		id?: string
+	/** Id used to bind input and label, auto-generated if not provided */
+	id?: string
 
-		/** Value used in chip group context */
-		value?: string
+	/** Value used in chip group context */
+	value?: string
 
-		/** Check icon name */
-		icon?: string
+	/** Check icon name */
+	icon?: string
 
-		/** Shows the check icon when the chip is checked */
-		hideIcon?: boolean
+	/** Shows the check icon when the chip is checked */
+	hideIcon?: boolean
 
-		/** Disables the component */
-		disabled?: boolean
-	}
-	classes: never
-	variant: ChipVariant
-	vars: ChipVars
-}>
+	/** Disables the component */
+	disabled?: boolean
 
-export type ChipProps = ChipFactory['props']
+	/** Visual variant */
+	variant?: ChipVariant
+}
 
 const {
 	id: uid,
@@ -85,7 +90,7 @@ const { checked, onUpdate } = useChipState(ctx, modelValue, value)
 const disabled = ctx?.disabled || _disabled
 const type = ctx ? ctx.multiple ? 'checkbox' : 'radio' : _type
 
-const style = useVarsResolver<ChipFactory>(theme => {
+const style = useVarsResolver<ChipVars>(theme => {
 	const colors = createVariantColorResolver({ color, theme, variant })
 
 	return {

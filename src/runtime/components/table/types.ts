@@ -1,4 +1,4 @@
-import type { Classes, NuanceColor } from '@nui/types'
+import type { AnyString, Classes, NuanceColor } from '@nui/types'
 import type { RowData, TableMeta } from '@tanstack/table-core'
 import type {
 	CellContext,
@@ -54,6 +54,20 @@ export type TableSlots<T extends TableData = TableData> = {
 } & DynamicHeaderSlots<T> & DynamicFooterSlots<T> & DynamicCellSlots<T>
 
 
+export type TableClasses
+	= 'root'
+		| 'table'
+		| 'thead'
+		| 'th'
+		| 'td'
+		| 'tr'
+		| 'tbody'
+		| 'tfoot'
+		| 'caption'
+		| 'loading'
+		| 'empty'
+		| 'separator'
+
 export interface TableProps<T extends TableData = TableData>
 	extends TableOptions<T>, /** @vue-ignore */ Omit<TableHTMLAttributes, 'columns' | 'onSelect' | 'onContextmenu'> {
 	/** Row data */
@@ -106,7 +120,7 @@ export interface TableProps<T extends TableData = TableData>
 	 * Color of the loading overlay
 	 * @defaultValue 'primary'
 	 */
-	loadingColor?: NuanceColor | string
+	loadingColor?: NuanceColor | AnyString
 
 	/** Vertical alignment of cell content */
 	verticalAlign?: CSSProperties['verticalAlign']
@@ -121,20 +135,7 @@ export interface TableProps<T extends TableData = TableData>
 	onContextmenu?: ((e: Event, row: TableRow<T>) => void) | Array<((e: Event, row: TableRow<T>) => void)>
 
 	/** Styles API */
-	classes?: Classes<
-		| 'root'
-		| 'table'
-		| 'thead'
-		| 'th'
-		| 'td'
-		| 'tr'
-		| 'tbody'
-		| 'tfoot'
-		| 'caption'
-		| 'loading'
-		| 'empty'
-		| 'separator'
-	>
+	classes?: Classes<TableClasses>
 
 	/**
 	 * Use the `watchOptions` prop to customize reactivity (for ex: disable deep watching for changes in your data or limiting the max traversal depth). This can improve performance by reducing unnecessary re-renders, but it should be used with caution as it may lead to unexpected behavior if not managed properly.

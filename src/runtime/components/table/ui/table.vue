@@ -25,7 +25,7 @@ import {
 	useVueTable,
 } from '@tanstack/vue-table'
 import { reactivePick, unrefElement } from '@vueuse/core'
-import { useStyleResolver } from '#imports'
+import { useVarsResolver } from '#imports'
 import { computed, ref, useTemplateRef, watch } from 'vue'
 
 import type { TableColumn, TableData, TableProps, TableSlots } from '../types'
@@ -35,9 +35,14 @@ import { createRowHandlers, processColumns, resolveValue, valueUpdater } from '.
 
 
 defineOptions({ inheritAttrs: false })
+
 const props = defineProps<TableProps<T>>()
 
 defineSlots<TableSlots<T>>()
+
+interface TableVars {
+	root: '--table-loader-color' | '--vertical-align'
+}
 
 const data = ref(props.data ?? []) as Ref<T[]>
 const meta = computed(() => props?.meta ?? {})
@@ -193,10 +198,13 @@ watch(() => props.data, () => {
 	data.value = props.data ? [...props.data] : []
 }, props.watchOptions)
 
-const style = computed(() => useStyleResolver(theme => ({
-	'--table-loader-color': props.loadingColor ? getThemeColor(props.loadingColor, theme) : undefined,
-	'--vertical-align': props.verticalAlign,
-})))
+
+const style = useVarsResolver<TableVars>(theme => ({
+	root: {
+		'--table-loader-color': props.loadingColor ? getThemeColor(props.loadingColor, theme) : undefined,
+		'--vertical-align': props.verticalAlign,
+	},
+}))
 
 const { onRowContextmenu, onRowHover, onRowSelect } = createRowHandlers(props)
 

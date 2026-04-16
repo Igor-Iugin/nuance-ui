@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 
 export type TransitionName
-	= | 'fade'
+	= 'fade'
 		| 'fade-down'
 		| 'fade-up'
 		| 'fade-left'

@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
+import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
 import { useVarsResolver } from '@nui/composables'
@@ -12,7 +12,7 @@ import Loader from '../loader/loader.vue'
 import css from './button.module.css'
 
 
-type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
+export type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
 
 export type ButtonVariant
 	= 'filled'
@@ -39,7 +39,7 @@ interface ButtonVars {
 	rightSection: '--section-pointer-events'
 }
 
-interface StyleProps {
+export interface ButtonProps extends BoxProps {
 	/** Color from theme */
 	color?: NuanceColor
 
@@ -63,9 +63,7 @@ interface StyleProps {
 
 	/** `pointer-events` value for the right section @default `'all'` */
 	rightSectionPE?: CSSProperties['pointer-events']
-}
 
-interface Props extends BoxProps, StyleProps {
 	/** Loading state */
 	loading?: boolean
 
@@ -78,16 +76,12 @@ interface Props extends BoxProps, StyleProps {
 	/** Extra attributes forwarded to the right section element */
 	rightSectionProps?: HTMLAttributes
 
+	/** Visual variant */
+	variant?: ButtonVariant
+
+	/** Styles API */
+	classes?: Classes<ButtonClasses>
 }
-
-type ButtonFactory = ComponentFactory<{
-	props: Props
-	classes: ButtonClasses
-	variant: ButtonVariant
-	vars: ButtonVars
-}>
-
-export type ButtonProps = ButtonFactory['props']
 
 const {
 	is = 'button',
@@ -102,7 +96,7 @@ const {
 	...props
 } = defineProps<ButtonProps>()
 
-const style = useVarsResolver<ButtonFactory>(theme => {
+const style = useVarsResolver<ButtonVars>(theme => {
 	const { background, border, hover, text } = createVariantColorResolver({
 		theme,
 		variant,

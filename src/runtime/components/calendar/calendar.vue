@@ -1,6 +1,6 @@
 <script setup lang='ts' generic="T extends SelectionMode = 'single'">
 import type { DateInput } from '@formkit/tempo'
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import type { CalendarEmits, CalendarLevel, DateSelection, SelectionMode } from './types'
 import type { CalendarRootProps } from './ui/core'
@@ -12,7 +12,7 @@ import { CalendarDecade, CalendarMonth, CalendarYear } from './ui/levels'
 
 export interface CalendarProps<T extends SelectionMode = 'single'> extends CalendarRootProps<T> {
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Determines whether week numbers should be displayed @default `false` */
 	withWeekNumbers?: boolean
@@ -45,9 +45,7 @@ const props = withDefaults(defineProps<CalendarProps<T>>(), {
 	hideWeekdays: false,
 	highlightToday: true,
 	mode: 'single' as any,
-
 	withCellSpacing: true,
-
 	withWeekNumbers: false,
 	minLevel: 'month',
 	maxLevel: 'decade',

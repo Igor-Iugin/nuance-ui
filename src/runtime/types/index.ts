@@ -1,4 +1,3 @@
-export type * from './factory'
 export type * from './styling'
 export type * from './theme'
 

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceRadius } from '@nui/types'
+import type { Classes, NuanceColor, NuanceRadius } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius } from '@nui/utils'
@@ -19,34 +19,34 @@ export interface AlertVars {
 	root: '--alert-radius' | '--alert-bg' | '--alert-color' | '--alert-bd'
 }
 
-type AlertFactory = ComponentFactory<{
-	props: BoxProps & {
-		/** Border radius */
-		radius?: NuanceRadius
+export interface AlertProps extends BoxProps {
+	/** Border radius */
+	radius?: NuanceRadius
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Alert title */
-		title?: string
+	/** Alert title */
+	title?: string
 
-		/** Icon displayed next to the title */
-		icon?: string
+	/** Icon displayed next to the title */
+	icon?: string
 
-		/** Renders a close button in the top-right corner */
-		withCloseButton?: boolean
+	/** Renders a close button in the top-right corner */
+	withCloseButton?: boolean
 
-		/** Called when the close button is clicked */
-		onClose?: () => void
+	/** Called when the close button is clicked */
+	onClose?: () => void
 
-		/** `aria-label` for the close button */
-		closeButtonLabel?: string
-	}
-	classes: AlertClasses
-	variant: AlertVariant
-}>
+	/** `aria-label` for the close button */
+	closeButtonLabel?: string
 
-export type AlertProps = AlertFactory['props']
+	/** Visual variant */
+	variant?: AlertVariant
+
+	/** Styles API */
+	classes?: Classes<AlertClasses>
+}
 
 const {
 	mod,
@@ -65,7 +65,7 @@ defineEmits<{
 
 const id = useId()
 
-const style = useVarsResolver<AlertFactory>(theme => {
+const style = useVarsResolver<AlertVars>(theme => {
 	const { background, border, text } = createVariantColorResolver({ variant, color, theme })
 	return {
 		root: {

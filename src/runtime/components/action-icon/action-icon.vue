@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
@@ -27,7 +27,7 @@ export interface ActionIconVars {
 		| '--ai-bd'
 }
 
-interface StyleProps {
+export interface ActionIconProps {
 	/** Component size */
 	size?: ActionIconSize
 
@@ -39,28 +39,25 @@ interface StyleProps {
 
 	/** Border radius */
 	radius?: NuanceRadius | AnyString
+
+	/** Loading state */
+	loading?: boolean
+
+	/** Icon name rendered inside the button when no default slot is provided */
+	icon?: string
+
+	/** Disables the component */
+	disabled?: boolean
+
+	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
+	mod?: BoxProps['mod']
+
+	/** Visual variant */
+	variant?: ActionIconVariant
+
+	/** Styles API */
+	classes?: Classes<ActionIconClasses>
 }
-
-type ActionIconFactory = ComponentFactory<{
-	props: StyleProps & {
-		/** Loading state */
-		loading?: boolean
-
-		/** Icon name rendered inside the button when no default slot is provided */
-		icon?: string
-
-		/** Disables the component */
-		disabled?: boolean
-
-		/** Element modifiers transformed into `data-` attributes, falsy values are removed */
-		mod?: BoxProps['mod']
-	}
-	classes: ActionIconClasses
-	variant: ActionIconVariant
-	vars: ActionIconVars
-}>
-
-export type ActionIconProps = ActionIconFactory['props']
 
 const {
 	color,
@@ -75,8 +72,13 @@ const {
 	disabled,
 } = defineProps<ActionIconProps>()
 
-const style = useVarsResolver<ActionIconFactory>(theme => {
-	const { background, border, hover, text } = createVariantColorResolver({ variant, color, theme, gradient })
+const style = useVarsResolver<ActionIconVars>(theme => {
+	const {
+		background,
+		border,
+		hover,
+		text,
+	} = createVariantColorResolver({ variant, color, theme, gradient })
 
 	return {
 		root: {

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
@@ -19,29 +19,25 @@ interface CheckboxIndicatorVars {
 		| '--checkbox-icon-color'
 }
 
-type CheckboxIndicatorFactory = ComponentFactory<{
-	props: {
-		/** Color from theme */
-		color?: NuanceColor
+export interface CheckboxIndicatorProps {
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Icon color */
-		iconColor?: NuanceColor
+	/** Icon color */
+	iconColor?: NuanceColor
 
-		/** Border radius */
-		radius?: NuanceSize
+	/** Border radius */
+	radius?: NuanceRadius | AnyString
 
-		/** Component size */
-		size?: NuanceSize
+	/** Component size */
+	size?: NuanceSize
 
-		/** Displays indeterminate icon */
-		indeterminate?: boolean
-	}
-	classes: never
-	variant: CheckboxIndicatorVariant
-	vars: CheckboxIndicatorVars
-}>
+	/** Displays indeterminate icon */
+	indeterminate?: boolean
 
-export type CheckboxIndicatorProps = CheckboxIndicatorFactory['props']
+	/** Visual variant */
+	variant?: CheckboxIndicatorVariant
+}
 
 const {
 	size = 'sm',
@@ -62,7 +58,7 @@ const checked = computed(() => {
 	return modelValue.value
 })
 
-const style = useVarsResolver<CheckboxIndicatorFactory>(theme => {
+const style = useVarsResolver<CheckboxIndicatorVars>(theme => {
 	const parsed = parseThemeColor({ color, theme })
 	const outlineColor = parsed.isThemeColor && parsed.shade === undefined
 		? `var(--color-${parsed.color}-outline)`

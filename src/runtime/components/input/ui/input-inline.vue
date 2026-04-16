@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import { getFontSize, getSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -26,7 +26,7 @@ export interface InlineInputProps extends BoxProps {
 	disabled?: boolean | undefined
 
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Position of the label relative to the input control */
 	labelPosition?: 'left' | 'right'

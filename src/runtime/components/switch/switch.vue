@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+import type { NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor } from '@nui/utils'
@@ -23,43 +23,37 @@ export interface SwitchVars {
 		| '--switch-color'
 }
 
-type SwitchFactory = ComponentFactory<{
-	props: Omit<InlineInputProps, 'id'> & {
-		/** Id used to bind input and label, auto-generated if not provided */
-		id?: string
+export interface SwitchProps extends Omit<InlineInputProps, 'id'> {
+	/** Id used to bind input and label, auto-generated if not provided */
+	id?: string
 
-		/** Input name */
-		name?: string
+	/** Input name */
+	name?: string
 
-		/** Value used when inside `SwitchGroup` */
-		value?: string
+	/** Value used when inside `SwitchGroup` */
+	value?: string
 
-		/** Inner label shown in unchecked state */
-		offLabel?: string
+	/** Inner label shown in unchecked state */
+	offLabel?: string
 
-		/** Inner label shown in checked state */
-		onLabel?: string
+	/** Inner label shown in checked state */
+	onLabel?: string
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Component size */
-		size?: NuanceSize
+	/** Component size */
+	size?: NuanceSize
 
-		/** Border radius */
-		radius?: NuanceRadius
+	/** Border radius */
+	radius?: NuanceRadius
 
-		/** Icon inside the thumb */
-		icon?: string
+	/** Icon inside the thumb */
+	icon?: string
 
-		/** Displays a colored dot inside the thumb matching the track background */
-		withIndicator?: boolean
-	}
-	classes: never
-	vars: SwitchVars
-}>
-
-export type SwitchProps = SwitchFactory['props']
+	/** Displays a colored dot inside the thumb matching the track background */
+	withIndicator?: boolean
+}
 
 const {
 	id,
@@ -112,7 +106,7 @@ const disabled = computed(() => {
 	return false
 })
 
-const style = useVarsResolver<SwitchFactory>(theme => ({
+const style = useVarsResolver<SwitchVars>(theme => ({
 	root: {
 		'--switch-radius': radius === undefined ? undefined : getRadius(radius),
 		'--switch-height': getSize(size.value, 'switch-height'),

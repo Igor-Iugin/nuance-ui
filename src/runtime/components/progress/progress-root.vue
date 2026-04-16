@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -11,10 +11,10 @@ import css from './progress.module.css'
 
 export interface ProgressRootProps extends BoxProps {
 	/** Component size @default `'md'` */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Border radius @default `theme.defaultRadius` */
-	radius?: NuanceRadius
+	radius?: NuanceRadius | AnyString
 
 	/** Sections width transition duration in ms @default `100` */
 	transitionDuration?: number

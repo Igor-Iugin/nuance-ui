@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import { isAfter, isBefore } from '@formkit/tempo'
 import { chunk } from 'es-toolkit'
@@ -19,7 +19,7 @@ export interface CalendarDecadeProps extends CalendarCellProps {
 	date: DateInput
 
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Allows selecting a year as the final value without drilling down */
 	selectable?: boolean

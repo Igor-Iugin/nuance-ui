@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
@@ -22,35 +22,31 @@ interface CheckboxVars {
 		| '--checkbox-icon-color'
 }
 
-type CheckboxFactory = ComponentFactory<{
-	props: Omit<InlineInputProps, 'id'> & {
-		/** Id used to bind input and label, auto-generated if not provided */
-		id?: string
+export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
+	/** Id used to bind input and label, auto-generated if not provided */
+	id?: string
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Icon color */
-		iconColor?: NuanceColor
+	/** Icon color */
+	iconColor?: NuanceColor
 
-		/** Border radius */
-		radius?: NuanceSize
+	/** Border radius */
+	radius?: NuanceRadius | AnyString
 
-		/**
-		 * Component size
-		 * @default `'sm'`
-		 */
-		size?: NuanceSize
+	/**
+	 * Component size
+	 * @default `'sm'`
+	 */
+	size?: NuanceSize
 
-		/** Value used in checkbox group context */
-		value?: string
-	}
-	classes: never
-	variant: CheckboxVariant
-	vars: CheckboxVars
-}>
+	/** Value used in checkbox group context */
+	value?: string
 
-export type CheckboxProps = CheckboxFactory['props']
+	/** Visual variant */
+	variant?: CheckboxVariant
+}
 
 const {
 	id,
@@ -95,7 +91,7 @@ const disabled = computed(() => {
 const uuid = computed(() => id ?? useId())
 const size = computed(() => _size ?? ctx?.size)
 
-const style = useVarsResolver<CheckboxFactory>(theme => {
+const style = useVarsResolver<CheckboxVars>(theme => {
 	const parsed = parseThemeColor({ color, theme })
 	const outlineColor = parsed.isThemeColor && parsed.shade === undefined
 		? `var(--color-${parsed.color}-outline)`
@@ -129,8 +125,16 @@ const style = useVarsResolver<CheckboxFactory>(theme => {
 				:disabled
 			>
 
-			<slot name='icon' :indeterminate='modelValue === "indeterminate"' :class='$style.icon'>
-				<Icon v-if='modelValue !== "indeterminate"' name='gravity-ui:check' :class='$style.icon' />
+			<slot
+				name='icon'
+				:indeterminate='modelValue === "indeterminate"'
+				:class='$style.icon'
+			>
+				<Icon
+					v-if='modelValue !== "indeterminate"'
+					name='gravity-ui:check'
+					:class='$style.icon'
+				/>
 				<Icon v-else name='gravity-ui:minus' :class='$style.icon' />
 			</slot>
 		</Box>

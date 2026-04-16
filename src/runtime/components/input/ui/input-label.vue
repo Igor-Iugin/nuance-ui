@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import { getFontSize } from '@nui/utils'
 import { computed } from 'vue'
@@ -10,7 +10,7 @@ export interface InputLabelProps {
 	required?: boolean
 
 	/** Component size @default 'sm' */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 }
 
 const { required = false,	size = 'sm' } = defineProps<InputLabelProps>()

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceSize } from '@nui/types'
 import type { Component } from 'vue'
 
 import { useVarsResolver } from '@nui/composables'
@@ -16,25 +16,16 @@ export interface LoaderVars {
 	root: '--loader-size' | '--loader-color'
 }
 
-type LoaderFactory = ComponentFactory<{
-	props: {
-		/** Component size */
-		size?: NuanceSize | `compact-${NuanceSize}` | AnyString
+export interface LoaderProps {
+	/** Component size */
+	size?: NuanceSize | `compact-${NuanceSize}` | AnyString
 
-		/** Color from theme */
-		color?: NuanceColor | AnyString
+	/** Color from theme */
+	color?: NuanceColor | AnyString
 
-		/**
-		 * Loader animation type
-		 * @default `'oval'`
-		 */
-		type?: LoaderType
-	}
-	classes: never
-	vars: LoaderVars
-}>
-
-export type LoaderProps = LoaderFactory['props']
+	/** Loader animation type @default `'oval'` */
+	type?: LoaderType
+}
 
 const { size, color, type = 'oval' } = defineProps<LoaderProps>()
 
@@ -44,7 +35,7 @@ const loaders: Record<LoaderType, Component> = {
 	dots: DotsLoader,
 }
 
-const style = useVarsResolver<LoaderFactory>(theme => {
+const style = useVarsResolver<LoaderVars>(theme => {
 	const _color = parseThemeColor({ color, theme })
 	return {
 		root: {

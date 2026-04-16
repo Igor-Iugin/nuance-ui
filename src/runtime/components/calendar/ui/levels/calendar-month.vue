@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 import type { DateMatcher } from '@nui/utils'
 
 import { isAfter, isBefore, sameDay } from '@formkit/tempo'
@@ -21,13 +21,18 @@ export interface CalendarMonthProps {
 	withCellSpacing?: boolean
 
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Determines whether week numbers should be displayed @default `false` */
 	withWeekNumbers?: boolean
 }
 
-const { month, size, withWeekNumbers, withCellSpacing = true } = defineProps<CalendarMonthProps>()
+const {
+	month,
+	size,
+	withWeekNumbers,
+	withCellSpacing = true,
+} = defineProps<CalendarMonthProps>()
 
 const emit = defineEmits<{
 	select: [date: DateInput]

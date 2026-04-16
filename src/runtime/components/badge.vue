@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@nui/utils'
@@ -23,44 +23,40 @@ export interface BadgeVars {
 		| '--badge-dot-color'
 }
 
-type BadgeFactory = ComponentFactory<{
-	props: BoxProps & {
-		/**
-		 * Component size
-		 * @default `'md'`
-		 */
-		size?: NuanceSize | AnyString
+export interface BadgeProps extends BoxProps {
+	/**
+	 * Component size
+	 * @default `'md'`
+	 */
+	size?: NuanceSize | AnyString
 
-		/** Makes the badge width equal to its height and removes horizontal padding */
-		circle?: boolean
+	/** Makes the badge width equal to its height and removes horizontal padding */
+	circle?: boolean
 
-		/**
-		 * Border radius
-		 * @default `'sm'`
-		 */
-		radius?: NuanceRadius
+	/**
+	 * Border radius
+	 * @default `'sm'`
+	 */
+	radius?: NuanceRadius
 
-		/** Color from theme */
-		color?: NuanceColor | AnyString
+	/** Color from theme */
+	color?: NuanceColor | AnyString
 
-		/** Gradient configuration (used with `variant="gradient"`) */
-		gradient?: NuanceGradient
+	/** Gradient configuration (used with `variant="gradient"`) */
+	gradient?: NuanceGradient
 
-		/**
-		 * Stretches the badge to fill its parent width
-		 * @default `false`
-		 */
-		fullWidth?: boolean
+	/**
+	 * Stretches the badge to fill its parent width
+	 * @default `false`
+	 */
+	fullWidth?: boolean
 
-		/** Icon displayed before the label */
-		icon?: string
-	}
-	classes: never
-	variant: BadgeVariant
-	vars: BadgeVars
-}>
+	/** Icon displayed before the label */
+	icon?: string
 
-export type BadgeProps = BadgeFactory['props']
+	/** Visual variant */
+	variant?: BadgeVariant
+}
 
 const {
 	variant = 'filled',
@@ -72,7 +68,7 @@ const {
 	icon,
 } = defineProps<BadgeProps>()
 
-const style = useVarsResolver<BadgeFactory>(theme => {
+const style = useVarsResolver<BadgeVars>(theme => {
 	const { background, border, text } = createVariantColorResolver({
 		theme,
 		variant: variant === 'dot' ? 'default' : variant,

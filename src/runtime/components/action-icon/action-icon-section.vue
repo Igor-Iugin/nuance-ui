@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceRadius } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getFontSize, getRadius, getSize } from '@nui/utils'
@@ -22,7 +22,7 @@ export interface ActionIconSectionVars {
 		| '--section-bd'
 }
 
-interface StyleProps {
+export interface ActionIconSectionProps extends BoxProps {
 	/** Component size */
 	size?: ActionIconSize
 
@@ -34,19 +34,13 @@ interface StyleProps {
 
 	/** Border radius */
 	radius?: NuanceRadius | AnyString
+
+	/** Loading state */
+	loading?: boolean
+
+	/** Visual variant */
+	variant?: ActionIconVariant
 }
-
-type ActionIconSectionFactory = ComponentFactory<{
-	props: BoxProps & StyleProps & {
-		/** Loading state */
-		loading?: boolean
-	}
-	classes: never
-	variant: ActionIconVariant
-	vars: ActionIconSectionVars
-}>
-
-export type ActionIconSectionProps = ActionIconSectionFactory['props']
 
 const {
 	is,
@@ -58,7 +52,7 @@ const {
 	color,
 } = defineProps<ActionIconSectionProps>()
 
-const style = useVarsResolver<ActionIconSectionFactory>(theme => {
+const style = useVarsResolver<ActionIconSectionVars>(theme => {
 	const { background, border, text } = createVariantColorResolver({ variant, color, theme, gradient })
 
 	return {

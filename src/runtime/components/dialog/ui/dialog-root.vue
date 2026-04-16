@@ -16,16 +16,7 @@ import { useProvideDialogState } from '../lib'
 import css from './dialog.module.css'
 
 
-export interface DialogRootProps extends BoxProps {
-	/** If set, the dialog is closed when user clicks on the overlay @default `true` */
-	closeOnClickOutside?: boolean
-
-	/** If set, the component is rendered inside `Portal` @default `true` */
-	withinPortal?: boolean
-
-	/** If set, the component is rendered with `Overlay` @default `true` */
-	withoutOverlay?: boolean
-
+interface StyleProps {
 	/** Top/bottom modal offset @default `5dvh` */
 	yOffset?: CSSProperties['marginTop']
 
@@ -44,11 +35,22 @@ export interface DialogRootProps extends BoxProps {
 	/** Key of `theme.spacing` or any valid CSS value to set content, header and footer padding @default `'md'` */
 	padding?: NuanceSpacing
 
-	/** Passes a class to root element */
-	rootClass?: string
-
 	/** Animation on hide/show */
 	transition?: TransitionName
+}
+
+export interface DialogRootProps extends BoxProps, StyleProps {
+	/** If set, the dialog is closed when user clicks on the overlay @default `true` */
+	closeOnClickOutside?: boolean
+
+	/** If set, the component is rendered inside `Portal` @default `true` */
+	withinPortal?: boolean
+
+	/** If set, the component is rendered with `Overlay` @default `true` */
+	withoutOverlay?: boolean
+
+	/** Passes a class to root element */
+	rootClass?: string
 
 	/** Portal target to render element @default 'body' */
 	portalTarget?: string | RendererElement | null

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DateInput } from '@formkit/tempo'
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceSize } from '@nui/types'
 
 import { date, isAfter, isBefore, range } from '@formkit/tempo'
 import { isSameMonth } from '@nui/utils'
@@ -20,7 +20,7 @@ export interface CalendarYearProps extends CalendarCellProps {
 	year: DateInput
 
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Allows selecting a month as the final value without drilling down */
 	selectable?: boolean

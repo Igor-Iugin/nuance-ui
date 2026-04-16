@@ -1,14 +1,25 @@
 <script setup lang='ts'>
 import type { DateConfig } from '@nui/composables'
 
-import { useProvideDatesConfig } from '@nui/composables'
-import { computed } from 'vue'
+import { useProvideDatesConfig, useVarsResolver } from '@nui/composables'
 
 import type { BoxProps } from '../box.vue'
 
 import Box from '../box.vue'
 import { useProvideAppShell } from './context'
 
+
+interface AppShellVars {
+	root:
+		| '--app-shell-navbar-transform'
+		| '--app-shell-navbar-offset'
+		| '--app-shell-aside-transform'
+		| '--app-shell-aside-offset'
+		| '--app-shell-header-transform'
+		| '--app-shell-header-offset'
+		| '--app-shell-footer-transform'
+		| '--app-shell-footer-offset'
+}
 
 export interface AppShellProps extends BoxProps {
 	/**
@@ -44,20 +55,43 @@ const footer = defineModel<boolean>('footer', { default: false })
 useProvideAppShell({ aside, footer, header, navbar })
 useProvideDatesConfig(dateConfig)
 
-const style = computed(() => ({
-	'--app-shell-navbar-transform': navbar.value ? 'translateX(calc(-1 * var(--app-shell-navbar-width)))' : undefined,
-	'--app-shell-navbar-offset': navbar.value ? '0rem' : undefined,
-	'--app-shell-aside-transform': aside.value ? 'translateX(var(--app-shell-aside-width))' : undefined,
-	'--app-shell-aside-offset': aside.value ? '0rem' : undefined,
-	'--app-shell-header-transform': header.value ? 'translateY(calc(-1 * var(--app-shell-header-height)))' : undefined,
-	'--app-shell-header-offset': header.value ? '0rem' : undefined,
-	'--app-shell-footer-transform': footer.value ? 'translateY(var(--app-shell-footer-height))' : undefined,
-	'--app-shell-footer-offset': footer.value ? '0rem' : undefined,
+const style = useVarsResolver<AppShellVars>(() => ({
+	root: {
+		'--app-shell-navbar-transform': navbar.value
+			? 'translateX(calc(-1 * var(--app-shell-navbar-width)))'
+			: undefined,
+		'--app-shell-navbar-offset': navbar.value
+			? '0rem'
+			: undefined,
+		'--app-shell-aside-transform': aside.value
+			? 'translateX(var(--app-shell-aside-width))'
+			: undefined,
+		'--app-shell-aside-offset': aside.value
+			? '0rem'
+			: undefined,
+		'--app-shell-header-transform': header.value
+			? 'translateY(calc(-1 * var(--app-shell-header-height)))'
+			: undefined,
+		'--app-shell-header-offset': header.value
+			? '0rem'
+			: undefined,
+		'--app-shell-footer-transform': footer.value
+			? 'translateY(var(--app-shell-footer-height))'
+			: undefined,
+		'--app-shell-footer-offset': footer.value
+			? '0rem'
+			: undefined,
+	},
 }))
 </script>
 
 <template>
-	<Box :is :style :class='$style.root' :mod='[mod, { layout, "with-border": withBorder }]'>
+	<Box
+		:is
+		:style
+		:class='$style.root'
+		:mod='[mod, { layout, "with-border": withBorder }]'
+	>
 		<slot />
 	</Box>
 </template>
@@ -86,11 +120,11 @@ const style = computed(() => ({
 	--app-shell-footer-offset: var(--app-shell-footer-height);
 	--app-shell-footer-transform: none;
 
-	@mixin light {
+	@mixin where-light {
 		--app-shell-border-color: var(--color-gray-3);
 	}
 
-	@mixin dark {
+	@mixin where-dark {
 		--app-shell-border-color: var(--color-slate-8);
 	}
 }

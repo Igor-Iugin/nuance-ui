@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ComponentFactory, NuanceColor, NuanceSpacing } from '@nui/types'
+import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
 import { useVarsResolver } from '@nui/composables'
@@ -18,41 +18,38 @@ export interface NavLinkVars {
 	root: '--nl-bg' | '--nl-hover' | '--nl-color' | '--nl-spacing'
 }
 
-type NavLinkFactory = ComponentFactory<{
-	props: BoxProps & Omit<NuxtLinkProps, 'href' | 'custom'> & {
-		/** Link description displayed below the label */
-		description?: string
+export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+	/** Link description displayed below the label */
+	description?: string
 
-		/** Active state */
-		active?: boolean
+	/** Active state */
+	active?: boolean
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** Spacing token */
-		spacing?: NuanceSpacing
+	/** Spacing token */
+	spacing?: NuanceSpacing
 
-		/** Prevents label and description from wrapping */
-		noWrap?: boolean
+	/** Prevents label and description from wrapping */
+	noWrap?: boolean
 
-		/** Disables the component */
-		disabled?: boolean
+	/** Disables the component */
+	disabled?: boolean
 
-		/** Icon displayed before the label */
-		icon?: string
-	}
-	classes: never
-	variant: NavLinkVariant
-	vars: NavLinkVars
-}>
+	/** Icon displayed before the label */
+	icon?: string
 
-export type NavLinkProps = NavLinkFactory['props']
+	/** Visual variant */
+	variant?: NavLinkVariant
+}
 
 const props = defineProps<NavLinkProps>()
 
 const {
 	link,
 	rest: {
+		active,
 		disabled,
 		mod,
 		variant = 'filled',
@@ -64,8 +61,12 @@ const {
 	},
 } = pickLinkProps(props)
 
-const style = useVarsResolver<NavLinkFactory>(theme => {
-	const { background, hover, text } = createVariantColorResolver({ variant, color, theme })
+const style = useVarsResolver<NavLinkVars>(theme => {
+	const {
+		background,
+		hover,
+		text,
+	} = createVariantColorResolver({ variant, color, theme })
 	return {
 		root: {
 			'--nl-bg': variant ? background : undefined,
@@ -84,13 +85,17 @@ const style = useVarsResolver<NavLinkFactory>(theme => {
 			:href
 			:style='style.root'
 			:class='$style.root'
-			:mod='[{ active: isActive, disabled }, mod]'
+			:mod='[{ active: active ?? isActive, disabled }, mod]'
 			:aria-current="isActive ? 'page' : undefined"
 			:rel='("rel" in linkProps) ? linkProps?.rel : undefined'
 			:target='("target" in linkProps) ? linkProps?.target : undefined'
 			@click='navigate'
 		>
-			<span v-if='$slots.leftSection || icon' :class='$style.section' data-position='left'>
+			<span
+				v-if='$slots.leftSection || icon'
+				:class='$style.section'
+				data-position='left'
+			>
 				<slot name='leftSection'>
 					<Icon v-if='icon' :name='icon' />
 				</slot>
@@ -107,7 +112,11 @@ const style = useVarsResolver<NavLinkFactory>(theme => {
 				</Box>
 			</Box>
 
-			<span v-if='$slots.rightSection' :class='$style.section' data-position='right'>
+			<span
+				v-if='$slots.rightSection'
+				:class='$style.section'
+				data-position='right'
+			>
 				<slot name='rightSection' />
 			</span>
 		</UnstyledButton>

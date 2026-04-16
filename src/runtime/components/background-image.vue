@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuanceRadius } from '@nui/types'
+import type { AnyString, NuanceRadius } from '@nui/types'
 
 import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
@@ -11,7 +11,7 @@ import Box from './box.vue'
 
 export interface BackgroundImageProps extends BoxProps {
 	/** Border radius */
-	radius?: NuanceRadius | string
+	radius?: NuanceRadius | AnyString
 
 	/** Image URL */
 	src: string

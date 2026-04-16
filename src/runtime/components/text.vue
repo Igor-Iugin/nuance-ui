@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, ComponentFactory, NuanceColor, NuanceGradient, NuanceSize } from '@nui/types'
+import type { AnyString, NuanceColor, NuanceFontSize, NuanceGradient, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { useVarsResolver } from '@nui/composables'
@@ -26,44 +26,40 @@ interface TextVars {
 		| '--text-color'
 }
 
-type TextFactory = ComponentFactory<{
-	props: BoxProps & {
-		/** Controls `font-size` and `line-height` */
-		size?: NuanceSize | `h${TitleOrder}` | AnyString
+export interface TextProps extends BoxProps {
+	/** Controls `font-size` and `line-height` */
+	size?: NuanceSize | `h${TitleOrder}` | AnyString
 
-		/** Number of lines after which Text will be truncated */
-		lineClamp?: number
+	/** Number of lines after which Text will be truncated */
+	lineClamp?: number
 
-		/** Side on which Text must be truncated, if `true`, text is truncated from the start */
-		truncate?: TextTruncate
+	/** Side on which Text must be truncated, if `true`, text is truncated from the start */
+	truncate?: TextTruncate
 
-		/** Sets `line-height` to 1 for centering */
-		inline?: boolean
+	/** Sets `line-height` to 1 for centering */
+	inline?: boolean
 
-		/** Determines whether font properties should be inherited from the parent */
-		inherit?: boolean
+	/** Determines whether font properties should be inherited from the parent */
+	inherit?: boolean
 
-		/** Gradient configuration (used with `variant="gradient"`) */
-		gradient?: NuanceGradient
+	/** Gradient configuration (used with `variant="gradient"`) */
+	gradient?: NuanceGradient
 
-		/** Font size token */
-		fz?: NuanceSize | `h${TitleOrder}` | AnyString
+	/** Font size token */
+	fz?: NuanceFontSize | `h${TitleOrder}` | AnyString
 
-		/** Line height token */
-		lh?: NuanceSize | AnyString
+	/** Line height token */
+	lh?: NuanceSize | AnyString
 
-		/** Font weight */
-		fw?: CSSProperties['font-weight']
+	/** Font weight */
+	fw?: CSSProperties['font-weight']
 
-		/** Text color from theme */
-		c?: NuanceColor | 'dimmed'
-	}
-	classes: never
-	variant: TextVariant
-	vars: TextVars
-}>
+	/** Text color from theme */
+	c?: NuanceColor | 'dimmed'
 
-export type TextProps = TextFactory['props']
+	/** Visual variant */
+	variant?: TextVariant
+}
 
 const {
 	is = 'p',
@@ -90,7 +86,7 @@ const _mod = computed(() => [{
 	variant,
 }, mod])
 
-const style = useVarsResolver<TextFactory>(theme => ({
+const style = useVarsResolver<TextVars>(theme => ({
 	root: {
 		'--text-fz': getFontSize(fz || size),
 		'--text-fw': fw?.toString(),

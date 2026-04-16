@@ -1,4 +1,4 @@
-import type { NuanceSize } from '@nui/types'
+import type { AnyString, NuanceRadius, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { createInjectionState } from '@vueuse/core'
@@ -14,10 +14,10 @@ export interface WrapperContext {
 	required?: boolean
 
 	/** Border radius */
-	radius?: NuanceSize | string
+	radius?: NuanceRadius | AnyString
 
 	/** Component size */
-	size?: NuanceSize | string
+	size?: NuanceSize | AnyString
 
 	/** Visual variant */
 	variant?: InputVariant

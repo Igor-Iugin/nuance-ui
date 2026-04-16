@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { ComponentFactory, NuanceColor } from '@nui/types'
+import type { NuanceColor } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
@@ -14,25 +14,19 @@ export interface ProgressSectionVars {
 	root: '--progress-section-size' | '--progress-section-color'
 }
 
-type ProgressSectionFactory = ComponentFactory<{
-	props: BoxProps & {
-		/** Determines whether `aria-*` props should be added to the root element @default `true` */
-		withAria?: boolean
+export interface ProgressSectionProps extends BoxProps {
+	/** Determines whether `aria-*` props should be added to the root element @default `true` */
+	withAria?: boolean
 
-		/** Color from theme */
-		color?: NuanceColor
+	/** Color from theme */
+	color?: NuanceColor
 
-		/** If set, the section has stripes @default `false` */
-		striped?: boolean
+	/** If set, the section has stripes @default `false` */
+	striped?: boolean
 
-		/** If set, the sections stripes are animated, `striped` prop is ignored @default `false` */
-		animated?: boolean
-	}
-	classes: never
-	vars: ProgressSectionVars
-}>
-
-export type ProgressSectionProps = ProgressSectionFactory['props']
+	/** If set, the sections stripes are animated, `striped` prop is ignored @default `false` */
+	animated?: boolean
+}
 
 const {
 	withAria,
@@ -55,7 +49,7 @@ const ariaAttributes = computed(() => withAria
 	}
 	: {})
 
-const style = useVarsResolver<ProgressSectionFactory>(theme => ({
+const style = useVarsResolver<ProgressSectionVars>(theme => ({
 	root: {
 		'--progress-section-size': `${value.value}%`,
 		'--progress-section-color': getThemeColor(color, theme),

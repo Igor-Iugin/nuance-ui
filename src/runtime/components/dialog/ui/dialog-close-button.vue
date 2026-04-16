@@ -5,7 +5,11 @@ import ActionIcon from '../../action-icon/action-icon.vue'
 import { useDialogState } from '../lib'
 
 
-const { variant = 'subtle', icon = 'gravity-ui:xmark', ...props } = defineProps<ActionIconProps>()
+const {
+	variant = 'subtle',
+	icon = 'gravity-ui:xmark',
+	...props
+} = defineProps<ActionIconProps>()
 const close = useDialogState()
 </script>
 

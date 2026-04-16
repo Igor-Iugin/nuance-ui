@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
-import type { NuanceSpacing } from '@nui/types'
+import type { AnyString, NuanceSpacing } from '@nui/types'
 
 import { getSpacing } from '@nui/utils'
 import { computed } from 'vue'
@@ -12,7 +12,7 @@ import { useProvideAvatarGroup } from './lib/context'
 
 export interface AvatarGroupProps extends BoxProps {
 	/** Negative spacing applied between child avatars to overlap them */
-	spacing?: NuanceSpacing | string
+	spacing?: NuanceSpacing | AnyString
 }
 
 const { mod, is, spacing } = defineProps<AvatarGroupProps>()
