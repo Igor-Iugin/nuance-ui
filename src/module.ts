@@ -1,10 +1,16 @@
 import {
 	addComponentsDir,
 	addImportsDir,
+	addPlugin,
 	createResolver,
 	defineNuxtModule,
 } from '@nuxt/kit'
 import { defu } from 'defu'
+
+import type { ToastManagerConfig } from './runtime/toast/toast-manager'
+
+import { defaultOptions } from './defaults'
+
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -26,13 +32,10 @@ export interface ModuleOptions {
 	 * @default 'light'
 	 */
 	theme?: 'light' | 'dark' | 'auto'
-}
 
-const defaultConfig = {
-	autoImport: true,
-	theme: 'light',
-	prefix: 'N',
-} satisfies ModuleOptions
+	/** Toast manager configuration */
+	toast?: ToastManagerConfig
+}
 
 export default defineNuxtModule<ModuleOptions>({
 	meta: {
@@ -56,10 +59,17 @@ export default defineNuxtModule<ModuleOptions>({
 			},
 		},
 	},
-	// Default configuration options of the Nuxt module
-	defaults: defaultConfig,
+	defaults: defaultOptions,
 	setup(options, nuxt) {
 		const { resolve } = createResolver(import.meta.url)
+
+
+		// ─── App Config ───
+
+		nuxt.options.appConfig.nui = defu(
+			nuxt.options.appConfig.nui || {},
+			defaultOptions,
+		)
 
 
 		// ─── Types Templates ───
@@ -120,5 +130,10 @@ export default defineNuxtModule<ModuleOptions>({
 		// ─── Add global styles ───
 
 		nuxt.options.css.push(resolve('./runtime/styles/global.css'))
+
+
+		// ─── Plugins ───
+
+		addPlugin(resolve('./runtime/plugins/toast.client'))
 	},
 })

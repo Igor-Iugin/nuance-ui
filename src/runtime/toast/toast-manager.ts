@@ -9,6 +9,14 @@ const GLOBAL_KEY = '__nui_toast_manager__'
 
 declare const globalThis: Record<string, unknown>
 
+export interface ToastManagerConfig {
+	/** Max visible toasts per position. @default 5 */
+	limit?: number
+
+	/** Fallback position when toast has none. @default 'bottom-right' */
+	defaultPosition?: ToastPosition
+}
+
 class ToastManager {
 	#toasts: ShallowRef<ToastData[]> = shallowRef([])
 	#queue: ShallowRef<ToastData[]> = shallowRef([])
@@ -16,6 +24,14 @@ class ToastManager {
 	#limit: number = 5
 
 	private constructor() {}
+
+	/** Overrides default limit and position. Call once before first use. */
+	static configure(options: ToastManagerConfig) {
+		if (options.limit !== undefined)
+			ToastManager.instance.#limit = options.limit
+		if (options.defaultPosition !== undefined)
+			ToastManager.instance.#defaultPosition = options.defaultPosition
+	}
 
 	static get instance(): ToastManager {
 		if (!globalThis[GLOBAL_KEY])
@@ -31,6 +47,8 @@ class ToastManager {
 	get queue() {
 		return this.#queue
 	}
+
+	// ─── Internal ───
 
 	#getDistributedToasts(data: ToastData[]) {
 		const queue: ToastData[] = []
@@ -128,3 +146,6 @@ class ToastManager {
 }
 
 export const $toast = markRaw(ToastManager.instance)
+
+/** Overrides default limit and position. Call once before first use (e.g. in a Nuxt plugin). */
+export const configureToast = ToastManager.configure
