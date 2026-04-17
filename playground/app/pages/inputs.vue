@@ -29,7 +29,7 @@ const select = ref(['2', '1'])
 			<NTextInput label='Text input' autocomplete='off' />
 		</div>
 
-		<NTextarea label='Textarea' multiline />
+		<NTextarea label='Textarea' />
 
 		<div :class='$style.flex'>
 			<NSelect

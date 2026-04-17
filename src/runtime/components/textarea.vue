@@ -1,9 +1,9 @@
 <script setup lang='ts'>
+import { useTextareaAutosize } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
 import type { InputBaseProps, InputWrapperProps } from './input'
 
-import { useAutosize } from '../composables/use-autosize'
 import InputBase from './input/ui/input-base.vue'
 import InputWrapper from './input/ui/input-wrapper.vue'
 
@@ -14,31 +14,25 @@ export interface TextareaProps extends InputWrapperProps, InputBaseProps {
 
 	/** If set, enables textarea height growing with its content @default false */
 	autosize?: boolean
-
-	/** Maximum rows for autosize textarea to grow, ignored if `autosize` prop is not set */
-	maxRows?: number
-
-	/** Minimum rows of autosize textarea, ignored if `autosize` prop is not set */
-	minRows?: number
 }
 
 const {
 	icon,
 	autosize = false,
-	minRows,
-	maxRows,
+	multiline = true,
+	resize,
 	...props
 } = defineProps<TextareaProps>()
 
-const model = defineModel<string>()
+const model = defineModel<string>({ default: '' })
 const inputRef = useTemplateRef<HTMLTextAreaElement>('input')
 
-useAutosize(inputRef, {
-	model,
-	minRows,
-	maxRows,
-	enabled: autosize,
-})
+if (autosize) {
+	useTextareaAutosize({
+		element: inputRef,
+		input: model,
+	})
+}
 
 defineExpose({
 	$el: inputRef,
@@ -46,7 +40,12 @@ defineExpose({
 </script>
 
 <template>
-	<InputWrapper v-bind='props' :multiline :class='$attrs?.class'>
+	<InputWrapper
+		v-bind='props'
+		:multiline
+		:class='$attrs?.class'
+		:resize='autosize ? undefined : resize'
+	>
 		<InputBase :classes='{ root: $style.test }'>
 			<template v-if='!!$slots.leftSection || icon' #leftSection>
 				<slot name='leftSection'>
@@ -86,9 +85,14 @@ defineExpose({
 
 <style module>
 .textarea {
+	--input-padding-y: var(--input-padding-inline-start);
+
 	scrollbar-width: none;
 
 	height: auto;
+	min-height: rem(62px);
+
+	line-height: 1.2;
 	-ms-overflow-style: none;
 
 	&::-webkit-scrollbar {
