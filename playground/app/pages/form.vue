@@ -8,11 +8,17 @@ const schema = toTypedSchema(z.object({
 	username: z.string().min(3, 'Минимум 3 символа'),
 	email: z.email('Некорректный email'),
 	password: z.string().min(6, 'Минимум 6 символов'),
+	bio: z.string().max(200, 'Максимум 200 символов').optional(),
+	age: z.number({ error: 'Укажите возраст' }).min(18, 'Минимум 18 лет').max(120, 'Максимум 120 лет'),
+	role: z.string({ error: 'Выберите роль' }).nonempty('Выберите роль'),
+	date: z.string({ error: 'Выберите дату' }).nonempty('Выберите дату'),
+	time: z.string({ error: 'Укажите время' }).nonempty('Укажите время'),
+	appointment: z.string({ error: 'Выберите дату и время' }).nonempty('Выберите дату и время'),
 }))
 
 const { handleSubmit } = useForm({ validationSchema: schema })
 
-const result = ref<Record<string, string> | null>(null)
+const result = ref<Record<string, unknown> | null>(null)
 
 const onSubmit = handleSubmit(values => {
 	result.value = values
@@ -21,21 +27,72 @@ const onSubmit = handleSubmit(values => {
 
 <template>
 	<div :class='$style.root'>
-		<h2>Form (vee-validate)</h2>
+		<h2>Form fields</h2>
 
 		<form :class='$style.form' @submit.prevent='onSubmit'>
-			<NTextField name='username' label='Username' placeholder='johndoe' />
-			<NTextField name='email' label='Email' placeholder='john@example.com' />
-			<NTextField name='password' label='Password' placeholder='••••••' />
+			<NTextField
+				name='username'
+				label='Username'
+				placeholder='johndoe'
+			/>
+
+			<NEmailField
+				name='email'
+				label='Email'
+				placeholder='john@example.com'
+			/>
+
+			<NPasswordField
+				name='password'
+				label='Password'
+				placeholder='••••••'
+			/>
+
+			<NTextareaField
+				name='bio'
+				label='Bio'
+				placeholder='Tell us about yourself...'
+			/>
+
+			<NNumberField
+				name='age'
+				label='Age'
+				:min='18'
+				:max='120'
+				:initial-value='18'
+			/>
+
+			<NSelectField
+				name='role'
+				label='Role'
+				:options='[
+					{ value: "admin", label: "Admin" },
+					{ value: "editor", label: "Editor" },
+					{ value: "viewer", label: "Viewer" },
+				]'
+			/>
+
+			<NDateField
+				name='date'
+				label='Date'
+			/>
+
+			<NTimeField
+				name='time'
+				label='Time'
+			/>
+
+			<NDateTimeField
+				name='appointment'
+				label='Appointment'
+			/>
 
 			<NButton type='submit'>
 				Submit
 			</NButton>
 		</form>
 
-		<pre v-if='result' :class='$style.result'>
-			{{ JSON.stringify(result, null, 2) }}
-		</pre>
+		<pre v-if='result' :class='$style.result'>{{ JSON.stringify(result, null, 2) }}</pre>
 	</div>
 </template>
 
