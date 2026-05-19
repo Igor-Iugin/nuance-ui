@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "npm run dev:prepare && nuxi dev playground"
+		},
+		{
+			"type": "npm",
+			"script": "dev:prepare",
+			"problemMatcher": [],
+			"label": "npm: dev:prepare",
+			"detail": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground"
+		},
+		{
+			"type": "npm",
+			"script": "release",
+			"problemMatcher": [],
+			"label": "npm: release",
+			"detail": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags"
+		},
+	]
+}
