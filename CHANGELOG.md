@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.2.13
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.12...v0.2.13)
+
+### 🚀 Enhancements
+
+- Add checkbox and switch field components with vee-validate integration ([86ae405](https://github.com/Igor-Iugin/nuance-ui/commit/86ae405))
+- **form:** Add SwitchField, CheckboxField, SwitchGroupField, CheckboxGroupField ([b5d8ecb](https://github.com/Igor-Iugin/nuance-ui/commit/b5d8ecb))
+
+### 🩹 Fixes
+
+- **checkbox:** Bind input id to uuid explicitly ([0226bec](https://github.com/Igor-Iugin/nuance-ui/commit/0226bec))
+
+### 💅 Refactors
+
+- **app-shell:** Enhance props to control visibility of layout components ([10594a5](https://github.com/Igor-Iugin/nuance-ui/commit/10594a5))
+
+### 🏡 Chore
+
+- **release:** V0.2.12 ([ec5f448](https://github.com/Igor-Iugin/nuance-ui/commit/ec5f448))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.12
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.11...v0.2.12)
