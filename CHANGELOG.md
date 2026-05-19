@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.2.15
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.14...v0.2.15)
+
+### 🚀 Enhancements
+
+- **package:** Add pnpm configuration for only built dependencies ([f018908](https://github.com/Igor-Iugin/nuance-ui/commit/f018908))
+- **release:** Add GitHub Actions workflow for automated publishing ([d581925](https://github.com/Igor-Iugin/nuance-ui/commit/d581925))
+
+### 🩹 Fixes
+
+- **release:** Remove npm publish from release script ([5aedaa9](https://github.com/Igor-Iugin/nuance-ui/commit/5aedaa9))
+
+### 💅 Refactors
+
+- **pnpm:** Migrate pnpm configuration to pnpm-workspace.yaml and remove from package.json ([3945403](https://github.com/Igor-Iugin/nuance-ui/commit/3945403))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.14
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.13...v0.2.14)
