@@ -103,14 +103,6 @@
 		"vitest": "^4.0.18",
 		"vue-tsc": "^3.2.4"
 	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@parcel/watcher",
-			"esbuild",
-			"unrs-resolver",
-			"vue-demi"
-		]
-	},
 	"keywords": [
 		"nuance-ui",
 		"nuxt",
