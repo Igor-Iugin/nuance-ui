@@ -118,7 +118,7 @@ const style = useVarsResolver<CheckboxVars>(theme => {
 	>
 		<Box :class='$style.inner' :mod='{ "label-position": rest?.labelPosition }'>
 			<input
-				:id
+				:id='uuid'
 				v-model='checked'
 				type='checkbox'
 				:class='$style.input'
