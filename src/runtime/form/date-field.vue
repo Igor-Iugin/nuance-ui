@@ -1,9 +1,9 @@
 <script setup lang='ts' generic='Mode extends SelectionMode = "single"'>
 import type { RuleExpression } from 'vee-validate'
+
 import { useField } from 'vee-validate'
 
-import type { SelectionMode } from '../components/calendar'
-import type { DateSelection } from '../components/calendar'
+import type { DateSelection, SelectionMode } from '../components/calendar'
 import type { DatePickerProps } from '../components/input/date-picker.vue'
 
 import DatePicker from '../components/input/date-picker.vue'
