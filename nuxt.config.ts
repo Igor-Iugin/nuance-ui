@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 		'@nuxt/eslint',
 		'@nuxt/icon',
 		'@nuxtjs/color-mode',
+		'@vee-validate/nuxt',
 	],
 	colorMode: {
 		dataValue: 'mantine-color-scheme',

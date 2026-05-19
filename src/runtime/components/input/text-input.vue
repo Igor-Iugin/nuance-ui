@@ -37,7 +37,10 @@ defineExpose({
 </script>
 
 <template>
-	<InputWrapper v-bind='props' :class='[$attrs.class, classes?.wrapper]'>
+	<InputWrapper
+		v-bind='props'
+		:class='[$attrs.class, classes?.wrapper]'
+	>
 		<BaseInput>
 			<template v-if='!!$slots.leftSection || icon' #leftSection>
 				<slot name='leftSection'>

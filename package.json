@@ -87,6 +87,7 @@
 		"@nuxtjs/color-mode": "^4.0.0",
 		"@nuxtjs/stylelint-module": "^5.2.1",
 		"@types/node": "latest",
+		"@vee-validate/nuxt": "^4.15.1",
 		"changelogen": "^0.6.2",
 		"eslint": "^9.39.2",
 		"nuxt": "^4.4.2",

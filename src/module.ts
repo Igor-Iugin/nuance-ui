@@ -67,6 +67,7 @@ export default defineNuxtModule<ModuleOptions>({
 		const aliases = {
 			composables: resolve('./runtime/composables'),
 			components: resolve('./runtime/components'),
+			form: resolve('./runtime/form'),
 			utils: resolve('./runtime/utils'),
 			types: resolve('./runtime/types'),
 			modals: resolve('./runtime/modals'),
@@ -102,6 +103,18 @@ export default defineNuxtModule<ModuleOptions>({
 		if (options.autoImport) {
 			addComponentsDir({
 				path: aliases.components,
+				prefix: options.prefix,
+				pathPrefix: false,
+				extensions: ['.vue'],
+				ignore: [
+					'**/_*/**',
+					'**/types/**',
+					'**/*.module.css',
+				],
+			})
+
+			addComponentsDir({
+				path: aliases.form,
 				prefix: options.prefix,
 				pathPrefix: false,
 				extensions: ['.vue'],

@@ -57,6 +57,9 @@ const theme = useTheme()
 			<NNavLink to='/checkbox'>
 				Checkbox
 			</NNavLink>
+			<NNavLink to='/form'>
+				Form
+			</NNavLink>
 			<NNavLink to='/modals'>
 				Modals
 			</NNavLink>
