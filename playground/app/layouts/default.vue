@@ -12,8 +12,8 @@ const theme = useTheme()
 <template>
 	<NAppShell
 		:class='$style.root'
-		aside
-		footer
+		hide-aside
+		hide-footer
 		with-border
 		:date-config='{ locale: "ru-RU" }'
 	>

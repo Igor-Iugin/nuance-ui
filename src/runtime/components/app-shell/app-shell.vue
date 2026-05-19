@@ -37,6 +37,18 @@ export interface AppShellProps extends BoxProps {
 
 	/** Locale configuration for date-aware features */
 	dateConfig?: Partial<DateConfig>
+
+	/** Hides aside on mount */
+	hideAside?: boolean
+
+	/** Hides navbar on mount */
+	hideNavbar?: boolean
+
+	/** Hides header on mount */
+	hideHeader?: boolean
+
+	/** Hides footer on mount */
+	hideFooter?: boolean
 }
 
 const {
@@ -47,10 +59,10 @@ const {
 	dateConfig,
 } = defineProps<AppShellProps>()
 
-const aside = defineModel<boolean>('aside', { default: false })
-const header = defineModel<boolean>('header', { default: false })
-const navbar = defineModel<boolean>('navbar', { default: false })
-const footer = defineModel<boolean>('footer', { default: false })
+const aside = defineModel<boolean>('aside', { default: props => !!props.hideAside })
+const header = defineModel<boolean>('header', { default: props => !!props.hideHeader })
+const navbar = defineModel<boolean>('navbar', { default: props => !!props.hideNavbar })
+const footer = defineModel<boolean>('footer', { default: props => !!props.hideFooter })
 
 useProvideAppShell({ aside, footer, header, navbar })
 useProvideDatesConfig(dateConfig)
@@ -88,7 +100,7 @@ const style = useVarsResolver<AppShellVars>(() => ({
 <template>
 	<Box
 		:is
-		:style
+		:style='style.root'
 		:class='$style.root'
 		:mod='[mod, { layout, "with-border": withBorder }]'
 	>
