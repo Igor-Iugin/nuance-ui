@@ -77,7 +77,7 @@ function handleBlur() {
 				<input
 					:id
 					v-model='value'
-					:class='css'
+					v-bind='{ ...$attrs, class: css }'
 					:min
 					:max
 					:step
