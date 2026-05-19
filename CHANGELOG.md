@@ -1,6 +1,37 @@
 # Changelog
 
 
+## v0.2.12
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.11...v0.2.12)
+
+### 🚀 Enhancements
+
+- ✨  Created autosize logic in textarea ([21d8040](https://github.com/Igor-Iugin/nuance-ui/commit/21d8040))
+- ✨  Add VSCode tasks for development and release processes ([fe6b623](https://github.com/Igor-Iugin/nuance-ui/commit/fe6b623))
+- Add TextField component with vee-validate integration ([7bb62bf](https://github.com/Igor-Iugin/nuance-ui/commit/7bb62bf))
+- Add email, password, number, textarea field components with vee-validate integration ([2b568ab](https://github.com/Igor-Iugin/nuance-ui/commit/2b568ab))
+- Add date, time, datetime, select field components with vee-validate integration ([a6e29f2](https://github.com/Igor-Iugin/nuance-ui/commit/a6e29f2))
+
+### 🩹 Fixes
+
+- 🐛  Textarea autosize and resize prop ([7e1452a](https://github.com/Igor-Iugin/nuance-ui/commit/7e1452a))
+
+### 💅 Refactors
+
+- 🔥  Delete factory types ([a198c0f](https://github.com/Igor-Iugin/nuance-ui/commit/a198c0f))
+
+### 🏡 Chore
+
+- **release:** V0.2.11 ([e546c91](https://github.com/Igor-Iugin/nuance-ui/commit/e546c91))
+- Update form playground with all field types ([beea2b6](https://github.com/Igor-Iugin/nuance-ui/commit/beea2b6))
+- 🎨  eslint ([85e62c0](https://github.com/Igor-Iugin/nuance-ui/commit/85e62c0))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+- Igor Iugin <igoriugin@yandex.ru>
+
 ## v0.2.11
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.10...v0.2.11)
