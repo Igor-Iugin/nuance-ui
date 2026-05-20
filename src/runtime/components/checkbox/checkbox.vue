@@ -60,7 +60,7 @@ const {
 	...rest
 } = defineProps<CheckboxProps>()
 
-const modelValue = defineModel<boolean | 'indeterminate'>({ default: false })
+const modelValue = defineModel<boolean | 'indeterminate'>()
 const ctx = useCheckboxGroupState()
 
 const checked = computed({

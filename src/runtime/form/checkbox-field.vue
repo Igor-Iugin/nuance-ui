@@ -8,26 +8,29 @@ import Checkbox from '../components/checkbox/checkbox.vue'
 
 
 export interface CheckboxFieldProps
-	extends Omit<CheckboxProps, 'error'>, FieldBaseProps<boolean> {
+	extends Omit<CheckboxProps, 'error'>, Omit<FieldBaseProps<boolean>, 'initialValue'> {
+	checked?: true
 }
 
 const {
 	name,
 	rules,
 	validateOn = 'change',
-	initialValue,
+	checked: initialValue,
 	controlled = true,
 	...props
 } = defineProps<CheckboxFieldProps>()
 
 const {
-	value,
+	checked,
 	errorMessage,
 	handleChange,
 } = useField(() => name, rules, {
+	type: 'checkbox',
 	validateOnValueUpdate: false,
 	validateOnMount: false,
-	initialValue,
+	checkedValue: true,
+	initialValue: initialValue || undefined,
 	controlled,
 })
 </script>
@@ -35,7 +38,7 @@ const {
 <template>
 	<Checkbox
 		v-bind='props'
-		:model-value='value'
+		v-model='checked'
 		:error='errorMessage'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>

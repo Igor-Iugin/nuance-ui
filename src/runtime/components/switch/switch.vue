@@ -79,7 +79,7 @@ const uuid = computed(() => id ?? useId())
 const ctx = useSwitchGroupState()
 const size = computed(() => _size ?? ctx?.size)
 
-const modelValue = defineModel<boolean>({ default: false })
+const modelValue = defineModel<boolean>()
 
 const checked = computed({
 	get: () => {

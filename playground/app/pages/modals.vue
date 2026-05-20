@@ -86,12 +86,22 @@ async function handleWizard() {
 
 	stepLog.value.push('Wizard завершён')
 }
+
+const historyData = ref({
+	username: '124131231',
+	email: 'test@mail.ru',
+	age: 22,
+	role: 'admin',
+	features: ['notifications'],
+	notifications: true,
+	agree: true,
+})
 </script>
 
 <template>
 	<div :style='{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)", maxWidth: "400px" }'>
 		<NActionIcon
-			@click='openHistoryBox()'
+			@click='openHistoryBox({ data: historyData })'
 		/>
 
 		<NButton @click='handleConfirm'>

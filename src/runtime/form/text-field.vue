@@ -37,7 +37,7 @@ const {
 <template>
 	<TextInput
 		v-bind='props'
-		:model-value='value'
+		v-model='value'
 		:error='errorMessage'
 		:name
 		@update:model-value='handleChange($event, !!errorMessage)'

@@ -35,7 +35,7 @@ const {
 <template>
 	<CheckboxGroup
 		v-bind='props'
-		:model-value='value ?? []'
+		v-model='value'
 		:error='errorMessage'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>

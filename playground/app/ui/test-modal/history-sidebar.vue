@@ -1,6 +1,14 @@
 <script setup lang='ts'>
 import { useModal } from '@nui/modals'
 
+import type { FormData } from './form.vue'
+
+import Form from './form.vue'
+
+
+const { data } = defineProps<{
+	data: FormData
+}>()
 
 const commands = computed(() => [])
 const cursor = computed(() => -1)
@@ -32,6 +40,8 @@ const { opened } = useModal('map-history')
 			</NActionIconGroup>
 			<NModalCloseButton />
 		</NModalHeader>
+
+		<Form :data />
 
 		<ul :class='$style.list'>
 			<template v-if='commands.length > 0'>

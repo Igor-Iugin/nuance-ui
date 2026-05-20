@@ -40,7 +40,7 @@ const {
 <template>
 	<NumberInput
 		v-bind='props'
-		:model-value='value'
+		v-model='value'
 		:error='errorMessage'
 		:name
 		:min

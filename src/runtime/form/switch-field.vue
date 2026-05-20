@@ -8,26 +8,29 @@ import Switch from '../components/switch/switch.vue'
 
 
 export interface SwitchFieldProps
-	extends Omit<SwitchProps, 'error' | 'name'>, FieldBaseProps<boolean> {
+	extends Omit<SwitchProps, 'error' | 'name'>, Omit<FieldBaseProps<boolean>, 'initialValue'> {
+	checked?: true
 }
 
 const {
 	name,
 	rules,
 	validateOn = 'change',
-	initialValue,
 	controlled = true,
+	checked: initialValue,
 	...props
 } = defineProps<SwitchFieldProps>()
 
 const {
-	value,
+	checked,
 	errorMessage,
 	handleChange,
 } = useField(() => name, rules, {
+	type: 'checkbox',
 	validateOnValueUpdate: false,
 	validateOnMount: false,
-	initialValue,
+	checkedValue: true,
+	initialValue: initialValue || undefined,
 	controlled,
 })
 </script>
@@ -35,7 +38,7 @@ const {
 <template>
 	<Switch
 		v-bind='props'
-		:model-value='value'
+		v-model='checked'
 		:error='errorMessage'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>
