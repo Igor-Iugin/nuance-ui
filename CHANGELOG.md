@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.17
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.16...v0.2.17)
+
+### 🩹 Fixes
+
+- 🚑️  Broken initialValues in checkbox/switch ([8134db8](https://github.com/Igor-Iugin/nuance-ui/commit/8134db8))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.16
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.15.1...v0.2.16)
