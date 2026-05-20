@@ -1,30 +1,15 @@
 <script setup lang='ts' generic='Mode extends SelectionMode = "single"'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { DateSelection, SelectionMode } from '../components/calendar'
 import type { DatePickerProps } from '../components/input/date-picker.vue'
+import type { FieldBaseProps } from './types'
 
 import DatePicker from '../components/input/date-picker.vue'
 
 
 export interface DateFieldProps<Mode extends SelectionMode = 'single'>
-	extends Omit<DatePickerProps<Mode>, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<DateSelection<Mode>>
-
-	/** When to trigger validation @default `'change'` */
-	validateOn?: 'change' | 'submit'
-
-	/** Pre-fills the field value */
-	initialValue?: DateSelection<Mode>
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
+	extends Omit<DatePickerProps<Mode>, 'error' | 'name'>, FieldBaseProps<DateSelection<Mode>> {
 }
 
 const {
@@ -40,7 +25,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
-} = useField<DateSelection<Mode>>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

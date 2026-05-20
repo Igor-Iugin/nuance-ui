@@ -1,28 +1,15 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { TextareaProps } from '../components/textarea.vue'
+import type { FieldBaseProps } from './types'
 
 import Textarea from '../components/textarea.vue'
 
 
-export interface TextareaFieldProps extends Omit<TextareaProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<string>
-
+export interface TextareaFieldProps extends Omit<TextareaProps, 'error'>, Omit<FieldBaseProps<string>, 'validateOn'> {
 	/** When to trigger validation @default `'blur'` */
 	validateOn?: 'blur' | 'submit' | 'change'
-
-	/** Pre-fills the field value */
-	initialValue?: string
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
 }
 
 const {
@@ -39,7 +26,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
-} = useField<string>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

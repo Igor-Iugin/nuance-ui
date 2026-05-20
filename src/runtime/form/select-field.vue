@@ -1,10 +1,9 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { ComboboxItemExt } from '../components/combobox'
 import type { SelectProps } from '../components/select.vue'
+import type { FieldBaseProps } from './types'
 
 import Select from '../components/select.vue'
 
@@ -12,28 +11,16 @@ import Select from '../components/select.vue'
 export interface SelectFieldProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends Omit<SelectProps<Value, Ext>, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<string | string[] | null>
-
+> extends Omit<SelectProps<Value, Ext>, 'error'>, Omit<FieldBaseProps<string | string[] | null>, 'validateOn'> {
 	/** When to trigger validation @default `'blur'` */
 	validateOn?: 'blur' | 'submit' | 'change'
-
-	/** Pre-fills the field value */
-	initialValue?: string | string[] | null
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
 }
 
 const {
 	name,
 	rules,
 	validateOn = 'blur',
-	initialValue = null,
+	initialValue,
 	controlled = true,
 	...props
 } = defineProps<SelectFieldProps<Value, Ext>>()
@@ -43,7 +30,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
-} = useField<string | string[] | null>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

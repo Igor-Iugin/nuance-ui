@@ -1,35 +1,21 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { CheckboxProps } from '../components/checkbox/checkbox.vue'
+import type { FieldBaseProps } from './types'
 
 import Checkbox from '../components/checkbox/checkbox.vue'
 
 
-export interface CheckboxFieldProps extends Omit<CheckboxProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<boolean>
-
-	/** When to trigger validation @default `'change'` */
-	validateOn?: 'change' | 'submit'
-
-	/** Pre-fills the field value @default `false` */
-	initialValue?: boolean
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
+export interface CheckboxFieldProps
+	extends Omit<CheckboxProps, 'error'>, FieldBaseProps<boolean> {
 }
 
 const {
 	name,
 	rules,
 	validateOn = 'change',
-	initialValue = false,
+	initialValue,
 	controlled = true,
 	...props
 } = defineProps<CheckboxFieldProps>()
@@ -38,7 +24,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
-} = useField<boolean>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

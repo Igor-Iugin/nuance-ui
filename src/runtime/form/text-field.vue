@@ -1,28 +1,15 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { TextInputProps } from '../components/input/text-input.vue'
+import type { FieldBaseProps } from './types'
 
 import TextInput from '../components/input/text-input.vue'
 
 
-export interface TextFieldProps extends Omit<TextInputProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<string>
-
+export interface TextFieldProps extends Omit<TextInputProps, 'error'>, Omit<FieldBaseProps<string>, 'validateOn'> {
 	/** When to trigger validation @default `'blur'` */
 	validateOn?: 'blur' | 'submit' | 'change'
-
-	/** Pre-fills the field value */
-	initialValue?: string
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
 }
 
 const {
@@ -39,7 +26,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
-} = useField<string>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

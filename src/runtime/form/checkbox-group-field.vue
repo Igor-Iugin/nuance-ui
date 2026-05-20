@@ -1,28 +1,14 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { CheckboxGroupProps } from '../components/checkbox/checkbox-group.vue'
+import type { FieldBaseProps } from './types'
 
 import CheckboxGroup from '../components/checkbox/checkbox-group.vue'
 
 
-export interface CheckboxGroupFieldProps extends Omit<CheckboxGroupProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<string[]>
-
-	/** When to trigger validation @default `'change'` */
-	validateOn?: 'change' | 'submit'
-
-	/** Pre-fills the field value */
-	initialValue?: string[]
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
+export interface CheckboxGroupFieldProps
+	extends Omit<CheckboxGroupProps, 'error' | 'name'>, FieldBaseProps<string[]> {
 }
 
 const {
@@ -38,7 +24,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
-} = useField<string[]>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

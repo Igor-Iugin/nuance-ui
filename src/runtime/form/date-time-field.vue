@@ -1,35 +1,21 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { DatePickerProps } from '../components/date-time-picker.vue'
+import type { FieldBaseProps } from './types'
 
 import DateTimePicker from '../components/date-time-picker.vue'
 
 
-export interface DateTimeFieldProps extends Omit<DatePickerProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<string | Date | null>
-
-	/** When to trigger validation @default `'change'` */
-	validateOn?: 'change' | 'submit'
-
-	/** Pre-fills the field value */
-	initialValue?: string | Date | null
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
+export interface DateTimeFieldProps
+	extends Omit<DatePickerProps, 'error' | 'name'>, FieldBaseProps<string | Date | null> {
 }
 
 const {
 	name,
 	rules,
 	validateOn = 'change',
-	initialValue = null,
+	initialValue,
 	controlled = true,
 	...props
 } = defineProps<DateTimeFieldProps>()
@@ -38,7 +24,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
-} = useField<string | Date | null>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,

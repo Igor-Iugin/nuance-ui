@@ -1,28 +1,16 @@
 <script setup lang='ts'>
-import type { RuleExpression } from 'vee-validate'
-
 import { useField } from 'vee-validate'
 
 import type { NumberInputProps } from '../components/input/number-input.vue'
+import type { FieldBaseProps } from './types'
 
 import NumberInput from '../components/input/number-input.vue'
 
 
-export interface NumberFieldProps extends Omit<NumberInputProps, 'error'> {
-	/** Field name used by vee-validate */
-	name: string
-
-	/** Validation rules, applied when `controlled: false` or as field-level override */
-	rules?: RuleExpression<number>
-
+export interface NumberFieldProps
+	extends Omit<NumberInputProps, 'error'>, Omit<FieldBaseProps<number>, 'validateOn'> {
 	/** When to trigger validation @default `'blur'` */
 	validateOn?: 'blur' | 'submit' | 'change'
-
-	/** Pre-fills the field value */
-	initialValue?: number
-
-	/** If `false`, disconnects the field from the parent form context @default `true` */
-	controlled?: boolean
 }
 
 const {
@@ -41,7 +29,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
-} = useField<number>(() => name, rules, {
+} = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
 	initialValue,
