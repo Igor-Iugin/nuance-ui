@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.16
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.15.1...v0.2.16)
+
+### 🩹 Fixes
+
+- 🐛  InitialValues props & types dublication ([27de8e8](https://github.com/Igor-Iugin/nuance-ui/commit/27de8e8))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.15
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.14...v0.2.15)
