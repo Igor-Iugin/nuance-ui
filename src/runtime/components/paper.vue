@@ -61,7 +61,7 @@ const style = computed(() => ({
 	}
 
 	@mixin dark {
-		--paper-border-color: var(--color-slate-7);
+		--paper-border-color: var(--color-dark-7);
 	}
 }
 </style>

@@ -135,9 +135,9 @@ const style = useVarsResolver<AlertVars>(theme => {
 
 	overflow: hidden;
 	display: flex;
-	gap: var(--spacing-md);
+	gap: var(--spacing-sm);
 
-	padding: var(--spacing-md) var(--spacing-md);
+	padding: var(--spacing-sm);
 	border: var(--alert-bd);
 	border-radius: var(--alert-radius);
 

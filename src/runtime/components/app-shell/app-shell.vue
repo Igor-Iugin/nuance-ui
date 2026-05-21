@@ -137,7 +137,7 @@ const style = useVarsResolver<AppShellVars>(() => ({
 	}
 
 	@mixin where-dark {
-		--app-shell-border-color: var(--color-slate-8);
+		--app-shell-border-color: var(--color-dark-8);
 	}
 }
 </style>

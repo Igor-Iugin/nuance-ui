@@ -24,7 +24,6 @@ interface ParseThemeColorResult {
 
 const themeColors: (NuanceDefaultThemeColor | 'primary')[] = [
 	'dark',
-	'slate',
 	'gray',
 	'red',
 	'pink',
@@ -64,7 +63,7 @@ export function parseThemeColor({
 }): ParseThemeColorResult {
 	if (typeof color !== 'string') {
 		throw new TypeError(
-			`[@ui-kit] Failed to parse color. Expected color to be a string, instead got ${typeof color}`,
+			`[@nuance-ui] Failed to parse color. Expected color to be a string, instead got ${typeof color}`,
 		)
 	}
 

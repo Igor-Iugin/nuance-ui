@@ -387,15 +387,15 @@ defineExpose({
 	}
 
 	@mixin where-light {
-		--table-active-bg: alpha(var(--color-slate-1), .5);
-		--table-c: var(--color-slate-7);
-		--table-bd-color: var(--color-slate-3);
+		--table-active-bg: alpha(var(--color-dark-1), .5);
+		--table-c: var(--color-dark-7);
+		--table-bd-color: var(--color-dark-3);
 	}
 
 	@mixin where-dark {
-		--table-active-bg: alpha(var(--color-slate-7), .5);
-		--table-c: var(--color-slate-4);
-		--table-bd-color: var(--color-slate-7);
+		--table-active-bg: alpha(var(--color-dark-7), .5);
+		--table-c: var(--color-dark-4);
+		--table-bd-color: var(--color-dark-7);
 	}
 }
 

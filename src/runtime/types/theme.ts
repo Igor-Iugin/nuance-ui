@@ -6,7 +6,7 @@ export type NuanceSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type NuanceBreakpoint = NuanceSize | 'base'
 export type NuanceFontSize = NuanceSize
 export type NuanceRadius = NuanceSize | 'full' | number
-export type NuanceSpacing = NuanceSize | number
+export type NuanceSpacing = NuanceSize | '2xs' | '2xl' | number
 export type NuanceShadow = NuanceSize
 export type NuanceLineHeight = NuanceSize
 
@@ -15,7 +15,6 @@ export type NuanceColorShade = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 type ShadedColor
 	= `dark.${NuanceColorShade}`
-		| `slate.${NuanceColorShade}`
 		| `gray.${NuanceColorShade}`
 		| `red.${NuanceColorShade}`
 		| `pink.${NuanceColorShade}`
@@ -33,7 +32,6 @@ type ShadedColor
 
 export type NuanceDefaultThemeColor
 	= 'dark'
-		| 'slate'
 		| 'gray'
 		| 'red'
 		| 'pink'
