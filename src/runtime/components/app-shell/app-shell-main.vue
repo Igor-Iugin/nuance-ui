@@ -15,9 +15,6 @@ const { mod } = defineProps<BoxProps>()
 
 <style module>
 .root {
-	display: flex;
-	flex-direction: column;
-
 	min-height: 100dvh;
 	padding-top: calc(var(--app-shell-header-offset, 0rem) + var(--app-shell-padding));
 	padding-bottom: calc(var(--app-shell-footer-offset, 0rem) + var(--app-shell-padding));
