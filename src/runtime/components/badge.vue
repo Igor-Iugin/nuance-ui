@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type { CSSProperties } from 'vue'
 
 import { useVarsResolver } from '@nui/composables'
 import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@nui/utils'
@@ -7,7 +8,6 @@ import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@
 import type { BoxProps } from './box.vue'
 
 import Box from './box.vue'
-import type { CSSProperties } from 'vue'
 
 
 export type BadgeVariant = 'filled' | 'light' | 'outline' | 'dot' | 'default' | 'gradient'
