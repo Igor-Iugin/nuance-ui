@@ -7,6 +7,7 @@ import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@
 import type { BoxProps } from './box.vue'
 
 import Box from './box.vue'
+import type { CSSProperties } from 'vue'
 
 
 export type BadgeVariant = 'filled' | 'light' | 'outline' | 'dot' | 'default' | 'gradient'
@@ -16,6 +17,7 @@ export interface BadgeVars {
 		| '--badge-height'
 		| '--badge-padding-x'
 		| '--badge-fz'
+		| '--badge-fw'
 		| '--badge-radius'
 		| '--badge-bg'
 		| '--badge-color'
@@ -56,6 +58,9 @@ export interface BadgeProps extends BoxProps {
 
 	/** Visual variant */
 	variant?: BadgeVariant
+
+	/** Font weight */
+	fw?: CSSProperties['font-weight']
 }
 
 const {
@@ -66,6 +71,7 @@ const {
 	fullWidth = false,
 	circle,
 	icon,
+	fw,
 } = defineProps<BadgeProps>()
 
 const style = useVarsResolver<BadgeVars>(theme => {
@@ -80,6 +86,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 			'--badge-height': getSize(size, 'badge-height'),
 			'--badge-padding-x': getSize(size, 'badge-padding-x'),
 			'--badge-fz': getSize(size, 'badge-fz'),
+			'--badge-fw': fw,
 			'--badge-radius': circle || radius === undefined ? undefined : getRadius(radius),
 			'--badge-bg': color || variant ? background : undefined,
 			'--badge-color': color || variant ? text : undefined,
@@ -136,6 +143,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 	--badge-fz-md: rem(12px);
 	--badge-fz-lg: rem(14px);
 	--badge-fz-xl: rem(16px);
+	--badge-fw: 400;
 
 	--badge-padding-x-xs: rem(6px);
 	--badge-padding-x-sm: rem(8px);
@@ -167,7 +175,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 	border-radius: var(--badge-radius);
 
 	font-size: var(--badge-fz);
-	font-weight: 700;
+	font-weight: var(--badge-fw);
 	line-height: var(--badge-lh);
 	color: var(--badge-color);
 	text-decoration: none;
