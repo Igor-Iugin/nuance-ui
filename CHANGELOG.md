@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.2.18
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.17...v0.2.18)
+
+### 🚀 Enhancements
+
+- Add font weight prop to Badge component ([7fd2bec](https://github.com/Igor-Iugin/nuance-ui/commit/7fd2bec))
+- Added ThemeToggle button ([b7eab07](https://github.com/Igor-Iugin/nuance-ui/commit/b7eab07))
+- ✨  New SegmentedControl component ([95f0f81](https://github.com/Igor-Iugin/nuance-ui/commit/95f0f81))
+
+### 🩹 Fixes
+
+- Correct active state logic in NavLink component ([6c86222](https://github.com/Igor-Iugin/nuance-ui/commit/6c86222))
+
+### 💅 Refactors
+
+- Update dark theme colors ([c2ff0da](https://github.com/Igor-Iugin/nuance-ui/commit/c2ff0da))
+- Remove flex display from root style in AppShellMain ([4679b5a](https://github.com/Igor-Iugin/nuance-ui/commit/4679b5a))
+- Remove 'at-rules' from order in stylelint configuration and clean up eslint rules ([8fc92ab](https://github.com/Igor-Iugin/nuance-ui/commit/8fc92ab))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.17
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.16...v0.2.17)
