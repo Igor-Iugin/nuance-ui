@@ -85,7 +85,7 @@ const style = useVarsResolver<NavLinkVars>(theme => {
 			:href
 			:style='style.root'
 			:class='$style.root'
-			:mod='[{ active: active ?? isActive, disabled }, mod]'
+			:mod='[{ active: active || isActive, disabled }, mod]'
 			:aria-current="isActive ? 'page' : undefined"
 			:rel='("rel" in linkProps) ? linkProps?.rel : undefined'
 			:target='("target" in linkProps) ? linkProps?.target : undefined'
