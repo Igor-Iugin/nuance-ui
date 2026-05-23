@@ -26,7 +26,7 @@ export default {
 			},
 		],
 		'order/order': [
-			['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'],
+			['custom-properties', 'dollar-variables', 'declarations', 'rules'],
 			{
 				severity: 'warning',
 			},

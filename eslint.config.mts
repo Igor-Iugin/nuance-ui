@@ -15,10 +15,9 @@ export default antfu({
 				SwitchCase: 1,
 				VariableDeclarator: 'first',
 			}],
-
+			'no-template-curly-in-string': 'off',
 			'node/prefer-global/process': 'off',
 			'no-console': ['warn'],
-			'no-template-curly-in-string': 'off',
 
 			'import/newline-after-import': ['error', { count: 2 }],
 			'perfectionist/sort-imports': [
