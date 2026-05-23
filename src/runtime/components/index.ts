@@ -20,6 +20,7 @@ export type * from './date-time-picker.vue'
 export * from './dialog'
 export * from './drawer'
 export * from './files'
+export type * from './floating-indicator.vue'
 export * from './input'
 export * from './link'
 export * from './loader'
@@ -31,6 +32,8 @@ export type * from './paper.vue'
 export * from './popover'
 export * from './progress'
 export * from './roving-focus'
+
+export type * from './segmented-control.vue'
 
 export type * from './select.vue'
 

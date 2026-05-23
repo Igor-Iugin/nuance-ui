@@ -252,7 +252,7 @@ const style = useVarsResolver<SwitchVars>(theme => ({
 	border-radius: var(--switch-radius);
 
 	font-size: var(--switch-label-font-size);
-	font-weight: var(--font-weight-medium);
+	font-weight: 500;
 	line-height: 0;
 	color: var(--switch-text-color);
 

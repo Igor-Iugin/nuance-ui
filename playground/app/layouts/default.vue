@@ -63,6 +63,9 @@ const theme = useTheme()
 			<NNavLink to='/modals'>
 				Modals
 			</NNavLink>
+			<NNavLink to='/segmented-control'>
+				Segmented control
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
