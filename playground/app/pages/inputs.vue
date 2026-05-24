@@ -18,6 +18,7 @@ const time = computed({
 })
 
 const select = ref(['2', '1'])
+const otp = ref('1523')
 </script>
 
 <template>
@@ -89,6 +90,12 @@ const select = ref(['2', '1'])
 			</NSwitchGroup>
 			<NSwitch value='5' on-label='ON' off-label='OFF' />
 		</div>
+
+		<NPinInput v-model='otp' size='xs' />
+		<NPinInput v-model='otp' size='sm' />
+		<NPinInput v-model='otp' size='md' />
+		<NPinInput v-model='otp' size='lg' />
+		<NPinInput v-model='otp' size='xl' read-only error />
 	</section>
 </template>
 

@@ -13,6 +13,8 @@ import { useInputWrapperState } from '../lib/input-wrapper.context'
 export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
 	/** Styles API */
 	classes?: Classes<'root' | 'section'>
+
+	error?: boolean
 }
 
 const { classes, ...props } = defineProps<BaseInputProps>()
@@ -44,7 +46,7 @@ const style = computed(() => ({
 			"with-left-section": !!$slots.leftSection,
 			"with-right-section": !!$slots.rightSection,
 			"variant": api.variant,
-			"error": !!api?.error,
+			"error": !!api?.error || props.error,
 		}]'
 	>
 		<span
@@ -144,14 +146,6 @@ const style = computed(() => ({
 		--input-padding-inline-end: var(--input-right-section-size);
 	}
 
-	&[data-error] {
-		--input-color: var(--color-error);
-		--input-placeholder-color: var(--color-error);
-		--input-section-color: var(--color-error);
-
-		--input-bd: var(--color-error);
-	}
-
 	@mixin where-light {
 		--input-disabled-bg: var(--color-gray-1);
 		--input-disabled-color: var(--color-gray-6);
@@ -196,6 +190,14 @@ const style = computed(() => ({
 			--input-bg: transparent;
 			--input-bd-focus: transparent;
 		}
+	}
+
+	&[data-error] {
+		--input-color: var(--color-error);
+		--input-placeholder-color: var(--color-error);
+		--input-section-color: var(--color-error);
+
+		--input-bd: var(--color-error);
 	}
 
 	@mixin where-rtl {
@@ -273,7 +275,8 @@ const style = computed(() => ({
 	}
 
 	&:disabled,
-	&[data-disabled] {
+	&[data-disabled],
+	&:has(input:disabled) {
 		cursor: not-allowed;
 
 		color: var(--input-disabled-color);
@@ -282,15 +285,8 @@ const style = computed(() => ({
 		background-color: var(--input-disabled-bg);
 	}
 
-	/* Required to be a separate selector to work in Firefox, can be merged with &:disabled once :has is supported */
-
-	&:has(input:disabled) {
-		cursor: not-allowed;
-
-		color: var(--input-disabled-color);
-
-		opacity: .6;
-		background-color: var(--input-disabled-bg);
+	&:read-only {
+		cursor: default;
 	}
 }
 
