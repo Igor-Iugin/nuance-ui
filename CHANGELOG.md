@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.2.19
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.18...v0.2.19)
+
+### 🚀 Enhancements
+
+- ✨  new Center component ([76d12fc](https://github.com/Igor-Iugin/nuance-ui/commit/76d12fc))
+- ✨ new Group component ([9821005](https://github.com/Igor-Iugin/nuance-ui/commit/9821005))
+- ✨ new Stack component ([b839cfc](https://github.com/Igor-Iugin/nuance-ui/commit/b839cfc))
+- ✨ new PinInput component ([8102b77](https://github.com/Igor-Iugin/nuance-ui/commit/8102b77))
+
+### 🏡 Chore
+
+- Renamed eslint config ([ecfa363](https://github.com/Igor-Iugin/nuance-ui/commit/ecfa363))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.18
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.17...v0.2.18)
