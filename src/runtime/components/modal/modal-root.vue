@@ -5,9 +5,7 @@ import DialogRoot from '../dialog/ui/dialog-root.vue'
 import css from './modal.module.css'
 
 
-type OmittedDialogRootProps = Omit<DialogRootProps, 'rootClass'>
-
-export interface ModalRootProps extends OmittedDialogRootProps {
+export interface ModalRootProps extends DialogRootProps {
 	/** If set, the modal is centered vertically @default `false` */
 	centered?: boolean
 
@@ -22,6 +20,7 @@ const {
 	withoutOverlay = false,
 	withinPortal = false,
 	closeOnClickOutside = true,
+	classes,
 	...rest
 } = defineProps<ModalRootProps>()
 defineEmits<DialogEmits>()
@@ -33,11 +32,11 @@ const opened = defineModel<DialogModel['open']>('open', { default: false })
 	<DialogRoot
 		v-model:open='opened'
 		:mod='[{ centered, "full-screen": fullScreen }, mod]'
-		:root-class='css.root'
 		:within-portal
 		:close-on-click-outside
 		:without-overlay
 		v-bind='rest'
+		:classes='{ ...classes, root: [css.root, classes?.root] }'
 		@open='$emit("open")'
 		@close='$emit("close")'
 	>

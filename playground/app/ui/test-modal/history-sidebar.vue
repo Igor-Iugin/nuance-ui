@@ -41,25 +41,27 @@ const { opened } = useModal('map-history')
 			<NModalCloseButton />
 		</NModalHeader>
 
-		<Form :data />
+		<NModalSection>
+			<Form :data />
 
-		<ul :class='$style.list'>
-			<template v-if='commands.length > 0'>
-				<NBox
-					is='li'
-					v-for='(cmd, ix) in commands'
-					:key='ix'
-					:class='$style.item'
-					:mod='{ active: ix <= cursor, current: ix === cursor }'
-				>
-					<span :class='$style.index'>{{ ix + 1 }}</span>
-					<span :class='$style.label'>{{ 'TEST' }}</span>
-				</NBox>
-			</template>
-			<div v-else :class='$style.empty'>
-				Нет операций
-			</div>
-		</ul>
+			<ul :class='$style.list'>
+				<template v-if='commands.length > 0'>
+					<NBox
+						is='li'
+						v-for='(cmd, ix) in commands'
+						:key='ix'
+						:class='$style.item'
+						:mod='{ active: ix <= cursor, current: ix === cursor }'
+					>
+						<span :class='$style.index'>{{ ix + 1 }}</span>
+						<span :class='$style.label'>{{ 'TEST' }}</span>
+					</NBox>
+				</template>
+				<div v-else :class='$style.empty'>
+					Нет операций
+				</div>
+			</ul>
+		</NModalSection>
 	</NModalRoot>
 </template>
 

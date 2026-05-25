@@ -1,3 +1,5 @@
+export type * from './drawer-footer.vue'
 export type * from './drawer-header.vue'
 export type * from './drawer-root.vue'
+export type * from './drawer-section.vue'
 export type * from './drawer-title.vue'

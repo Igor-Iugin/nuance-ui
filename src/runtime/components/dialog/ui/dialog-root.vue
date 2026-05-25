@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { NuanceRadius, NuanceShadow, NuanceSize, NuanceSpacing } from '@nui/types'
+import type { Classes, NuanceRadius, NuanceShadow, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties, RendererElement } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
@@ -50,7 +50,7 @@ export interface DialogRootProps extends BoxProps, StyleProps {
 	withoutOverlay?: boolean
 
 	/** Passes a class to root element */
-	rootClass?: string
+	classes?: Classes<'root' | 'content'>
 
 	/** Portal target to render element @default 'body' */
 	portalTarget?: string | RendererElement | null
@@ -68,7 +68,7 @@ const {
 	padding,
 	size,
 	shadow,
-	rootClass,
+	classes,
 	transition = 'fade-down',
 	withoutOverlay = false,
 	portalTarget = 'body',
@@ -126,7 +126,7 @@ const style = computed(() => ({
 			<Box
 				is='dialog'
 				ref='dialogRef'
-				:class='[css.root, rootClass]'
+				:class='[css.root, classes?.root]'
 				:mod='[{ "without-overlay": withoutOverlay }, mod]'
 				:style
 				@click='overlayClick'
@@ -134,7 +134,12 @@ const style = computed(() => ({
 				@cancel.prevent='opened = false'
 			>
 				<NTransition :name='transition'>
-					<Box is='section' v-if='opened' :class='css.content' v-bind='$attrs'>
+					<Box
+						is='section'
+						v-if='opened'
+						:class='[css.content, classes?.content]'
+						v-bind='$attrs'
+					>
 						<slot />
 					</Box>
 				</NTransition>

@@ -7,8 +7,10 @@ import type { ButtonProps, ModalRootProps } from '../../components'
 
 import Button from '../../components/button/button.vue'
 import ModalCloseButton from '../../components/modal/modal-close-button.vue'
+import ModalFooter from '../../components/modal/modal-footer.vue'
 import ModalHeader from '../../components/modal/modal-header.vue'
 import ModalRoot from '../../components/modal/modal-root.vue'
+import ModalSection from '../../components/modal/modal-section.vue'
 import Title from '../../components/title.vue'
 import { useModal } from '../use-modal'
 
@@ -81,11 +83,19 @@ async function hanleConfirm() {
 			<ModalCloseButton />
 		</ModalHeader>
 
-		<p v-if='body' :class='$style.body'>
-			{{ body }}
-		</p>
+		<ModalSection bordered>
+			<p v-if='body' :class='$style.body'>
+				{{ body }}
+			</p>
+		</ModalSection>
 
-		<footer :class='$style.footer'>
+		<ModalSection bordered>
+			<p v-if='body' :class='$style.body'>
+				{{ body }}
+			</p>
+		</ModalSection>
+
+		<ModalFooter :class='$style.footer'>
 			<Button
 				variant='default'
 				v-bind='cancelProps'
@@ -102,7 +112,7 @@ async function hanleConfirm() {
 			>
 				{{ labels?.confirm ?? 'Confirm' }}
 			</Button>
-		</footer>
+		</ModalFooter>
 	</ModalRoot>
 </template>
 
@@ -117,7 +127,5 @@ async function hanleConfirm() {
 	display: flex;
 	gap: var(--spacing-sm);
 	justify-content: flex-end;
-
-	margin-top: var(--spacing-md);
 }
 </style>

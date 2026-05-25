@@ -1,5 +1,7 @@
 export { useDialogState } from './lib'
 export type * from './types'
+export type * from './ui/dialog-footer.vue'
 export type * from './ui/dialog-header.vue'
 export type * from './ui/dialog-root.vue'
+export type * from './ui/dialog-section.vue'
 export type * from './ui/dialog-title.vue'

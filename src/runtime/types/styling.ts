@@ -1,3 +1,6 @@
+import type { HTMLAttributes } from 'vue'
+
+
 export type CssVariable = `--${string}`
 
 export type TransformVars<V> = {
@@ -7,4 +10,4 @@ export type TransformVars<V> = {
 }
 
 /** Map of component part names to user-provided class names. */
-export type Classes<Key extends string, Value = string | string[]> = Partial<Record<Key, Value>>
+export type Classes<Key extends string> = Partial<Record<Key, HTMLAttributes['class']>>

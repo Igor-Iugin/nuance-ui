@@ -79,7 +79,7 @@ const {
 	otp = true,
 	type = 'number',
 	mask,
-	gap,
+	gap = 'xs',
 	placeholder,
 	autoFocus,
 	manageFocus = true,
@@ -207,7 +207,7 @@ const style = useVarsResolver<PinVars>(() => ({
 					:input-mode
 					:type='mask ? "password" : "text"'
 					:placeholder
-					:auto-focus='autoFocus && ix === 0'
+					:autofocus='autoFocus && ix === 0'
 					:readonly='readOnly'
 					:disabled
 					@input='handleInput($event, ix)'
