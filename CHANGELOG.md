@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.20
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.19...v0.2.20)
+
+### 🩹 Fixes
+
+- Complex components fixes ([8555383](https://github.com/Igor-Iugin/nuance-ui/commit/8555383))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.19
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.18...v0.2.19)
