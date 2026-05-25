@@ -1,9 +1,9 @@
 .root {
-	--button-height-xs: rem(30px);
-	--button-height-sm: rem(36px);
-	--button-height-md: rem(42px);
-	--button-height-lg: rem(50px);
-	--button-height-xl: rem(60px);
+	--button-height-xs: rem(26px);
+	--button-height-sm: rem(30px);
+	--button-height-md: rem(36px);
+	--button-height-lg: rem(42px);
+	--button-height-xl: rem(50px);
 
 	--button-height-compact-xs: rem(22px);
 	--button-height-compact-sm: rem(26px);
@@ -26,7 +26,7 @@
 	--button-height: var(--button-height-sm);
 	--button-padding-x: var(--button-padding-x-sm);
 	--button-color: var(--color-white);
-	--button-fz: var(--font-size-sm);
+	--button-fz: var(--font-size-md);
 	--button-bg: var(--color-primary-filled);
 	--button-radius: var(--radius-default);
 	--button-hover: var(--color-primary-filled-hover);

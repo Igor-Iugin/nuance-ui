@@ -195,7 +195,7 @@ const style = useVarsResolver<NavLinkVars>(theme => {
 }
 
 .label {
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-md);
 }
 
 .body {
@@ -212,7 +212,7 @@ const style = useVarsResolver<NavLinkVars>(theme => {
 .description {
 	overflow: hidden;
 
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--description-color, var(--color-dimmed));
 	text-overflow: ellipsis;
 

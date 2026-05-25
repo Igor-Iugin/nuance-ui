@@ -35,11 +35,11 @@
 
 		<!-- ─── MIXED GROUP (Button + ActionIcon) ─── -->
 		<NButtonGroup>
-			<NButton size='sm'>
+			<NButton>
 				Action
 			</NButton>
-			<NActionIcon size='input-sm' icon='gravity-ui:trash-bin' />
-			<NButton size='sm'>
+			<NActionIcon size='sm' icon='gravity-ui:trash-bin' />
+			<NButton>
 				More
 			</NButton>
 		</NButtonGroup>

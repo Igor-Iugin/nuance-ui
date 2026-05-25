@@ -167,7 +167,7 @@ const style = useVarsResolver<ChipVars>(theme => {
 	--chip-spacing-lg: rem(20px);
 	--chip-spacing-xl: rem(22px);
 
-	--chip-size: var(--chip-size-sm);
+	--chip-size: var(--chip-size-md);
 	--chip-icon-size: var(--chip-icon-size-sm);
 	--chip-padding: var(--chip-padding-sm);
 	--chip-spacing: var(--chip-spacing-sm);
@@ -177,7 +177,7 @@ const style = useVarsResolver<ChipVars>(theme => {
 	--chip-color: var(--color-white);
 	--chip-bd: 1px solid transparent;
 
-	--chip-fz: var(--font-size-sm);
+	--chip-fz: var(--font-size-md);
 	--chip-radius: var(--radius-xl);
 }
 

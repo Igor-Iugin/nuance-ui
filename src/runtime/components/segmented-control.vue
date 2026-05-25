@@ -27,13 +27,14 @@ export interface SegmentedControlItem {
 	value: string
 	label: string
 	disabled?: boolean
+	icon?: string
 }
 
 export interface SegmentedControlProps extends BoxProps {
 	/** Items to render as controls */
 	data: (string | SegmentedControlItem)[]
 
-	/** Component size */
+	/** Component size @default 'md' */
 	size?: NuanceSize | AnyString
 
 	/** Border radius */
@@ -175,7 +176,10 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 					"read-only": readOnly,
 				}'
 			>
-				<span :class='$style.innerLabel'>{{ item.label }}</span>
+				<span :class='$style.innerLabel'>
+					<Icon v-if='item?.icon' :name='item.icon' />
+					{{ item.label }}
+				</span>
 			</Box>
 		</Box>
 	</Box>
@@ -189,12 +193,12 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	--sc-padding-lg: 7px 16px;
 	--sc-padding-xl: 10px 20px;
 
-	--sc-padding: var(--sc-padding-sm);
-	--sc-radius: var(--radius-md);
+	--sc-padding: var(--sc-padding-md);
+	--sc-radius: var(--radius-sm);
 
 	--sc-transition-duration: 200ms;
 	--sc-transition-timing-function: ease;
-	--sc-font-size: var(--font-size-sm);
+	--sc-font-size: var(--font-size-md);
 
 	position: relative;
 
@@ -204,7 +208,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 
 	width: auto;
 	padding: 4px;
-	border-radius: var(--sc-radius, var(--radius-md));
+	border-radius: var(--sc-radius, var(--radius-default));
 
 	&:where([data-full-width]) {
 		display: flex;
@@ -236,7 +240,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 
 	display: block;
 
-	border-radius: calc(var(--sc-radius, var(--radius-md)) + 2px);
+	border-radius: var(--sc-radius, var(--radius-md));
 
 	&:where([data-orientation='horizontal']) {
 		top: 4px;
@@ -267,7 +271,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	display: block;
 
 	padding: var(--sc-padding);
-	border-radius: calc(var(--sc-radius, var(--radius-md)) + 2px);
+	border-radius: var(--sc-radius, var(--radius-md));
 
 	font-size: var(--sc-font-size);
 	font-weight: 500;
@@ -309,7 +313,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 			z-index: 0;
 			inset: 0;
 
-			border-radius: calc(var(--sc-radius, var(--radius-md)) + 2px);
+			border-radius: var(--sc-radius, var(--radius-md));
 
 			.root:where([data-initialized]) & {
 				display: none;
@@ -364,7 +368,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	opacity: 0;
 
 	&:focus-visible {
-		& + .label {
+		&+.label {
 			--segmented-control-outline: 2px solid var(--color-primary-filled);
 		}
 	}
@@ -412,8 +416,9 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 
 	&[data-active] {
 		[data-mantine-color-scheme] & {
+
 			&,
-			& + .control {
+			&+.control {
 				&::before {
 					--separator-color: transparent;
 				}
@@ -433,5 +438,9 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 .innerLabel {
 	position: relative;
 	z-index: 2;
+
+	display: inline-flex;
+	gap: var(--spacing-2xs);
+	align-items: center;
 }
 </style>

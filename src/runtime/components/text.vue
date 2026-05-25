@@ -106,8 +106,8 @@ const style = useVarsResolver<TextVars>(theme => ({
 
 <style module>
 .root {
-	--text-fz: var(--font-size-sm);
-	--text-lh: var(--line-height-sm);
+	--text-fz: var(--font-size-md);
+	--text-lh: var(--line-height-md);
 	--text-color: inherit;
 	--text-fw: normal;
 	--text-gradient: none;

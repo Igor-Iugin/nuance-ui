@@ -72,6 +72,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 				:aria-selected='selected'
 				:mod='{ active, selected, "tree-item": path }'
 				right-section-p-e='all'
+				justify='flex-start'
 				@click.prevent='handleClick'
 				@keydown.prevent='handleKeyDown'
 			>

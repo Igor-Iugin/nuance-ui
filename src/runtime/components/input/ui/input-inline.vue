@@ -92,9 +92,9 @@ const style = computed(() => ({
 	--label-lh-md: rem(24px);
 	--label-lh-lg: rem(30px);
 	--label-lh-xl: rem(36px);
-	--label-lh: var(--label-lh-sm);
+	--label-lh: var(--label-lh-md);
 
-	--label-fz: var(--font-size-sm);
+	--label-fz: var(--font-size-md);
 
 	&[data-label-position='left'] {
 		--label-order: 0;

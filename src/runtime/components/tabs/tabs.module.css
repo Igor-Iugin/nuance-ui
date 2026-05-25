@@ -129,7 +129,7 @@
 .tab {
 	position: relative;
 	padding: var(--spacing-xs) var(--spacing-md);
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-md);
 	white-space: nowrap;
 	z-index: 0;
 	display: flex;

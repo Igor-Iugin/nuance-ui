@@ -13,7 +13,8 @@ import InputBase from './input-base.vue'
 import InputWrapper from './input-wrapper.vue'
 
 
-export interface ButtonInputProps extends InputWrapperProps, BaseInputProps, InputBaseProps {
+export interface ButtonInputProps
+	extends InputWrapperProps, Omit<BaseInputProps, 'error'>, InputBaseProps {
 	/**
 	 * If set, the input can have multiple lines, for example when `component="textarea"`
 	 *  @default `false`

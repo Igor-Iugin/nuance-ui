@@ -198,7 +198,7 @@ section {
 .label {
 	margin: 0;
 
-	font-size: 0.75rem;
+	font-size: var(--font-size-sm);
 	color: var(--color-gray-6);
 }
 </style>

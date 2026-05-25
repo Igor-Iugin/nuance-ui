@@ -372,6 +372,9 @@ defineExpose({
 	--table-padding-y: .5rem;
 	--vertical-align: baseline;
 
+	--table-active-bg: var(--color-default);
+	--table-c: var(--color-text);
+
 	position: relative;
 
 	overflow: auto;
@@ -382,20 +385,8 @@ defineExpose({
 		}
 
 		.tbody>tr:not(:last-of-type) {
-			border-bottom: 1px solid var(--table-bd-color);
+			border-bottom: 1px solid var(--color-default-border);
 		}
-	}
-
-	@mixin where-light {
-		--table-active-bg: alpha(var(--color-dark-1), .5);
-		--table-c: var(--color-dark-7);
-		--table-bd-color: var(--color-dark-3);
-	}
-
-	@mixin where-dark {
-		--table-active-bg: alpha(var(--color-dark-7), .5);
-		--table-c: var(--color-dark-4);
-		--table-bd-color: var(--color-dark-7);
 	}
 }
 
@@ -509,7 +500,7 @@ defineExpose({
 	width: 100%;
 	height: 1px;
 
-	background-color: var(--table-bd-color);
+	background-color: var(--color-default-border);
 }
 
 .loading,

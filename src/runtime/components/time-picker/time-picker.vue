@@ -295,7 +295,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 	height: 2em;
 	border-radius: var(--radius-default);
 
-	font-size: var(--control-font-size, var(--font-size-sm));
+	font-size: var(--control-font-size, var(--font-size-md));
 	text-align: center;
 
 	&:where([data-active]) {
@@ -324,7 +324,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 	padding-inline: 0.5em;
 	border-radius: var(--radius-default);
 
-	font-size: var(--control-font-size, var(--font-size-sm));
+	font-size: var(--control-font-size, var(--font-size-md));
 	text-align: center;
 
 	&:where([data-active]) {
@@ -361,7 +361,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 	margin-bottom: .25rem;
 	padding-inline-start: 7px;
 
-	font-size: calc(var(--control-font-size, var(--font-size-sm)) - 2px);
+	font-size: calc(var(--control-font-size, var(--font-size-md)) - 2px);
 	font-weight: 500;
 	color: var(--color-dimmed);
 

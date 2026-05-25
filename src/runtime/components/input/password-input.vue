@@ -20,8 +20,7 @@ const password = ref<boolean>(true)
 		<template #rightSection>
 			<slot name='rightSection'>
 				<ActionIcon variant='subtle' @click='password = !password'>
-					<Icon v-if='password' name='gravity-ui:eye' />
-					<Icon v-else name='gravity-ui:eye-slash' />
+					<Icon :name='password ? "gravity-ui:eye" : "gravity-ui:eye-slash"' />
 				</ActionIcon>
 			</slot>
 		</template>

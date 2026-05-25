@@ -1,9 +1,9 @@
 .root {
-	--ai-size-xs: rem(18px);
-	--ai-size-sm: rem(22px);
-	--ai-size-md: rem(28px);
-	--ai-size-lg: rem(34px);
-	--ai-size-xl: rem(44px);
+	--ai-size-xs: rem(26px);
+	--ai-size-sm: rem(30px);
+	--ai-size-md: rem(36px);
+	--ai-size-lg: rem(42px);
+	--ai-size-xl: rem(50px);
 
 	--ai-size-input-xs: rem(30px);
 	--ai-size-input-sm: rem(36px);
@@ -11,7 +11,7 @@
 	--ai-size-input-lg: rem(50px);
 	--ai-size-input-xl: rem(60px);
 
-	--ai-size: var(--ai-size-md);
+	--ai-size: var(--ai-size-sm);
 	--ai-color: var(--color-white);
 	--ai-radius: var(--radius-default);
 	--ai-bg: var(--color-primary-filled);
@@ -109,12 +109,12 @@
 	height: 100%;
 
 	transition: transform 150ms ease,
-	opacity 100ms ease;
+		opacity 100ms ease;
 }
 
 .icon-element {
-	width: 80%;
-	height: 80%;
+	width: 70%;
+	height: 70%;
 }
 
 .group {
@@ -203,8 +203,8 @@
 
 	font-weight: 600;
 	width: auto;
-	border-radius: var(--section-radius, var(--mantine-radius-default));
-	font-size: var(--section-fz, var(--mantine-font-size-sm));
+	border-radius: var(--section-radius, var(--radius-default));
+	font-size: var(--section-fz, var(--font-size-md));
 	background: var(--section-bg, var(--color-primary-filled));
 	border: var(--section-bd, rem(1px) solid transparent);
 	color: var(--section-color, var(--color-white));

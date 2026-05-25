@@ -30,7 +30,7 @@ const style = computed(() => ({
 
 <style module>
 .root {
-	--input-label-size: var(--font-size-sm);
+	--input-label-size: var(--font-size-md);
 	--input-asterisk-color: var(--color-error);
 
 	cursor: default;

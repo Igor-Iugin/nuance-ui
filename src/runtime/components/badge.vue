@@ -231,7 +231,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 }
 
 .dot {
-	--badge-dot-size: calc(var(--badge-height) / 2);
+	--badge-dot-size: calc(var(--badge-height) / 2.5);
 
 	display: block;
 

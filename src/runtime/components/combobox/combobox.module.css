@@ -30,7 +30,7 @@
 	gap: 8px;
 
 	padding: var(--combobox-option-padding);
-	font-size: var(--combobox-option-fz, var(--font-size-sm));
+	font-size: var(--combobox-option-fz, var(--font-size-md));
 	border-radius: var(--radius-default);
 	background-color: transparent;
 	color: inherit;
@@ -108,7 +108,7 @@
 }
 
 .empty {
-	font-size: var(--combobox-option-fz, var(--font-size-sm));
+	font-size: var(--combobox-option-fz, var(--font-size-md));
 	text-align: center;
 	padding: var(--combobox-option-padding);
 	color: var(--color-dimmed);
@@ -116,7 +116,7 @@
 
 .header,
 .footer {
-	font-size: var(--combobox-option-fz, var(--font-size-sm));
+	font-size: var(--combobox-option-fz, var(--font-size-md));
 	border: 0 solid transparent;
 	margin-inline: calc(var(--combobox-padding) * -1);
 	padding: var(--combobox-option-padding);
@@ -150,7 +150,7 @@
 
 .groupLabel {
 	color: var(--color-dimmed);
-	font-size: calc(var(--combobox-option-fz, var(--font-size-sm)) * 0.85);
+	font-size: calc(var(--combobox-option-fz, var(--font-size-md)) * 0.85);
 	padding: var(--combobox-option-padding);
 	font-weight: 500;
 	position: relative;

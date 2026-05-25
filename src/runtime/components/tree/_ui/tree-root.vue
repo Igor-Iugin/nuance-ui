@@ -51,7 +51,7 @@ const {
 	loop,
 	orientation,
 	variant = 'subtle',
-	size = 'compact-sm',
+	size = 'md',
 	iconResolver = () => ({ icon: 'gravity-ui:file' }),
 	removable = false,
 	selectable = false,

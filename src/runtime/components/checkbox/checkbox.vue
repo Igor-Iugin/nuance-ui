@@ -50,7 +50,7 @@ export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 
 const {
 	id,
-	size: _size = 'sm',
+	size: _size = 'md',
 	radius,
 	variant = 'filled',
 	color,

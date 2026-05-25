@@ -43,7 +43,7 @@ export interface ButtonProps extends BoxProps {
 	/** Color from theme */
 	color?: NuanceColor
 
-	/** Component size */
+	/** Component size @default 'sm' */
 	size?: NuanceSize | `compact-${NuanceSize}`
 
 	/** Spacing token */

@@ -87,6 +87,10 @@ const style = computed(() => ({
 	overflow-wrap: break-word;
 }
 
+.label {
+	margin-bottom: .125rem;
+}
+
 .error {
 	font-size: var(--input-error-size);
 	color: var(--color-error);

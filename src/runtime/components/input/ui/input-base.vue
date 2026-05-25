@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import type { Classes } from '@nui/types'
 
-import { getFontSize, getRadius, getSize } from '@nui/utils'
+import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
@@ -29,7 +29,7 @@ const api = computed(() => useInputWrapperState() ?? props)
 
 const style = computed(() => ({
 	'--input-height': getSize(api.value.size, 'input-height'),
-	'--input-fz': getFontSize(api.value.size),
+	'--input-fz': getSize(api.value.size, 'input-fz'),
 	'--input-radius': api.value.radius === undefined ? undefined : getRadius(api.value.radius),
 	'--input-padding-y': api.value.multiline ? getSize(api.value.size, 'input-padding-y') : undefined,
 	'--input-left-section-pointer-events': api.value.leftSectionPE,
@@ -77,6 +77,12 @@ const style = computed(() => ({
 	--input-height-lg: rem(50px);
 	--input-height-xl: rem(60px);
 
+	--input-fz-xs: var(--font-size-sm);
+	--input-fz-sm: var(--font-size-md);
+	--input-fz-md: var(--font-size-md);
+	--input-fz-lg: var(--font-size-lg);
+	--input-fz-xl: var(--font-size-xl);
+
 	--input-padding-y-xs: rem(5px);
 	--input-padding-y-sm: rem(6px);
 	--input-padding-y-md: rem(8px);
@@ -102,7 +108,7 @@ const style = computed(() => ({
 	--input-left-section-size: var(--input-left-section-width);
 	--input-right-section-size: var(--input-right-section-width);
 
-	--input-fz: var(--font-size-sm);
+	--input-fz: var(--font-size-md);
 	--input-size: var(--input-height);
 	--input-resize: none;
 

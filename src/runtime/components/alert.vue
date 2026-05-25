@@ -158,7 +158,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 	align-items: center;
 	justify-content: space-between;
 
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-md);
 	font-weight: 700;
 }
 
@@ -184,7 +184,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 .message {
 	overflow: hidden;
 
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-md);
 	text-overflow: ellipsis;
 
 	:where([data-mantine-color-scheme='light']) & {

@@ -135,7 +135,7 @@ export interface CalendarHeaderEmits {
 .level {
 	flex: 1;
 
-	font-size: var(--dch-fz, var(--font-size-sm));
+	font-size: var(--dch-fz, var(--font-size-md));
 	font-weight: 500;
 	text-transform: capitalize;
 }

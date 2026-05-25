@@ -15,7 +15,7 @@ export interface TreeProps extends TreeRootProps {
 const {
 	color,
 	variant = 'subtle',
-	size = 'compact-sm',
+	size = 'md',
 	loadBranch,
 	filter = 'directory',
 	...props

@@ -28,7 +28,7 @@ export interface ActionIconVars {
 }
 
 export interface ActionIconProps {
-	/** Component size */
+	/** Component size  @default 'md' */
 	size?: ActionIconSize
 
 	/** Gradient configuration (used with `variant="gradient"`) */

@@ -10,7 +10,7 @@ import UnstyledButton from '../../../button/unstyled-button.vue'
 
 
 export interface CalendarCellProps extends BoxProps {
-	/** Component size */
+	/** Component size @default 'md' */
 	size?: NuanceSize | AnyString
 }
 
