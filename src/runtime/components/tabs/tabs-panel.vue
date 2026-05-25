@@ -19,7 +19,7 @@ const ctx = useTabsState()
 	<Box
 		:is
 		:id='ctx?.getPanelId(value)'
-		:mod='[mod, { orientation: ctx?.orientation }]'
+		:mod='[mod, { orientation: ctx?.orientation.value }]'
 		:data-active='ctx?.active.value === value'
 		:class='css.panel'
 		role='tabpanel'

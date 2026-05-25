@@ -3,7 +3,7 @@ import type { NuanceColor, NuanceRadius } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getRadius, getThemeColor } from '@nui/utils'
-import { onMounted, useId } from 'vue'
+import { computed, onMounted, toRefs, useId } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -77,53 +77,45 @@ export interface TabsRootProps extends BoxProps {
 	keepMounted?: boolean
 }
 
-const {
-	is,
-	id,
-	mod,
-	radius,
-	color,
-	placement = 'left',
-	inverted,
-	orientation = 'horizontal',
-	variant = 'default',
-	defaultTab,
-	...rest
-} = defineProps<TabsRootProps>()
+const props = withDefaults(defineProps<TabsRootProps>(), {
+	placement: 'left',
+	orientation: 'horizontal',
+	variant: 'default',
+})
 
-const uid = id ?? useId()
+const uid = computed(() => props.id ?? useId())
 const active = defineModel<string | null>({ default: null })
 
 onMounted(() => {
-	if (active.value === null && defaultTab) {
-		active.value = defaultTab
+	if (active.value === null && props.defaultTab) {
+		active.value = props.defaultTab
 	}
 })
 
 const style = useVarsResolver<TabsRootVars>(theme => ({
 	root: {
-		'--tabs-radius': getRadius(radius),
-		'--tabs-color': getThemeColor(color, theme),
+		'--tabs-radius': getRadius(props.radius),
+		'--tabs-color': getThemeColor(props.color, theme),
 	},
 }))
 
 const VALUE_ERROR = 'component was rendered with invalid value or without value'
+
+const refs = toRefs(props)
+
 useProvideTabsContext({
-	...rest,
-	id: uid,
-	getTabId: getSafeId(`${uid}-tab`, `TabsTab ${VALUE_ERROR}`),
-	getPanelId: getSafeId(`${uid}-panel`, `TabsPanel ${VALUE_ERROR}`),
-	variant,
+	...refs,
 	active,
-	inverted,
-	placement,
+	id: uid,
+	getTabId: getSafeId(`${uid.value}-tab`, `TabsTab ${VALUE_ERROR}`),
+	getPanelId: getSafeId(`${uid.value}-panel`, `TabsPanel ${VALUE_ERROR}`),
 })
 </script>
 
 <template>
 	<Box
 		:is
-		:style
+		:style='style.root'
 		:mod='[mod, {
 			orientation,
 			inverted: orientation === "horizontal" && inverted,

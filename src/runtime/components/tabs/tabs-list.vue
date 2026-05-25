@@ -30,13 +30,13 @@ const style = computed(() => ({ '--tabs-justify': justify }))
 		:class='css.list'
 		role='tablist'
 		:mod='[mod, {
-			variant: ctx?.variant,
+			variant: ctx?.variant.value,
 			grow,
-			orientation: ctx?.orientation,
-			placement: ctx?.orientation === "vertical" && ctx.placement,
-			inverted: ctx?.inverted,
+			orientation: ctx?.orientation.value,
+			placement: ctx?.orientation.value === "vertical" && ctx.placement.value,
+			inverted: ctx?.inverted.value,
 		}]'
-		:aria-orientation='ctx?.orientation'
+		:aria-orientation='ctx?.orientation.value'
 	>
 		<slot />
 	</Box>

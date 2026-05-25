@@ -1,4 +1,4 @@
-import type { ModelRef } from 'vue'
+import type { ComputedRef, ModelRef, Ref } from 'vue'
 
 import { createStrictInjection } from '@nui/composables'
 
@@ -8,7 +8,7 @@ export interface TabsContext {
 	 * Unique identifier for the entire tabs group.
 	 * Used as a prefix for generating accessible tab and panel IDs.
 	 */
-	id: string
+	id: ComputedRef<string>
 
 	/**
 	 * Two-way bound active tab value.
@@ -17,37 +17,37 @@ export interface TabsContext {
 	active: ModelRef<string | null>
 
 	/** Whether keyboard navigation should loop from last to first (and vice versa). */
-	loop: boolean
+	loop: Ref<boolean>
 
 	/** Whether pressing Enter/Space on a focused tab should activate it. */
-	activateTabWithKeyboard: boolean
+	activateTabWithKeyboard: Ref<boolean>
 
 	/**
 	 * Allows clicking an already active tab to deactivate it (sets `active` to `null`).
 	 * Useful for "deselectable" tabs.
 	 */
-	allowTabDeactivation: boolean
+	allowTabDeactivation: Ref<boolean>
 
 	/** Visual variant of the tabs component. */
-	variant: 'default' | 'pills' | 'outline'
+	variant: Ref<'default' | 'pills' | 'outline'>
 
 	/** Inverted color scheme (typically used on dark backgrounds). */
-	inverted: boolean
+	inverted: Ref<boolean | undefined>
 
 	/**
 	 * Keep tab panels mounted in the DOM when inactive.
 	 * Useful for preserving state, animations, or SEO.
 	 */
-	keepMounted: boolean
+	keepMounted: Ref<boolean>
 
 	/**
 	 * For vertical tabs: placement of the tab list relative to the panels.
 	 * `'left'` → tabs on the left, `'right'` → tabs on the right.
 	 */
-	placement: 'right' | 'left'
+	placement: Ref<'right' | 'left'>
 
 	/** Explicit orientation. Usually inferred from layout, but can be forced. */
-	orientation?: 'vertical' | 'horizontal'
+	orientation: Ref<'vertical' | 'horizontal'>
 
 	/**
 	 * Generates a unique accessible ID for a tab element based on its value.
@@ -71,7 +71,7 @@ const [
 	...state,
 	active,
 	onUpdate: (tab: string) => {
-		if (allowTabDeactivation)
+		if (allowTabDeactivation.value)
 			return active.value = active.value === tab ? null : tab
 
 		return active.value = tab

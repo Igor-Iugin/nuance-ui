@@ -29,11 +29,11 @@ const active = computed(() => value === ctx?.active.value)
 	<UnstyledButton
 		:id='ctx?.getTabId(value)'
 		:mod='[mod, {
-			variant: ctx?.variant,
+			variant: ctx?.variant.value,
 			active,
-			orientation: ctx?.orientation,
-			inverted: ctx?.inverted,
-			placement: ctx?.orientation === "vertical" && ctx.placement,
+			orientation: ctx?.orientation.value,
+			inverted: ctx?.inverted.value,
+			placement: ctx?.orientation.value === "vertical" && ctx.placement.value,
 		}]'
 		:class='css.tab'
 		role='tab'
