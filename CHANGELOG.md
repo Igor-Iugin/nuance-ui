@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.21
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.20...v0.2.21)
+
+### 🚀 Enhancements
+
+- ✨ add Tabs component with multiple variants and integration into layout ([84e7757](https://github.com/Igor-Iugin/nuance-ui/commit/84e7757))
+
+### 💅 Refactors
+
+- Full rewrited size system ([3baba08](https://github.com/Igor-Iugin/nuance-ui/commit/3baba08))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.20
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.19...v0.2.20)
