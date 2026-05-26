@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.22
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.21...v0.2.22)
+
+### 📦 Build
+
+- Add sharp to allow builds ([4799651](https://github.com/Igor-Iugin/nuance-ui/commit/4799651))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.21
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.20...v0.2.21)
