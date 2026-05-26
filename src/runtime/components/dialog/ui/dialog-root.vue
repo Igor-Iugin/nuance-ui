@@ -3,7 +3,7 @@ import type { Classes, NuanceRadius, NuanceShadow, NuanceSize, NuanceSpacing } f
 import type { CSSProperties, RendererElement } from 'vue'
 
 import { getRadius, getShadow, getSize, getSpacing, rem } from '@nui/utils'
-import { onClickOutside, unrefElement } from '@vueuse/core'
+import { unrefElement } from '@vueuse/core'
 import { computed, shallowRef, watch } from 'vue'
 
 import type { BoxProps } from '../../box.vue'
@@ -79,8 +79,10 @@ const opened = defineModel<DialogModel['open']>('open', { default: false })
 
 useProvideDialogState(() => opened.value = false)
 
+// Click on <dialog> itself means the user clicked the backdrop (outside content area).
+// Native <dialog> stacking via top layer ensures this only fires for the topmost modal.
 function overlayClick(event: MouseEvent) {
-	if (event.target === event.currentTarget && closeOnClickOutside && !withoutOverlay)
+	if (event.target === event.currentTarget && closeOnClickOutside)
 		opened.value = false
 }
 
@@ -93,9 +95,6 @@ function open(dialog: HTMLDialogElement | null | undefined) {
 }
 
 const dialogRef = shallowRef<HTMLDialogElement | null>(null)
-if (closeOnClickOutside) {
-	onClickOutside(dialogRef, () => opened.value = false)
-}
 
 // Sync v-model state with the native <dialog>.
 // Watch both values: `opened` may become true before the element is mounted

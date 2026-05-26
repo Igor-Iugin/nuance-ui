@@ -96,6 +96,10 @@ const historyData = ref({
 	notifications: true,
 	agree: true,
 })
+
+// ─── Nested modals test ───
+const outerOpen = ref(false)
+const innerOpen = ref(false)
 </script>
 
 <template>
@@ -132,5 +136,32 @@ const historyData = ref({
 				{{ entry }}
 			</li>
 		</ul>
+
+		<NButton variant='light' @click='outerOpen = true'>
+			Тест вложенных модалок
+		</NButton>
+
+		<NModalRoot v-model:open='outerOpen' size='sm'>
+			<NModalHeader>
+				<NModalTitle order='4'>Внешняя модалка</NModalTitle>
+				<NModalCloseButton />
+			</NModalHeader>
+			<NModalSection>
+				<p>Кликни ниже чтобы открыть вторую модалку. Затем кликни в области второй — первая не должна закрываться.</p>
+				<NButton @click='innerOpen = true'>
+					Открыть вторую модалку
+				</NButton>
+			</NModalSection>
+		</NModalRoot>
+
+		<NModalRoot v-model:open='innerOpen' size='xs'>
+			<NModalHeader>
+				<NModalTitle order='4'>Внутренняя модалка</NModalTitle>
+				<NModalCloseButton />
+			</NModalHeader>
+			<NModalSection>
+				<p>Кликни здесь — первая модалка не должна закрываться. Кликни вне — закроется только эта.</p>
+			</NModalSection>
+		</NModalRoot>
 	</div>
 </template>
