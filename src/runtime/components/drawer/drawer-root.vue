@@ -7,7 +7,7 @@ import DialogRoot from '../dialog/ui/dialog-root.vue'
 import css from './drawer.module.css'
 
 
-type OmittedDialogRootProps = Omit<DialogRootProps, 'rootClass' | 'transition'>
+type OmittedDialogRootProps = Omit<DialogRootProps, 'transition'>
 
 export interface DrawerRootProps extends OmittedDialogRootProps {
 	/** Side of the screen on which drawer will be opened @default `'left'` */
@@ -20,6 +20,7 @@ const {
 	withinPortal = false,
 	closeOnClickOutside = true,
 	mod,
+	classes,
 	...rest
 } = defineProps<DrawerRootProps>()
 
@@ -44,12 +45,12 @@ const transition = computed(() => {
 	<DialogRoot
 		v-model:open='opened'
 		:mod='[{ position }, mod]'
-		:root-class='css.root'
 		:class='css.content'
 		:within-portal
 		:without-overlay
 		:close-on-click-outside
 		:transition
+		:classes='{ ...classes, root: [css.root, classes?.root] }'
 		v-bind='rest'
 		@open='$emit("open")'
 		@close='$emit("close")'
