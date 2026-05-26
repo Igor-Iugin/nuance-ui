@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.24
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.23...v0.2.24)
+
+### 🩹 Fixes
+
+- Drawer styles ([c5640cf](https://github.com/Igor-Iugin/nuance-ui/commit/c5640cf))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.23
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.22...v0.2.23)
