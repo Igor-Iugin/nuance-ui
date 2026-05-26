@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.2.27
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.26...v0.2.27)
+
+### 🩹 Fixes
+
+- Confirm modal types ([7fd55ae](https://github.com/Igor-Iugin/nuance-ui/commit/7fd55ae))
+
+### 🏡 Chore
+
+- Remove mock test ([3526581](https://github.com/Igor-Iugin/nuance-ui/commit/3526581))
+- Off tests ([6c9994c](https://github.com/Igor-Iugin/nuance-ui/commit/6c9994c))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.26
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.25...v0.2.26)
