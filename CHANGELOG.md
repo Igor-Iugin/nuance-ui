@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.26
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.25...v0.2.26)
+
+### 🩹 Fixes
+
+- Nested modals closing ([7dda3db](https://github.com/Igor-Iugin/nuance-ui/commit/7dda3db))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.25
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.24...v0.2.25)
