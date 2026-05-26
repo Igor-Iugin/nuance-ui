@@ -11,7 +11,7 @@
 
 	--dialog-shadow: var(--shadow-md);
 	--dialog-radius: var(--radius-md);
-	--dialog-padding: var(--spacing-sm);
+	--dialog-padding: var(--spacing-lg);
 	--dialog-bd-c: var(--color-gray-4);
 
 	--overlay-bg: rgba(0, 0, 0, .4);
@@ -94,9 +94,8 @@
 }
 
 .header,
-.section,
 .footer {
-	padding: var(--dialog-padding);
+	padding: calc(var(--dialog-padding) / 1.5) var(--dialog-padding);
 }
 
 .header {
@@ -106,8 +105,12 @@
 	border-bottom: 1px solid var(--dialog-bd-c);
 }
 
-.section[data-bordered='true']:not(:first-of-type) {
-	border-top: 1px solid var(--dialog-bd-c);
+.section {
+	padding: var(--dialog-padding);
+
+	&[data-bordered='true']:not(:first-of-type) {
+		border-top: 1px solid var(--dialog-bd-c);
+	}
 }
 
 .footer {
