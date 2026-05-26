@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.23
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.22...v0.2.23)
+
+### 🩹 Fixes
+
+- Dialog header/footer padding ([c413c64](https://github.com/Igor-Iugin/nuance-ui/commit/c413c64))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.22
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.21...v0.2.22)
