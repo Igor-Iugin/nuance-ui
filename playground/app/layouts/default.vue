@@ -69,6 +69,9 @@ const theme = useTheme()
 			<NNavLink to='/tabs'>
 				Tabs
 			</NNavLink>
+			<NNavLink to='/scroll-area'>
+				ScrollArea
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
