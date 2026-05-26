@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.28
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.27...v0.2.28)
+
+### 🚀 Enhancements
+
+- ✨  new ScrollArea component ([a483efa](https://github.com/Igor-Iugin/nuance-ui/commit/a483efa))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.27
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.26...v0.2.27)
