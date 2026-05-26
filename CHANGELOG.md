@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.25
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.24...v0.2.25)
+
+### 🩹 Fixes
+
+- Return cyan color ([de241a2](https://github.com/Igor-Iugin/nuance-ui/commit/de241a2))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.24
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.23...v0.2.24)
