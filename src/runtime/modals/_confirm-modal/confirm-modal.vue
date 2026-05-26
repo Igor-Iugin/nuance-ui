@@ -17,7 +17,7 @@ import { useModal } from '../use-modal'
 
 type ConfirmLabels = Record<'confirm' | 'cancel', string>
 
-export interface ConfirmModalProps extends /* @vue-ignore */ ModalRootProps {
+export interface ConfirmModalProps extends ModalRootProps {
 	/** Modal title */
 	title: string
 	/** Description text displayed below the title */
@@ -82,12 +82,6 @@ async function hanleConfirm() {
 			</Title>
 			<ModalCloseButton />
 		</ModalHeader>
-
-		<ModalSection bordered>
-			<p v-if='body' :class='$style.body'>
-				{{ body }}
-			</p>
-		</ModalSection>
 
 		<ModalSection bordered>
 			<p v-if='body' :class='$style.body'>
