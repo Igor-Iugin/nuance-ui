@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.29
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.28...v0.2.29)
+
+### 🩹 Fixes
+
+- Modal full screen styles ([ab22f2d](https://github.com/Igor-Iugin/nuance-ui/commit/ab22f2d))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.28
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.27...v0.2.28)
