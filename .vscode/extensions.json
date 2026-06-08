@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"editorconfig.editorconfig",
+		"fill-labs.dependi",
+		"antfu.iconify",
+		"stylelint.vscode-stylelint",
+		"vue.volar",
+		"firsttris.vscode-jest-runner",
+		"vivaxy.vscode-conventional-commits"
+	],
+	"unwantedRecommendations": []
+}
