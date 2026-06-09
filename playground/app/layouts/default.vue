@@ -72,6 +72,9 @@ const theme = useTheme()
 			<NNavLink to='/scroll-area'>
 				ScrollArea
 			</NNavLink>
+			<NNavLink to='/timeline'>
+				Timeline
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>

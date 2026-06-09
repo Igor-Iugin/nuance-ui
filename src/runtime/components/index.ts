@@ -16,8 +16,8 @@ export * from './combobox'
 export type * from './container.vue'
 
 export type * from './date-time-picker.vue'
-
 export * from './dialog'
+
 export * from './drawer'
 export * from './files'
 export type * from './floating-indicator.vue'
@@ -26,25 +26,26 @@ export * from './link'
 export * from './loader'
 export * from './modal'
 export * from './nav-link'
-
 export type * from './paper.vue'
 
 export * from './popover'
+
 export * from './progress'
 export * from './roving-focus'
-
 export type * from './segmented-control.vue'
 
 export type * from './select.vue'
 
 export * from './switch'
+
 export * from './table'
 export * from './tabs'
-
 export type * from './text.vue'
-export type * from './textarea.vue'
 
+export type * from './textarea.vue'
 export * from './time-picker'
+
+export type * from './timeline.vue'
 
 export type * from './title.vue'
 export type * from './transition.vue'
