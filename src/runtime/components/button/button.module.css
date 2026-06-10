@@ -131,7 +131,7 @@
 	}
 
 	&:hover:where(:not([data-loading], :disabled)),
-	&[data-active]:where(:not([data-loading], :disabled)) {
+	&[data-active] {
 		color: var(--button-color);
 
 		background: var(--button-hover);
