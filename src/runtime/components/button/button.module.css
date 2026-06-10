@@ -130,7 +130,8 @@
 		}
 	}
 
-	&:hover:where(:not([data-loading], :disabled)) {
+	&:hover:where(:not([data-loading], :disabled)),
+	&[data-active]:where(:not([data-loading], :disabled)) {
 		color: var(--button-color);
 
 		background: var(--button-hover);
