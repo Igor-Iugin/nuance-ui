@@ -1,6 +1,35 @@
 # Changelog
 
 
+## v0.2.30
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.29...v0.2.30)
+
+### 🚀 Enhancements
+
+- ✨  new Timeline component ([15db563](https://github.com/Igor-Iugin/nuance-ui/commit/15db563))
+- Fw = 500 ([dca6a4a](https://github.com/Igor-Iugin/nuance-ui/commit/dca6a4a))
+- Added active state where data-active ([1283519](https://github.com/Igor-Iugin/nuance-ui/commit/1283519))
+- Added configuration from nuxt.config ([00cf480](https://github.com/Igor-Iugin/nuance-ui/commit/00cf480))
+- Badge dotted props & demo page ([75f9eec](https://github.com/Igor-Iugin/nuance-ui/commit/75f9eec))
+
+### 🩹 Fixes
+
+- Remove border on gradient variant ([f834099](https://github.com/Igor-Iugin/nuance-ui/commit/f834099))
+- Added missing teal color ([bc941a9](https://github.com/Igor-Iugin/nuance-ui/commit/bc941a9))
+- Remove error when passed wrong color to config ([768b7ed](https://github.com/Igor-Iugin/nuance-ui/commit/768b7ed))
+- Move resolver types to resolver ([ea3731f](https://github.com/Igor-Iugin/nuance-ui/commit/ea3731f))
+
+### 🏡 Chore
+
+- Added recommended extensions ([51180cb](https://github.com/Igor-Iugin/nuance-ui/commit/51180cb))
+- **ai:** Added agent skills ([cca605e](https://github.com/Igor-Iugin/nuance-ui/commit/cca605e))
+- Separate imports ([81d5746](https://github.com/Igor-Iugin/nuance-ui/commit/81d5746))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.29
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.28...v0.2.29)
