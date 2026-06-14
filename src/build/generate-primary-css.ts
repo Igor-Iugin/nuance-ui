@@ -3,29 +3,7 @@ import type { NuanceDefaultThemeColor } from '../runtime/types'
 /** Primary color: a theme palette name or an array of 10 shade values (0..9). */
 export type PrimaryColor = NuanceDefaultThemeColor | string[]
 
-/** Palette names that expose base shades `--color-{name}-0..9`. */
-const PALETTE_NAMES: NuanceDefaultThemeColor[] = [
-	'dark',
-	'gray',
-	'red',
-	'pink',
-	'grape',
-	'violet',
-	'indigo',
-	'blue',
-	'cyan',
-	'green',
-	'lime',
-	'yellow',
-	'orange',
-	'teal',
-]
-
 const SHADES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const
-
-function isPaletteName(value: PrimaryColor): value is NuanceDefaultThemeColor {
-	return typeof value === 'string' && PALETTE_NAMES.includes(value as NuanceDefaultThemeColor)
-}
 
 // ─── Name ───
 
@@ -103,9 +81,6 @@ ${derivedTokens('dark')}
  * exactly 10 shades.
  */
 export function generatePrimaryCss(primaryColor: PrimaryColor): string {
-	if (isPaletteName(primaryColor))
-		return fromName(primaryColor)
-
 	if (Array.isArray(primaryColor)) {
 		if (primaryColor.length !== 10) {
 			throw new Error(
@@ -116,8 +91,5 @@ export function generatePrimaryCss(primaryColor: PrimaryColor): string {
 		return fromArray(primaryColor)
 	}
 
-	throw new Error(
-		`[@nuance-ui] Unknown "primaryColor" name: "${String(primaryColor)}". `
-		+ `Expected one of: ${PALETTE_NAMES.join(', ')}, or an array of 10 shades.`,
-	)
+	return fromName(primaryColor)
 }
