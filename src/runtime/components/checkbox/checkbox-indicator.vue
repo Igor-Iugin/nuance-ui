@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
+import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
@@ -58,6 +58,7 @@ const checked = computed(() => {
 	return modelValue.value
 })
 
+const { icons } = useConfig()
 const style = useVarsResolver<CheckboxIndicatorVars>(theme => {
 	const parsed = parseThemeColor({ color, theme })
 	const outlineColor = parsed.isThemeColor && parsed.shade === undefined
@@ -78,8 +79,8 @@ const style = useVarsResolver<CheckboxIndicatorVars>(theme => {
 <template>
 	<Box :style='style.root' :class='$style.indicator' :mod='{ checked }'>
 		<slot :indeterminate='indeterminate' :class='$style.icon' :mod='{ checked }'>
-			<Icon v-if='!indeterminate' name='gravity-ui:check' :class='$style.icon' :mod='{ checked }' />
-			<Icon v-else :class='$style.icon' name='gravity-ui:minus' :mod='{ checked }' />
+			<Icon v-if='!indeterminate' :name='icons.check' :class='$style.icon' :mod='{ checked }' />
+			<Icon v-else :class='$style.icon' :name='icons.minus' :mod='{ checked }' />
 		</slot>
 	</Box>
 </template>

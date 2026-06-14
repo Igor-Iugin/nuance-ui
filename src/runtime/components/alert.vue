@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { Classes, NuanceColor, NuanceRadius } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getRadius } from '@nui/utils'
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getRadius } from '@nui/utils'
 import { useId } from 'vue'
 
 import type { BoxProps } from './box.vue'
@@ -64,9 +64,10 @@ defineEmits<{
 }>()
 
 const id = useId()
+const { icons, variantResolver } = useConfig()
 
 const style = useVarsResolver<AlertVars>(theme => {
-	const { background, border, text } = createVariantColorResolver({ variant, color, theme })
+	const { background, border, text } = variantResolver({ variant, color, theme })
 	return {
 		root: {
 			'--alert-radius': radius === undefined ? undefined : getRadius(radius),
@@ -116,7 +117,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 			v-if='withCloseButton'
 			:class='[$style.closeButton, classes?.closeButton]'
 			variant='subtle'
-			icon='gravity-ui:xmark'
+			:icon='icons.close'
 			size='sm'
 			:color
 			@click='$emit("close")'

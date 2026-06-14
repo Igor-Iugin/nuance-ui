@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="TData extends TableData">
 import type { Column, SortDirection } from '@tanstack/vue-table'
 
+import { useConfig } from '@nui/composables'
 import defu from 'defu'
 import { computed } from 'vue'
 
@@ -14,10 +15,11 @@ export interface TableSortIconProps<TData extends TableData> {
 
 const { column, icons } = defineProps<TableSortIconProps<TData>>()
 
+const cfg = useConfig()
 const resolvedIcons = computed(() => defu(icons, {
-	asc: 'gravity-ui:bars-descending-align-left-arrow-up',
-	desc: 'gravity-ui:bars-descending-align-left-arrow-down',
-	off: 'gravity-ui:bars-descending-align-left',
+	asc: cfg.icons.sortAsc,
+	desc: cfg.icons.sortDesc,
+	off: cfg.icons.sortOff,
 }))
 
 const name = computed(() => column.getIsSorted()

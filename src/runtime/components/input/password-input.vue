@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import { useConfig } from '@nui/composables'
 import { ref } from 'vue'
 
 import type { TextInputProps } from './index'
@@ -9,6 +10,7 @@ import TextInput from './text-input.vue'
 
 const props = defineProps<TextInputProps>()
 const password = ref<boolean>(true)
+const { icons } = useConfig()
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const password = ref<boolean>(true)
 		<template #rightSection>
 			<slot name='rightSection'>
 				<ActionIcon variant='subtle' @click='password = !password'>
-					<Icon :name='password ? "gravity-ui:eye" : "gravity-ui:eye-slash"' />
+					<Icon :name='password ? icons.passwordShow : icons.passwordHide' />
 				</ActionIcon>
 			</slot>
 		</template>

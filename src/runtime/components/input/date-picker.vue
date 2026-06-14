@@ -2,7 +2,7 @@
 import type { DateInput, Format } from '@formkit/tempo'
 
 import { format } from '@formkit/tempo'
-import { useDatesConfig } from '@nui/composables'
+import { useConfig, useDatesConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { CalendarEmits, DateSelection, SelectionMode } from '../calendar'
@@ -58,6 +58,7 @@ defineEmits<PopoverEmits & CalendarEmits<Mode>>()
 const model = defineModel<DateSelection<Mode>>()
 
 const config = useDatesConfig(cfg)
+const { icons } = useConfig()
 const formatValue = (date: DateInput) => format({ date, format: valueFormat, ...config })
 
 const visible = computed(() => {
@@ -101,7 +102,7 @@ const visible = computed(() => {
 			>
 				<template #leftSection>
 					<slot name='leftSection'>
-						<Icon name='gravity-ui:calendar' />
+						<Icon :name='icons.calendar' />
 					</slot>
 				</template>
 				<template v-if='!!$slots.rightSection' #rightSection>
@@ -119,7 +120,7 @@ const visible = computed(() => {
 
 						<template #rightSection>
 							<ActionIcon
-								icon='gravity-ui:xmark'
+								:icon='icons.close'
 								variant='subtle'
 								color='gray'
 								size='xs'

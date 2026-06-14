@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { useTheme } from '@nui/composables'
+import { useConfig, useTheme } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed, watch } from 'vue'
 
@@ -22,8 +22,8 @@ export interface TreeItemProps extends TreeItem {
 
 const {
 	type = 'file',
-	icon = 'gravity-ui:folder',
-	trailingIcon = 'gravity-ui:folder-open',
+	icon,
+	trailingIcon,
 	path,
 	name,
 	level,
@@ -31,6 +31,9 @@ const {
 } = defineProps<TreeItemProps>()
 
 const { value: theme } = useTheme()
+const { icons } = useConfig()
+const resolvedIcon = computed(() => icon ?? icons.folder)
+const resolvedTrailingIcon = computed(() => trailingIcon ?? icons.folderOpen)
 
 const isFolder = computed(() => type === 'directory')
 
@@ -82,8 +85,8 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 					</template>
 
 					<template v-else-if='isFolder'>
-						<Icon v-if='expanded' :class='$style.icon' :name='trailingIcon' />
-						<Icon v-else :class='$style.icon' :name='icon' />
+						<Icon v-if='expanded' :class='$style.icon' :name='resolvedTrailingIcon' />
+						<Icon v-else :class='$style.icon' :name='resolvedIcon' />
 					</template>
 
 					<template v-else>
@@ -99,7 +102,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 
 				<template v-if='isFolder' #rightSection>
 					<ActionIcon
-						icon='gravity-ui:chevron-down'
+						:icon='icons.chevronDown'
 						size='sm'
 						:color='ctx.color'
 						:classes='{ root: $style.chevron, icon: $style["chevron-icon"] }'

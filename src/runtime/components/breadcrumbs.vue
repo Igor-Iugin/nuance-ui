@@ -2,7 +2,7 @@
 import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { MaybeRef } from 'vue'
 
-import { useTheme } from '@nui/composables'
+import { useConfig, useTheme } from '@nui/composables'
 import { getSpacing } from '@nui/utils'
 import { computed, unref } from 'vue'
 
@@ -31,10 +31,7 @@ export interface BreadcrumbsProps extends BoxProps {
 	/** Items array */
 	items?: MaybeRef<BreadcrumbsItem[]>
 
-	/**
-	 * Separator icon between items
-	 * @default `'gravity-ui:chevron-right'`
-	 */
+	/** Separator icon between items. Defaults to the configured `chevronRight` icon. */
 	separator?: string
 
 	/** Spacing token */
@@ -63,7 +60,7 @@ const {
 	is = 'ol',
 	mod,
 	spacing,
-	separator = 'gravity-ui:chevron-right',
+	separator: _separator,
 	color = 'primary',
 	variant = 'subtle',
 	size = 'compact-sm',
@@ -73,6 +70,9 @@ const {
 defineEmits<{
 	click: [item: BreadcrumbsItem]
 }>()
+
+const { icons } = useConfig()
+const separator = computed(() => _separator ?? icons.chevronRight)
 
 const style = computed(() => ({
 	'--bc-spacing': getSpacing(spacing),

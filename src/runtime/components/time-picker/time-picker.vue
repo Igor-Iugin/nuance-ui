@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Classes } from '@nui/types'
 
+import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { InputBaseProps } from '../input'
@@ -120,6 +121,7 @@ const {
 } = defineProps<TimePickerProps>()
 
 const model = defineModel<string>({ default: '' })
+const { icons } = useConfig()
 
 const {
 	values: {
@@ -223,7 +225,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 
 			<template #leftSection>
 				<slot name='leftSection'>
-					<Icon name='gravity-ui:clock' />
+					<Icon :name='icons.clock' />
 				</slot>
 			</template>
 
@@ -233,7 +235,7 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 			>
 				<slot name='rightSection'>
 					<ActionIcon
-						icon='gravity-ui:xmark'
+						:icon='icons.close'
 						variant='subtle'
 						color='gray'
 						size='sm'

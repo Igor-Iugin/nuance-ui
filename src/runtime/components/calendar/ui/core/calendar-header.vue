@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useConfig } from '@nui/composables'
+import { computed } from 'vue'
+
 import type { BoxProps } from '../../../box.vue'
 
 import Box from '../../../box.vue'
@@ -30,8 +33,8 @@ export interface CalendarHeaderProps extends BoxProps {
 
 const {
 	is = 'header',
-	prevIcon = 'gravity-ui:chevron-left',
-	nextIcon = 'gravity-ui:chevron-right',
+	prevIcon,
+	nextIcon,
 	withPrev = true,
 	withNext = true,
 	nextDisabled,
@@ -41,6 +44,10 @@ const {
 } = defineProps<CalendarHeaderProps>()
 
 defineEmits<CalendarHeaderEmits>()
+
+const { icons } = useConfig()
+const resolvedPrevIcon = computed(() => prevIcon ?? icons.chevronLeft)
+const resolvedNextIcon = computed(() => nextIcon ?? icons.chevronRight)
 
 export interface CalendarHeaderEmits {
 	prev: []
@@ -58,7 +65,7 @@ export interface CalendarHeaderEmits {
 			:class='$style.control'
 			@click='$emit("prev")'
 		>
-			<Icon :name='prevIcon' :class='$style.icon' />
+			<Icon :name='resolvedPrevIcon' :class='$style.icon' />
 		</UnstyledButton>
 
 		<UnstyledButton
@@ -76,7 +83,7 @@ export interface CalendarHeaderEmits {
 			:class='$style.control'
 			@click='$emit("next")'
 		>
-			<Icon :name='nextIcon' :class='$style.icon' />
+			<Icon :name='resolvedNextIcon' :class='$style.icon' />
 		</UnstyledButton>
 	</Box>
 </template>

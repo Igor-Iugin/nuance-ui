@@ -1,6 +1,7 @@
 import type { VNode } from 'vue'
 
 
+export type * from './icons'
 export type * from './styling'
 export type * from './theme'
 

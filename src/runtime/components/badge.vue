@@ -2,8 +2,8 @@
 import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getRadius, getSize, getThemeColor } from '@nui/utils'
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getRadius, getSize, getThemeColor } from '@nui/utils'
 
 import type { BoxProps } from './box.vue'
 
@@ -74,8 +74,9 @@ const {
 	fw,
 } = defineProps<BadgeProps>()
 
+const { variantResolver } = useConfig()
 const style = useVarsResolver<BadgeVars>(theme => {
-	const { background, border, text } = createVariantColorResolver({
+	const { background, border, text } = variantResolver({
 		theme,
 		variant: variant === 'dot' ? 'default' : variant,
 		color,

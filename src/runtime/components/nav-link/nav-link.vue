@@ -2,8 +2,8 @@
 import type { NuanceColor, NuanceSpacing } from '@nui/types'
 import type { NuxtLinkProps } from 'nuxt/app'
 
-import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getSize } from '@nui/utils'
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getSize } from '@nui/utils'
 
 import type { BoxProps } from '../box.vue'
 
@@ -61,12 +61,9 @@ const {
 	},
 } = pickLinkProps(props)
 
+const { variantResolver } = useConfig()
 const style = useVarsResolver<NavLinkVars>(theme => {
-	const {
-		background,
-		hover,
-		text,
-	} = createVariantColorResolver({ variant, color, theme })
+	const { background, hover, text	} = variantResolver({ variant, color, theme })
 	return {
 		root: {
 			'--nl-bg': variant ? background : undefined,

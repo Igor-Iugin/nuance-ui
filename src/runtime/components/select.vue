@@ -1,4 +1,5 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
+import { useConfig } from '@nui/composables'
 import { computed, nextTick, ref, watch } from 'vue'
 
 import type { ComboboxData, ComboboxItemExt, ComboboxRootEmits } from './combobox'
@@ -72,6 +73,8 @@ const {
 } = defineProps<SelectProps<Value, Ext>>()
 
 const emit = defineEmits<ComboboxRootEmits>()
+
+const { icons } = useConfig()
 
 /** Dropdown opened state */
 const opened = defineModel<boolean>('open', { default: false })
@@ -188,7 +191,7 @@ function onSubmit(val: string) {
 				</template>
 				<template #rightSection>
 					<slot name='rightSection'>
-						<Icon name='gravity-ui:chevrons-expand-vertical' />
+						<Icon :name='icons.selectExpand' />
 					</slot>
 				</template>
 			</component>

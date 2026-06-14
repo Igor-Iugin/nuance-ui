@@ -2,6 +2,7 @@
 import type { UseFileDialogOptions } from '@vueuse/core'
 import type { MaybeRef } from 'vue'
 
+import { useConfig } from '@nui/composables'
 import { useFileDialog } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
@@ -43,7 +44,7 @@ const {
 	accept,
 	reset: _reset,
 	directory,
-	icon = 'gravity-ui:arrow-shape-up-from-line',
+	icon: _icon,
 	...props
 } = defineProps<FileUploadIconProps<Multiple>>()
 
@@ -51,6 +52,9 @@ const emit = defineEmits<{
 	change: [files: FileUploadFiles<Multiple>]
 	cancel: []
 }>()
+
+const { icons } = useConfig()
+const icon = computed(() => _icon ?? icons.upload)
 
 
 const isMultiple = computed(() => {
@@ -85,5 +89,5 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<ActionIcon :icon v-bind='props' @click='open' />
+	<ActionIcon :icon='icon' v-bind='props' @click='open' />
 </template>

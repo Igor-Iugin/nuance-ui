@@ -5,14 +5,14 @@ import type {
 	NuanceSize,
 } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
+import { useConfig, useVarsResolver } from '@nui/composables'
 import {
-	createVariantColorResolver,
+
 	getFontSize,
 	getRadius,
 	getSize,
 } from '@nui/utils'
-import { useId } from 'vue'
+import { computed, useId } from 'vue'
 
 import Box from '../box.vue'
 import { useChipGroupState, useChipState } from './lib'
@@ -75,23 +75,27 @@ const {
 	variant = 'filled',
 	type: _type = 'checkbox',
 	value,
-	icon = 'gravity-ui:check',
+	icon: _icon,
 	hideIcon = true,
 	disabled: _disabled,
 } = defineProps<ChipProps>()
 
 const id = uid || useId()
 
+
 const modelValue = defineModel<boolean>({ default: false })
 
 const ctx = useChipGroupState()
 const { checked, onUpdate } = useChipState(ctx, modelValue, value)
 
-const disabled = ctx?.disabled || _disabled
-const type = ctx ? ctx.multiple ? 'checkbox' : 'radio' : _type
+const disabled = computed(() => ctx?.disabled || _disabled)
+const type = computed(() => ctx ? ctx.multiple ? 'checkbox' : 'radio' : _type)
+
+const { icons, variantResolver } = useConfig()
+const icon = computed(() => _icon ?? icons.check)
 
 const style = useVarsResolver<ChipVars>(theme => {
-	const colors = createVariantColorResolver({ color, theme, variant })
+	const colors = variantResolver({ color, theme, variant })
 
 	return {
 		root: {

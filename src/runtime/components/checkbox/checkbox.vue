@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
+import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed, useId } from 'vue'
 
@@ -62,6 +62,7 @@ const {
 
 const modelValue = defineModel<boolean | 'indeterminate'>()
 const ctx = useCheckboxGroupState()
+const { icons } = useConfig()
 
 const checked = computed({
 	get: () => {
@@ -132,10 +133,10 @@ const style = useVarsResolver<CheckboxVars>(theme => {
 			>
 				<Icon
 					v-if='modelValue !== "indeterminate"'
-					name='gravity-ui:check'
+					:name='icons.check'
 					:class='$style.icon'
 				/>
-				<Icon v-else name='gravity-ui:minus' :class='$style.icon' />
+				<Icon v-else :name='icons.minus' :class='$style.icon' />
 			</slot>
 		</Box>
 	</InputInline>

@@ -1,14 +1,20 @@
 <script setup lang='ts'>
+import { useConfig } from '@nui/composables'
+import { computed } from 'vue'
+
 import type { TextInputProps } from './index'
 
 import TextInput from './text-input.vue'
 
 
-const { icon = 'gravity-ui:at', ...rest } = defineProps<TextInputProps>()
+const { icon: _icon, ...rest } = defineProps<TextInputProps>()
+
+const { icons } = useConfig()
+const icon = computed(() => _icon ?? icons.email)
 </script>
 
 <template>
-	<TextInput type='email' :icon v-bind='rest'>
+	<TextInput type='email' :icon='icon' v-bind='rest'>
 		<template v-if='!!$slots.leftSection' #leftSection>
 			<slot name='leftSection' />
 		</template>

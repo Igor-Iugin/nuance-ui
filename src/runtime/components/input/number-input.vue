@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import { useConfig } from '@nui/composables'
 import { clamp } from '@vueuse/core'
 import { shallowRef } from 'vue'
 
@@ -38,6 +39,7 @@ const {
 } = defineProps<NumberInputProps>()
 
 const focused = shallowRef<boolean>(false)
+const { icons } = useConfig()
 
 const value = defineModel<number>({ default: 0 })
 
@@ -96,14 +98,14 @@ function handleBlur() {
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(max) && value >= max!)'
 							@click='value = clamp(value + step, min, max)'
 						>
-							<Icon name='gravity-ui:chevron-up' />
+							<Icon :name='icons.chevronUp' />
 						</UnstyledButton>
 						<UnstyledButton
 							:class='$style.control'
 							:disabled='disabled || (typeof value === "number" && !Number.isNaN(min) && value <= min!)'
 							@click='value = clamp(value - step, min, max)'
 						>
-							<Icon name='gravity-ui:chevron-down' />
+							<Icon :name='icons.chevronDown' />
 						</UnstyledButton>
 					</div>
 				</slot>

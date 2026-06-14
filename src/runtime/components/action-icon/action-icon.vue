@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getRadius, getSize } from '@nui/utils'
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getRadius, getSize } from '@nui/utils'
 
 import type { BoxProps } from '../box.vue'
 
@@ -72,13 +72,14 @@ const {
 	disabled,
 } = defineProps<ActionIconProps>()
 
+const { variantResolver } = useConfig()
 const style = useVarsResolver<ActionIconVars>(theme => {
 	const {
 		background,
 		border,
 		hover,
 		text,
-	} = createVariantColorResolver({ variant, color, theme, gradient })
+	} = variantResolver({ variant, color, theme, gradient })
 
 	return {
 		root: {

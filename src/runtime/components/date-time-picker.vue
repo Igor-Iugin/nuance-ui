@@ -2,7 +2,7 @@
 import type { Format } from '@formkit/tempo'
 
 import { format } from '@formkit/tempo'
-import { useDatesConfig } from '@nui/composables'
+import { useConfig, useDatesConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { CalendarEmits, DateSelection } from './calendar'
@@ -104,6 +104,7 @@ const time = computed({
 })
 
 const config = useDatesConfig(calendarProps?.config)
+const { icons } = useConfig()
 const visible = computed(() => {
 	if (!model.value)
 		return null
@@ -122,7 +123,7 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 			<ButtonInput v-bind='props' :right-section-p-e>
 				<template #leftSection>
 					<slot name='leftSection'>
-						<Icon name='gravity-ui:calendar' />
+						<Icon :name='icons.calendar' />
 					</slot>
 				</template>
 
@@ -132,7 +133,7 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 				>
 					<slot name='rightSection'>
 						<ActionIcon
-							icon='gravity-ui:xmark'
+							:icon='icons.close'
 							variant='subtle'
 							color='gray'
 							size='sm'

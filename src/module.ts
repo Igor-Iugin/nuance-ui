@@ -1,10 +1,19 @@
 import {
 	addComponentsDir,
 	addImportsDir,
+	addTemplate,
+	addTypeTemplate,
 	createResolver,
 	defineNuxtModule,
 } from '@nuxt/kit'
 import { defu } from 'defu'
+
+import type { PrimaryColor } from './build/generate-primary-css'
+import type { NuanceGradient, NuanceIcons } from './runtime/types'
+
+import { generatePrimaryCss } from './build/generate-primary-css'
+import { DEFAULT_GRADIENT } from './runtime/utils/color/const'
+import { DEFAULT_ICONS } from './runtime/utils/icons/default-icons'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -26,12 +35,27 @@ export interface ModuleOptions {
 	 * @default 'light'
 	 */
 	theme?: 'light' | 'dark' | 'auto'
+
+	/**
+	 * Primary color: a theme palette name or an array of 10 shade values (0..9)
+	 * @default 'blue'
+	 */
+	primaryColor?: PrimaryColor
+
+	/** Default gradient configuration */
+	gradient?: NuanceGradient
+
+	/** Icon registry overrides */
+	icons?: Partial<NuanceIcons>
 }
 
 const defaultConfig = {
 	autoImport: true,
 	theme: 'light',
 	prefix: 'N',
+	primaryColor: 'blue',
+	gradient: DEFAULT_GRADIENT,
+	icons: DEFAULT_ICONS,
 } satisfies ModuleOptions
 
 export default defineNuxtModule<ModuleOptions>({
@@ -76,6 +100,18 @@ export default defineNuxtModule<ModuleOptions>({
 		for (const key in aliases) {
 			nuxt.options.alias[`@nui/${key}`] = aliases[key as keyof typeof aliases]
 		}
+
+		// ─── App config ───
+
+		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui, {
+			gradient: options.gradient,
+			icons: options.icons,
+		})
+
+		addTypeTemplate({
+			filename: 'types/nui-app-config.d.ts',
+			src: resolve('./runtime/app-config.d.ts'),
+		})
 
 		// ─── PostCSS config ───
 
@@ -133,5 +169,16 @@ export default defineNuxtModule<ModuleOptions>({
 		// ─── Add global styles ───
 
 		nuxt.options.css.push(resolve('./runtime/styles/global.css'))
+
+		// ─── Primary color ───
+
+		const primaryCss = generatePrimaryCss(options.primaryColor ?? 'blue')
+		const { dst } = addTemplate({
+			filename: 'nui-primary-color.css',
+			getContents: () => primaryCss,
+			write: true,
+		})
+
+		nuxt.options.css.push(dst)
 	},
 })

@@ -2,8 +2,8 @@
 import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
-import { useVarsResolver } from '@nui/composables'
-import { createVariantColorResolver, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
 
 import type { BoxProps } from '../box.vue'
 
@@ -96,8 +96,10 @@ const {
 	...props
 } = defineProps<ButtonProps>()
 
+const { variantResolver } = useConfig()
+
 const style = useVarsResolver<ButtonVars>(theme => {
-	const { background, border, hover, text } = createVariantColorResolver({
+	const { background, border, hover, text } = variantResolver({
 		theme,
 		variant,
 		color: props.color,

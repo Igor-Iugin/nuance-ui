@@ -2,6 +2,7 @@
 import type { UseFileDialogOptions } from '@vueuse/core'
 import type { MaybeRef } from 'vue'
 
+import { useConfig } from '@nui/composables'
 import { useFileDialog } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
@@ -46,7 +47,7 @@ const {
 	accept,
 	reset: _reset,
 	directory,
-	icon = 'gravity-ui:plus',
+	icon: _icon,
 	...props
 } = defineProps<FileUploadButtonProps<Multiple>>()
 
@@ -55,6 +56,8 @@ const emit = defineEmits<{
 	cancel: []
 }>()
 
+const { icons } = useConfig()
+const icon = computed(() => _icon ?? icons.plus)
 
 const isMultiple = computed(() => {
 	const val = toValue(multiple)

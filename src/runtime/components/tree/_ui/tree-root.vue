@@ -2,7 +2,7 @@
 import type { ButtonProps, ButtonVariant } from '@nui/components'
 import type { NuanceColor } from '@nui/types'
 
-import { useVarsResolver } from '@nui/composables'
+import { useConfig, useVarsResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
 import { onClickOutside, useEventListener } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
@@ -52,7 +52,7 @@ const {
 	orientation,
 	variant = 'subtle',
 	size = 'md',
-	iconResolver = () => ({ icon: 'gravity-ui:file' }),
+	iconResolver,
 	removable = false,
 	selectable = false,
 	loadBranch,
@@ -60,6 +60,9 @@ const {
 } = defineProps<TreeRootProps>()
 
 const emit = defineEmits<TreeEmits>()
+
+const { icons } = useConfig()
+const resolvedIconResolver: TreeIconResolver = iconResolver ?? (() => ({ icon: icons.file }))
 
 const active = defineModel<TreeModels['active']>('active', { default: null })
 const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
@@ -79,7 +82,7 @@ useProvideTreeState({
 	active,
 	selected,
 	expanded,
-	iconResolver,
+	iconResolver: resolvedIconResolver,
 	size,
 	color,
 	variant,

@@ -1,4 +1,5 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
+import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { Mod } from '../../utils'
@@ -26,7 +27,7 @@ export interface ComboboxOptionProps<
 const {
 	data,
 	iconPosition = 'left',
-	checkIcon = 'gravity-ui:check',
+	checkIcon,
 	withCheckIcon = true,
 	mod: _mod,
 	checked,
@@ -42,6 +43,9 @@ defineSlots<{
 		| 'checked'
 	>>) => any
 }>()
+
+const { icons } = useConfig()
+const resolvedCheckIcon = computed(() => checkIcon ?? icons.check)
 
 const { onOptionSubmit } = useComboboxState()
 
@@ -70,13 +74,13 @@ const mod = computed(() => [
 			<Icon
 				v-if='checked && withCheckIcon && iconPosition === "left"'
 				:class='css.optionCheck'
-				:name='data?.icon ?? checkIcon'
+				:name='data?.icon ?? resolvedCheckIcon'
 			/>
 			<span>{{ data.label }}</span>
 			<Icon
 				v-if='checked && withCheckIcon && iconPosition === "right"'
 				:class='css.optionCheck'
-				:name='data?.icon ?? checkIcon'
+				:name='data?.icon ?? resolvedCheckIcon'
 			/>
 		</slot>
 	</Box>
