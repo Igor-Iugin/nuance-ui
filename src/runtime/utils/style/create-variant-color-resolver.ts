@@ -12,7 +12,7 @@ export interface VariantColorResolverOptions {
 	theme: NuanceTheme
 }
 
-interface VariantColorResolverResult {
+export interface VariantColorResolverResult {
 	/** Base background CSS value. */
 	background: string
 	/** Background CSS value applied on hover. */

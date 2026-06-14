@@ -1,6 +1,7 @@
-import { createVariantColorResolver, useAppConfig } from '#imports'
+import type { VariantColorResolverOptions } from '@nui/utils'
 
-import type { VariantColorResolverOptions } from '../utils'
+import { createVariantColorResolver } from '@nui/utils'
+import { useAppConfig } from '#imports'
 
 
 /** Returns the configured icon registry merged with module defaults. */
