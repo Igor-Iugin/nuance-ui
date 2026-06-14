@@ -5,6 +5,13 @@ import { getGradient, getGradientOutline } from '../color/get-gradient'
 import { getThemeColor, parseThemeColor } from '../color/parse-theme-color'
 
 
+export interface VariantColorResolverOptions {
+	color: NuanceColor | AnyString | undefined
+	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	gradient?: NuanceGradient
+	theme: NuanceTheme
+}
+
 interface VariantColorResolverResult {
 	/** Base background CSS value. */
 	background: string
@@ -29,15 +36,10 @@ export function createVariantColorResolver({
 	variant,
 	gradient,
 	theme,
-}: {
-	color: NuanceColor | AnyString | undefined
-	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline' | 'dot'
-	gradient?: NuanceGradient
-	theme: NuanceTheme
-}): VariantColorResolverResult {
+}: VariantColorResolverOptions): VariantColorResolverResult {
 	const parsed = parseThemeColor({ color, theme })
 
-	if (variant === 'filled' || variant === 'dot') {
+	if (variant === 'filled') {
 		const text = 'var(--color-white)'
 
 		if (parsed.shade === undefined) {
