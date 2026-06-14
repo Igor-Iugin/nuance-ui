@@ -10,7 +10,7 @@ import type { BoxProps } from './box.vue'
 import Box from './box.vue'
 
 
-export type BadgeVariant = 'filled' | 'light' | 'outline' | 'dot' | 'default' | 'gradient'
+export type BadgeVariant = 'filled' | 'light' | 'outline' | 'default' | 'gradient' | 'subtle'
 
 export interface BadgeVars {
 	root:
@@ -61,6 +61,9 @@ export interface BadgeProps extends BoxProps {
 
 	/** Font weight */
 	fw?: CSSProperties['font-weight']
+
+	/** Adds a dot indicator before the label, inheriting the text color */
+	dotted?: boolean
 }
 
 const {
@@ -72,13 +75,14 @@ const {
 	circle,
 	icon,
 	fw,
+	dotted,
 } = defineProps<BadgeProps>()
 
 const { variantResolver } = useConfig()
 const style = useVarsResolver<BadgeVars>(theme => {
 	const { background, border, text } = variantResolver({
 		theme,
-		variant: variant === 'dot' ? 'default' : variant,
+		variant,
 		color,
 	})
 
@@ -92,7 +96,11 @@ const style = useVarsResolver<BadgeVars>(theme => {
 			'--badge-bg': color || variant ? background : undefined,
 			'--badge-color': color || variant ? text : undefined,
 			'--badge-bd': color || variant ? border : undefined,
-			'--badge-dot-color': variant === 'dot' ? getThemeColor(color, theme) : undefined,
+			'--badge-dot-color': dotted
+				? variant === 'default'
+					? getThemeColor(color, theme)
+					: text
+				: undefined,
 		},
 	}
 })
@@ -106,14 +114,14 @@ const style = useVarsResolver<BadgeVars>(theme => {
 			{
 				"block": fullWidth,
 				circle,
-				variant,
+				dotted,
 				"with-left-section": !!$slots.leftSection || !!icon,
 				"with-right-section": !!$slots.rightSection,
 			},
 			mod,
 		]'
 	>
-		<span v-if='variant === "dot"' :class='$style.dot' />
+		<span v-if='dotted && !circle' :class='$style.dot' />
 
 		<span v-else-if='$slots.leftSection || !!icon' :class='$style.section' data-position='left'>
 			<slot name='leftSection'>
@@ -144,7 +152,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 	--badge-fz-md: rem(12px);
 	--badge-fz-lg: rem(14px);
 	--badge-fz-xl: rem(16px);
-	--badge-fw: 400;
+	--badge-fw: 600;
 
 	--badge-padding-x-xs: rem(6px);
 	--badge-padding-x-sm: rem(8px);
@@ -188,7 +196,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 
 	-webkit-tap-highlight-color: transparent;
 
-	&:where([data-with-left-section], [data-variant='dot']) {
+	&:where([data-with-left-section], [data-dotted]) {
 		grid-template-columns: auto 1fr;
 
 		padding-left: calc(var(--badge-padding-x) - calc(var(--spacing-xs) / 2));
@@ -201,7 +209,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 	}
 
 	&:where([data-with-left-section][data-with-right-section],
-		[data-variant='dot'][data-with-right-section]) {
+		[data-dotted][data-with-right-section]) {
 		grid-template-columns: auto 1fr auto;
 
 		padding: 0 calc(var(--spacing-xs) / 2);
@@ -218,16 +226,6 @@ const style = useVarsResolver<BadgeVars>(theme => {
 
 		width: var(--badge-height);
 		padding-inline: 2px;
-	}
-
-	&:where([data-variant='dot']) {
-		@mixin where-light {
-			--badge-color: var(--color-black);
-		}
-
-		@mixin where-dark {
-			--badge-color: var(--color-white);
-		}
 	}
 }
 
