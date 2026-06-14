@@ -120,7 +120,7 @@ export function createVariantColorResolver({
 				deg: gradient?.deg,
 			}, theme),
 			text: 'var(--color-white)',
-			border: '1px solid transparent',
+			border: 'none',
 		}
 	}
 
