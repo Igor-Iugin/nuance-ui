@@ -52,3 +52,5 @@ Temporary Items
 
 # AI
 .claude/settings.local.json
+.claude/skills
+.agents
