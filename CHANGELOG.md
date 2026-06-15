@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.32
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.31...v0.2.32)
+
+### 🚀 Enhancements
+
+- **table:** Added colored variant for table ([c8ff43b](https://github.com/Igor-Iugin/nuance-ui/commit/c8ff43b))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.31
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.30...v0.2.31)
