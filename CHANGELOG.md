@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.33
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.32...v0.2.33)
+
+### 🚀 Enhancements
+
+- Update app shell theme ([8725b5a](https://github.com/Igor-Iugin/nuance-ui/commit/8725b5a))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.32
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.31...v0.2.32)
