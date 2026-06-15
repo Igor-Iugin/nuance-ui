@@ -19,6 +19,7 @@ export type TextVariant = 'text' | 'gradient'
 interface TextVars {
 	root:
 		| '--text-fz'
+		| '--text-ff'
 		| '--text-fw'
 		| '--text-lh'
 		| '--text-gradient'
@@ -48,6 +49,9 @@ export interface TextProps extends BoxProps {
 	/** Font size token */
 	fz?: NuanceFontSize | `h${TitleOrder}` | AnyString
 
+	/** Font family token @default 'text' */
+	ff?: 'mono' | 'headings' | 'text' | AnyString
+
 	/** Line height token */
 	lh?: NuanceSize | AnyString
 
@@ -71,6 +75,7 @@ const {
 	variant,
 	gradient,
 	fz,
+	ff,
 	fw,
 	lh,
 	c,
@@ -89,6 +94,7 @@ const _mod = computed(() => [{
 const style = useVarsResolver<TextVars>(theme => ({
 	root: {
 		'--text-fz': getFontSize(fz || size),
+		'--text-ff': ff ? `var(--font-family${ff === 'text' ? '' : ff})` : undefined,
 		'--text-fw': fw?.toString(),
 		'--text-lh': getLineHeight(lh || size),
 		'--text-gradient': variant === 'gradient' ? getGradient(gradient, theme) : undefined,
@@ -115,6 +121,8 @@ const style = useVarsResolver<TextVars>(theme => ({
 
 	margin: 0;
 	padding: 0;
+
+	font-family: var(--text-ff, var(--font-family));
 
 	font-size: var(--text-fz);
 	font-weight: var(--text-fw);

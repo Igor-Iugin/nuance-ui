@@ -21,6 +21,7 @@ const {
 	order = '2',
 	textWrap,
 	size,
+	ff = 'headings',
 	...rest
 } = defineProps<TitleProps>()
 
@@ -31,6 +32,7 @@ const style = computed(() => ({ '--title-text-wrap': textWrap }))
 	<Text
 		:is='`h${order}`'
 		v-bind='rest'
+		:ff
 		:size='size || `h${order}`'
 		:class='$style.root'
 		:style
