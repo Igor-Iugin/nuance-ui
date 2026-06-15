@@ -391,6 +391,8 @@ defineExpose({
 
 		border: 1px solid var(--color-default-border);
 		border-radius: var(--radius-default);
+
+		background-color: var(--color-body);
 	}
 
 	&:not([data-virtualize]) {
@@ -452,7 +454,7 @@ defineExpose({
 
 	.root:where([data-variant='colored']) & {
 		@mixin where-light {
-			background-color: var(--color-gray-0);
+			background-color: var(--color-gray-1);
 		}
 
 		@mixin where-dark {

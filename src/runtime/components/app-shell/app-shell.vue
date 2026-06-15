@@ -132,6 +132,11 @@ const style = useVarsResolver<AppShellVars>(() => ({
 	--app-shell-footer-offset: var(--app-shell-footer-height);
 	--app-shell-footer-transform: none;
 
+	--color-navbar: var(--color-body);
+	--color-aside: var(--color-body);
+	--color-header: var(--color-body);
+	--color-footer: var(--color-body);
+
 	@mixin where-light {
 		--app-shell-border-color: var(--color-gray-3);
 	}

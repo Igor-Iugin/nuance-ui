@@ -5,8 +5,7 @@
 
 		--color-text: var(--color-dark-0);
 		--color-body: var(--color-dark-7);
-		--color-aside: var(--color-dark-7);
-		--color-header: var(--color-dark-8);
+		--color-body-bg: var(--color-dark-9);
 
 		--color-error: var(--color-red-8);
 		--color-placeholder: var(--color-dark-3);
