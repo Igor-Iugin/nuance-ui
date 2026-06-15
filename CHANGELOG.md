@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.31
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.30...v0.2.31)
+
+### 🩹 Fixes
+
+- CardSection styles ([e013201](https://github.com/Igor-Iugin/nuance-ui/commit/e013201))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.30
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.29...v0.2.30)
