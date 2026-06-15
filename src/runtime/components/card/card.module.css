@@ -21,23 +21,23 @@
 	display: block;
 	margin-inline: calc(var(--card-padding) * -1);
 
-	&:where(:first-child) {
-		margin-top: calc(var(--card-padding) * -1);
-		border-top: none !important;
-	}
-
-	&:where(:last-child) {
-		margin-bottom: calc(var(--card-padding) * -1);
-		border-bottom: none !important;
-	}
-
-	&:where([data-inherit-padding]) {
-		padding-inline: var(--card-padding);
-	}
-
 	&:where([data-with-border]) {
 		border-top: 1px solid;
 		border-bottom: 1px solid;
+	}
+
+	&:where(:first-of-type) {
+		margin-top: calc(var(--card-padding) * -1);
+		border-top: none;
+	}
+
+	&:where(:last-of-type) {
+		margin-bottom: calc(var(--card-padding) * -1);
+		border-bottom: none;
+	}
+
+	&:where([data-inherit-padding]) {
+		padding: var(--card-padding);
 	}
 
 	@mixin where-light {
@@ -48,7 +48,7 @@
 		border-color: var(--color-dark-4);
 	}
 
-	& + & {
-		border-top: none !important;
+	&+& {
+		border-top: none;
 	}
 }
