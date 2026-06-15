@@ -218,7 +218,12 @@ defineExpose({
 </script>
 
 <template>
-	<Box ref='rootRef' :class='[$style.root, props.classes?.root]' :style>
+	<Box
+		ref='rootRef'
+		:mod='[{ variant: variant ?? "colored" }]'
+		:class='[$style.root, props.classes?.root]'
+		:style
+	>
 		<table ref='tableRef' :class='[$style.table, props.classes?.table]'>
 			<caption v-if='caption || $slots.caption' :class='props.classes?.caption'>
 				<slot name='caption'>
@@ -379,6 +384,15 @@ defineExpose({
 
 	overflow: auto;
 
+	&:where([data-variant='colored']) {
+		--table-padding-x: 1rem;
+		--table-padding-y: .75rem;
+		--vertical-align: middle;
+
+		border: 1px solid var(--color-default-border);
+		border-radius: var(--radius-default);
+	}
+
 	&:not([data-virtualize]) {
 		.table {
 			overflow: clip;
@@ -434,6 +448,16 @@ defineExpose({
 
 	&:has([role='checkbox']) {
 		padding-inline-end: 0;
+	}
+
+	.root:where([data-variant='colored']) & {
+		@mixin where-light {
+			background-color: var(--color-gray-0);
+		}
+
+		@mixin where-dark {
+			background-color: var(--color-dark-6);
+		}
 	}
 }
 

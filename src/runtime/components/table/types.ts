@@ -73,6 +73,8 @@ export interface TableProps<T extends TableData = TableData>
 	/** Row data */
 	data?: T[]
 
+	variant?: 'colored' | 'clear'
+
 	/** Column definitions */
 	columns?: TableColumn<T>[]
 

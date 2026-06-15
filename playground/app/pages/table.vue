@@ -122,12 +122,12 @@ const columns = [
 </script>
 
 <template>
-	<NTable :data :columns vertical-align='middle' />
+	<NTable :data :columns variant='colored' vertical-align='middle' />
 </template>
 
 <style lang="css" module>
-	.cell {
-		text-align: center;
-	}
+.cell {
+	text-align: center;
+}
 </style>
 
