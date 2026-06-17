@@ -14,6 +14,7 @@ export * from './checkbox'
 export * from './chip'
 export * from './combobox'
 export type * from './container.vue'
+export type * from './divider.vue'
 
 export type * from './date-time-picker.vue'
 export * from './dialog'
