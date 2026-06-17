@@ -6,5 +6,8 @@
       "Bash(pnpm lint:ts)",
       "Bash(npm run:*)"
     ]
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
   }
 }
