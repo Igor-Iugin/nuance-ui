@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v0.2.34
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.33...v0.2.34)
+
+### 🚀 Enhancements
+
+- Added font-family prop to Text ([1ab4624](https://github.com/Igor-Iugin/nuance-ui/commit/1ab4624))
+- **ai:** Added ponytail :D ([1fab326](https://github.com/Igor-Iugin/nuance-ui/commit/1fab326))
+- ✨  Divider component ([d53f8ea](https://github.com/Igor-Iugin/nuance-ui/commit/d53f8ea))
+- Added sizes to Alert ([51bd41f](https://github.com/Igor-Iugin/nuance-ui/commit/51bd41f))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.33
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.32...v0.2.33)
