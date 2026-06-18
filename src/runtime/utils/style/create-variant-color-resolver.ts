@@ -7,7 +7,7 @@ import { getThemeColor, parseThemeColor } from '../color/parse-theme-color'
 
 export interface VariantColorResolverOptions {
 	color: NuanceColor | AnyString | undefined
-	variant: 'filled' | 'light' | 'outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	variant: 'filled' | 'light' | 'outline' | 'light-outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
 	gradient?: NuanceGradient
 	theme: NuanceTheme
 }
@@ -91,6 +91,24 @@ export function createVariantColorResolver({
 			background: 'transparent',
 			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .05)`,
 			text: `var(--color-${parsed.color}-${parsed.shade})`,
+			border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
+		}
+	}
+
+	if (variant === 'light-outline') {
+		if (parsed.shade === undefined) {
+			return {
+				background: `var(--color-${color}-light)`,
+				hover: `var(--color-${color}-light-hover)`,
+				text: `var(--color-${color}-light-color)`,
+				border: `1px solid var(--color-${color}-outline)`,
+			}
+		}
+
+		return {
+			background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
+			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
+			text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
 			border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
 		}
 	}

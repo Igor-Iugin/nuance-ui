@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import type { Classes, NuanceColor, NuanceRadius } from '@nui/types'
+import type { Classes, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
-import { getRadius } from '@nui/utils'
+import { getFontSize, getRadius } from '@nui/utils'
 import { useId } from 'vue'
 
 import type { BoxProps } from './box.vue'
@@ -13,10 +13,10 @@ import Box from './box.vue'
 
 export type AlertClasses = 'root' | 'icon' | 'body' | 'title' | 'label' | 'message' | 'closeButton'
 
-export type AlertVariant = 'filled' | 'light' | 'outline' | 'default'
+export type AlertVariant = 'filled' | 'light' | 'outline' | 'light-outline' | 'default'
 
 export interface AlertVars {
-	root: '--alert-radius' | '--alert-bg' | '--alert-color' | '--alert-bd'
+	root: '--alert-radius' | '--alert-bg' | '--alert-color' | '--alert-bd' | '--alert-font-size'
 }
 
 export interface AlertProps extends BoxProps {
@@ -41,6 +41,9 @@ export interface AlertProps extends BoxProps {
 	/** `aria-label` for the close button */
 	closeButtonLabel?: string
 
+	/** Component size */
+	size?: NuanceSize
+
 	/** Visual variant */
 	variant?: AlertVariant
 
@@ -54,6 +57,7 @@ const {
 	color,
 	title,
 	radius,
+	size = 'md',
 	variant = 'light',
 	withCloseButton,
 	classes,
@@ -74,6 +78,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 			'--alert-bg': color || variant ? background : undefined,
 			'--alert-color': text,
 			'--alert-bd': color || variant ? border : undefined,
+			'--alert-font-size': getFontSize(size),
 		},
 	}
 })
@@ -136,7 +141,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 
 	overflow: hidden;
 	display: flex;
-	gap: var(--spacing-sm);
+	gap: var(--spacing-xs);
 
 	padding: var(--spacing-sm);
 	border: var(--alert-bd);
@@ -151,7 +156,6 @@ const style = useVarsResolver<AlertVars>(theme => {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	gap: var(--spacing-xs);
 }
 
 .title {
@@ -159,7 +163,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 	align-items: center;
 	justify-content: space-between;
 
-	font-size: var(--font-size-md);
+	font-size: var(--alert-font-size, var(--font-size-md));
 	font-weight: 700;
 }
 
@@ -175,17 +179,18 @@ const style = useVarsResolver<AlertVars>(theme => {
 	align-items: center;
 	justify-content: flex-start;
 
-	width: 1.25rem;
-	height: 1.25rem;
+	width: calc(var(--alert-font-size) * 1.3);
+	height: calc(var(--alert-font-size) * 1.3);
 	margin-top: 1px;
 
+	font-size: var(--alert-font-size);
 	line-height: 1;
 }
 
 .message {
 	overflow: hidden;
 
-	font-size: var(--font-size-md);
+	font-size: var(--alert-font-size, var(--font-size-md));
 	text-overflow: ellipsis;
 
 	:where([data-mantine-color-scheme='light']) & {
