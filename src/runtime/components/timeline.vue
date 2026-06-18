@@ -10,7 +10,7 @@ import type {
 } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
-import { getRadius, getSize, getThemeColor, rem } from '@nui/utils'
+import { getRadius, getSize, getSpacing, getThemeColor, rem } from '@nui/utils'
 import { computed } from 'vue'
 
 import type { BoxProps } from './box.vue'
@@ -59,6 +59,7 @@ export interface TimelineVars {
 		| '--tl-size'
 		| '--tl-color'
 		| '--tl-radius'
+		| '--tl-gap'
 }
 
 export type TimelineSlots<T extends TimelineItem = TimelineItem> = {
@@ -95,6 +96,9 @@ export interface TimelineProps<T extends TimelineItem> extends BoxProps {
 	/** Control width of the line */
 	lineWidth?: number | string
 
+	/** Gap between items (padding-bottom on each non-last item) */
+	gap?: number | string
+
 	/** If set, the active items direction is reversed without reversing items order @default false */
 	reverse?: boolean
 
@@ -123,6 +127,7 @@ const {
 	align = 'left',
 	size,
 	lineWidth = 4,
+	gap,
 	color,
 	classes,
 	mod,
@@ -141,6 +146,7 @@ const style = useVarsResolver<TimelineVars>(theme => ({
 		'--tl-line-width': rem(lineWidth),
 		'--tl-radius': radius === undefined ? undefined : getRadius(radius),
 		'--tl-color': color ? getThemeColor(color, theme) : undefined,
+		'--tl-gap': getSpacing(gap),
 	},
 }))
 
@@ -231,6 +237,7 @@ function getActive(ix: number): boolean {
 	--tl-line-width: .25rem;
 	--tl-radius: 1000px;
 	--tl-color: var(--color-primary-filled);
+	--tl-gap: var(--spacing-xl);
 
 	&:where([data-align='left']) {
 		padding-inline-start: var(--tl-offset);
@@ -349,7 +356,7 @@ function getActive(ix: number): boolean {
 	&:where(:not(:last-of-type)) {
 		--timeline-line-display: block;
 
-		padding-bottom: var(--spacing-xl);
+		padding-bottom: var(--tl-gap);
 	}
 
 	.root:where([data-orientation='horizontal']) &:where(:not(:first-of-type)) {
