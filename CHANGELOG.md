@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.2.35
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.34...v0.2.35)
+
+### 🚀 Enhancements
+
+- Timeline add gap prop ([14de4df](https://github.com/Igor-Iugin/nuance-ui/commit/14de4df))
+
+### 💅 Refactors
+
+- Move default icons to lucide ([dad3487](https://github.com/Igor-Iugin/nuance-ui/commit/dad3487))
+
+### 🏡 Chore
+
+- Edit license ([cc3e2ff](https://github.com/Igor-Iugin/nuance-ui/commit/cc3e2ff))
+- Update project description ([1e3c34a](https://github.com/Igor-Iugin/nuance-ui/commit/1e3c34a))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.34
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.33...v0.2.34)
