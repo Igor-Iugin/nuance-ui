@@ -1,21 +1,23 @@
+export type * from './accordion.vue'
 export * from './action-icon'
 export * from './app-shell'
-export * from './avatar'
 
+export * from './avatar'
 export type * from './background-image.vue'
 export type * from './badge.vue'
 export type * from './box.vue'
-export type * from './breadcrumbs.vue'
 
+export type * from './breadcrumbs.vue'
 export * from './button'
 export * from './calendar'
 export * from './card'
 export * from './checkbox'
 export * from './chip'
+export * from './collapsible'
 export * from './combobox'
+
 export type * from './container.vue'
 export type * from './date-time-picker.vue'
-
 export * from './dialog'
 export type * from './divider.vue'
 

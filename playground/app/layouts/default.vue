@@ -70,6 +70,9 @@ useHead({
 			<NNavLink to='/scroll-area'>
 				ScrollArea
 			</NNavLink>
+			<NNavLink to='/collapsible'>
+				Collapsible
+			</NNavLink>
 			<NNavLink to='/timeline'>
 				Timeline
 			</NNavLink>
