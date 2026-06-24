@@ -3,11 +3,11 @@
 
 <template>
 	<div class='root'>
-		<NActionIcon icon='gravity-ui:trash-bin' size='xs' />
-		<NActionIcon icon='gravity-ui:trash-bin' size='sm' />
-		<NActionIcon icon='gravity-ui:trash-bin' size='md' />
-		<NActionIcon icon='gravity-ui:trash-bin' size='lg' />
-		<NActionIcon icon='gravity-ui:trash-bin' size='xl' />
+		<NActionIcon icon='lucide:trash' size='xs' />
+		<NActionIcon icon='lucide:trash' size='sm' />
+		<NActionIcon icon='lucide:trash' size='md' />
+		<NActionIcon icon='lucide:trash' size='lg' />
+		<NActionIcon icon='lucide:trash' size='xl' />
 	</div>
 </template>
 

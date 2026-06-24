@@ -5,38 +5,38 @@
 	<NStack gap='2xl' p='lg'>
 		<!-- ─── Variants ─── -->
 		<NStack gap='sm'>
-			<NAlert title='Filled' icon='gravity-ui:triangle-exclamation' color='blue' variant='filled'>
+			<NAlert title='Filled' icon='lucide:triangle-alert' color='blue' variant='filled'>
 				Something went wrong
 			</NAlert>
-			<NAlert title='Light' icon='gravity-ui:triangle-exclamation' color='blue' variant='light'>
+			<NAlert title='Light' icon='lucide:triangle-alert' color='blue' variant='light'>
 				Something went wrong
 			</NAlert>
-			<NAlert title='Outline' icon='gravity-ui:triangle-exclamation' color='blue' variant='outline'>
+			<NAlert title='Outline' icon='lucide:triangle-alert' color='blue' variant='outline'>
 				Something went wrong
 			</NAlert>
-			<NAlert title='Light-outline' icon='gravity-ui:triangle-exclamation' color='blue' variant='light-outline'>
+			<NAlert title='Light-outline' icon='lucide:triangle-alert' color='blue' variant='light-outline'>
 				Something went wrong
 			</NAlert>
-			<NAlert title='Default' icon='gravity-ui:triangle-exclamation' color='blue' variant='default'>
+			<NAlert title='Default' icon='lucide:triangle-alert' color='blue' variant='default'>
 				Something went wrong
 			</NAlert>
 		</NStack>
 
 		<!-- ─── Sizes ─── -->
 		<NStack gap='sm'>
-			<NAlert title='XS size' icon='gravity-ui:circle-info' color='orange' size='xs'>
+			<NAlert title='XS size' icon='lucide:info' color='orange' size='xs'>
 				Extra small alert
 			</NAlert>
-			<NAlert title='SM size' icon='gravity-ui:circle-info' color='orange' size='sm'>
+			<NAlert title='SM size' icon='lucide:info' color='orange' size='sm'>
 				Small alert
 			</NAlert>
-			<NAlert title='MD size' icon='gravity-ui:circle-info' color='orange' size='md'>
+			<NAlert title='MD size' icon='lucide:info' color='orange' size='md'>
 				Medium alert (default)
 			</NAlert>
-			<NAlert title='LG size' icon='gravity-ui:circle-info' color='orange' size='lg'>
+			<NAlert title='LG size' icon='lucide:info' color='orange' size='lg'>
 				Large alert
 			</NAlert>
-			<NAlert title='XL size' icon='gravity-ui:circle-info' color='orange' size='xl'>
+			<NAlert title='XL size' icon='lucide:info' color='orange' size='xl'>
 				Extra large alert
 			</NAlert>
 		</NStack>
@@ -47,7 +47,7 @@
 				v-for='color in ["red", "orange", "yellow", "green", "teal", "blue", "violet", "grape"]'
 				:key='color'
 				:title='color'
-				icon='gravity-ui:circle-info'
+				icon='lucide:info'
 				:color='color'
 				variant='light'
 			>
@@ -56,7 +56,7 @@
 		</NStack>
 
 		<!-- ─── With close button ─── -->
-		<NAlert title='Dismissible' icon='gravity-ui:circle-info' color='green' variant='light-outline' with-close-button>
+		<NAlert title='Dismissible' icon='lucide:info' color='green' variant='light-outline' with-close-button>
 			This alert can be closed
 		</NAlert>
 

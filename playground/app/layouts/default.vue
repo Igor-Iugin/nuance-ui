@@ -5,8 +5,6 @@ import { NModalsProvider } from '@nui/modals'
 useHead({
 	title: 'Компоненты',
 })
-
-const theme = useTheme()
 </script>
 
 <template>
@@ -78,10 +76,7 @@ const theme = useTheme()
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
-			<NActionIcon
-				:icon='theme.value === "light" ? "gravity-ui:moon" : "gravity-ui:sun"'
-				@click='theme.preference = theme.value === "light" ? "dark" : "light"'
-			/>
+			<NThemeToggle />
 		</NAppShellHeader>
 		<NAppShellMain>
 			<slot />

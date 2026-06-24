@@ -30,11 +30,11 @@ const { opened } = useModal('map-history')
 			</NModalTitle>
 			<NActionIconGroup>
 				<NActionIcon
-					icon='gravity-ui:arrow-uturn-ccw-left'
+					icon='lucide:undo-2'
 					size='sm'
 				/>
 				<NActionIcon
-					icon='gravity-ui:arrow-uturn-cw-right'
+					icon='lucide:redo-2'
 					size='sm'
 				/>
 			</NActionIconGroup>

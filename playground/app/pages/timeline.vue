@@ -30,10 +30,10 @@ const items: TimelineItem[] = [
 ]
 
 const itemsWithIcons: TimelineItem[] = [
-	{ id: '1', label: 'Draft', icon: 'gravity-ui:pencil' },
-	{ id: '2', label: 'Review', icon: 'gravity-ui:magnifier' },
-	{ id: '3', label: 'Approved', icon: 'gravity-ui:check' },
-	{ id: '4', label: 'Published', icon: 'gravity-ui:rocket' },
+	{ id: '1', label: 'Draft', icon: 'lucide:pencil' },
+	{ id: '2', label: 'Review', icon: 'lucide:search' },
+	{ id: '3', label: 'Approved', icon: 'lucide:check' },
+	{ id: '4', label: 'Published', icon: 'lucide:rocket' },
 ]
 
 interface ActivityItem extends TimelineItem {
@@ -49,7 +49,7 @@ const activityItems: ActivityItem[] = [
 		username: 'J-Michalek',
 		date: '2025-05-24T14:58:55Z',
 		action: 'opened this',
-		icon: 'gravity-ui:circle-plus',
+		icon: 'lucide:circle-plus',
 	},
 	{
 		id: '2',
@@ -57,7 +57,7 @@ const activityItems: ActivityItem[] = [
 		username: 'J-Michalek',
 		date: '2025-05-26T19:30:14Z',
 		action: 'marked as ready for review',
-		icon: 'gravity-ui:circle-check',
+		icon: 'lucide:circle-check',
 	},
 	{
 		id: '3',
@@ -66,7 +66,7 @@ const activityItems: ActivityItem[] = [
 		date: '2025-05-27T11:01:20Z',
 		action: 'commented on this',
 		description: "I've made a few changes, let me know what you think! Updated the design, removed unnecessary divs.",
-		icon: 'gravity-ui:comment',
+		icon: 'lucide:message-circle',
 	},
 	{
 		id: '4',
@@ -75,7 +75,7 @@ const activityItems: ActivityItem[] = [
 		date: '2025-05-27T13:00:00Z',
 		action: 'commented on this',
 		description: 'Looks great! Good job on cleaning it up.',
-		icon: 'gravity-ui:comment',
+		icon: 'lucide:message-circle',
 	},
 	{
 		id: '5',
@@ -83,7 +83,7 @@ const activityItems: ActivityItem[] = [
 		username: 'benjamincanac',
 		date: '2025-05-28T09:15:00Z',
 		action: 'merged this',
-		icon: 'gravity-ui:branches-right',
+		icon: 'lucide:git-branch',
 	},
 ]
 

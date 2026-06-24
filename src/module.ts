@@ -12,8 +12,7 @@ import type { PrimaryColor } from './build/generate-primary-css'
 import type { NuanceGradient, NuanceIcons } from './runtime/types'
 
 import { generatePrimaryCss } from './build/generate-primary-css'
-import { DEFAULT_GRADIENT } from './runtime/utils/color/const'
-import { DEFAULT_ICONS } from './runtime/utils/icons/default-icons'
+import { DEFAULT_GRADIENT, DEFAULT_ICONS } from './runtime/utils'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {

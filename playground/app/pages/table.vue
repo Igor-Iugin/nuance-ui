@@ -106,7 +106,7 @@ const columns = [
 	}),
 	helper.display({
 		id: 'icon',
-		cell: () => h(Icon, { name: 'gravity-ui:folder', size: 20 }),
+		cell: () => h(Icon, { name: 'lucide:folder', size: 20 }),
 		size: 40,
 	}),
 	helper.accessor('date', {

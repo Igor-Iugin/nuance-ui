@@ -19,7 +19,7 @@ const manualItems: BreadcrumbsItem[] = [
 	{
 		to: '/breadcrumbs',
 		label: 'Breadcrumbs',
-		icon: 'gravity-ui:list-check',
+		icon: 'lucide:list-checks',
 	},
 ]
 
@@ -28,22 +28,22 @@ const itemsWithIcons: BreadcrumbsItem[] = [
 	{
 		to: '/',
 		label: 'Home',
-		icon: 'gravity-ui:house',
+		icon: 'lucide:house',
 	},
 	{
 		to: '/products',
 		label: 'Products',
-		icon: 'gravity-ui:shopping-cart',
+		icon: 'lucide:shopping-cart',
 	},
 	{
 		to: '/products/electronics',
 		label: 'Electronics',
-		icon: 'gravity-ui:tv',
+		icon: 'lucide:tv',
 	},
 	{
 		to: '/products/electronics/phones',
 		label: 'Phones',
-		icon: 'gravity-ui:smartphone',
+		icon: 'lucide:smartphone',
 	},
 ]
 </script>
@@ -68,7 +68,7 @@ const itemsWithIcons: BreadcrumbsItem[] = [
 		<NTitle order='3'>
 			3. Custom Separator
 		</NTitle>
-		<NBreadcrumbs :items='manualItems' separator='gravity-ui:arrow-right' spacing='md' />
+		<NBreadcrumbs :items='manualItems' separator='lucide:arrow-right' spacing='md' />
 
 		<!-- Секция 4: Разные размеры -->
 		<NTitle order='3'>

@@ -38,7 +38,7 @@
 			<NButton>
 				Action
 			</NButton>
-			<NActionIcon size='sm' icon='gravity-ui:trash-bin' />
+			<NActionIcon size='sm' icon='lucide:trash' />
 			<NButton>
 				More
 			</NButton>
