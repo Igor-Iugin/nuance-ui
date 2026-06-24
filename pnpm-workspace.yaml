@@ -7,3 +7,7 @@ allowBuilds:
   unrs-resolver: true
   vue-demi: true
   sharp: true
+
+minimumReleaseAgeExclude:
+  - '@antfu/eslint-config@9.1.0'
+  - eslint-plugin-yml@3.5.0
