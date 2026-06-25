@@ -20,15 +20,13 @@ const resolvedIcon = computed(() => icon ?? icons.close)
 </script>
 
 <template>
-	<ClientOnly>
-		<ActionIcon
-			:icon='resolvedIcon'
-			:variant
-			tabindex='0'
-			v-bind='props'
-			@click='close'
-		>
-			<slot />
-		</ActionIcon>
-	</ClientOnly>
+	<ActionIcon
+		:icon='resolvedIcon'
+		:variant
+		tabindex='0'
+		v-bind='props'
+		@click='close'
+	>
+		<slot />
+	</ActionIcon>
 </template>

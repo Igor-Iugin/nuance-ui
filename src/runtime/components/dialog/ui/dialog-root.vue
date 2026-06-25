@@ -96,9 +96,6 @@ function open(dialog: HTMLDialogElement | null | undefined) {
 
 const dialogRef = shallowRef<HTMLDialogElement | null>(null)
 
-// Sync v-model state with the native <dialog>.
-// Watch both values: `opened` may become true before the element is mounted
-// (ClientOnly + Teleport), and the element may appear when `opened` is already true.
 watch([opened, () => unrefElement(dialogRef)] as const, ([isOpen, dialog]) => {
 	if (!dialog)
 		return
@@ -120,29 +117,27 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<ClientOnly>
-		<Teleport :disabled='!withinPortal' :to='portalTarget'>
-			<Box
-				is='dialog'
-				ref='dialogRef'
-				:class='[css.root, classes?.root]'
-				:mod='[{ "without-overlay": withoutOverlay }, mod]'
-				:style
-				@click='overlayClick'
-				@close='$emit("close")'
-				@cancel.prevent='opened = false'
-			>
-				<NTransition :name='transition'>
-					<Box
-						is='section'
-						v-if='opened'
-						:class='[css.content, classes?.content]'
-						v-bind='$attrs'
-					>
-						<slot />
-					</Box>
-				</NTransition>
-			</Box>
-		</Teleport>
-	</ClientOnly>
+	<Teleport :disabled='!withinPortal' :to='portalTarget'>
+		<Box
+			is='dialog'
+			ref='dialogRef'
+			:class='[css.root, classes?.root]'
+			:mod='[{ "without-overlay": withoutOverlay }, mod]'
+			:style
+			@click='overlayClick'
+			@close='$emit("close")'
+			@cancel.prevent='opened = false'
+		>
+			<NTransition :name='transition'>
+				<Box
+					is='section'
+					v-if='opened'
+					:class='[css.content, classes?.content]'
+					v-bind='$attrs'
+				>
+					<slot />
+				</Box>
+			</NTransition>
+		</Box>
+	</Teleport>
 </template>

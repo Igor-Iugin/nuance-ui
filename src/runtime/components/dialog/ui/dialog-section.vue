@@ -13,9 +13,7 @@ const { is = 'section', bordered, mod } = defineProps<DialogSectionProps>()
 </script>
 
 <template>
-	<ClientOnly>
-		<Box :is :mod='[{ bordered }, mod]' :class='css.section'>
-			<slot />
-		</Box>
-	</ClientOnly>
+	<Box :is :mod='[{ bordered }, mod]' :class='css.section'>
+		<slot />
+	</Box>
 </template>

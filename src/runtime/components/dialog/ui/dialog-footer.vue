@@ -12,9 +12,7 @@ const { is = 'footer', mod } = defineProps<DialogFooterProps>()
 </script>
 
 <template>
-	<ClientOnly>
-		<Box :is :mod :class='css.footer'>
-			<slot />
-		</Box>
-	</ClientOnly>
+	<Box :is :mod :class='css.footer'>
+		<slot />
+	</Box>
 </template>
