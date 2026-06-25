@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.2.36
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.35...v0.2.36)
+
+### 🚀 Enhancements
+
+- New Collapsible, Accordion component ([203e31c](https://github.com/Igor-Iugin/nuance-ui/commit/203e31c))
+- Added Transition props from vue Component ([e7393fe](https://github.com/Igor-Iugin/nuance-ui/commit/e7393fe))
+
+### 🩹 Fixes
+
+- Eslint error with double script block ([1362332](https://github.com/Igor-Iugin/nuance-ui/commit/1362332))
+
+### 💅 Refactors
+
+- Remove ClientOnly ([017742d](https://github.com/Igor-Iugin/nuance-ui/commit/017742d))
+
+### 🏡 Chore
+
+- Update antfu config ([c59c130](https://github.com/Igor-Iugin/nuance-ui/commit/c59c130))
+- **eslint:** Fix ([7901c23](https://github.com/Igor-Iugin/nuance-ui/commit/7901c23))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.35
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.34...v0.2.35)
