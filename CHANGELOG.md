@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.37
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.36...v0.2.37)
+
+### 🚀 Enhancements
+
+- Added icon-size prop ([172e126](https://github.com/Igor-Iugin/nuance-ui/commit/172e126))
+
+### 💅 Refactors
+
+- Added active props to button-like components ([d3e965a](https://github.com/Igor-Iugin/nuance-ui/commit/d3e965a))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.2.36
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.35...v0.2.36)
