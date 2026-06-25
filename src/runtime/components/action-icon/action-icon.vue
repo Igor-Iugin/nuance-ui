@@ -20,6 +20,7 @@ export type ActionIconSize = NuanceSize | `input-${NuanceSize}` | AnyString
 export interface ActionIconVars {
 	root:
 		| '--ai-size'
+		| '--ai-icon-size'
 		| '--ai-radius'
 		| '--ai-bg'
 		| '--ai-hover'
@@ -30,6 +31,9 @@ export interface ActionIconVars {
 export interface ActionIconProps {
 	/** Component size  @default 'md' */
 	size?: ActionIconSize
+
+	/** Icon size — `%` stays relative to the button, other values resolve via size tokens @default '70%' */
+	iconSize?: number | string
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
@@ -62,6 +66,7 @@ export interface ActionIconProps {
 const {
 	color,
 	size,
+	iconSize,
 	variant = 'default',
 	gradient,
 	loading,
@@ -84,6 +89,7 @@ const style = useVarsResolver<ActionIconVars>(theme => {
 	return {
 		root: {
 			'--ai-size': getSize(size, 'ai-size'),
+			'--ai-icon-size': getSize(iconSize),
 			'--ai-radius': getRadius(radius),
 			'--ai-bg': background,
 			'--ai-hover': hover,

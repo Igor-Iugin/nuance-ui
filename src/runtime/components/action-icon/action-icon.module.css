@@ -12,6 +12,7 @@
 	--ai-size-input-xl: rem(60px);
 
 	--ai-size: var(--ai-size-sm);
+	--ai-icon-size: 70%;
 	--ai-color: var(--color-white);
 	--ai-radius: var(--radius-default);
 	--ai-bg: var(--color-primary-filled);
@@ -113,8 +114,8 @@
 }
 
 .icon-element {
-	width: 70%;
-	height: 70%;
+	width: var(--ai-icon-size);
+	height: var(--ai-icon-size);
 }
 
 .group {
