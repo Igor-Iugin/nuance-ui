@@ -1,4 +1,5 @@
 import type { NuanceGradient, NuanceIcons } from './types'
+import type { ActiveVariantsMap } from './utils'
 
 
 declare module '@nuxt/schema' {
@@ -8,6 +9,8 @@ declare module '@nuxt/schema' {
 			gradient?: NuanceGradient
 			/** Icon registry overrides */
 			icons?: Partial<NuanceIcons>
+			/** Variant an ActionIcon switches to when `active`, keyed by its base variant */
+			activeVariants?: Partial<ActiveVariantsMap>
 		}
 	}
 
@@ -15,6 +18,7 @@ declare module '@nuxt/schema' {
 		nui: {
 			gradient: NuanceGradient
 			icons: NuanceIcons
+			activeVariants: ActiveVariantsMap
 		}
 	}
 }

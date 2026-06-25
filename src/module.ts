@@ -10,9 +10,10 @@ import { defu } from 'defu'
 
 import type { PrimaryColor } from './build/generate-primary-css'
 import type { NuanceGradient, NuanceIcons } from './runtime/types'
+import type { ActiveVariantsMap } from './runtime/utils'
 
 import { generatePrimaryCss } from './build/generate-primary-css'
-import { DEFAULT_GRADIENT, DEFAULT_ICONS } from './runtime/utils'
+import { DEFAULT_ACTIVE_VARIANTS, DEFAULT_GRADIENT, DEFAULT_ICONS } from './runtime/utils'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -46,6 +47,9 @@ export interface ModuleOptions {
 
 	/** Icon registry overrides */
 	icons?: Partial<NuanceIcons>
+
+	/** Variant an ActionIcon switches to when `active`, keyed by its base variant */
+	activeVariants?: Partial<ActiveVariantsMap>
 }
 
 const defaultConfig = {
@@ -55,6 +59,7 @@ const defaultConfig = {
 	primaryColor: 'blue',
 	gradient: DEFAULT_GRADIENT,
 	icons: DEFAULT_ICONS,
+	activeVariants: DEFAULT_ACTIVE_VARIANTS,
 } satisfies ModuleOptions
 
 export default defineNuxtModule<ModuleOptions>({
@@ -105,6 +110,7 @@ export default defineNuxtModule<ModuleOptions>({
 		nuxt.options.appConfig.nui = defu(nuxt.options.appConfig.nui, {
 			gradient: options.gradient,
 			icons: options.icons,
+			activeVariants: options.activeVariants,
 		})
 
 		addTypeTemplate({

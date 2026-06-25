@@ -4,6 +4,7 @@ import type { CSSProperties, HTMLAttributes } from 'vue'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { computed } from 'vue'
 
 import type { BoxProps } from '../box.vue'
 
@@ -79,6 +80,18 @@ export interface ButtonProps extends BoxProps {
 	/** Visual variant */
 	variant?: ButtonVariant
 
+	/** Active/pressed state — adds `data-active` and the matching ARIA attribute */
+	active?: boolean
+
+	/** ARIA semantic for `active` @default 'pressed' */
+	activeMode?: 'pressed' | 'current'
+
+	/** Variant applied when `active`. Defaults to the configured map for the current `variant` */
+	activeVariant?: ButtonVariant
+
+	/** Color applied when `active` @default 'primary' */
+	activeColor?: NuanceColor
+
 	/** Styles API */
 	classes?: Classes<ButtonClasses>
 }
@@ -93,16 +106,24 @@ const {
 	loading,
 	classes,
 	rightSectionProps,
+	active,
+	activeMode = 'pressed',
+	activeVariant,
+	activeColor = 'primary',
 	...props
 } = defineProps<ButtonProps>()
 
-const { variantResolver } = useConfig()
+const { variantResolver, activeVariants } = useConfig()
+
+const resolvedVariant = computed<ButtonVariant>(() => active
+	? (activeVariant ?? activeVariants[variant] as ButtonVariant)
+	: variant)
 
 const style = useVarsResolver<ButtonVars>(theme => {
 	const { background, border, hover, text } = variantResolver({
 		theme,
-		variant,
-		color: props.color,
+		variant: resolvedVariant.value,
+		color: active ? activeColor : props.color,
 		gradient: props.gradient,
 	})
 
@@ -139,11 +160,14 @@ const style = useVarsResolver<ButtonVars>(theme => {
 			"with-left-section": !!$slots?.leftSection || !!icon,
 			"with-right-section": !!$slots?.rightSection,
 			loading,
-			variant,
+			active,
+			"variant": resolvedVariant,
 		}]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:disabled='loading'
+		:aria-pressed='activeMode === "pressed" ? active : undefined'
+		:aria-current='active && activeMode === "current" ? "page" : undefined'
 	>
 		<Transition name='fade-down'>
 			<Loader v-show='loading' :class='css.loader' :color :size />

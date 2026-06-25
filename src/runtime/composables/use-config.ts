@@ -7,10 +7,11 @@ import { useAppConfig } from '#imports'
 
 /** Returns the configured icon registry merged with module defaults. */
 export function useConfig() {
-	const { icons, gradient } = useAppConfig().nui
+	const { icons, gradient, activeVariants } = useAppConfig().nui
 
 	return {
 		icons,
+		activeVariants,
 		variantResolver: (options: VariantColorResolverOptions) => createVariantColorResolver({
 			...options,
 			gradient: options.gradient ?? gradient,

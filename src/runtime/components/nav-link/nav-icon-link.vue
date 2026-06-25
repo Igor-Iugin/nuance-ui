@@ -7,7 +7,7 @@ import ActionIcon from '../action-icon/action-icon.vue'
 import { pickLinkProps } from '../link'
 
 
-export interface NavIconLinkProps extends ActionIconProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+export interface NavIconLinkProps extends Omit<ActionIconProps, 'active'>, Omit<NuxtLinkProps, 'href' | 'custom'> {
 	/** Link target */
 	to: NuxtLinkProps['to']
 
@@ -17,24 +17,18 @@ export interface NavIconLinkProps extends ActionIconProps, Omit<NuxtLinkProps, '
 	/** Icon name shorthand */
 	icon?: string
 
-	/**
-	 * Variant applied in active state
-	 * @default `'filled'`
-	 */
-	active?: ActionIconProps['variant']
+	/** Variant applied in inactive state @default 'default' */
+	variant?: ActionIconProps['variant']
 
-	/**
-	 * Variant applied in inactive state
-	 * @default `'default'`
-	 */
-	notActive?: ActionIconProps['variant']
+	/** Variant applied in active state @default 'filled' */
+	activeVariant?: ActionIconProps['variant']
 }
 
 defineOptions({ inheritAttrs: false })
 
 const {
-	active = 'filled',
-	notActive = 'default',
+	variant,
+	activeVariant,
 	mod,
 	...etc
 } = defineProps<NavIconLinkProps>()
@@ -48,9 +42,11 @@ const { link, rest } = pickLinkProps(etc)
 			is='a'
 			v-bind='{ ...rest, ...$attrs }'
 			:href
-			:variant='isActive ? active : notActive'
-			:mod='[{ active: isActive }, mod]'
-			:aria-current="isActive ? 'page' : undefined"
+			:variant
+			:active='isActive'
+			:active-variant
+			active-mode='current'
+			:mod
 			:rel='("rel" in linkProps) ? linkProps?.rel : undefined'
 			:target='("target" in linkProps) ? linkProps?.target : undefined'
 			@click='navigate'

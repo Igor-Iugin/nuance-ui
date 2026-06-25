@@ -59,12 +59,24 @@ export interface ActionIconProps {
 	/** Visual variant */
 	variant?: ActionIconVariant
 
+	/** Active/pressed state — adds `data-active` and the matching ARIA attribute */
+	active?: boolean
+
+	/** ARIA semantic for `active` @default 'pressed' */
+	activeMode?: 'pressed' | 'current'
+
+	/** Variant applied when `active`. Defaults to the configured map for the current `variant` */
+	activeVariant?: ActionIconVariant
+
+	/** Color applied when `active` @default 'primary' */
+	activeColor?: NuanceColor
+
 	/** Styles API */
 	classes?: Classes<ActionIconClasses>
 }
 
 const {
-	color,
+	color = 'gray',
 	size,
 	iconSize,
 	variant = 'default',
@@ -75,16 +87,25 @@ const {
 	mod,
 	icon,
 	disabled,
+	active,
+	activeMode = 'pressed',
+	activeVariant,
+	activeColor = 'primary',
 } = defineProps<ActionIconProps>()
 
-const { variantResolver } = useConfig()
+const { variantResolver, activeVariants } = useConfig()
 const style = useVarsResolver<ActionIconVars>(theme => {
+	const resolvedVariant = active
+		? (activeVariant ?? activeVariants[variant] as ActionIconVariant)
+		: variant
+	const resolvedColor = active ? activeColor : color
+
 	const {
 		background,
 		border,
 		hover,
 		text,
-	} = variantResolver({ variant, color, theme, gradient })
+	} = variantResolver({ variant: resolvedVariant, color: resolvedColor, theme, gradient })
 
 	return {
 		root: {
@@ -104,10 +125,12 @@ const style = useVarsResolver<ActionIconVars>(theme => {
 	<Box
 		is='button'
 		type='button'
-		:mod='[{ loading }, mod]'
+		:mod='[{ loading, active }, mod]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:disabled='(!disabled ? loading : disabled) || undefined'
+		:aria-pressed='activeMode === "pressed" ? active : undefined'
+		:aria-current='active && activeMode === "current" ? "page" : undefined'
 	>
 		<Transition name='slide-down'>
 			<Loader
