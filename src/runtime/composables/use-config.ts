@@ -1,6 +1,7 @@
 import type { VariantColorResolverOptions } from '@nui/utils'
 
 import { createVariantColorResolver } from '@nui/utils'
+
 import { useAppConfig } from '#imports'
 
 

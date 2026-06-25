@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { ComponentPublicInstance, CSSProperties, HTMLAttributes } from 'vue'
 
+import { useVarsResolver } from '@nui/composables'
+import { getSize } from '@nui/utils'
 import { useResizeObserver } from '@vueuse/core'
-import { getSize, useVarsResolver } from '#imports'
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 
 import type { Classes } from '../types'

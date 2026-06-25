@@ -15,6 +15,7 @@ import type {
 } from '@tanstack/vue-table'
 import type { Ref } from 'vue'
 
+import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import {
 	FlexRender,
@@ -25,7 +26,6 @@ import {
 	useVueTable,
 } from '@tanstack/vue-table'
 import { reactivePick, unrefElement } from '@vueuse/core'
-import { useVarsResolver } from '#imports'
 import { computed, ref, useTemplateRef, watch } from 'vue'
 
 import type { TableColumn, TableData, TableProps, TableSlots } from '../types'
