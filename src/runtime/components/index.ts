@@ -13,7 +13,7 @@ export * from './calendar'
 export * from './card'
 export * from './checkbox'
 export * from './chip'
-export * from './collapsible'
+export type * from './collapse.vue'
 export * from './combobox'
 
 export type * from './container.vue'
