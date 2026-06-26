@@ -70,6 +70,9 @@ useHead({
 			<NNavLink to='/scroll-area'>
 				ScrollArea
 			</NNavLink>
+			<NNavLink to='/accordion'>
+				Accordion
+			</NNavLink>
 			<NNavLink to='/collapsible'>
 				Collapsible
 			</NNavLink>

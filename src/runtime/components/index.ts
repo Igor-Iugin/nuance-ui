@@ -1,4 +1,4 @@
-export type * from './accordion.vue'
+export * from './accordion'
 export * from './action-icon'
 export * from './app-shell'
 
