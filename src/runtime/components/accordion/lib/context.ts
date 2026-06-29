@@ -48,7 +48,6 @@ export interface AccordionItemContext {
 	open: ComputedRef<boolean>
 	disabled: ComputedRef<boolean | undefined>
 	dataState: ComputedRef<'open' | 'closed'>
-	dataDisabled: ComputedRef<'' | undefined>
 }
 
 export const [provideAccordionRootState, useAccordionRootState] = createStrictInjection(

@@ -94,7 +94,7 @@ const _mod = computed(() => [{
 const style = useVarsResolver<TextVars>(theme => ({
 	root: {
 		'--text-fz': getFontSize(fz || size),
-		'--text-ff': ff ? `var(--font-family${ff === 'text' ? '' : ff})` : undefined,
+		'--text-ff': ff ? `var(--font-family-${ff === 'text' ? '' : ff})` : undefined,
 		'--text-fw': fw?.toString(),
 		'--text-lh': getLineHeight(lh || size),
 		'--text-gradient': variant === 'gradient' ? getGradient(gradient, theme) : undefined,

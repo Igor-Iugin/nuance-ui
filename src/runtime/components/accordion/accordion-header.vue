@@ -22,6 +22,7 @@ import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import Box from '../box.vue'
+import UnstyledButton from '../button/unstyled-button.vue'
 import Title from '../title.vue'
 import css from './accordion.module.css'
 import { useAccordionItemState, useAccordionRootState } from './lib/context'
@@ -49,13 +50,14 @@ function onClick() {
 </script>
 
 <template>
-	<component
+	<Box
 		:is='root.order.value ? Title : "div"'
-		v-bind='root.order.value ? { order: root.order.value, is: `h${root.order.value}` } : {}'
+		v-bind='root.order.value
+			? { order: root.order.value }
+			: {}'
 		:class='[css.header, root.classes.value?.header]'
 	>
-		<Box
-			is='button'
+		<UnstyledButton
 			:id='headerId'
 			type='button'
 			:disabled='item.disabled.value'
@@ -63,10 +65,11 @@ function onClick() {
 			:aria-controls='panelId'
 			:mod='{
 				"state": item.dataState.value,
-				"disabled": item.dataDisabled.value,
+				"variant": root.variant.value,
+				"disabled": item.disabled.value,
 				"chevron-position": root.chevronPosition.value,
 			}'
-			:class='[css.control, css[`control--${root.variant.value}`], root.classes.value?.control]'
+			:class='[css.control, root.classes.value?.control]'
 			@click='onClick'
 		>
 			<Box
@@ -86,13 +89,13 @@ function onClick() {
 
 			<Box
 				is='span'
-				:mod='{ rotate: rotate || undefined, position: root.chevronPosition.value }'
+				:mod='{ rotate, position: root.chevronPosition.value }'
 				:class='[css.chevron, root.classes.value?.chevron]'
 			>
 				<slot name='chevron' :open='item.open.value'>
 					<Icon :name='chevronIcon' />
 				</slot>
 			</Box>
-		</Box>
-	</component>
+		</UnstyledButton>
+	</Box>
 </template>

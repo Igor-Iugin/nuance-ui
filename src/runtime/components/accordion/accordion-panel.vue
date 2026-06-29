@@ -23,11 +23,7 @@ const item = useAccordionItemState()
 
 const open = computed({
 	get: () => item.open.value,
-	set: v => {
-		// Collapse may toggle internally; reflect it back through the accordion
-		if (v !== item.open.value)
-			root.toggleItem(item.value.value)
-	},
+	set: v => v !== item.open.value && root.toggleItem(item.value.value),
 })
 
 const panelId = computed(() => root.getPanelId(item.value.value))

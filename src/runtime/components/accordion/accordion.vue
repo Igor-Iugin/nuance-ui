@@ -66,7 +66,7 @@ export type AccordionValue<Multiple extends boolean> = Multiple extends true ? s
 
 <script setup lang='ts' generic='Multiple extends boolean = false'>
 import { getRadius, getSize } from '@nui/utils'
-import { toRef, useId } from 'vue'
+import { toRefs, useId } from 'vue'
 
 import Box from '../box.vue'
 import css from './accordion.module.css'
@@ -111,21 +111,25 @@ function toggleItem(itemValue: string) {
 	}
 }
 
+const rest = toRefs({
+	classes,
+	disabled,
+	variant,
+	transitionDuration,
+	disableChevronRotation,
+	chevronPosition,
+	chevron,
+	order,
+	loop,
+	keepMounted,
+})
+
 provideAccordionRootState({
-	classes: toRef(() => classes),
 	isItemActive,
 	toggleItem,
 	getHeaderId: v => `${uid}-header-${v}`,
 	getPanelId: v => `${uid}-panel-${v}`,
-	disabled: toRef(() => disabled),
-	variant: toRef(() => variant),
-	transitionDuration: toRef(() => transitionDuration),
-	disableChevronRotation: toRef(() => disableChevronRotation),
-	chevronPosition: toRef(() => chevronPosition),
-	chevron: toRef(() => chevron),
-	order: toRef(() => order),
-	loop: toRef(() => loop),
-	keepMounted: toRef(() => keepMounted),
+	...rest,
 })
 
 const style = useVarsResolver<AccordionVars>(() => ({

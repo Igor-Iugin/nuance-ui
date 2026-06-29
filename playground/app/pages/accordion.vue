@@ -1,6 +1,5 @@
 <script lang='ts' setup>
 const controlled = ref<string | null>(null)
-const controlledMultiple = ref<string[]>([])
 </script>
 
 <template>
@@ -178,15 +177,21 @@ const controlledMultiple = ref<string[]>([])
 			</p>
 			<NAccordion>
 				<NAccordionItem value='item-1'>
-					<NAccordionHeader icon='lucide:info'>Info</NAccordionHeader>
+					<NAccordionHeader icon='lucide:info'>
+						Info
+					</NAccordionHeader>
 					<NAccordionPanel>Item with an info icon.</NAccordionPanel>
 				</NAccordionItem>
 				<NAccordionItem value='item-2'>
-					<NAccordionHeader icon='lucide:settings'>Settings</NAccordionHeader>
+					<NAccordionHeader icon='lucide:settings'>
+						Settings
+					</NAccordionHeader>
 					<NAccordionPanel>Item with a settings icon.</NAccordionPanel>
 				</NAccordionItem>
 				<NAccordionItem value='item-3'>
-					<NAccordionHeader icon='lucide:user'>Profile</NAccordionHeader>
+					<NAccordionHeader icon='lucide:user'>
+						Profile
+					</NAccordionHeader>
 					<NAccordionPanel>Item with a user icon.</NAccordionPanel>
 				</NAccordionItem>
 			</NAccordion>
