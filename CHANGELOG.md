@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.3.1
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.0...v0.3.1)
+
+### 🚀 Enhancements
+
+- Complete Collapse component ([559536a](https://github.com/Igor-Iugin/nuance-ui/commit/559536a))
+- Rework Accordion component ([21acf41](https://github.com/Igor-Iugin/nuance-ui/commit/21acf41))
+
+### 🩹 Fixes
+
+- Accordion styles ([76e2831](https://github.com/Igor-Iugin/nuance-ui/commit/76e2831))
+
+### 🏡 Chore
+
+- **ai:** Remove rules ([b6841fb](https://github.com/Igor-Iugin/nuance-ui/commit/b6841fb))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.3.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.2.36...v0.3.0)
