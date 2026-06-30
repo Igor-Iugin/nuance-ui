@@ -16,12 +16,15 @@ declare const globalThis: Record<string, unknown>
  * Shows, updates, and removes notifications from any context.
  */
 export class NotificationsStore {
-	readonly state = reactive<NotificationsState>({
-		notifications: [],
-		queue: [],
+	// `reactive<NotificationsState>` deep-unwraps NotificationData (Button/Box props)
+	// and trips TS2589. Build the reactive object plainly, then surface it as the
+	// plain state shape — the runtime is still fully reactive.
+	readonly state = reactive({
+		notifications: [] as NotificationData[],
+		queue: [] as NotificationData[],
 		limit: 5,
-		defaultPosition: 'bottom-right',
-	})
+		defaultPosition: 'bottom-right' as NotificationsState['defaultPosition'],
+	}) as NotificationsState
 
 	private constructor() {}
 
