@@ -23,6 +23,8 @@ export class NotificationsStore {
 		defaultPosition: 'bottom-right',
 	})
 
+	private constructor() {}
+
 	static get instance(): NotificationsStore {
 		if (!globalThis[GLOBAL_KEY])
 			globalThis[GLOBAL_KEY] = new NotificationsStore()
@@ -35,15 +37,15 @@ export class NotificationsStore {
 		const id = data.id ?? createId()
 		const next: NotificationData = { ...data, id }
 
-		const visibleIndex = this.state.notifications.findIndex(n => n.id === id)
-		if (visibleIndex !== -1) {
-			this.state.notifications[visibleIndex] = next
+		const visible = this.state.notifications.find(n => n.id === id)
+		if (visible) {
+			Object.assign(visible, data, { id })
 			return id
 		}
 
-		const queuedIndex = this.state.queue.findIndex(n => n.id === id)
-		if (queuedIndex !== -1) {
-			this.state.queue[queuedIndex] = next
+		const queued = this.state.queue.find(n => n.id === id)
+		if (queued) {
+			Object.assign(queued, data, { id })
 			return id
 		}
 
@@ -59,7 +61,9 @@ export class NotificationsStore {
 	hide(id: string): void {
 		const index = this.state.notifications.findIndex(n => n.id === id)
 		if (index === -1) {
-			this.state.queue = this.state.queue.filter(n => n.id !== id)
+			const queuedIndex = this.state.queue.findIndex(n => n.id === id)
+			if (queuedIndex !== -1)
+				this.state.queue.splice(queuedIndex, 1)
 			return
 		}
 
@@ -85,22 +89,22 @@ export class NotificationsStore {
 
 	/** Removes everything. */
 	clean(): void {
-		this.state.notifications = []
-		this.state.queue = []
+		this.state.notifications.splice(0)
+		this.state.queue.splice(0)
 	}
 
 	/** Removes only queued notifications. */
 	cleanQueue(): void {
-		this.state.queue = []
+		this.state.queue.splice(0)
 	}
 
-	/** Patches store state (limit / defaultPosition). */
-	updateState(fn: (state: NotificationsState) => NotificationsState): void {
-		const next = fn(this.state)
-		this.state.notifications = next.notifications
-		this.state.queue = next.queue
-		this.state.limit = next.limit
-		this.state.defaultPosition = next.defaultPosition
+	/** Patches store configuration (limit / defaultPosition). */
+	updateState(patch: Partial<Pick<NotificationsState, 'limit' | 'defaultPosition'>>): void {
+		if (patch.limit !== undefined)
+			this.state.limit = patch.limit
+
+		if (patch.defaultPosition !== undefined)
+			this.state.defaultPosition = patch.defaultPosition
 	}
 }
 

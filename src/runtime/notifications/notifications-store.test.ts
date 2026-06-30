@@ -4,11 +4,8 @@ import { NotificationsStore } from './notifications-store'
 
 
 function makeStore() {
-	// Bypass the singleton for isolated tests.
-	return (NotificationsStore as unknown as { new(): NotificationsStore })
-		.prototype.constructor
-		? Reflect.construct(NotificationsStore, []) as NotificationsStore
-		: new (NotificationsStore as any)()
+	// Bypass the private singleton constructor for isolated tests.
+	return Reflect.construct(NotificationsStore, []) as NotificationsStore
 }
 
 describe('NotificationsStore', () => {
@@ -16,7 +13,7 @@ describe('NotificationsStore', () => {
 
 	beforeEach(() => {
 		store = makeStore()
-		store.updateState(s => ({ ...s, limit: 2 }))
+		store.updateState({ limit: 2 })
 	})
 
 	it('show returns an id and adds a visible notification', () => {
@@ -79,5 +76,29 @@ describe('NotificationsStore', () => {
 		store.cleanQueue()
 		expect(store.state.notifications).toHaveLength(2)
 		expect(store.state.queue).toHaveLength(0)
+	})
+
+	it('update preserves the id even if a different id is passed in the patch', () => {
+		const id = store.show({ title: 'a' })
+		store.update(id, { id: 'other', title: 'b' } as never)
+		expect(store.state.notifications).toHaveLength(1)
+		expect(store.state.notifications[0]!.id).toBe(id)
+	})
+
+	it('hide removes a queue-only notification without touching visible', () => {
+		store.show({ title: 'a' })
+		store.show({ title: 'b' })
+		const queued = store.show({ title: 'c' })
+		store.hide(queued)
+		expect(store.state.notifications).toHaveLength(2)
+		expect(store.state.queue).toHaveLength(0)
+	})
+
+	it('update patches a queued notification', () => {
+		store.show({ title: 'a' })
+		store.show({ title: 'b' })
+		const queued = store.show({ title: 'c' })
+		store.update(queued, { title: 'updated' })
+		expect(store.state.queue[0]!.title).toBe('updated')
 	})
 })
