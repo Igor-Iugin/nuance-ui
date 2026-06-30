@@ -117,6 +117,12 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 		'--notification-color': color ? getThemeColor(color, theme) : undefined,
 	},
 }))
+
+// Strip `label` so it is not forwarded as an attribute to `Button`. `onClick`
+// stays in the spread and is bound once as the button's click handler.
+function actionProps({ label: _label, ...rest }: NotificationAction): ButtonProps {
+	return rest
+}
 </script>
 
 <template>
@@ -178,8 +184,7 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 						:key='index'
 						size='compact-sm'
 						:color
-						v-bind='action'
-						@click='action.onClick?.($event)'
+						v-bind='actionProps(action)'
 					>
 						{{ action.label }}
 					</Button>
@@ -188,34 +193,31 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 		</div>
 
 		<div
-			v-if='(orientation === "horizontal" && (actions?.length || $slots.actions)) || withCloseButton'
+			v-if='orientation === "horizontal" && (actions?.length || $slots.actions)'
 			:class='[$style.actions, classes?.actions]'
 			data-position='end'
 		>
-			<template v-if='orientation === "horizontal" && (actions?.length || $slots.actions)'>
-				<slot name='actions'>
-					<Button
-						v-for='(action, index) in actions'
-						:key='index'
-						size='compact-sm'
-						:color
-						v-bind='action'
-						@click='action.onClick?.($event)'
-					>
-						{{ action.label }}
-					</Button>
-				</slot>
-			</template>
-
-			<ActionIcon
-				v-if='withCloseButton'
-				icon='lucide:x'
-				variant='subtle'
-				v-bind='closeButtonProps'
-				:class='classes?.closeButton'
-				@click='$emit("close")'
-			/>
+			<slot name='actions'>
+				<Button
+					v-for='(action, index) in actions'
+					:key='index'
+					size='compact-sm'
+					:color
+					v-bind='actionProps(action)'
+				>
+					{{ action.label }}
+				</Button>
+			</slot>
 		</div>
+
+		<ActionIcon
+			v-if='withCloseButton'
+			icon='lucide:x'
+			variant='subtle'
+			:class='[$style.closeButton, classes?.closeButton]'
+			v-bind='closeButtonProps'
+			@click='$emit("close")'
+		/>
 	</Box>
 </template>
 
@@ -363,6 +365,10 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 }
 
 .actions[data-position='end'] {
+	margin-inline-start: var(--spacing-xs);
+}
+
+.closeButton {
 	margin-inline-start: var(--spacing-xs);
 }
 </style>

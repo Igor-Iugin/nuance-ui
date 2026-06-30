@@ -12,7 +12,7 @@ const global = {
 		Icon: { template: '<i />' },
 		Loader: { template: '<span />' },
 		ActionIcon: { template: '<button class="close" @click="$emit(\'click\')" />' },
-		Button: { props: ['label'], template: '<button class="action">{{ label }}</button>' },
+		Button: { template: '<button class="action"><slot /></button>' },
 	},
 }
 
@@ -40,14 +40,47 @@ describe('notification', () => {
 		expect(actions[0]!.text()).toBe('Undo')
 	})
 
-	it('calls action onClick', async () => {
-		let clicked = false
+	it('calls action onClick exactly once', async () => {
+		let count = 0
 		const wrapper = mount(Notification, {
 			global,
-			props: { actions: [{ label: 'Undo', onClick: () => { clicked = true } }] },
+			props: { actions: [{ label: 'Undo', onClick: () => { count += 1 } }] },
 		})
 		await wrapper.find('.action').trigger('click')
-		expect(clicked).toBe(true)
+		expect(count).toBe(1)
+	})
+
+	it('renders a VNode object as message', () => {
+		const wrapper = mount(Notification, {
+			global,
+			props: { message: h('span', 'vnode-body') },
+		})
+		expect(wrapper.html()).toContain('vnode-body')
+	})
+
+	it('renders horizontal actions next to the close button', () => {
+		const wrapper = mount(Notification, {
+			global,
+			props: { orientation: 'horizontal', actions: [{ label: 'Retry' }] },
+		})
+		expect(wrapper.findAll('.action')).toHaveLength(1)
+		expect(wrapper.find('.close').exists()).toBe(true)
+	})
+
+	it('renders the close button outside the actions container in vertical mode', () => {
+		const wrapper = mount(Notification, { global, props: { message: 'x' } })
+		// The close button is a direct child of the root box, not nested in an actions wrapper.
+		expect(wrapper.find('[data-testid="box"] > .close').exists()).toBe(true)
+	})
+
+	it('overrides actions via the #actions slot', () => {
+		const wrapper = mount(Notification, {
+			global,
+			props: { actions: [{ label: 'Undo' }] },
+			slots: { actions: '<button class="custom-action">Custom</button>' },
+		})
+		expect(wrapper.find('.custom-action').exists()).toBe(true)
+		expect(wrapper.find('.action').exists()).toBe(false)
 	})
 
 	it('emits close when the close button is clicked', async () => {
