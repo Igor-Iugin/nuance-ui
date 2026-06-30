@@ -3,15 +3,26 @@ import type { HTMLAttributes } from 'vue'
 
 import { getRadius, getThemeColor, useVarsResolver } from '#imports'
 
-import type { Classes, NuanceColor, NuanceRadius } from '../types'
+import type { Classes, NuanceColor, NuanceRadius, StringOrVNode } from '../types'
 import type { ActionIconProps } from './action-icon/action-icon.vue'
 import type { BoxProps } from './box.vue'
+import type { ButtonProps } from './button/button.vue'
 import type { LoaderProps } from './loader'
 
 import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box.vue'
+import Button from './button/button.vue'
 import Loader from './loader/loader.vue'
 
+
+export type NotificationOrientation = 'vertical' | 'horizontal'
+
+export interface NotificationAction extends ButtonProps {
+	/** Button label */
+	label: string
+	/** Click handler */
+	onClick?: (event: MouseEvent) => void
+}
 
 type NotificationClasses
 	= | 'root'
@@ -20,6 +31,7 @@ type NotificationClasses
 		| 'body'
 		| 'title'
 		| 'description'
+		| 'actions'
 		| 'closeButton'
 
 interface NotificationVars {
@@ -45,10 +57,16 @@ export interface NotificationProps extends BoxProps {
 	icon?: string
 
 	/** Notification title, displayed above the message body */
-	title?: string
+	title?: StringOrVNode
 
-	/** Notification description, displayed below the title. When no title is provided, this serves as the main message. */
-	description?: string
+	/** Notification body. When no title is provided, this is the main message. */
+	message?: StringOrVNode
+
+	/** Action buttons */
+	actions?: NotificationAction[]
+
+	/** Actions/close layout @default 'vertical' */
+	orientation?: NotificationOrientation
 
 	/** If set, displays a `Loader` component instead of the icon. Takes precedence over the `icon` prop if both are provided. */
 	loading?: boolean
@@ -81,6 +99,9 @@ const {
 	icon,
 	loaderProps,
 	title,
+	message,
+	actions,
+	orientation = 'vertical',
 	closeButtonProps,
 	classes,
 } = defineProps<NotificationProps>()
@@ -106,6 +127,7 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 		:mod='[{
 			"with-icon": !!icon || !!$slots.icon || loading,
 			"with-border": withBorder,
+			orientation,
 		}, mod]'
 	>
 		<div v-if='icon && !loading' :class='[$style.icon, classes?.icon]'>
@@ -123,9 +145,13 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 		/>
 
 		<div :class='[$style.body, classes?.body]'>
-			<div v-if='title' :class='[$style.title, classes?.title]'>
+			<div v-if='title || $slots.title' :class='[$style.title, classes?.title]'>
 				<slot name='title'>
-					{{ title }}
+					<component :is='title()' v-if='typeof title === "function"' />
+					<component :is='title' v-else-if='title && typeof title === "object"' />
+					<template v-else>
+						{{ title }}
+					</template>
 				</slot>
 			</div>
 
@@ -134,19 +160,62 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 				:mod='{ "with-title": !!title || !!$slots.title }'
 			>
 				<slot>
-					{{ description }}
+					<component :is='message()' v-if='typeof message === "function"' />
+					<component :is='message' v-else-if='message && typeof message === "object"' />
+					<template v-else>
+						{{ message }}
+					</template>
 				</slot>
 			</Box>
+
+			<div
+				v-if='orientation === "vertical" && (actions?.length || $slots.actions)'
+				:class='[$style.actions, classes?.actions]'
+			>
+				<slot name='actions'>
+					<Button
+						v-for='(action, index) in actions'
+						:key='index'
+						size='compact-sm'
+						:color
+						v-bind='action'
+						@click='action.onClick?.($event)'
+					>
+						{{ action.label }}
+					</Button>
+				</slot>
+			</div>
 		</div>
 
-		<ActionIcon
-			v-if='withCloseButton'
-			icon='lucide:x'
-			variant='subtle'
-			v-bind='closeButtonProps'
-			:class='classes?.closeButton'
-			@click='$emit("close")'
-		/>
+		<div
+			v-if='(orientation === "horizontal" && (actions?.length || $slots.actions)) || withCloseButton'
+			:class='[$style.actions, classes?.actions]'
+			data-position='end'
+		>
+			<template v-if='orientation === "horizontal" && (actions?.length || $slots.actions)'>
+				<slot name='actions'>
+					<Button
+						v-for='(action, index) in actions'
+						:key='index'
+						size='compact-sm'
+						:color
+						v-bind='action'
+						@click='action.onClick?.($event)'
+					>
+						{{ action.label }}
+					</Button>
+				</slot>
+			</template>
+
+			<ActionIcon
+				v-if='withCloseButton'
+				icon='lucide:x'
+				variant='subtle'
+				v-bind='closeButtonProps'
+				:class='classes?.closeButton'
+				@click='$emit("close")'
+			/>
+		</div>
 	</Box>
 </template>
 
@@ -281,5 +350,19 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 			color: var(--color-dark-2);
 		}
 	}
+}
+
+.actions {
+	display: flex;
+	gap: var(--spacing-xs);
+	align-items: center;
+}
+
+.body .actions {
+	margin-top: var(--spacing-xs);
+}
+
+.actions[data-position='end'] {
+	margin-inline-start: var(--spacing-xs);
 }
 </style>
