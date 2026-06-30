@@ -48,7 +48,7 @@
 		"dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
 		"release": "npm run lint && npm run prepack && changelogen --release && git push --follow-tags",
 		"lint": "eslint ./src",
-		"test": "vitest run",
+		"test": "vitest",
 		"test:watch": "vitest watch",
 		"test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
 	},
