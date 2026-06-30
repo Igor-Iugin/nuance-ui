@@ -3,8 +3,8 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 import type { NotificationData } from './types'
 
-import Progress from '../components/progress/progress.vue'
 import Notification from '../components/notification.vue'
+import Progress from '../components/progress/progress.vue'
 import { getAutoClose } from './lib'
 
 
@@ -15,8 +15,6 @@ const props = defineProps<{
 	data: NotificationData
 	/** Global auto-close duration in ms, or false to disable */
 	autoClose: number | false
-	/** Transition duration in ms (unused directly, forwarded context) */
-	transitionDuration: number
 	/** Whether the timer is currently paused */
 	paused: boolean
 }>()
@@ -33,14 +31,13 @@ const emit = defineEmits<{
 // ─── Timer State ───
 
 const duration = getAutoClose(props.autoClose, props.data.autoClose)
-const hasProgress = typeof duration === 'number'
+const total = typeof duration === 'number' ? duration : 0
+const hasProgress = total > 0
 
-const remaining = ref<number>(typeof duration === 'number' ? duration : 0)
-const progressValue = computed(() => {
-	if (!hasProgress || duration === 0)
-		return 0
-	return (remaining.value / (duration as number)) * 100
-})
+const remaining = ref<number>(total)
+const progressValue = computed(() => total > 0
+	? (remaining.value / total) * 100
+	: 0)
 
 let intervalId: ReturnType<typeof setInterval> | undefined
 
@@ -66,7 +63,7 @@ function start(): void {
 
 // ─── Pause Watch ───
 
-watch(() => props.paused, (paused) => {
+watch(() => props.paused, paused => {
 	if (paused) {
 		stop()
 	}
@@ -100,20 +97,20 @@ function onMouseleave(): void {
 
 <template>
 	<div
-		:class="$style.root"
-		@mouseenter="onMouseenter"
-		@mouseleave="onMouseleave"
+		:class='$style.root'
+		@mouseenter='onMouseenter'
+		@mouseleave='onMouseleave'
 	>
 		<Notification
-			v-bind="props.data"
+			v-bind='props.data'
 			@close="emit('hide', props.data.id)"
 		/>
 		<Progress
-			v-if="hasProgress"
-			v-model="remaining"
-			:color="props.data.color"
-			size="sm"
-			:class="$style.progress"
+			v-if='hasProgress'
+			:model-value='progressValue'
+			:color='props.data.color'
+			size='sm'
+			:class='$style.progress'
 		/>
 	</div>
 </template>

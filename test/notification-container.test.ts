@@ -11,7 +11,7 @@ const global = {
 			template: '<div class="n"><slot /></div>',
 			emits: ['close'],
 		},
-		Progress: { props: ['modelValue'], template: '<div class="progress" />' },
+		Progress: { props: ['modelValue'], template: '<div class="progress" :data-value="modelValue" />' },
 	},
 }
 
@@ -74,6 +74,16 @@ describe('notificationContainer', () => {
 			props: { data: makeData(), autoClose: 1000, transitionDuration: 0, paused: false },
 		})
 		expect(wrapper.find('.progress').exists()).toBe(true)
+	})
+
+	it('feeds the progress bar a 0-100 percentage, not raw milliseconds', () => {
+		const wrapper = mount(NotificationContainer, {
+			global,
+			props: { data: makeData(), autoClose: 1000, transitionDuration: 0, paused: false },
+		})
+		const value = Number(wrapper.find('.progress').attributes('data-value'))
+		expect(value).toBeGreaterThanOrEqual(0)
+		expect(value).toBeLessThanOrEqual(100)
 	})
 
 	it('renders no progress bar when auto-close is false', () => {
