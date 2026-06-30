@@ -8,6 +8,9 @@ export type * from './theme'
 /** Value that may be synchronous or wrapped in a promise. */
 export type MaybePromise<T = unknown> = T | Promise<T>
 
+/** String, VNode, or a render function producing a VNode. */
+export type StringOrVNode = string | VNode | (() => VNode)
+
 export type AnyString = string & {}
 
 export type DynamicSlotsKeys<
