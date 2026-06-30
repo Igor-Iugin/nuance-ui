@@ -15,16 +15,17 @@ export * from './checkbox'
 export * from './chip'
 export type * from './collapse.vue'
 export * from './combobox'
-
 export type * from './container.vue'
+
 export type * from './date-time-picker.vue'
 export * from './dialog'
 export type * from './divider.vue'
-
 export * from './drawer'
+
 export * from './files'
 export type * from './floating-indicator.vue'
 export * from './input'
+export type * from './kbd.vue'
 export * from './link'
 export * from './loader'
 export * from './modal'
