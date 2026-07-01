@@ -7,11 +7,11 @@ import { unrefElement } from '@vueuse/core'
 import { computed, shallowRef, watch } from 'vue'
 
 import type { BoxProps } from '../../box.vue'
-import type { TransitionName } from '../../transition.vue'
+import type { TransitionName } from '../../transition/transition.vue'
 import type { DialogEmits, DialogModel } from '../types'
 
 import Box from '../../box.vue'
-import NTransition from '../../transition.vue'
+import NTransition from '../../transition/transition.vue'
 import { useProvideDialogState } from '../lib'
 import css from './dialog.module.css'
 

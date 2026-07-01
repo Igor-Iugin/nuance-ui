@@ -53,7 +53,7 @@ export * from './time-picker'
 export type * from './timeline.vue'
 
 export type * from './title.vue'
-export type * from './transition.vue'
+export * from './transition'
 
 export * from './tree'
 export * from './visually-hidden'

@@ -9,7 +9,7 @@ import ActionIcon from '../../action-icon/action-icon.vue'
 import Button from '../../button/button.vue'
 import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
-import UTransition from '../../transition.vue'
+import NTransition from '../../transition/transition.vue'
 import { useTreeState } from '../lib/context'
 import { filterTreeItems } from '../lib/filter-tree-items'
 import { useTreeItemHandlers } from '../lib/item-handlers'
@@ -114,7 +114,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 			</Button>
 		</RovingFocusItem>
 
-		<UTransition name='scale-y'>
+		<NTransition name='scale-y'>
 			<ul
 				v-if='expanded && data && data.length > 0'
 				:class='$style.list'
@@ -128,7 +128,7 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 					:level='level + 1'
 				/>
 			</ul>
-		</UTransition>
+		</NTransition>
 	</li>
 </template>
 
