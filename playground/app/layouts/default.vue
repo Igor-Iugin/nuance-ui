@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import { NModalsProvider } from '@nui/modals'
+import { NNotificationsProvider } from '@nui/notifications'
 
 
 useHead({
@@ -79,6 +80,9 @@ useHead({
 			<NNavLink to='/timeline'>
 				Timeline
 			</NNavLink>
+			<NNavLink to='/notifications'>
+				Notifications
+			</NNavLink>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>
@@ -88,6 +92,7 @@ useHead({
 			<slot />
 		</NAppShellMain>
 		<NModalsProvider />
+		<NNotificationsProvider position='top-right' />
 	</NAppShell>
 </template>
 
