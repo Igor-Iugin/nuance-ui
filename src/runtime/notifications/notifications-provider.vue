@@ -5,6 +5,7 @@ import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 
 import { useVarsResolver } from '#imports'
 
+import type { TransitionName } from '../components/transition/transition.vue'
 import type { NotificationData, NotificationPosition } from './types'
 
 import NotificationContainer from './notification-container.vue'
@@ -77,7 +78,7 @@ function isPaused(id: string): boolean {
 	return hoveredId.value === id
 }
 
-function transitionName(position: NotificationPosition): string {
+function transitionName(position: NotificationPosition): TransitionName {
 	if (position.startsWith('top'))
 		return 'slide-down'
 
@@ -135,7 +136,10 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 		:class='[$style.viewport, classes?.root]'
 		:style='style.root'
 	>
-		<TransitionGroup :name='transitionName(viewportPosition)'>
+		<TransitionGroup
+			:name='transitionName(viewportPosition)'
+			:duration='transitionDuration'
+		>
 			<NotificationContainer
 				v-for='n in grouped[viewportPosition]'
 				:key='n.id'
@@ -161,7 +165,7 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 	overflow: visible;
 
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 	gap: var(--spacing-sm);
 
 	width: var(--notifications-width);
@@ -192,7 +196,7 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 		bottom: 0;
 		left: 0;
 
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 
 	&[data-position='bottom-center'] {
@@ -200,14 +204,14 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 		left: 50%;
 		transform: translateX(-50%);
 
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 
 	&[data-position='bottom-right'] {
 		right: 0;
 		bottom: 0;
 
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 
 	&:not(:popover-open) {
