@@ -83,47 +83,31 @@ onBeforeUnmount(() => {
 	stop()
 	props.data.onClose?.(props.data.id)
 })
-
-// ─── Hover ───
-
-function onMouseenter(): void {
-	emit('hoverStart')
-}
-
-function onMouseleave(): void {
-	emit('hoverEnd')
-}
 </script>
 
 <template>
 	<div
-		:class='$style.root'
-		@mouseenter='onMouseenter'
-		@mouseleave='onMouseleave'
+		@mouseenter='$emit("hoverStart")'
+		@mouseleave='$emit("hoverEnd")'
 	>
 		<Notification
 			v-bind='props.data'
 			@close="emit('hide', props.data.id)"
-		/>
-		<Progress
-			v-if='hasProgress'
-			:model-value='progressValue'
-			:color='props.data.color'
-			size='sm'
-			:class='$style.progress'
-		/>
+		>
+			<template #progress>
+				<Progress
+					v-if='hasProgress'
+					v-model='progressValue'
+					:color='props.data.color'
+					size='4px'
+				/>
+			</template>
+		</Notification>
 	</div>
 </template>
 
 <style module>
-.root {
-	position: relative;
-}
-
 .progress {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
 </style>

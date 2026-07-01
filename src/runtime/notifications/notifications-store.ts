@@ -16,14 +16,11 @@ declare const globalThis: Record<string, unknown>
  * Shows, updates, and removes notifications from any context.
  */
 export class NotificationsStore {
-	// `reactive<NotificationsState>` deep-unwraps NotificationData (Button/Box props)
-	// and trips TS2589. Build the reactive object plainly, then surface it as the
-	// plain state shape — the runtime is still fully reactive.
 	readonly state = reactive({
-		notifications: [] as NotificationData[],
-		queue: [] as NotificationData[],
+		notifications: [],
+		queue: [],
 		limit: 5,
-		defaultPosition: 'bottom-right' as NotificationsState['defaultPosition'],
+		defaultPosition: 'bottom-right',
 	}) as NotificationsState
 
 	private constructor() {}
@@ -38,7 +35,6 @@ export class NotificationsStore {
 	/** Shows a notification, or queues it past the limit. Returns its id. */
 	show(data: NotificationInput): string {
 		const id = data.id ?? createId()
-		const next: NotificationData = { ...data, id }
 
 		const visible = this.state.notifications.find(n => n.id === id)
 		if (visible) {
@@ -52,6 +48,7 @@ export class NotificationsStore {
 			return id
 		}
 
+		const next: NotificationData = { ...data, id }
 		if (this.state.notifications.length < this.state.limit)
 			this.state.notifications.push(next)
 		else
@@ -77,7 +74,7 @@ export class NotificationsStore {
 			this.state.notifications.push(next)
 	}
 
-	/** Patches an existing notification in place. No-op if absent. */
+	/** Patches an existing notification in place. Noop if absent. */
 	update(id: string, data: Partial<NotificationInput>): void {
 		const visible = this.state.notifications.find(n => n.id === id)
 		if (visible) {
@@ -92,13 +89,13 @@ export class NotificationsStore {
 
 	/** Removes everything. */
 	clean(): void {
-		this.state.notifications.splice(0)
-		this.state.queue.splice(0)
+		this.state.notifications = []
+		this.state.queue = []
 	}
 
 	/** Removes only queued notifications. */
 	cleanQueue(): void {
-		this.state.queue.splice(0)
+		this.state.queue = []
 	}
 
 	/** Patches store configuration (limit / defaultPosition). */

@@ -101,7 +101,7 @@ const {
 	title,
 	message,
 	actions,
-	orientation = 'vertical',
+	orientation = 'horizontal',
 	closeButtonProps,
 	classes,
 } = defineProps<NotificationProps>()
@@ -117,12 +117,6 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 		'--notification-color': color ? getThemeColor(color, theme) : undefined,
 	},
 }))
-
-// Strip `label` so it is not forwarded as an attribute to `Button`. `onClick`
-// stays in the spread and is bound once as the button's click handler.
-function actionProps({ label: _label, ...rest }: NotificationAction): ButtonProps {
-	return rest
-}
 </script>
 
 <template>
@@ -174,40 +168,27 @@ function actionProps({ label: _label, ...rest }: NotificationAction): ButtonProp
 				</slot>
 			</Box>
 
-			<div
-				v-if='orientation === "vertical" && (actions?.length || $slots.actions)'
+			<div :class='$style.progress'>
+				<slot name='progress' />
+			</div>
+
+			<Box
+				v-if='actions?.length || $slots.actions'
 				:class='[$style.actions, classes?.actions]'
+				:mod='{ orientation }'
 			>
 				<slot name='actions'>
 					<Button
-						v-for='(action, index) in actions'
+						v-for='({ label, ...action }, index) in actions'
 						:key='index'
 						size='compact-sm'
 						:color
-						v-bind='actionProps(action)'
+						v-bind='action'
 					>
-						{{ action.label }}
+						{{ label }}
 					</Button>
 				</slot>
-			</div>
-		</div>
-
-		<div
-			v-if='orientation === "horizontal" && (actions?.length || $slots.actions)'
-			:class='[$style.actions, classes?.actions]'
-			data-position='end'
-		>
-			<slot name='actions'>
-				<Button
-					v-for='(action, index) in actions'
-					:key='index'
-					size='compact-sm'
-					:color
-					v-bind='actionProps(action)'
-				>
-					{{ action.label }}
-				</Button>
-			</slot>
+			</Box>
 		</div>
 
 		<ActionIcon
@@ -358,17 +339,22 @@ function actionProps({ label: _label, ...rest }: NotificationAction): ButtonProp
 	display: flex;
 	gap: var(--spacing-xs);
 	align-items: center;
-}
 
-.body .actions {
 	margin-top: var(--spacing-xs);
-}
 
-.actions[data-position='end'] {
-	margin-inline-start: var(--spacing-xs);
+	&[data-orientation='horizontal'] {
+		margin-inline-start: var(--spacing-xs);
+	}
 }
 
 .closeButton {
 	margin-inline-start: var(--spacing-xs);
+}
+
+.progress {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 </style>

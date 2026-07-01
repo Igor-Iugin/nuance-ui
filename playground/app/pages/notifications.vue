@@ -3,21 +3,26 @@ import { $notifications } from '@nui/notifications'
 
 
 function basic() {
-	$notifications.show({ title: 'Saved', message: 'Changes stored.', color: 'green' })
+	$notifications.show({
+		title: 'Saved',
+		message: 'Changes stored.',
+		color: 'green',
+		progress: false,
+	})
 }
 
 function withActions() {
-	$notifications.show({
+	const id = $notifications.show({
 		title: 'File deleted',
 		message: 'document.pdf was removed.',
 		color: 'red',
-		autoClose: false,
-		actions: [{ label: 'Undo', onClick: () => $notifications.clean() }],
+		withCloseButton: true,
+		actions: [{ label: 'Undo', onClick: () => $notifications.hide(id) }],
 	})
 }
 
 function loadingToSuccess() {
-	const id = $notifications.show({ title: 'Uploading…', loading: true, autoClose: false })
+	const id = $notifications.show({ title: 'Uploading…', loading: true })
 	setTimeout(() => $notifications.update(id, {
 		title: 'Uploaded',
 		loading: false,
@@ -28,7 +33,7 @@ function loadingToSuccess() {
 </script>
 
 <template>
-	<div style='display: flex; gap: 12px; padding: 24px;'>
+	<NGroup>
 		<NButton @click='basic()'>
 			Basic
 		</NButton>
@@ -38,5 +43,5 @@ function loadingToSuccess() {
 		<NButton @click='loadingToSuccess()'>
 			Loading → success
 		</NButton>
-	</div>
+	</NGroup>
 </template>

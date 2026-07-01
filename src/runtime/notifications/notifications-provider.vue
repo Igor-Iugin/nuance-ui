@@ -3,6 +3,8 @@ import type { Classes } from '@nui/types'
 
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
 
+import { useVarsResolver } from '#imports'
+
 import type { NotificationData, NotificationPosition } from './types'
 
 import NotificationContainer from './notification-container.vue'
@@ -10,14 +12,21 @@ import { $notifications } from './notifications-store'
 import { useNotifications } from './use-notifications'
 
 
-const props = withDefaults(defineProps<{
+interface ProviderVars {
+	root:
+		| '--notifications-z-index'
+		| '--notifications-width'
+		| '--transition-duration'
+}
+
+export interface NotificationProviderProps {
 	/** Default notification position @default 'bottom-right' */
 	position?: NotificationPosition
 	/** Auto-close in ms, or `false` to disable @default 4000 */
 	autoClose?: number | false
 	/** Max visible at once @default 5 */
 	limit?: number
-	/** Viewport z-index @default 400 */
+	/** Viewport z-index @default 1 */
 	zIndex?: number | string
 	/** Container width @default 440 */
 	containerWidth?: number | string
@@ -26,15 +35,17 @@ const props = withDefaults(defineProps<{
 	/** Which notifications pause auto-close on hover @default 'all' */
 	pauseOnHover?: 'all' | 'notification'
 	classes?: Classes<'root' | 'notification'>
-}>(), {
-	position: 'bottom-right',
-	autoClose: 4000,
-	limit: 5,
-	zIndex: 400,
-	containerWidth: 440,
-	transitionDuration: 250,
-	pauseOnHover: 'all',
-})
+}
+
+const {
+	position = 'bottom-right',
+	autoClose = 4000,
+	limit = 5,
+	zIndex = 1,
+	containerWidth = 440,
+	transitionDuration = 250,
+	pauseOnHover = 'all',
+} = defineProps<NotificationProviderProps>()
 
 const POSITIONS: NotificationPosition[] = [
 	'top-left',
@@ -54,13 +65,13 @@ const grouped = computed(() => {
 	) as Record<NotificationPosition, NotificationData[]>
 
 	for (const n of notifications.value)
-		acc[n.position ?? props.position].push(n)
+		acc[n.position ?? position].push(n)
 
 	return acc
 })
 
 function isPaused(id: string): boolean {
-	if (props.pauseOnHover === 'all')
+	if (pauseOnHover === 'all')
 		return hoveredId.value !== null
 
 	return hoveredId.value === id
@@ -73,12 +84,14 @@ function transitionName(position: NotificationPosition): string {
 	return 'slide-up'
 }
 
-const rootStyle = computed(() => ({
-	'--notifications-z-index': String(props.zIndex),
-	'--notifications-width': typeof props.containerWidth === 'number'
-		? `${props.containerWidth}px`
-		: props.containerWidth,
-	'--transition-duration': `${props.transitionDuration}ms`,
+const style = useVarsResolver<ProviderVars>(() => ({
+	root: {
+		'--notifications-z-index': String(zIndex),
+		'--notifications-width': typeof containerWidth === 'number'
+			? `${containerWidth}px`
+			: containerWidth,
+		'--transition-duration': `${transitionDuration}ms`,
+	},
 }))
 
 const viewportRefs = useTemplateRef<HTMLElement[]>('viewports')
@@ -98,17 +111,14 @@ function showPopovers() {
 
 onMounted(() => {
 	$notifications.updateState({
-		limit: props.limit,
-		defaultPosition: props.position,
+		limit,
+		defaultPosition: position,
 	})
 	showPopovers()
 })
 
-watch(() => props.limit, limit =>
-	$notifications.updateState({ limit }))
-
-watch(() => props.position, position =>
-	$notifications.updateState({ defaultPosition: position }))
+watch(() => limit, limit => $notifications.updateState({ limit }))
+watch(() => position, position => $notifications.updateState({ defaultPosition: position }))
 </script>
 
 <template>
@@ -122,17 +132,17 @@ watch(() => props.position, position =>
 		aria-live='polite'
 		aria-atomic='false'
 		:data-position='viewportPosition'
-		:class='[$style.viewport, props.classes?.root]'
-		:style='rootStyle'
+		:class='[$style.viewport, classes?.root]'
+		:style='style.root'
 	>
 		<TransitionGroup :name='transitionName(viewportPosition)'>
 			<NotificationContainer
 				v-for='n in grouped[viewportPosition]'
 				:key='n.id'
 				:data='n'
-				:auto-close='props.autoClose'
+				:auto-close
 				:paused='isPaused(n.id)'
-				:class='props.classes?.notification'
+				:class='classes?.notification'
 				@hide='$notifications.hide($event)'
 				@hover-start='hoveredId = n.id'
 				@hover-end='hoveredId = null'
