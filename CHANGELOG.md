@@ -1,6 +1,59 @@
 # Changelog
 
 
+## v0.3.2
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.1...v0.3.2)
+
+### 🚀 Enhancements
+
+- ✨  Kbd component ([b586419](https://github.com/Igor-Iugin/nuance-ui/commit/b586419))
+- ✨  Notification component ([e45f77f](https://github.com/Igor-Iugin/nuance-ui/commit/e45f77f))
+- Added superpowers folder ([cad718d](https://github.com/Igor-Iugin/nuance-ui/commit/cad718d))
+- Add StringOrVNode type ([97f558f](https://github.com/Igor-Iugin/nuance-ui/commit/97f558f))
+- Add notification types ([e1d0a11](https://github.com/Igor-Iugin/nuance-ui/commit/e1d0a11))
+- Add notification lib helpers ([9533b08](https://github.com/Igor-Iugin/nuance-ui/commit/9533b08))
+- Add notifications store ([96b1879](https://github.com/Igor-Iugin/nuance-ui/commit/96b1879))
+- Notification message rename, StringOrVNode content, actions ([6cd2041](https://github.com/Igor-Iugin/nuance-ui/commit/6cd2041))
+- Add useNotifications composable ([c3bba46](https://github.com/Igor-Iugin/nuance-ui/commit/c3bba46))
+- Add notification container with timer, pause, progress ([620e566](https://github.com/Igor-Iugin/nuance-ui/commit/620e566))
+- Add notifications provider with popover viewports ([d5dbd4e](https://github.com/Igor-Iugin/nuance-ui/commit/d5dbd4e))
+- Export notifications public API and add @nui/notifications alias ([6721d18](https://github.com/Igor-Iugin/nuance-ui/commit/6721d18))
+- Added progress controlling ([8b5c83e](https://github.com/Igor-Iugin/nuance-ui/commit/8b5c83e))
+- ✨  TransitionGroup component ([b5c5c61](https://github.com/Igor-Iugin/nuance-ui/commit/b5c5c61))
+
+### 🩹 Fixes
+
+- Avoid TS2589 in notifications store reactive state ([e098b21](https://github.com/Igor-Iugin/nuance-ui/commit/e098b21))
+- Notification actions single-fire, standalone close button, slot dedup ([b1353ef](https://github.com/Igor-Iugin/nuance-ui/commit/b1353ef))
+- Feed progress bar a percentage, drop unused transitionDuration prop ([4bfe690](https://github.com/Igor-Iugin/nuance-ui/commit/4bfe690))
+- Dedupe provider viewport var, wire transition-duration css var ([6294282](https://github.com/Igor-Iugin/nuance-ui/commit/6294282))
+- Revert container items direction ([ff98c7d](https://github.com/Igor-Iugin/nuance-ui/commit/ff98c7d))
+
+### 💅 Refactors
+
+- Tighten notifications store updateState and consistency ([65ea855](https://github.com/Igor-Iugin/nuance-ui/commit/65ea855))
+- Move countdown logic in composable ([b7bdf58](https://github.com/Igor-Iugin/nuance-ui/commit/b7bdf58))
+
+### 🏡 Chore
+
+- Configure vitest ([1539bdd](https://github.com/Igor-Iugin/nuance-ui/commit/1539bdd))
+- Added happy-dom test-utils ([cea7f67](https://github.com/Igor-Iugin/nuance-ui/commit/cea7f67))
+- Setup test env ([32ce423](https://github.com/Igor-Iugin/nuance-ui/commit/32ce423))
+- Edit test script ([cd6d504](https://github.com/Igor-Iugin/nuance-ui/commit/cd6d504))
+- Upload specs ([888c863](https://github.com/Igor-Iugin/nuance-ui/commit/888c863))
+- Change scripts naming ([01dd150](https://github.com/Igor-Iugin/nuance-ui/commit/01dd150))
+- Notifications playground demo ([2379b13](https://github.com/Igor-Iugin/nuance-ui/commit/2379b13))
+- **playground:** Added optimize packages ([1eacf31](https://github.com/Igor-Iugin/nuance-ui/commit/1eacf31))
+
+### ✅ Tests
+
+- Use happy-dom environment ([413e5a9](https://github.com/Igor-Iugin/nuance-ui/commit/413e5a9))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.3.1
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.0...v0.3.1)
