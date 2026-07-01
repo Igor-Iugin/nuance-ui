@@ -78,6 +78,7 @@ const rootStyle = computed(() => ({
 	'--notifications-width': typeof props.containerWidth === 'number'
 		? `${props.containerWidth}px`
 		: props.containerWidth,
+	'--transition-duration': `${props.transitionDuration}ms`,
 }))
 
 const viewportRefs = useTemplateRef<HTMLElement[]>('viewports')
@@ -112,21 +113,21 @@ watch(() => props.position, position =>
 
 <template>
 	<div
-		v-for='position in POSITIONS'
-		:key='position'
+		v-for='viewportPosition in POSITIONS'
+		:key='viewportPosition'
 		ref='viewports'
 		popover='manual'
 		role='region'
 		aria-label='Notifications'
 		aria-live='polite'
 		aria-atomic='false'
-		:data-position='position'
+		:data-position='viewportPosition'
 		:class='[$style.viewport, props.classes?.root]'
 		:style='rootStyle'
 	>
-		<TransitionGroup :name='transitionName(position)'>
+		<TransitionGroup :name='transitionName(viewportPosition)'>
 			<NotificationContainer
-				v-for='n in grouped[position]'
+				v-for='n in grouped[viewportPosition]'
 				:key='n.id'
 				:data='n'
 				:auto-close='props.autoClose'
