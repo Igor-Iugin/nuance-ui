@@ -49,8 +49,8 @@
 		"release": "npm run lint && npm run prepack && changelogen --release && git push --follow-tags",
 		"lint": "eslint ./src",
 		"test": "vitest",
-		"test:watch": "vitest watch",
-		"test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+		"lint:ts": "vue-tsc --noEmit",
+		"lint:playground:ts": "cd playground && vue-tsc --noEmit"
 	},
 	"dependencies": {
 		"@floating-ui/vue": "^1.1.10",
