@@ -99,6 +99,7 @@ export default defineNuxtModule<ModuleOptions>({
 			utils: resolve('./runtime/utils'),
 			types: resolve('./runtime/types'),
 			modals: resolve('./runtime/modals'),
+			notifications: resolve('./runtime/notifications'),
 		}
 
 		for (const key in aliases) {
