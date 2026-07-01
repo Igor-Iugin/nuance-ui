@@ -2,6 +2,7 @@ export * from './create-strict-injection'
 
 export * from './use-active-link'
 export * from './use-config'
+export * from './use-countdown'
 export * from './use-date-config'
 export * from './use-floating-indicator'
 export * from './use-selectable-group'

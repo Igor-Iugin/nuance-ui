@@ -7,7 +7,8 @@ function basic() {
 		title: 'Saved',
 		message: 'Changes stored.',
 		color: 'green',
-		progress: false,
+		autoClose: false,
+		withProgress: true,
 	})
 }
 

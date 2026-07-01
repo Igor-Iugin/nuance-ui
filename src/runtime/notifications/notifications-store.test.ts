@@ -8,7 +8,7 @@ function makeStore() {
 	return Reflect.construct(NotificationsStore, []) as NotificationsStore
 }
 
-describe('NotificationsStore', () => {
+describe('notificationsStore', () => {
 	let store: NotificationsStore
 
 	beforeEach(() => {

@@ -13,6 +13,7 @@ import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box.vue'
 import Button from './button/button.vue'
 import Loader from './loader/loader.vue'
+import Progress from './progress/progress.vue'
 
 
 export type NotificationOrientation = 'vertical' | 'horizontal'
@@ -71,6 +72,9 @@ export interface NotificationProps extends BoxProps {
 	/** If set, displays a `Loader` component instead of the icon. Takes precedence over the `icon` prop if both are provided. */
 	loading?: boolean
 
+	/** Shows the auto-close progress bar @default false */
+	withProgress?: boolean
+
 	/** Adds border to the root element */
 	withBorder?: boolean
 
@@ -104,12 +108,15 @@ const {
 	orientation = 'horizontal',
 	closeButtonProps,
 	classes,
+	withProgress = false,
 } = defineProps<NotificationProps>()
 
 defineEmits<{
 	/** Called when the close button is clicked */
 	close: []
 }>()
+
+const progress = defineModel<number>('progress', { default: 0 })
 
 const style = useVarsResolver<NotificationVars>(theme => ({
 	root: {
@@ -168,8 +175,13 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 				</slot>
 			</Box>
 
-			<div :class='$style.progress'>
-				<slot name='progress' />
+			<div v-if='withProgress' :class='$style.progress'>
+				<Progress
+					v-model='progress'
+					:class='$style.progressInput'
+					:color
+					size='4px'
+				/>
 			</div>
 
 			<Box
@@ -356,5 +368,9 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 	right: 0;
 	bottom: 0;
 	left: 0;
+
+	.progressInput {
+		border-radius: 0 0 var(--radius-md) var(--radius-md);
+	}
 }
 </style>

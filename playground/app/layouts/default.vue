@@ -92,7 +92,7 @@ useHead({
 			<slot />
 		</NAppShellMain>
 		<NModalsProvider />
-		<NNotificationsProvider position='top-right' />
+		<NNotificationsProvider />
 	</NAppShell>
 </template>
 
