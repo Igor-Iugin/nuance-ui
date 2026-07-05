@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.3.3
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.2...v0.3.3)
+
+### 🚀 Enhancements
+
+- **AppShell:** Added off/on for layout parts ([2d550c0](https://github.com/Igor-Iugin/nuance-ui/commit/2d550c0))
+
+### 🏡 Chore
+
+- Remove superpowers folder ([cf9f8a1](https://github.com/Igor-Iugin/nuance-ui/commit/cf9f8a1))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.3.2
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.1...v0.3.2)
