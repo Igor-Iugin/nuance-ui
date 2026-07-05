@@ -88,6 +88,10 @@ useHead({
 		<NAppShellHeader :class='$style.header'>
 			<NThemeToggle />
 		</NAppShellHeader>
+
+		<NAppShellAside>aside</NAppShellAside>
+		<NAppShellFooter>footer</NAppShellFooter>
+
 		<NAppShellMain>
 			<slot />
 		</NAppShellMain>

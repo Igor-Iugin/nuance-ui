@@ -119,6 +119,11 @@ export default defineNuxtModule<ModuleOptions>({
 			src: resolve('./runtime/app-config.d.ts'),
 		})
 
+		addTypeTemplate({
+			filename: 'types/nui-page-meta.d.ts',
+			src: resolve('./runtime/components/app-shell/page-meta.d.ts'),
+		})
+
 		// ─── PostCSS config ───
 
 		nuxt.options.postcss = nuxt.options.postcss || {}
