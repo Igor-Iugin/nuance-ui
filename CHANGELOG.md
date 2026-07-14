@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.4
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.3...v0.3.4)
+
+### 🩹 Fixes
+
+- NotificationProvider viewport  mouse blocking ([911aac0](https://github.com/Igor-Iugin/nuance-ui/commit/911aac0))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.3.3
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.2...v0.3.3)
