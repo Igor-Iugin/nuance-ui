@@ -157,6 +157,8 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 
 <style module>
 .viewport {
+	--viewport-padding: var(--spacing-md);
+
 	position: fixed;
 
 	z-index: var(--notifications-z-index);
@@ -171,36 +173,36 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 	width: var(--notifications-width);
 	max-width: 100%;
 	margin: 0;
-	padding: var(--spacing-md);
+	padding: 0;
 	border: 0;
 
 	background: transparent;
 
 	&[data-position='top-left'] {
-		top: 0;
-		left: 0;
+		top: var(--viewport-padding);
+		left: var(--viewport-padding);
 	}
 
 	&[data-position='top-center'] {
-		top: 0;
+		top: var(--viewport-padding);
 		left: 50%;
 		transform: translateX(-50%);
 	}
 
 	&[data-position='top-right'] {
-		top: 0;
-		right: 0;
+		top: var(--viewport-padding);
+		right: var(--viewport-padding);
 	}
 
 	&[data-position='bottom-left'] {
-		bottom: 0;
-		left: 0;
+		bottom: var(--viewport-padding);
+		left: var(--viewport-padding);
 
 		flex-direction: column;
 	}
 
 	&[data-position='bottom-center'] {
-		bottom: 0;
+		bottom: var(--viewport-padding);
 		left: 50%;
 		transform: translateX(-50%);
 
@@ -208,8 +210,8 @@ watch(() => position, position => $notifications.updateState({ defaultPosition: 
 	}
 
 	&[data-position='bottom-right'] {
-		right: 0;
-		bottom: 0;
+		right: var(--viewport-padding);
+		bottom: var(--viewport-padding);
 
 		flex-direction: column;
 	}
