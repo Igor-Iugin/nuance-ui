@@ -24,6 +24,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
+	meta,
 } = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
@@ -36,7 +37,7 @@ const {
 	<CheckboxGroup
 		v-bind='props'
 		v-model='value'
-		:error='errorMessage'
+		:error='meta.touched ? errorMessage : undefined'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>
 		<slot />

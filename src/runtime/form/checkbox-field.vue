@@ -25,6 +25,7 @@ const {
 	checked,
 	errorMessage,
 	handleChange,
+	meta,
 } = useField(() => name, rules, {
 	type: 'checkbox',
 	validateOnValueUpdate: false,
@@ -39,7 +40,7 @@ const {
 	<Checkbox
 		v-bind='props'
 		v-model='checked'
-		:error='errorMessage'
+		:error='meta.touched ? errorMessage : undefined'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>
 		<template v-if='$slots.icon' #icon='slotProps'>

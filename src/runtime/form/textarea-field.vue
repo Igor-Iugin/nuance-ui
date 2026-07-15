@@ -26,6 +26,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
+	meta
 } = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
@@ -38,8 +39,8 @@ const {
 	<Textarea
 		v-bind='props'
 		v-model='value'
-		:error='errorMessage'
 		:name
+		:error='meta.touched ? errorMessage : undefined'
 		@update:model-value='handleChange($event, !!errorMessage)'
 		@blur='handleBlur($event, validateOn === "blur")'
 	>

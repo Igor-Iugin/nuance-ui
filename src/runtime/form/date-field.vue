@@ -25,6 +25,7 @@ const {
 	value,
 	errorMessage,
 	handleChange,
+	meta,
 } = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
@@ -37,7 +38,7 @@ const {
 	<DatePicker
 		v-bind='props'
 		v-model='value'
-		:error='errorMessage'
+		:error='meta.touched ? errorMessage : undefined'
 		@update:model-value='handleChange($event, validateOn === "change" || !!errorMessage)'
 	>
 		<template v-if='$slots.leftSection' #leftSection>
