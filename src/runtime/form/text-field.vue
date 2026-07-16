@@ -26,7 +26,7 @@ const {
 	errorMessage,
 	handleBlur,
 	handleChange,
-	meta
+	meta,
 } = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,

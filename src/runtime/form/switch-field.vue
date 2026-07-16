@@ -25,7 +25,7 @@ const {
 	checked,
 	errorMessage,
 	handleChange,
-	meta
+	meta,
 } = useField(() => name, rules, {
 	type: 'checkbox',
 	validateOnValueUpdate: false,
