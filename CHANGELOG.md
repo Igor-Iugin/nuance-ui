@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.3.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.4...v0.3.5)
+
+### 🚀 Enhancements
+
+- Remove aggressive validation in form fields ([e9c89d6](https://github.com/Igor-Iugin/nuance-ui/commit/e9c89d6))
+- **ai:** Update skills ([1752fc0](https://github.com/Igor-Iugin/nuance-ui/commit/1752fc0))
+- **new:** Tooltip component ([7f883d2](https://github.com/Igor-Iugin/nuance-ui/commit/7f883d2))
+- **Tooltip:** Change default animation to `fade` ([1fb9428](https://github.com/Igor-Iugin/nuance-ui/commit/1fb9428))
+
+### 🩹 Fixes
+
+- Arrow style properties ([d2397e0](https://github.com/Igor-Iugin/nuance-ui/commit/d2397e0))
+- **modals:** Unmount modal component after close transition ([8b8d196](https://github.com/Igor-Iugin/nuance-ui/commit/8b8d196))
+- Eslint ([9b0a973](https://github.com/Igor-Iugin/nuance-ui/commit/9b0a973))
+
+### 🏡 Chore
+
+- Styled ([340dfef](https://github.com/Igor-Iugin/nuance-ui/commit/340dfef))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.3.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.3...v0.3.4)
