@@ -3,7 +3,7 @@ import type { AlignedPlacement, OffsetOptions, Side, Strategy } from '@floating-
 import type { AnyString, NuanceColor, NuanceRadius } from '@nui/types'
 
 import type { ArrowPosition } from './popover/types'
-import type { TransitionName, TransitionProps } from './transition/transition.vue'
+import type { TransitionProps } from './transition/transition.vue'
 
 
 export interface TooltipVars {
@@ -131,11 +131,6 @@ watch([hovered, focused], ([isHovered, isFocused]) => {
 // ─── Styles ───
 const { variantResolver } = useConfig()
 
-const animation = computed(() => {
-	const pos = placement.split('-')[0]
-	return `fade-${pos === 'top' ? 'up' : pos}` as TransitionName
-})
-
 const style = useVarsResolver<TooltipVars>(theme => {
 	const { background, text } = variantResolver({ theme, variant: 'filled', color })
 	return {
@@ -164,8 +159,8 @@ const style = useVarsResolver<TooltipVars>(theme => {
 		:class='$style.tooltip'
 	>
 		<NTransition
-			:name='animation'
-			:duration='100'
+			name='fade'
+			:duration='200'
 			v-bind='transitionProps'
 			@before-enter='unrefElement(store.dropdownRef.value)?.showPopover()'
 			@after-leave='unrefElement(store.dropdownRef.value)?.hidePopover()'
