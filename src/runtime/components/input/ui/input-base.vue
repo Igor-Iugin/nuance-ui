@@ -122,7 +122,9 @@ const style = computed(() => ({
 	position: relative;
 
 	&[data-variant='unstyled'] {
+		--input-height: auto;
 		--input-padding: 0;
+		--input-fz: inherit;
 		--input-padding-y: 0;
 		--input-padding-inline-start: 0;
 		--input-padding-inline-end: 0;
