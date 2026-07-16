@@ -64,6 +64,7 @@ const {
 } = defineProps<TransitionProps>()
 
 const emit = defineEmits<{
+	beforeEnter: []
 	afterLeave: []
 }>()
 
@@ -79,6 +80,7 @@ const style = computed(() => ({
 		:name
 		:mode
 		:appear
+		@before-enter='() => emit("beforeEnter")'
 		@after-leave='() => emit("afterLeave")'
 	>
 		<slot />
