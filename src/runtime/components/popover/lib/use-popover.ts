@@ -1,8 +1,8 @@
-import type { OffsetOptions, Placement, Strategy } from '@floating-ui/vue'
+import type { MaybeReadonlyRefOrGetter, OffsetOptions, Placement, Strategy } from '@floating-ui/vue'
 import type { CSSProperties, ModelRef, Ref, ShallowRef } from 'vue'
 
 import { arrow, autoUpdate, flip, hide, inline, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
-import { computed, shallowRef } from 'vue'
+import { computed, shallowRef, toValue } from 'vue'
 
 import type { ArrowPosition, PopoverWidth } from '../types'
 
@@ -11,7 +11,7 @@ import { getArrowPosition } from './get-arrow-position'
 
 export interface PopoverOptions {
 	offset: OffsetOptions
-	placement: Placement
+	placement: MaybeReadonlyRefOrGetter<Placement>
 	opened: ModelRef<boolean>
 	width: PopoverWidth
 	arrowOffset: number
@@ -19,7 +19,7 @@ export interface PopoverOptions {
 	arrowPosition: ArrowPosition
 	arrowSize: number | undefined
 	withArrow: boolean
-	strategy?: Strategy
+	strategy?: MaybeReadonlyRefOrGetter<Strategy>
 }
 
 export interface UsePopoverReturn {
@@ -72,6 +72,7 @@ export function usePopover(options: PopoverOptions): UsePopoverReturn {
 
 	const arrowStyles = computed(() => getArrowPosition({
 		...options,
+		placement: toValue(options?.placement),
 		arrowX: middlewareData.value.arrow?.x,
 		arrowY: middlewareData.value.arrow?.y,
 	}))

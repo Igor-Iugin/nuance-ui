@@ -75,8 +75,8 @@ export function getArrowPosition({
 }) {
 	const [side, placement = 'center'] = _placement.split('-') as [Side, Alignment]
 	const baseStyles = {
-		'--arrow-size': arrowSize || undefined,
-		'--arrow-radius': arrowRadius || undefined,
+		'--arrow-size': arrowSize ? `${arrowSize}px` : undefined,
+		'--arrow-radius': arrowRadius ? `${arrowRadius}px` : undefined,
 		[radiusByFloatingSide[side]]: 'var(--arrow-radius)',
 	}
 
