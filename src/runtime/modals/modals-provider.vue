@@ -9,6 +9,7 @@ import { $modals } from './modal-manager'
 			v-for='[id, entry] in $modals.modals'
 			:key='id'
 			v-bind='entry.props'
+			@close='$modals.unmount(id)'
 		/>
 	</div>
 </template>

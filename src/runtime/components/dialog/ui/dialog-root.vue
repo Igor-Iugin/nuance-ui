@@ -125,10 +125,9 @@ const style = computed(() => ({
 			:mod='[{ "without-overlay": withoutOverlay }, mod]'
 			:style
 			@click='overlayClick'
-			@close='$emit("close")'
 			@cancel.prevent='opened = false'
 		>
-			<NTransition :name='transition'>
+			<NTransition :name='transition' appear @after-leave='$emit("close")'>
 				<Box
 					is='section'
 					v-if='opened'

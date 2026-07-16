@@ -98,6 +98,11 @@ export class ModalManager {
 		this.#reject(id, reason)
 	}
 
+	/** Removes the modal's component from the DOM once its close transition finished. */
+	unmount(id: string): void {
+		this.modals.delete(id)
+	}
+
 	/** Returns the reactive state of a specific modal. */
 	state<
 		Props extends object = object,
