@@ -5,17 +5,24 @@ import type { AnyString, NuanceColor, NuanceRadius } from '@nui/types'
 import type { ArrowPosition } from './popover/types'
 import type { TransitionProps } from './transition/transition.vue'
 
+import Box from './box.vue'
+
 
 export interface TooltipVars {
 	root:
 		| '--tooltip-radius'
-		| '--tooltip-bg'
 		| '--tooltip-color'
 }
 
 export interface TooltipProps {
 	/** Tooltip label */
 	label?: string
+
+	/** Tooltip description */
+	content?: string
+
+	/** Block for colored text */
+	footer?: string
 
 	/** Tooltip position relative to the target element @default `'top'` */
 	placement?: Side | AlignedPlacement
@@ -85,6 +92,8 @@ defineOptions({ inheritAttrs: false })
 
 const {
 	label,
+	content,
+	footer,
 	placement = 'bottom',
 	offset = 5,
 	openDelay = 0,
@@ -132,12 +141,11 @@ watch([hovered, focused], ([isHovered, isFocused]) => {
 const { variantResolver } = useConfig()
 
 const style = useVarsResolver<TooltipVars>(theme => {
-	const { background, text } = variantResolver({ theme, variant: 'filled', color })
+	const { text } = variantResolver({ theme, variant: 'subtle', color })
 	return {
 		root: {
 			'--tooltip-radius': radius === undefined ? undefined : getRadius(radius),
-			'--tooltip-bg': color ? background : undefined,
-			'--tooltip-color': color ? text : undefined,
+			'--tooltip-color': text,
 		},
 	}
 })
@@ -166,9 +174,28 @@ const style = useVarsResolver<TooltipVars>(theme => {
 			@after-leave='unrefElement(store.dropdownRef.value)?.hidePopover()'
 		>
 			<div v-if='opened' :class='$style.body'>
-				<slot name='label'>
-					{{ label }}
-				</slot>
+				<Box
+					is='span'
+					:class='$style.label'
+					:mod='{ "with-content": !!content || $slots.content }'
+				>
+					<slot name='label'>
+						{{ label }}
+					</slot>
+				</Box>
+
+				<span v-if='content'>
+					<slot name='content'>
+						{{ content }}
+					</slot>
+				</span>
+
+				<span v-if='footer' :class='$style.footer'>
+					<slot name='footer'>
+						{{ footer }}
+					</slot>
+				</span>
+
 				<span
 					v-if='withArrow'
 					:ref='(el: any) => (store.arrowRef.value = unrefElement(el))'
@@ -196,19 +223,50 @@ const style = useVarsResolver<TooltipVars>(theme => {
 .body {
 	--tooltip-radius: var(--radius-sm);
 	--tooltip-bg: var(--color-body);
-	--tooltip-color: var(--color-text);
+	--tooltip-text: var(--color-text);
+	--tooltip-color: var(--color-primary-filled);
 
 	position: relative;
 
-	padding: var(--spacing-2xs) var(--spacing-xs);
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+
+	width: max-content;
+
+	max-width: rem(200px);
+
+	padding: var(--spacing-2xs);
 	border-radius: var(--tooltip-radius);
 
-	font-size: var(--font-size-md);
-	line-height: 1;
-	color: var(--tooltip-color);
+	font-size: 11px;
+	line-height: 1.3;
+	color: var(--tooltip-text);
+	text-align: center;
 
 	background-color: var(--tooltip-bg);
 	box-shadow: var(--shadow-xs);
+
+	@mixin where-dark {
+		border: 1px solid var(--color-default-border);
+	}
+}
+
+.label {
+	font-size: 12px;
+
+	&[data-with-content] {
+		font-weight: 700;
+	}
+}
+
+.footer {
+	margin-top: var(--spacing-2xs);
+	padding-top: var(--spacing-2xs);
+	border-top: 1px solid var(--color-default-border);
+
+	font-weight: 700;
+	color: var(--tooltip-color);
 }
 
 .arrow {
