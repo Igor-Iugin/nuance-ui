@@ -143,7 +143,9 @@ const innerOpen = ref(false)
 
 		<NModalRoot v-model:open='outerOpen' size='sm'>
 			<NModalHeader>
-				<NModalTitle order='4'>Внешняя модалка</NModalTitle>
+				<NModalTitle order='4'>
+					Внешняя модалка
+				</NModalTitle>
 				<NModalCloseButton />
 			</NModalHeader>
 			<NModalSection>
@@ -156,7 +158,9 @@ const innerOpen = ref(false)
 
 		<NModalRoot v-model:open='innerOpen' size='xs'>
 			<NModalHeader>
-				<NModalTitle order='4'>Внутренняя модалка</NModalTitle>
+				<NModalTitle order='4'>
+					Внутренняя модалка
+				</NModalTitle>
 				<NModalCloseButton />
 			</NModalHeader>
 			<NModalSection>

@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type {
+	AnyString,
+	NuanceColor,
+	NuanceGradient,
+	NuanceRadius,
+	NuanceSize,
+} from '@nui/types'
 import type { CSSProperties } from 'vue'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
@@ -88,6 +94,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 		theme,
 		variant,
 		color,
+		gradient,
 	})
 
 	return {

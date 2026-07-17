@@ -20,7 +20,7 @@ const schema = toTypedSchema(z.object({
 	agree: z.boolean().refine(v => v, 'Необходимо согласиться'),
 }))
 
-const { handleSubmit, values } = useForm({
+const { handleSubmit } = useForm({
 	validationSchema: schema,
 	initialValues: {
 		role: 'admin',
@@ -32,7 +32,6 @@ const result = ref<Record<string, unknown> | null>(null)
 const onSubmit = handleSubmit(values => {
 	result.value = values
 })
-watch(() => values, v => console.log('values', v), { immediate: true })
 </script>
 
 <template>
