@@ -1,13 +1,16 @@
-shamefullyHoist: true
 strictPeerDependencies: false
 
 allowBuilds:
-  "@parcel/watcher": true
+  '@parcel/watcher': true
   esbuild: true
+  sharp: true
   unrs-resolver: true
   vue-demi: true
-  sharp: true
-
 minimumReleaseAgeExclude:
   - '@antfu/eslint-config@9.1.0'
   - eslint-plugin-yml@3.5.0
+shellEmulator: true
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - 'chokidar@4.0.3'
+  - 'semver@6.3.1'
