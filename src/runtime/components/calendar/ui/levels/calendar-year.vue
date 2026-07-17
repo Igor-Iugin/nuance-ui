@@ -7,15 +7,13 @@ import { isSameMonth } from '@nui/utils'
 import { chunk } from 'es-toolkit'
 import { computed } from 'vue'
 
-import type { CalendarCellProps } from '../core'
-
-import Box from '../../../box.vue'
+import Box from '../../../box/box.vue'
 import { useCalendarState } from '../../lib/context'
 import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
 
 
-export interface CalendarYearProps extends CalendarCellProps {
+export interface CalendarYearProps {
 	/** Year date used to generate the month grid */
 	year: DateInput
 

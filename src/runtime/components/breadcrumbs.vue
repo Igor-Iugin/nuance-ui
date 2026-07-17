@@ -6,11 +6,11 @@ import { useConfig, useTheme } from '@nui/composables'
 import { getSpacing } from '@nui/utils'
 import { computed, unref } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 import type { ButtonProps, ButtonVariant } from './button/button.vue'
 import type { LinkProps } from './link'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 import Button from './button/button.vue'
 
 
@@ -65,6 +65,7 @@ const {
 	variant = 'subtle',
 	size = 'compact-sm',
 	items,
+	...rest
 } = defineProps<BreadcrumbsProps>()
 
 defineEmits<{
@@ -85,7 +86,14 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 </script>
 
 <template>
-	<Box :is :mod :style	:class='$style.root' aria-label='breadcrumb'>
+	<Box
+		:is
+		v-bind='rest'
+		:mod
+		:style
+		:class='$style.root'
+		aria-label='breadcrumb'
+	>
 		<template v-for='(item, ix) in breadcrumbs' :key='item.to'>
 			<li :class='$style.breadcrumb' role='presentation' aria-hidden='true'>
 				<slot

@@ -6,9 +6,9 @@ import { getFontSize, getRadius, getSize, getThemeColor } from '@nui/utils'
 import { useTemplateRefsList } from '@vueuse/core'
 import { computed, useId, useTemplateRef } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 import FloatingIndicator from './floating-indicator.vue'
 
 
@@ -69,7 +69,6 @@ export interface SegmentedControlProps extends BoxProps {
 }
 
 const {
-	is,
 	mod,
 	data,
 	size,
@@ -82,6 +81,7 @@ const {
 	disabled,
 	readOnly,
 	withItemsBorders = true,
+	...rest
 } = defineProps<SegmentedControlProps>()
 
 const value = defineModel<string>()
@@ -124,7 +124,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 
 <template>
 	<Box
-		:is
+		v-bind='rest'
 		ref='root'
 		:style='style.root'
 		:class='$style.root'

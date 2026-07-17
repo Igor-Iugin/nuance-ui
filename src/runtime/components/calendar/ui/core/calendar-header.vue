@@ -2,9 +2,9 @@
 import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
-import type { BoxProps } from '../../../box.vue'
+import type { BoxProps } from '../../../box/box.vue'
 
-import Box from '../../../box.vue'
+import Box from '../../../box/box.vue'
 import UnstyledButton from '../../../button/unstyled-button.vue'
 
 
@@ -40,7 +40,7 @@ const {
 	nextDisabled,
 	prevDisabled,
 	disabled,
-	...props
+	...rest
 } = defineProps<CalendarHeaderProps>()
 
 defineEmits<CalendarHeaderEmits>()
@@ -57,7 +57,7 @@ export interface CalendarHeaderEmits {
 </script>
 
 <template>
-	<Box :is v-bind='props' :class='$style.header'>
+	<Box :is v-bind='rest' :class='$style.header'>
 		<UnstyledButton
 			v-if='withPrev'
 			aria-label='Previous page'

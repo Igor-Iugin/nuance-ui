@@ -1,14 +1,14 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 
 
-const { mod } = defineProps<BoxProps>()
+const { is = 'footer', ...rest } = defineProps<BoxProps>()
 </script>
 
 <template>
-	<Box is='footer' :mod :class='$style.root'>
+	<Box :is v-bind='rest' :class='$style.root'>
 		<slot />
 	</Box>
 </template>

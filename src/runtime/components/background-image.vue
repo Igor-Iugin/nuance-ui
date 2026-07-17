@@ -4,9 +4,9 @@ import type { AnyString, NuanceRadius } from '@nui/types'
 import { getRadius } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface BackgroundImageProps extends BoxProps {

@@ -5,7 +5,7 @@ import type { AnyString, NuanceRadius, NuanceSize } from '@nui/types'
 import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './progress.module.css'
 
 
@@ -29,6 +29,8 @@ const {
 	size,
 	radius,
 	transitionDuration,
+	is,
+	...rest
 } = defineProps<ProgressRootProps>()
 
 const style = computed(() => ({
@@ -40,7 +42,13 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Box :style :class='css.root' :mod='[{ orientation }, mod]'>
+	<Box
+		:is
+		v-bind='rest'
+		:style
+		:class='css.root'
+		:mod='[{ orientation }, mod]'
+	>
 		<slot />
 	</Box>
 </template>

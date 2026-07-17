@@ -4,9 +4,9 @@ import type { AnyString, NuanceSize } from '@nui/types'
 import { getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface ContainerProps extends BoxProps {
@@ -22,6 +22,7 @@ const {
 	mod,
 	fluid,
 	size,
+	...rest
 } = defineProps<ContainerProps>()
 
 const style = computed(() => ({
@@ -34,6 +35,7 @@ const _mod = computed(() => [{ fluid }, mod])
 <template>
 	<Box
 		:is
+		v-bind='rest'
 		:style
 		:mod='_mod'
 		:class='$style.root'

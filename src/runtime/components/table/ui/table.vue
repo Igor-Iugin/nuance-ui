@@ -30,7 +30,7 @@ import { computed, ref, useTemplateRef, watch } from 'vue'
 
 import type { TableColumn, TableData, TableProps, TableSlots } from '../types'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 import { createRowHandlers, processColumns, resolveValue, valueUpdater } from '../lib'
 
 

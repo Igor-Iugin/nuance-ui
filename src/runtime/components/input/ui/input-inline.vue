@@ -4,9 +4,9 @@ import type { AnyString, NuanceSize } from '@nui/types'
 import { getFontSize, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from '../../box.vue'
+import type { BoxProps } from '../../box/box.vue'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 
 
 export interface InlineInputProps extends BoxProps {
@@ -49,6 +49,8 @@ const {
 	mod,
 	bodyElement = 'div',
 	labelElement = 'label',
+	is,
+	...rest
 } = defineProps<InlineInputProps>()
 
 const style = computed(() => ({
@@ -58,12 +60,28 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Box :style :class='$style.root' :mod='[{ "label-position": labelPosition }, mod]'>
-		<Box :is='bodyElement' :for='bodyElement === "label" ? id : undefined' :class='$style.body'>
+	<Box
+		:is
+		v-bind='rest'
+		:style
+		:class='$style.root'
+		:mod='[{ "label-position": labelPosition }, mod]'
+	>
+		<Box
+			:is='bodyElement'
+			:for='bodyElement === "label" ? id : undefined'
+			:class='$style.body'
+		>
 			<slot />
 
 			<div :class='$style.wrapper'>
-				<Box :is='labelElement' v-if='label || $slots.label' :class='$style.label' :for='labelElement === "label" ? id : undefined' :mod='{ disabled }'>
+				<Box
+					:is='labelElement'
+					v-if='label || $slots.label'
+					:class='$style.label'
+					:for='labelElement === "label" ? id : undefined'
+					:mod='{ disabled }'
+				>
 					<slot name='label'>
 						{{ label }}
 					</slot>
@@ -75,7 +93,12 @@ const style = computed(() => ({
 					</slot>
 				</Box>
 
-				<Box is='p' v-else-if='description || $slots.description' :class='$style.description' :mod='{ disabled }'>
+				<Box
+					is='p'
+					v-else-if='description || $slots.description'
+					:class='$style.description'
+					:mod='{ disabled }'
+				>
 					<slot name='description'>
 						{{ description }}
 					</slot>

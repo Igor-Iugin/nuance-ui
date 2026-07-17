@@ -5,9 +5,9 @@ import { useProvideDatesConfig, useVarsResolver } from '@nui/composables'
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import { useProvideAppShell } from './context'
 
 
@@ -53,7 +53,18 @@ export interface AppShellProps extends BoxProps {
 	hideFooter?: boolean
 }
 
-const props = defineProps<AppShellProps>()
+const {
+	is,
+	mod,
+	hideAside,
+	hideFooter,
+	hideHeader,
+	hideNavbar,
+	dateConfig,
+	withBorder,
+	layout = 'default',
+	...rest
+} = defineProps<AppShellProps>()
 
 const aside = defineModel<boolean>('aside', { default: p => !!p.hideAside })
 const header = defineModel<boolean>('header', { default: p => !!p.hideHeader })
@@ -61,15 +72,15 @@ const navbar = defineModel<boolean>('navbar', { default: p => !!p.hideNavbar })
 const footer = defineModel<boolean>('footer', { default: p => !!p.hideFooter })
 
 useProvideAppShell({ aside, footer, header, navbar })
-useProvideDatesConfig(props.dateConfig)
+useProvideDatesConfig(dateConfig)
 
 const route = useRoute()
 
 watch(() => route.meta?.shell, meta => {
-	header.value = meta?.hideHeader ?? !!props.hideHeader
-	footer.value = meta?.hideFooter ?? !!props.hideFooter
-	navbar.value = meta?.hideNavbar ?? !!props.hideNavbar
-	aside.value = meta?.hideAside ?? !!props.hideAside
+	header.value = meta?.hideHeader ?? !!hideHeader
+	footer.value = meta?.hideFooter ?? !!hideFooter
+	navbar.value = meta?.hideNavbar ?? !!hideNavbar
+	aside.value = meta?.hideAside ?? !!hideAside
 }, { immediate: true })
 
 const style = useVarsResolver<AppShellVars>(() => ({
@@ -105,9 +116,10 @@ const style = useVarsResolver<AppShellVars>(() => ({
 <template>
 	<Box
 		:is
+		v-bind='rest'
 		:style='style.root'
 		:class='$style.root'
-		:mod='[mod, { layout, "with-border": withBorder }]'
+		:mod='[{ layout, "with-border": withBorder }, mod]'
 	>
 		<slot />
 	</Box>

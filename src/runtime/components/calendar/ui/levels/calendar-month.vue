@@ -7,7 +7,7 @@ import { isAfter, isBefore, sameDay } from '@formkit/tempo'
 import { createMonth, getWeekNumber, isSameMonth, isWeekend as isWeekendDay } from '@nui/utils'
 import { shallowRef, watch } from 'vue'
 
-import Box from '../../../box.vue'
+import Box from '../../../box/box.vue'
 import { useCalendarState } from '../../lib/context'
 import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'

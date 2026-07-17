@@ -3,15 +3,35 @@
 
 <template>
 	<div class='root'>
-		<NButton>
-			Test
-		</NButton>
+		<NTooltip
+			label='Текст'
+			content='Подпись на карте'
+			footer='Test: work mode'
+		>
+			<NButton>
+				Test
+			</NButton>
+		</NTooltip>
+
+		<NButtonGroup>
+			<NActionIcon
+				icon='lucide:box'
+			/>
+			<NActionIcon
+				icon='lucide:chevron-down'
+				w='12px'
+				miw='auto'
+				icon-size='100%'
+			/>
+		</NButtonGroup>
 
 		<!-- ─── HORIZONTAL GROUP ─── -->
 		<NButtonGroup>
-			<NButton size='sm'>
-				Left
-			</NButton>
+			<NTooltip label='Test'>
+				<NButton size='sm'>
+					Left
+				</NButton>
+			</NTooltip>
 			<NButton size='sm'>
 				Middle
 			</NButton>

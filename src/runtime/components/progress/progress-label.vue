@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { BoxProps } from '@nui/components'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './progress.module.css'
 
 

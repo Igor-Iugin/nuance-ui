@@ -1,12 +1,19 @@
 <script setup lang='ts'>
-import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
+import type {
+	AnyString,
+	Classes,
+	NuanceColor,
+	NuanceGradient,
+	NuanceRadius,
+	NuanceSize,
+} from '@nui/types'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize } from '@nui/utils'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import Loader from '../loader/loader.vue'
 import css from './action-icon.module.css'
 
@@ -28,7 +35,7 @@ export interface ActionIconVars {
 		| '--ai-bd'
 }
 
-export interface ActionIconProps {
+export interface ActionIconProps extends BoxProps {
 	/** Component size  @default 'md' */
 	size?: ActionIconSize
 
@@ -76,6 +83,7 @@ export interface ActionIconProps {
 }
 
 const {
+	is = 'button',
 	color = 'gray',
 	size,
 	iconSize,
@@ -91,6 +99,7 @@ const {
 	activeMode = 'pressed',
 	activeVariant,
 	activeColor = 'primary',
+	...rest
 } = defineProps<ActionIconProps>()
 
 const { variantResolver, activeVariants } = useConfig()
@@ -105,7 +114,12 @@ const style = useVarsResolver<ActionIconVars>(theme => {
 		border,
 		hover,
 		text,
-	} = variantResolver({ variant: resolvedVariant, color: resolvedColor, theme, gradient })
+	} = variantResolver({
+		variant: resolvedVariant,
+		color: resolvedColor,
+		theme,
+		gradient,
+	})
 
 	return {
 		root: {
@@ -123,7 +137,7 @@ const style = useVarsResolver<ActionIconVars>(theme => {
 
 <template>
 	<Box
-		is='button'
+		:is
 		type='button'
 		:mod='[{ loading, active }, mod]'
 		:style='style.root'
@@ -131,6 +145,7 @@ const style = useVarsResolver<ActionIconVars>(theme => {
 		:disabled='(!disabled ? loading : disabled) || undefined'
 		:aria-pressed='activeMode === "pressed" ? active : undefined'
 		:aria-current='active && activeMode === "current" ? "page" : undefined'
+		v-bind='rest'
 	>
 		<Transition name='slide-down'>
 			<Loader

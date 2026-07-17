@@ -2,9 +2,9 @@
 import { useFloatingIndicator, useVarsResolver } from '@nui/composables'
 import { shallowRef, watch } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 interface FloatingIndicatorVars {
@@ -42,6 +42,7 @@ const {
 	parent,
 	orientation = 'horizontal',
 	transitionDuration: duration,
+	...rest
 } = defineProps<FloatingIndicatorProps>()
 
 const _target = shallowRef(target ?? null)
@@ -71,6 +72,7 @@ const style = useVarsResolver<FloatingIndicatorVars>(() => ({
 <template>
 	<Box
 		:is
+		v-bind='rest'
 		v-if='target && parent && size !== null'
 		:style='style.root'
 		:class='$style.root'
@@ -80,29 +82,29 @@ const style = useVarsResolver<FloatingIndicatorVars>(() => ({
 
 <style module>
 .root {
-  position: absolute;
-  z-index: 0;
+	position: absolute;
+	z-index: 0;
 
-  transition-timing-function: ease;
-  transition-duration: var(--fi-duration, 150ms);
-  transition-property: width, height, transform;
+	transition-timing-function: ease;
+	transition-duration: var(--fi-duration, 150ms);
+	transition-property: width, height, transform;
 
-  &:where([data-orientation='horizontal']) {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(var(--fi-position));
+	&:where([data-orientation='horizontal']) {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		transform: translateX(var(--fi-position));
 
-    width: var(--fi-size);
-  }
+		width: var(--fi-size);
+	}
 
-  &:where([data-orientation='vertical']) {
-    top: 0;
-    right: 0;
-    left: 0;
-    transform: translateY(var(--fi-position));
+	&:where([data-orientation='vertical']) {
+		top: 0;
+		right: 0;
+		left: 0;
+		transform: translateY(var(--fi-position));
 
-    height: var(--fi-size);
-  }
+		height: var(--fi-size);
+	}
 }
 </style>

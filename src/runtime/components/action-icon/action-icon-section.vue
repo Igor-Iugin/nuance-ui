@@ -4,10 +4,10 @@ import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius } from '@nui/
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getFontSize, getRadius, getSize } from '@nui/utils'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 import type { ActionIconSize, ActionIconVariant } from './action-icon.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './action-icon.module.css'
 
 
@@ -54,7 +54,12 @@ const {
 
 const { variantResolver } = useConfig()
 const style = useVarsResolver<ActionIconSectionVars>(theme => {
-	const { background, border, text } = variantResolver({ variant, color, theme, gradient })
+	const { background, border, text } = variantResolver({
+		variant,
+		color,
+		theme,
+		gradient,
+	})
 
 	return {
 		root: {
@@ -71,7 +76,12 @@ const style = useVarsResolver<ActionIconSectionVars>(theme => {
 </script>
 
 <template>
-	<Box :is :mod='[mod, { variant }]' :style='style.root' :class='css.section'>
+	<Box
+		:is
+		:mod='[{ variant }, mod]'
+		:style='style.root'
+		:class='css.section'
+	>
 		<slot />
 	</Box>
 </template>

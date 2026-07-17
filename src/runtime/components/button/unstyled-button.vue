@@ -1,8 +1,8 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 import type { InputBaseProps } from '../input'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 
 
 interface UnstyledButtonProps extends InputBaseProps, BoxProps {

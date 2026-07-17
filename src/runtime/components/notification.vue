@@ -5,12 +5,12 @@ import { getRadius, getThemeColor, useVarsResolver } from '#imports'
 
 import type { Classes, NuanceColor, NuanceRadius, StringOrVNode } from '../types'
 import type { ActionIconProps } from './action-icon/action-icon.vue'
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 import type { ButtonProps } from './button/button.vue'
 import type { LoaderProps } from './loader'
 
 import ActionIcon from './action-icon/action-icon.vue'
-import Box from './box.vue'
+import Box from './box/box.vue'
 import Button from './button/button.vue'
 import Loader from './loader/loader.vue'
 import Progress from './progress/progress.vue'
@@ -109,6 +109,7 @@ const {
 	closeButtonProps,
 	classes,
 	withProgress = false,
+	...rest
 } = defineProps<NotificationProps>()
 
 defineEmits<{
@@ -128,6 +129,7 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 
 <template>
 	<Box
+		v-bind='rest'
 		:style='style.root'
 		:class='[$style.root, classes?.root]'
 		:role
@@ -167,8 +169,14 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 				:mod='{ "with-title": !!title || !!$slots.title }'
 			>
 				<slot>
-					<component :is='message()' v-if='typeof message === "function"' />
-					<component :is='message' v-else-if='message && typeof message === "object"' />
+					<component
+						:is='message()'
+						v-if='typeof message === "function"'
+					/>
+					<component
+						:is='message'
+						v-else-if='message && typeof message === "object"'
+					/>
 					<template v-else>
 						{{ message }}
 					</template>

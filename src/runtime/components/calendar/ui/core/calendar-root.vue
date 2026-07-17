@@ -9,7 +9,7 @@ import { computed } from 'vue'
 
 import type { DateSelection, SelectionMode } from '../../types'
 
-import Box from '../../../box.vue'
+import Box from '../../../box/box.vue'
 import { useProvideCalendarState } from '../../lib/context'
 import { useCalendarSelection } from '../../lib/use-calendar-selection'
 

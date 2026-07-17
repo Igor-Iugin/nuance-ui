@@ -7,7 +7,7 @@ import { computed, useId } from 'vue'
 
 import type { InlineInputProps } from '../input'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import InputInline from '../input/ui/input-inline.vue'
 import { useCheckboxGroupState } from './lib/group.context'
 

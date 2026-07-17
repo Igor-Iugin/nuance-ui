@@ -1,18 +1,18 @@
 <script lang='ts' setup>
-import type { BoxProps } from '../../box.vue'
+import type { BoxProps } from '../../box/box.vue'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 import css from './dialog.module.css'
 
 
 export interface DialogFooterProps extends BoxProps {
 }
 
-const { is = 'footer', mod } = defineProps<DialogFooterProps>()
+const { is = 'footer', ...rest } = defineProps<DialogFooterProps>()
 </script>
 
 <template>
-	<Box :is :mod :class='css.footer'>
+	<Box :is v-bind='rest' :class='css.footer'>
 		<slot />
 	</Box>
 </template>

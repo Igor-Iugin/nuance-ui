@@ -1,5 +1,8 @@
 <script lang='ts'>
-export interface AccordionItemProps {
+import type { BoxProps } from '../box/box.vue'
+
+
+export interface AccordionItemProps extends BoxProps {
 	/** Unique value used to manage the open state. Must be unique within the accordion. */
 	value: string
 
@@ -11,7 +14,7 @@ export interface AccordionItemProps {
 <script setup lang='ts'>
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './accordion.module.css'
 import {
 	provideAccordionItemState,
@@ -19,7 +22,7 @@ import {
 } from './lib/context'
 
 
-const { value, disabled } = defineProps<AccordionItemProps>()
+const { value, disabled, mod, ...rest } = defineProps<AccordionItemProps>()
 
 const root = useAccordionRootState()
 
@@ -37,16 +40,14 @@ provideAccordionItemState({
 
 <template>
 	<Box
-		:mod='{
+		v-bind='rest'
+		:mod='[{
 			active: open,
 			disabled: itemDisabled,
 			state: dataState,
 			variant: root.variant.value,
-		}'
-		:class='[
-			css.item,
-			root.classes.value?.item,
-		]'
+		}, mod]'
+		:class='[css.item, root.classes.value?.item]'
 	>
 		<slot :open='open' />
 	</Box>

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 
 
 export interface AppShellSectionProps extends BoxProps {
@@ -12,11 +12,11 @@ export interface AppShellSectionProps extends BoxProps {
 	grow?: boolean
 }
 
-const { is = 'section', mod, grow } = defineProps<AppShellSectionProps>()
+const { is = 'section', mod, grow, ...rest } = defineProps<AppShellSectionProps>()
 </script>
 
 <template>
-	<Box :is :class='$style.root' :mod='[mod, { grow }]'>
+	<Box :is v-bind='rest' :class='$style.root' :mod='[{ grow }, mod]'>
 		<slot />
 	</Box>
 </template>

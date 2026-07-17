@@ -4,9 +4,9 @@ import type { NuanceRadius, NuanceShadow } from '@nui/types'
 import { getRadius, getShadow } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface PaperProps extends BoxProps {
@@ -20,7 +20,13 @@ export interface PaperProps extends BoxProps {
 	withBorder?: boolean
 }
 
-const { is, mod, radius, shadow, withBorder } = defineProps<PaperProps>()
+const {
+	mod,
+	radius,
+	shadow,
+	withBorder,
+	...rest
+} = defineProps<PaperProps>()
 const style = computed(() => ({
 	'--paper-radius': radius && getRadius(radius),
 	'--paper-shadow': getShadow(shadow),
@@ -28,7 +34,12 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<Box :is :style :class='$style.root' :mod='[mod, { "with-border": withBorder }]'>
+	<Box
+		v-bind='rest'
+		:style
+		:class='$style.root'
+		:mod='[{ "with-border": withBorder }, mod]'
+	>
 		<slot />
 	</Box>
 </template>

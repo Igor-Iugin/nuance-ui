@@ -1,18 +1,18 @@
 <script lang='ts' setup>
-import type { BoxProps } from '../../box.vue'
+import type { BoxProps } from '../../box/box.vue'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 import css from './dialog.module.css'
 
 
 export interface DialogHeaderProps extends BoxProps {
 }
 
-const { is = 'header', mod } = defineProps<DialogHeaderProps>()
+const { is = 'header', ...rest } = defineProps<DialogHeaderProps>()
 </script>
 
 <template>
-	<Box :is :mod :class='css.header'>
+	<Box :is v-bind='rest' :class='css.header'>
 		<slot />
 	</Box>
 </template>

@@ -6,15 +6,13 @@ import { isAfter, isBefore } from '@formkit/tempo'
 import { chunk } from 'es-toolkit'
 import { computed } from 'vue'
 
-import type { CalendarCellProps } from '../core'
-
-import Box from '../../../box.vue'
+import Box from '../../../box/box.vue'
 import { useCalendarState } from '../../lib/context'
 import { useCalendarSelectionState } from '../../lib/use-calendar-selection'
 import { CalendarCell } from '../core'
 
 
-export interface CalendarDecadeProps extends CalendarCellProps {
+export interface CalendarDecadeProps {
 	/** Start date of the decade */
 	date: DateInput
 
@@ -25,7 +23,11 @@ export interface CalendarDecadeProps extends CalendarCellProps {
 	selectable?: boolean
 }
 
-const { date, size, selectable } = defineProps<CalendarDecadeProps>()
+const {
+	date,
+	size,
+	selectable,
+} = defineProps<CalendarDecadeProps>()
 
 const emit = defineEmits<{
 	select: [date: DateInput]

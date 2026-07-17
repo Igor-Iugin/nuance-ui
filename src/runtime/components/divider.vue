@@ -4,9 +4,9 @@ import type { AnyString, NuanceColor, NuanceSize } from '@nui/types'
 import { useVarsResolver } from '@nui/composables'
 import { getSize, getThemeColor } from '@nui/utils'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export type DividerVariant = 'solid' | 'dashed' | 'dotted'
@@ -47,6 +47,8 @@ const {
 	labelPosition = 'center',
 	orientation = 'horizontal',
 	variant,
+	mod,
+	...rest
 } = defineProps<DividerProps>()
 
 const style = useVarsResolver<DividerVars>(theme => ({
@@ -63,6 +65,7 @@ const style = useVarsResolver<DividerVars>(theme => ({
 		role='separator'
 		:style='style.root'
 		:class='$style.root'
+		v-bind='rest'
 		:mod="[{ orientation, 'with-label': !!$slots.default }, mod]"
 	>
 		<Box

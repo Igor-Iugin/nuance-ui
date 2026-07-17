@@ -1,14 +1,13 @@
 <script setup lang='ts'>
-import type { AnyString, NuanceColor, NuanceFontSize, NuanceGradient, NuanceSize } from '@nui/types'
-import type { CSSProperties } from 'vue'
+import type { AnyString, NuanceGradient, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 type TitleOrder = 1 | 2 | 3 | 4 | 5 | 6
@@ -45,21 +44,6 @@ export interface TextProps extends BoxProps {
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
-
-	/** Font size token */
-	fz?: NuanceFontSize | `h${TitleOrder}` | AnyString
-
-	/** Font family token @default 'text' */
-	ff?: 'mono' | 'headings' | 'text' | AnyString
-
-	/** Line height token */
-	lh?: NuanceSize | AnyString
-
-	/** Font weight */
-	fw?: CSSProperties['font-weight']
-
-	/** Text color from theme */
-	c?: NuanceColor | 'dimmed'
 
 	/** Visual variant */
 	variant?: TextVariant

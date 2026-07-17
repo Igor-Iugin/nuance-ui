@@ -4,9 +4,9 @@ import type { AnyString, NuanceSize } from '@nui/types'
 import { useVarsResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface KbdVars {
@@ -21,7 +21,7 @@ export interface KbdProps extends BoxProps {
 	size?: NuanceSize | AnyString
 }
 
-const { size } = defineProps<KbdProps>()
+const { is = 'kbd', size, ...rest } = defineProps<KbdProps>()
 
 const style = useVarsResolver<KbdVars>(() => ({
 	root: { '--kbd-fz': getSize(size, 'kbd-fz') },
@@ -30,10 +30,10 @@ const style = useVarsResolver<KbdVars>(() => ({
 
 <template>
 	<Box
-		is='kbd'
+		:is
+		v-bind='rest'
 		:style='style.root'
 		:class='$style.root'
-		:mod
 	>
 		<slot />
 	</Box>

@@ -7,9 +7,9 @@ import { useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 
 import type { Classes } from '../types'
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 interface ScrollAreaVars {
@@ -100,7 +100,6 @@ export interface ScrollAreaEmits {
 }
 
 const {
-	is,
 	mod,
 	classes,
 	scrollbars = 'y',
@@ -112,6 +111,7 @@ const {
 	startScrollPosition,
 	viewportProps,
 	autoSize,
+	...rest
 } = defineProps<ScrollAreaProps>()
 
 const emits = defineEmits<ScrollAreaEmits>()
@@ -173,9 +173,15 @@ function recomputeEdges() {
 	}
 
 	checkEdge('top', overflowY && scrollTop === 0)
-	checkEdge('bottom', overflowY && scrollTop - (scrollHeight - clientHeight) >= -TOLERANCE)
+	checkEdge(
+		'bottom',
+		overflowY && scrollTop - (scrollHeight - clientHeight) >= -TOLERANCE,
+	)
 	checkEdge('left', overflowX && scrollLeft === 0)
-	checkEdge('right', overflowX && scrollLeft - (scrollWidth - clientWidth) >= -TOLERANCE)
+	checkEdge(
+		'right',
+		overflowX && scrollLeft - (scrollWidth - clientWidth) >= -TOLERANCE,
+	)
 }
 
 const scrolling = ref(false)
@@ -269,7 +275,7 @@ defineExpose({
 
 <template>
 	<Box
-		:is
+		v-bind='rest'
 		ref='rootRef'
 		:style='style.root'
 		:mod='[{

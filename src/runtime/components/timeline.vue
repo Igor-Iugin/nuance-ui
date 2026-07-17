@@ -13,9 +13,9 @@ import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getSpacing, getThemeColor, rem } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface TimelineItem {
@@ -134,6 +134,7 @@ const {
 	reverse,
 	orientation = 'vertical',
 	valueKey = 'value',
+	...rest
 } = defineProps<TimelineProps<T>>()
 
 defineEmits<TimelineEmits<T>>()
@@ -180,6 +181,7 @@ function getActive(ix: number): boolean {
 
 <template>
 	<Box
+		v-bind='rest'
 		:style='style.root'
 		:class='[$style.root, classes?.root]'
 		:mod='[{ align, orientation }, mod]'

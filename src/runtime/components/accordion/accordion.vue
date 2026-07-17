@@ -14,7 +14,7 @@ interface AccordionVars {
 		| '--accordion-radius'
 }
 
-export interface AccordionProps<Multiple extends boolean = false> {
+export interface AccordionProps<Multiple extends boolean = false> extends BoxProps {
 	/** If set, multiple items can be opened at the same time @default false */
 	multiple?: Multiple
 
@@ -68,12 +68,15 @@ export type AccordionValue<Multiple extends boolean> = Multiple extends true ? s
 import { getRadius, getSize } from '@nui/utils'
 import { toRefs, useId } from 'vue'
 
-import Box from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
+
+import Box from '../box/box.vue'
 import css from './accordion.module.css'
 import { provideAccordionRootState } from './lib/context'
 
 
 const {
+	mod,
 	loop = true,
 	variant = 'default',
 	transitionDuration = 200,
@@ -86,6 +89,7 @@ const {
 	radius,
 	keepMounted = true,
 	classes,
+	...rest
 } = defineProps<AccordionProps<Multiple>>()
 
 const value = defineModel<AccordionValue<Multiple>>({
@@ -111,7 +115,7 @@ function toggleItem(itemValue: string) {
 	}
 }
 
-const rest = toRefs({
+const state = toRefs({
 	classes,
 	disabled,
 	variant,
@@ -129,7 +133,7 @@ provideAccordionRootState({
 	toggleItem,
 	getHeaderId: v => `${uid}-header-${v}`,
 	getPanelId: v => `${uid}-panel-${v}`,
-	...rest,
+	...state,
 })
 
 const style = useVarsResolver<AccordionVars>(() => ({
@@ -145,8 +149,9 @@ const style = useVarsResolver<AccordionVars>(() => ({
 	<Box
 		:id='uid'
 		:style='style.root'
-		:mod='{ variant }'
+		:mod='[{ variant }, mod]'
 		:class='[css.root, classes?.root]'
+		v-bind='rest'
 	>
 		<slot />
 	</Box>

@@ -5,9 +5,10 @@ import { useVarsResolver } from '@nui/composables'
 import { getRadius, getThemeColor } from '@nui/utils'
 import { computed, onMounted, toRefs, useId } from 'vue'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import { extractStyleProps } from '../box'
+import Box from '../box/box.vue'
 import { getSafeId, useProvideTabsContext } from './lib'
 import css from './tabs.module.css'
 
@@ -115,6 +116,7 @@ useProvideTabsContext({
 <template>
 	<Box
 		:is
+		v-bind='extractStyleProps(props).styles'
 		:style='style.root'
 		:mod='[mod, {
 			orientation,

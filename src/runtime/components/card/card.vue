@@ -15,7 +15,7 @@ export interface CardProps extends PaperProps {
 	padding?: NuanceSpacing
 }
 
-const { padding, is = 'article', ...rest } = defineProps<CardProps>()
+const { is = 'article', padding, ...rest } = defineProps<CardProps>()
 const style = computed(() => ({
 	'--card-padding': getSpacing(padding),
 }))

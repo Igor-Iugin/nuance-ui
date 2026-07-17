@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './combobox.module.css'
 
 
@@ -10,11 +10,17 @@ export interface ComboboxOptionListProps extends BoxProps {
 	labelledBy?: string
 }
 
-const { labelledBy, mod } = defineProps<ComboboxOptionListProps>()
+const { labelledBy, mod, ...rest } = defineProps<ComboboxOptionListProps>()
 </script>
 
 <template>
-	<Box :class='css.options' role='listbox' :aria-labelledby='labelledBy' :mod>
+	<Box
+		:mod
+		v-bind='rest'
+		:class='css.options'
+		role='listbox'
+		:aria-labelledby='labelledBy'
+	>
 		<slot />
 	</Box>
 </template>

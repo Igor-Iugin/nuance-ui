@@ -3,10 +3,10 @@ import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
 import type { Mod } from '../../utils'
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 import type { ComboboxItem, ComboboxItemExt, ComboboxItemProps } from './types'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './combobox.module.css'
 import { COMBOBOX_ATTRS } from './lib/const'
 import { useComboboxState } from './lib/context'

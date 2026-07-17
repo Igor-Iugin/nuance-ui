@@ -1,21 +1,11 @@
-<script setup lang='ts'>
+<script lang="ts">
 import type {
 	NuanceColor,
 	NuanceRadius,
 	NuanceSize,
 } from '@nui/types'
 
-import { useConfig, useVarsResolver } from '@nui/composables'
-import {
-
-	getFontSize,
-	getRadius,
-	getSize,
-} from '@nui/utils'
-import { computed, useId } from 'vue'
-
-import Box from '../box.vue'
-import { useChipGroupState, useChipState } from './lib'
+import type { BoxProps } from '../box/box.vue'
 
 
 export type ChipVariant = 'filled' | 'outline' | 'light'
@@ -35,7 +25,7 @@ interface ChipVars {
 		| '--chip-spacing'
 }
 
-export interface ChipProps {
+export interface ChipProps extends BoxProps {
 	/** Border radius */
 	radius?: NuanceRadius
 
@@ -66,6 +56,16 @@ export interface ChipProps {
 	/** Visual variant */
 	variant?: ChipVariant
 }
+</script>
+
+<script setup lang='ts'>
+import { useConfig, useVarsResolver } from '@nui/composables'
+import {	getFontSize, getRadius, getSize } from '@nui/utils'
+import { computed, useId } from 'vue'
+
+import Box from '../box/box.vue'
+import { useChipGroupState, useChipState } from './lib'
+
 
 const {
 	id: uid,
@@ -78,6 +78,7 @@ const {
 	icon: _icon,
 	hideIcon = true,
 	disabled: _disabled,
+	...rest
 } = defineProps<ChipProps>()
 
 const id = uid || useId()
@@ -116,7 +117,7 @@ const style = useVarsResolver<ChipVars>(theme => {
 </script>
 
 <template>
-	<Box :style='style.root' :class='[$style.root, $attrs?.style]'>
+	<Box v-bind='rest' :style='style.root' :class='[$style.root, $attrs?.style]'>
 		<input
 			v-bind='{
 				...$attrs,

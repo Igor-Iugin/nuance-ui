@@ -5,7 +5,7 @@ import type { AnyString, NuanceColor, NuanceRadius } from '@nui/types'
 import type { ArrowPosition } from './popover/types'
 import type { TransitionProps } from './transition/transition.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export interface TooltipVars {

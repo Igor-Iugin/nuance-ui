@@ -1,16 +1,16 @@
-<script lang='ts' setup>
-import type { AnyString, Classes, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
+<script lang="ts">
+import type {
+	AnyString,
+	Classes,
+	NuanceColor,
+	NuanceGradient,
+	NuanceRadius,
+	NuanceSize,
+	NuanceSpacing,
+} from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
-import { computed } from 'vue'
-
-import type { BoxProps } from '../box.vue'
-
-import Box from '../box.vue'
-import Loader from '../loader/loader.vue'
-import css from './button.module.css'
+import type { BoxProps } from '../box/box.vue'
 
 
 export type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
@@ -95,6 +95,18 @@ export interface ButtonProps extends BoxProps {
 	/** Styles API */
 	classes?: Classes<ButtonClasses>
 }
+</script>
+
+<script lang='ts' setup>
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { computed } from 'vue'
+
+import { extractStyleProps } from '../box'
+import Box from '../box/box.vue'
+import Loader from '../loader/loader.vue'
+import css from './button.module.css'
+
 
 const {
 	is = 'button',
@@ -156,6 +168,7 @@ const style = useVarsResolver<ButtonVars>(theme => {
 	<Box
 		:is
 		type='button'
+		v-bind='extractStyleProps(props).styles'
 		:mod='[mod, {
 			"with-left-section": !!$slots?.leftSection || !!icon,
 			"with-right-section": !!$slots?.rightSection,

@@ -1,5 +1,8 @@
 <script lang="ts">
-export interface AccordionHeaderProps {
+import type { BoxProps } from '../box/box.vue'
+
+
+export interface AccordionHeaderProps extends BoxProps {
 	/** Leading icon name shown before the label */
 	icon?: string
 
@@ -21,14 +24,14 @@ export interface AccordionHeaderSlots {
 import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import UnstyledButton from '../button/unstyled-button.vue'
 import Title from '../title.vue'
 import css from './accordion.module.css'
 import { useAccordionItemState, useAccordionRootState } from './lib/context'
 
 
-const { icon, chevron } = defineProps<AccordionHeaderProps>()
+const { is, icon, chevron, ...rest } = defineProps<AccordionHeaderProps>()
 
 defineSlots<AccordionHeaderSlots>()
 
@@ -51,10 +54,10 @@ function onClick() {
 
 <template>
 	<Box
-		:is='root.order.value ? Title : "div"'
+		:is='root.order.value ? Title : is'
 		v-bind='root.order.value
-			? { order: root.order.value }
-			: {}'
+			? { order: root.order.value, ...rest }
+			: rest'
 		:class='[css.header, root.classes.value?.header]'
 	>
 		<UnstyledButton

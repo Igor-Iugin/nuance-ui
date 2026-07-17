@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 import { getSize } from '../../utils'
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import PopoverDropdown from '../popover/popover-dropdown.vue'
 import css from './combobox.module.css'
 import { useComboboxState } from './lib/context'

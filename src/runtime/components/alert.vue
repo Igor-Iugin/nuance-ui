@@ -5,18 +5,35 @@ import { useConfig, useVarsResolver } from '@nui/composables'
 import { getFontSize, getRadius } from '@nui/utils'
 import { useId } from 'vue'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
 import ActionIcon from './action-icon/action-icon.vue'
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
-export type AlertClasses = 'root' | 'icon' | 'body' | 'title' | 'label' | 'message' | 'closeButton'
+export type AlertClasses
+	= | 'root'
+		| 'icon'
+		| 'body'
+		| 'title'
+		| 'label'
+		| 'message'
+		| 'closeButton'
 
-export type AlertVariant = 'filled' | 'light' | 'outline' | 'light-outline' | 'default'
+export type AlertVariant
+	= | 'filled'
+		| 'light'
+		| 'outline'
+		| 'light-outline'
+		| 'default'
 
 export interface AlertVars {
-	root: '--alert-radius' | '--alert-bg' | '--alert-color' | '--alert-bd' | '--alert-font-size'
+	root:
+		| '--alert-radius'
+		| '--alert-bg'
+		| '--alert-color'
+		| '--alert-bd'
+		| '--alert-font-size'
 }
 
 export interface AlertProps extends BoxProps {
@@ -34,9 +51,6 @@ export interface AlertProps extends BoxProps {
 
 	/** Renders a close button in the top-right corner */
 	withCloseButton?: boolean
-
-	/** Called when the close button is clicked */
-	onClose?: () => void
 
 	/** `aria-label` for the close button */
 	closeButtonLabel?: string
@@ -61,9 +75,12 @@ const {
 	variant = 'light',
 	withCloseButton,
 	classes,
+	closeButtonLabel,
+	...rest
 } = defineProps<AlertProps>()
 
 defineEmits<{
+	/** Called when the close button is clicked */
 	close: []
 }>()
 
@@ -86,6 +103,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 
 <template>
 	<Box
+		v-bind='rest'
 		role='alert'
 		:style='style.root'
 		:class='[$style.root, classes?.root]'
@@ -125,6 +143,7 @@ const style = useVarsResolver<AlertVars>(theme => {
 			:icon='icons.close'
 			size='sm'
 			:color
+			:aria-label='closeButtonLabel'
 			@click='$emit("close")'
 		/>
 	</Box>

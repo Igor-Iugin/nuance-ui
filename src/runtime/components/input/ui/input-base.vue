@@ -6,7 +6,7 @@ import { computed } from 'vue'
 
 import type { WrapperContext } from '../lib/input-wrapper.context'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 

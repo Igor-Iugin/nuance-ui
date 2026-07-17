@@ -4,7 +4,7 @@ import { getSize } from '@nui/utils'
 import { computed, useId } from 'vue'
 
 import type { NuanceRadius, NuanceSize, NuanceSpacing } from '../../types'
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
 import Group from '../group.vue'
 import InputBase from '../input/ui/input-base.vue'

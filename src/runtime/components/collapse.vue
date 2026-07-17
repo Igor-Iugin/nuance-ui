@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { Classes } from '@nui/types'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export type CollapseClasses = 'root' | 'trigger' | 'content'
@@ -17,7 +17,7 @@ export interface CollapseTriggerProps {
 	'data-disabled': '' | undefined
 }
 
-export interface CollapseProps {
+export interface CollapseProps extends BoxProps {
 	/**
 	 * The open state of the collapsible when it is initially rendered.
 	 * Use when you do not need to control its open state.
@@ -43,9 +43,6 @@ export interface CollapseProps {
 
 	/** If set, opacity is animated alongside height @default true */
 	animateOpacity?: boolean
-
-	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
-	mod?: BoxProps['mod']
 
 	/** Styles API */
 	classes?: Classes<CollapseClasses>
@@ -76,6 +73,7 @@ const {
 	animateOpacity = true,
 	mod,
 	classes,
+	...rest
 } = defineProps<CollapseProps>()
 
 defineSlots<CollapseSlots>()
@@ -203,6 +201,7 @@ watch(opened, async value => {
 
 <template>
 	<Box
+		v-bind='rest'
 		:mod='[{ disabled, state: dataState }, mod]'
 		:class='classes?.root'
 	>

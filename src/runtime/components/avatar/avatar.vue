@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script lang="ts">
 import type { BoxProps } from '@nui/components'
 import type {
 	AnyString,
@@ -8,16 +8,6 @@ import type {
 	NuanceRadius,
 	NuanceSize,
 } from '@nui/types'
-
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { getRadius, getSize } from '@nui/utils'
-import { computed } from 'vue'
-
-import Box from '../box.vue'
-import css from './avatar.module.css'
-import { useAvatarGroupState } from './lib/context'
-import { getInitials } from './lib/get-initials'
-import { getInitialsColor } from './lib/get-initials-color'
 
 
 type AvatarVariant = 'filled' | 'light' | 'gradient' | 'outline' | 'default'
@@ -67,13 +57,33 @@ export interface AvatarProps extends BoxProps {
 	/** Styles API */
 	classes?: Classes<AvatarClasses>
 }
+</script>
+
+<script setup lang='ts'>
+import { useConfig, useVarsResolver } from '@nui/composables'
+import { getRadius, getSize } from '@nui/utils'
+import { computed } from 'vue'
+
+import Box from '../box/box.vue'
+import css from './avatar.module.css'
+import { useAvatarGroupState } from './lib/context'
+import { getInitials } from './lib/get-initials'
+import { getInitialsColor } from './lib/get-initials-color'
 
 
 const {
 	name,
 	radius,
 	placeholder,
-	...props
+	color,
+	variant,
+	allowedInitialsColors,
+	gradient,
+	size,
+	classes,
+	mod,
+	src,
+	...rest
 } = defineProps<AvatarProps>()
 
 const initials = computed(() => name && getInitials(name))
@@ -83,24 +93,24 @@ const { icons, variantResolver } = useConfig()
 const resolvedPlaceholder = computed(() => placeholder ?? icons.person)
 
 const style = useVarsResolver<AvatarVars>(theme => {
-	const color = props.color === 'initials' && typeof name === 'string'
-		? getInitialsColor(name, props.allowedInitialsColors)
-		: props.color
+	const _color = color === 'initials' && typeof name === 'string'
+		? getInitialsColor(name, allowedInitialsColors)
+		: color
 
 	const { background, text, border } = variantResolver({
 		theme,
-		gradient: props.gradient,
-		color: color || 'gray',
-		variant: props.variant || 'light',
+		gradient,
+		color: _color || 'gray',
+		variant: variant || 'light',
 	})
 
 	return {
 		root: {
-			'--avatar-size': getSize(props.size, 'avatar-size'),
+			'--avatar-size': getSize(size, 'avatar-size'),
 			'--avatar-radius': radius === undefined ? undefined : getRadius(radius),
-			'--avatar-bg': color || props.variant ? background : undefined,
-			'--avatar-color': color || props.variant ? text : undefined,
-			'--avatar-bd': color || props.variant ? border : undefined,
+			'--avatar-bg': color || variant ? background : undefined,
+			'--avatar-color': color || variant ? text : undefined,
+			'--avatar-bd': color || variant ? border : undefined,
 		},
 	}
 })
@@ -111,8 +121,13 @@ const style = useVarsResolver<AvatarVars>(theme => {
 		:style='style.root'
 		:class='[css.root, classes?.root]'
 		:mod='[{ "within-group": ctx?.withinGroup }, mod]'
+		v-bind='rest'
 	>
-		<span v-if='!src' :class='[css.placeholder, classes?.placeholder]' :title='alt'>
+		<span
+			v-if='!src'
+			:class='[css.placeholder, classes?.placeholder]'
+			:title='alt'
+		>
 			<slot>
 				<Icon v-if='!src && !name' :name='resolvedPlaceholder' />
 				{{ initials }}

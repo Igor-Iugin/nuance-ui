@@ -5,7 +5,7 @@ export * from './app-shell'
 export * from './avatar'
 export type * from './background-image.vue'
 export type * from './badge.vue'
-export type * from './box.vue'
+export * from './box'
 
 export type * from './breadcrumbs.vue'
 export * from './button'

@@ -4,9 +4,9 @@ import type { CSSProperties } from 'vue'
 import { getSpacing, useVarsResolver } from '#imports'
 
 import type { NuanceSpacing } from '../types'
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 interface StackVars {

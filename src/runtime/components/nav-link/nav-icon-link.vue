@@ -27,6 +27,7 @@ export interface NavIconLinkProps extends Omit<ActionIconProps, 'active'>, Omit<
 defineOptions({ inheritAttrs: false })
 
 const {
+	is = 'a',
 	variant,
 	activeVariant,
 	mod,
@@ -37,9 +38,13 @@ const { link, rest } = pickLinkProps(etc)
 </script>
 
 <template>
-	<NuxtLink v-slot='{ href, navigate, isActive, ...linkProps }' v-bind='link' custom>
+	<NuxtLink
+		v-slot='{ href, navigate, isActive, ...linkProps }'
+		v-bind='link'
+		custom
+	>
 		<ActionIcon
-			is='a'
+			:is
 			v-bind='{ ...rest, ...$attrs }'
 			:href
 			:variant

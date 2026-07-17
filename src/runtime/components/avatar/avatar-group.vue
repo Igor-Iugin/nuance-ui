@@ -5,7 +5,7 @@ import type { AnyString, NuanceSpacing } from '@nui/types'
 import { getSpacing } from '@nui/utils'
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './avatar.module.css'
 import { useProvideAvatarGroup } from './lib/context'
 
@@ -15,7 +15,7 @@ export interface AvatarGroupProps extends BoxProps {
 	spacing?: NuanceSpacing | AnyString
 }
 
-const { mod, is, spacing } = defineProps<AvatarGroupProps>()
+const { spacing, ...rest } = defineProps<AvatarGroupProps>()
 
 const style = computed(() => ({
 	'--ag-spacing': getSpacing(spacing),
@@ -25,7 +25,7 @@ useProvideAvatarGroup()
 </script>
 
 <template>
-	<Box :is :style :mod :class='css.group'>
+	<Box :style v-bind='rest' :class='css.group'>
 		<slot />
 	</Box>
 </template>

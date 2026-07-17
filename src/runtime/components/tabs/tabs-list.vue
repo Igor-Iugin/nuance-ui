@@ -3,9 +3,9 @@ import type { CSSProperties } from 'vue'
 
 import { computed } from 'vue'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import { useTabsState } from './lib'
 import css from './tabs.module.css'
 
@@ -18,7 +18,7 @@ export interface TabsListProps extends BoxProps {
 	justify?: CSSProperties['justify-content']
 }
 
-const { is = 'header', mod, grow, justify } = defineProps<TabsListProps>()
+const { is = 'header', mod, grow, justify, ...rest } = defineProps<TabsListProps>()
 const ctx = useTabsState()
 const style = computed(() => ({ '--tabs-justify': justify }))
 </script>
@@ -26,16 +26,17 @@ const style = computed(() => ({ '--tabs-justify': justify }))
 <template>
 	<Box
 		:is
+		v-bind='rest'
 		:style
 		:class='css.list'
 		role='tablist'
-		:mod='[mod, {
+		:mod='[{
 			variant: ctx?.variant.value,
 			grow,
 			orientation: ctx?.orientation.value,
 			placement: ctx?.orientation.value === "vertical" && ctx.placement.value,
 			inverted: ctx?.inverted.value,
-		}]'
+		}, mod]'
 		:aria-orientation='ctx?.orientation.value'
 	>
 		<slot />

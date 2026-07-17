@@ -5,9 +5,9 @@ import type { CSSProperties } from 'vue'
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor } from '@nui/utils'
 
-import type { BoxProps } from './box.vue'
+import type { BoxProps } from './box/box.vue'
 
-import Box from './box.vue'
+import Box from './box/box.vue'
 
 
 export type BadgeVariant = 'filled' | 'light' | 'outline' | 'default' | 'gradient' | 'subtle'
@@ -76,6 +76,10 @@ const {
 	icon,
 	fw,
 	dotted,
+	gradient,
+	is,
+	mod,
+	...rest
 } = defineProps<BadgeProps>()
 
 const { variantResolver } = useConfig()
@@ -108,6 +112,8 @@ const style = useVarsResolver<BadgeVars>(theme => {
 
 <template>
 	<Box
+		:is
+		v-bind='rest'
 		:style='style.root'
 		:class='$style.root'
 		:mod='[

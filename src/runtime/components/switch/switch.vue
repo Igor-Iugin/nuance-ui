@@ -7,7 +7,7 @@ import { computed, useId } from 'vue'
 
 import type { InlineInputProps } from '../input/ui/input-inline.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import InputInline from '../input/ui/input-inline.vue'
 import { useSwitchGroupState } from './lib/group.context'
 

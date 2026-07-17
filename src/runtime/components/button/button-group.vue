@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './button.module.css'
 
 
@@ -13,11 +13,22 @@ export interface ButtonGroupProps extends BoxProps {
 	orientation?: 'horizontal' | 'vertical'
 }
 
-const { is, mod, orientation = 'horizontal' } = defineProps<ButtonGroupProps>()
+const {
+	is,
+	mod,
+	orientation = 'horizontal',
+	...rest
+} = defineProps<ButtonGroupProps>()
 </script>
 
 <template>
-	<Box :is :mod='[mod, { orientation }]' :class='css.group' role='group'>
+	<Box
+		:is
+		:mod='[mod, { orientation }]'
+		v-bind='rest'
+		:class='css.group'
+		role='group'
+	>
 		<slot />
 	</Box>
 </template>

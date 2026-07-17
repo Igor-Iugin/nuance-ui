@@ -6,7 +6,7 @@ import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import css from './progress.module.css'
 
 
@@ -34,6 +34,8 @@ const {
 	striped,
 	color,
 	mod,
+	is,
+	...rest
 } = defineProps<ProgressSectionProps>()
 
 /** Value of the section in 0–100 range */
@@ -59,8 +61,9 @@ const style = useVarsResolver<ProgressSectionVars>(theme => ({
 
 <template>
 	<Box
+		:is
+		v-bind='{ ...rest, ...ariaAttributes }'
 		:style='style.root'
-		v-bind='ariaAttributes'
 		:class='css.section'
 		:mod='[{ striped: striped || animated, animated }, mod]'
 	>

@@ -4,7 +4,7 @@ import type { AnyString, NuanceSize } from '@nui/types'
 import { getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from '../../../box.vue'
+import type { BoxProps } from '../../../box/box.vue'
 
 import UnstyledButton from '../../../button/unstyled-button.vue'
 
@@ -14,15 +14,15 @@ export interface CalendarCellProps extends BoxProps {
 	size?: NuanceSize | AnyString
 }
 
-const props = defineProps<CalendarCellProps>()
+const { size, ...rest } = defineProps<CalendarCellProps>()
 
 const style = computed(() => ({
-	'--day-size': getSize(props.size),
+	'--day-size': getSize(size),
 }))
 </script>
 
 <template>
-	<UnstyledButton v-bind='props' :style :class='$style.cell'>
+	<UnstyledButton v-bind='rest' :style :class='$style.cell'>
 		<slot	/>
 	</UnstyledButton>
 </template>

@@ -1,10 +1,10 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
 import { useId } from 'vue'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 import type { ComboboxItemExt, ComboboxItemGroup, ComboboxItemProps } from './types'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import ComboboxOption from './combobox-option.vue'
 import css from './combobox.module.css'
 import { isValueChecked } from './lib/utils'
@@ -28,6 +28,7 @@ const {
 	iconPosition,
 	checkIcon,
 	withCheckIcon,
+	...rest
 } = defineProps<ComboboxGroupProps<Value, Ext>>()
 
 const uid = useId()
@@ -36,7 +37,13 @@ const value = defineModel<string | string[] | null>('value')
 </script>
 
 <template>
-	<Box :class='css.group' role='group' :aria-labelledby='label ? uid : undefined' :mod>
+	<Box
+		:mod
+		v-bind='rest'
+		:class='css.group'
+		role='group'
+		:aria-labelledby='label ? uid : undefined'
+	>
 		<div v-if='label || $slots?.label' :id='uid' :class='css.groupLabel'>
 			<slot name='label'>
 				{{ label }}

@@ -10,7 +10,7 @@ import { useTemplateRef } from 'vue'
 import type { RovingFocusProps } from '../../roving-focus/roving-focus.vue'
 import type { TreeEmits, TreeFilter, TreeIconResolver, TreeLoader, TreeModels } from '../types'
 
-import Box from '../../box.vue'
+import Box from '../../box/box.vue'
 import RovingFocus from '../../roving-focus/roving-focus.vue'
 import { useProvideTreeState } from '../lib/context'
 

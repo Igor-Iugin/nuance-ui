@@ -5,7 +5,7 @@ import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import { useCheckboxCardState } from './lib/card.context'
 
 

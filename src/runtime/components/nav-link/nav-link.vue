@@ -5,9 +5,9 @@ import type { NuxtLinkProps } from 'nuxt/app'
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getSize } from '@nui/utils'
 
-import type { BoxProps } from '../box.vue'
+import type { BoxProps } from '../box/box.vue'
 
-import Box from '../box.vue'
+import Box from '../box/box.vue'
 import UnstyledButton from '../button/unstyled-button.vue'
 import { pickLinkProps } from '../link'
 
