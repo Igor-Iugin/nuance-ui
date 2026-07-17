@@ -1,6 +1,38 @@
 # Changelog
 
 
+## v0.4.1
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.5...v0.4.1)
+
+### 🚀 Enhancements
+
+- Styled Tooltip and added content, footer blocks ([acf1bcc](https://github.com/Igor-Iugin/nuance-ui/commit/acf1bcc))
+- Added styles props ([296703d](https://github.com/Igor-Iugin/nuance-ui/commit/296703d))
+
+### 🩹 Fixes
+
+- Added reset input height in unstyled variant ([797dab6](https://github.com/Igor-Iugin/nuance-ui/commit/797dab6))
+- Remove double border in groups ([24fa9a7](https://github.com/Igor-Iugin/nuance-ui/commit/24fa9a7))
+
+### 💅 Refactors
+
+- Added styled props to all components ([aeea3b4](https://github.com/Igor-Iugin/nuance-ui/commit/aeea3b4))
+
+### 📦 Build
+
+- Update release script ([5386cd8](https://github.com/Igor-Iugin/nuance-ui/commit/5386cd8))
+- Update pnpm policies ([40c5df9](https://github.com/Igor-Iugin/nuance-ui/commit/40c5df9))
+
+### 🏡 Chore
+
+- Fix lint errors ([5c5b5ce](https://github.com/Igor-Iugin/nuance-ui/commit/5c5b5ce))
+- **release:** V0.4.0 ([7d7b331](https://github.com/Igor-Iugin/nuance-ui/commit/7d7b331))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.5...v0.4.0)
