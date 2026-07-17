@@ -1,0 +1,126 @@
+.dropdown {
+	padding: 4px;
+}
+
+.label {
+	color: var(--color-dimmed);
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-xs);
+	padding: calc(var(--spacing-xs) / 2) var(--spacing-sm);
+	cursor: default;
+}
+
+.divider {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	border-top: 1px solid;
+
+	@mixin where-light {
+		border-color: var(--color-gray-2);
+	}
+
+	@mixin where-dark {
+		border-color: var(--color-dark-4);
+	}
+}
+
+.item {
+	font-size: var(--font-size-sm);
+	width: 100%;
+	padding: calc(var(--spacing-xs) / 1.5) var(--spacing-sm);
+	border-radius: var(--popover-radius, var(--radius-default));
+	color: var(--menu-item-color, var(--color-text));
+	display: flex;
+	align-items: center;
+	user-select: none;
+
+	&:where([data-disabled], :disabled) {
+		color: var(--color-disabled-color);
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	&:where(:hover, :focus, [data-menu-active]) {
+		&:where(:not(:disabled, [data-disabled])) {
+			@mixin where-light {
+				background-color: var(--menu-item-hover, var(--color-gray-1));
+			}
+
+			@mixin where-dark {
+				background-color: var(--menu-item-hover, var(--color-dark-4));
+			}
+		}
+	}
+
+	&:where([data-sub-menu-item]) {
+		padding-inline-end: 5px;
+	}
+}
+
+.search {
+	--menu-search-padding: var(--popover-padding, 4px);
+
+	margin-inline: calc(var(--menu-search-padding) * -1);
+	margin-top: calc(var(--menu-search-padding) * -1);
+	width: calc(100% + var(--menu-search-padding) * 2);
+	border-top-width: 0;
+	border-inline-width: 0;
+	border-end-start-radius: 0;
+	border-end-end-radius: 0;
+	margin-bottom: var(--menu-search-padding);
+
+	&,
+	&:focus {
+		@mixin where-light {
+			border-color: var(--color-gray-2);
+		}
+
+		@mixin where-dark {
+			border-color: var(--color-dark-4);
+		}
+	}
+
+	@mixin where-light {
+		background-color: var(--color-white);
+	}
+
+	@mixin where-dark {
+		background-color: var(--color-dark-7);
+	}
+}
+
+.itemLabel {
+	flex: 1;
+}
+
+.itemIndicator {
+	width: 12px;
+	height: 12px;
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-inline-end: 8px;
+}
+
+.itemSection {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&:where([data-position='left']) {
+		margin-inline-end: var(--spacing-xs);
+	}
+
+	&:where([data-position='right']) {
+		margin-inline-start: var(--spacing-xs);
+	}
+}
+
+.chevron {
+	transform: rotate(-90deg);
+
+	@mixin where-rtl {
+		transform: rotate(90deg);
+	}
+}
