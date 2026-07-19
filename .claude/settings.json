@@ -1,10 +1,13 @@
 {
-	"permissions": {
-		"allow": [
-			"WebSearch",
-			"Bash(pnpm lint:*)",
-			"Bash(pnpm lint:ts)",
-			"Bash(npm run:*)"
-		]
-	}
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm lint:ts)",
+      "Bash(npm run:*)",
+      "Bash(rtk ls *)",
+      "Bash(rtk read *)",
+      "Bash(rtk grep *)"
+    ]
+  }
 }
