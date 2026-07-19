@@ -95,7 +95,7 @@ export interface MenuProps extends PopoverProps {
 	>
 }
 
-export interface MenuState extends ToRefs<Pick<
+export interface MenuState extends ToRefs<Required<Pick<
 	MenuProps,
 	| 'closeOnItemClick'
 	| 'loop'
@@ -103,7 +103,7 @@ export interface MenuState extends ToRefs<Pick<
 	| 'menuItemTabIndex'
 	| 'withInitialFocusPlaceholder'
 	| 'alignItemsLabels'
->> {
+>>> {
 	toggleDropdown: () => void
 	closeDropdownImmediately: () => void
 	closeDropdown: () => void
@@ -115,6 +115,11 @@ export interface MenuState extends ToRefs<Pick<
 	registerOpenSub: (closeFn: () => void) => () => void
 	hasSearch: Ref<boolean>
 	registerSearch: () => () => void
+
+	/** User-provided class names per styles-API part */
+	classes: Ref<MenuProps['classes']>
+	/** Custom indicator icon for checked/selected selectable items */
+	checkIcon: Ref<string | undefined>
 }
 
 const injectionKey = Symbol('nuance-menu')
@@ -154,8 +159,10 @@ const {
 	trigger = 'click',
 	menuItemTabIndex = -1,
 	withInitialFocusPlaceholder = true,
-	alignItemsLabels,
-	...rest
+	alignItemsLabels = 'with-indicators',
+	keepMounted,
+	checkIcon,
+	classes,
 } = defineProps<MenuProps>()
 
 const emit = defineEmits<PopoverEmits>()
@@ -240,6 +247,8 @@ const state = toRefs({
 	menuItemTabIndex,
 	withInitialFocusPlaceholder,
 	alignItemsLabels,
+	classes,
+	checkIcon,
 })
 
 Provide({
