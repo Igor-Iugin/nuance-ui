@@ -30,6 +30,7 @@ function onLeave() {
 
 <template>
 	<PopoverTarget
+		manual
 		:data-expanded='ctx.opened.value ? true : undefined'
 		@click='onClick()'
 		@mouseenter='onEnter()'

@@ -67,7 +67,7 @@ const onKeyDown = createItemKeydownHandler({
 </script>
 
 <template>
-	<PopoverTarget disable>
+	<PopoverTarget manual>
 		<UnstyledButton
 			:id='`${sub?.id}-target`'
 			role='menuitem'

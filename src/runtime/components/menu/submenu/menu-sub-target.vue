@@ -12,7 +12,7 @@ const sub = useSubMenuState()
 <template>
 	<PopoverTarget
 		:id='`${sub.id}-target`'
-		disable
+		manual
 		aria-haspopup='menu'
 		:aria-expanded='sub.opened.value'
 		:data-expanded='sub.opened.value ? true : undefined'
