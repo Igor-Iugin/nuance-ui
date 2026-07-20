@@ -41,8 +41,7 @@ function onKeyDown(event: KeyboardEvent) {
 		role='menu'
 		aria-orientation='vertical'
 		tabindex='-1'
-		data-menu-dropdown
-		:data-expanded='ctx.opened.value ? true : undefined'
+		:mod='{ "menu-dropdown": true, "expanded": ctx.opened.value }'
 		:class='css.dropdown'
 		@keydown='onKeyDown'
 	>

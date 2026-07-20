@@ -1,12 +1,16 @@
 .dropdown {
-	padding: 4px;
+	--menu-dropdown-padding: 7px 8px;
+	--popover-padding: 5px;
 }
 
 .label {
 	color: var(--color-dimmed);
 	font-weight: var(--font-weight-medium);
-	font-size: var(--font-size-xs);
-	padding: calc(var(--spacing-xs) / 2) var(--spacing-sm);
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+	padding: var(--menu-dropdown-padding);
 	cursor: default;
 }
 
@@ -27,7 +31,7 @@
 .item {
 	font-size: var(--font-size-sm);
 	width: 100%;
-	padding: calc(var(--spacing-xs) / 1.5) var(--spacing-sm);
+	padding: var(--menu-dropdown-padding);
 	border-radius: var(--popover-radius, var(--radius-default));
 	color: var(--menu-item-color, var(--color-text));
 	display: flex;
@@ -40,7 +44,7 @@
 		cursor: not-allowed;
 	}
 
-	&:where(:hover, :focus, [data-menu-active]) {
+	&:where(:hover, :focus) {
 		&:where(:not(:disabled, [data-disabled])) {
 			@mixin where-light {
 				background-color: var(--menu-item-hover, var(--color-gray-1));
@@ -50,6 +54,10 @@
 				background-color: var(--menu-item-hover, var(--color-dark-4));
 			}
 		}
+	}
+
+	&:where([data-menu-active]) {
+		color: var(--color-primary-filled);
 	}
 
 	&:where([data-sub-menu-item]) {
@@ -91,6 +99,12 @@
 
 .itemLabel {
 	flex: 1;
+}
+
+.itemDescription {
+	color: var(--color-dimmed);
+	font-size: 10px;
+	font-weight: 400;
 }
 
 .itemIndicator {

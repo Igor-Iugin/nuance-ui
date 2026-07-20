@@ -9,16 +9,16 @@ import { useMenuState } from '../menu.vue'
 import { useSubMenuState } from './menu-sub.vue'
 
 
-const dropdown = useTemplateRef('dropdown')
+const dropdown = useTemplateRef<HTMLElement>('dropdown')
 
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
-const getDropdown = () => (unrefElement(dropdown) as HTMLElement | null) ?? null
+const getDropdown = () => unrefElement(dropdown) ?? null
 
 const typeAhead = useTypeAhead({
 	enabled: () => !ctx.hasSearch.value,
-	opened: sub.opened,
+	opened: () => sub?.opened.value ?? false,
 	getDropdown,
 })
 
@@ -50,16 +50,16 @@ function onKeyDown(event: KeyboardEvent) {
 
 <template>
 	<PopoverDropdown
-		:id='`${sub.id}-dropdown`'
+		:id='`${sub?.id}-dropdown`'
 		ref='dropdown'
 		role='menu'
 		aria-orientation='vertical'
 		tabindex='-1'
 		data-menu-dropdown
-		:data-expanded='sub.opened.value ? true : undefined'
+		:mod='{ expanded: sub?.opened.value }'
 		:class='css.dropdown'
-		@mouseenter='sub.open()'
-		@mouseleave='sub.close()'
+		@mouseenter='sub?.open()'
+		@mouseleave='sub?.close()'
 		@keydown='onKeyDown'
 	>
 		<slot />

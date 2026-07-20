@@ -2,8 +2,13 @@
 import { getRadius, getShadow } from '@nui/utils'
 import { computed } from 'vue'
 
+import type { BoxProps } from '../box/box.vue'
+
+import Box from '../box/box.vue'
 import { usePopoverState } from './lib/context'
 
+
+const props = defineProps<BoxProps>()
 
 const {
 	id,
@@ -21,9 +26,10 @@ const style = computed(() => ({
 </script>
 
 <template>
-	<div
+	<Box
 		:id='id'
 		ref='dropdownRef'
+		v-bind='props'
 		popover
 		:style='{ ...floatingStyles, ...style }'
 		:class='$style.dropdown'
@@ -36,7 +42,7 @@ const style = computed(() => ({
 			:class='$style.arrow'
 			:style='arrowStyles'
 		/>
-	</div>
+	</Box>
 </template>
 
 <style module>
@@ -46,7 +52,7 @@ const style = computed(() => ({
 
 	overflow: visible;
 
-	padding: var(--spacing-xs) var(--spacing-sm);
+	padding: var(--popover-padding);
 	border: 1px solid var(--popover-border-color);
 	border-radius: var(--popover-radius);
 
@@ -77,6 +83,10 @@ const style = computed(() => ({
 
 		background-color: var(--color-dark-6);
 	}
+}
+
+:where(.dropdown) {
+	--popover-padding: var(--spacing-xs) var(--spacing-sm);
 }
 
 .arrow {

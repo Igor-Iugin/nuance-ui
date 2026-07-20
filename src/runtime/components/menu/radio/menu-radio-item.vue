@@ -15,13 +15,6 @@ export interface MenuRadioItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-
-export interface MenuRadioItemSlots {
-	/** Item label */
-	default?: () => any
-	/** Trailing content */
-	rightSection?: () => any
-}
 </script>
 
 <script lang="ts" setup>
@@ -31,17 +24,18 @@ import MenuSelectableItem from '../menu-selectable-item.vue'
 import { useMenuRadioGroupState } from './menu-radio-group.vue'
 
 
-const { value, color, closeMenuOnClick, disabled } = defineProps<MenuRadioItemProps>()
+const {
+	value,
+	color,
+	closeMenuOnClick,
+	disabled,
+} = defineProps<MenuRadioItemProps>()
 
-defineSlots<MenuRadioItemSlots>()
-
-// ponytail: the group is optional. Outside a group the item toggles its own
-// `v-model:checked`; inside one the group's value drives the checked state.
 const group = useMenuRadioGroupState()
 const localChecked = defineModel<boolean>('checked', { default: false })
 
 const checked = computed(() =>
-	group ? group.value === value : localChecked.value,
+	group ? group.value.value === value : localChecked.value,
 )
 
 function onSelect() {
@@ -55,7 +49,7 @@ function onSelect() {
 <template>
 	<MenuSelectableItem
 		role='menuitemradio'
-		:checked='checked'
+		:checked
 		:color
 		:close-menu-on-click='closeMenuOnClick'
 		:disabled

@@ -20,6 +20,9 @@ useHead({
 			<NNavLink to='/button'>
 				Button
 			</NNavLink>
+			<NNavLink to='/menu'>
+				Menu
+			</NNavLink>
 			<NNavLink to='/badge'>
 				Badge
 			</NNavLink>

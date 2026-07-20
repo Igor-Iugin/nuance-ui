@@ -1,5 +1,10 @@
-<script lang="ts">
+<script lang="ts" setup>
 import type { AnyString, NuanceColor } from '@nui/types'
+
+import { computed } from 'vue'
+
+import MenuSelectableItem from '../menu-selectable-item.vue'
+import { useMenuCheckboxGroupState } from './menu-checkbox-group.vue'
 
 
 export interface MenuCheckboxItemProps {
@@ -18,31 +23,21 @@ export interface MenuCheckboxItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-</script>
 
-<script lang="ts" setup>
-import { computed } from 'vue'
+const {
+	value,
+	color,
+	closeMenuOnClick,
+	disabled,
+} = defineProps<MenuCheckboxItemProps>()
 
-import MenuSelectableItem from '../menu-selectable-item.vue'
-import { useMenuCheckboxGroupState } from './menu-checkbox-group.vue'
-
-
-const { value, color, closeMenuOnClick, disabled } = defineProps<MenuCheckboxItemProps>()
-
-defineSlots<{
-	/** Item label */
-	default?: () => any
-	/** Trailing content */
-	rightSection?: () => any
-}>()
-
-// ponytail: the group is optional. When present it owns the checked state via
-// its value array; otherwise the item toggles its own `v-model:checked`.
 const group = useMenuCheckboxGroupState()
 const localChecked = defineModel<boolean>('checked', { default: false })
 
 const checked = computed(() =>
-	group && value !== undefined ? group.value.includes(value) : localChecked.value,
+	group && value !== undefined
+		? group.value.value.includes(value)
+		: localChecked.value,
 )
 
 function onSelect() {
@@ -56,7 +51,7 @@ function onSelect() {
 <template>
 	<MenuSelectableItem
 		role='menuitemcheckbox'
-		:checked='checked'
+		:checked
 		:color
 		:close-menu-on-click='closeMenuOnClick'
 		:disabled

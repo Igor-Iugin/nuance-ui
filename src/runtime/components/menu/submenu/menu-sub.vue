@@ -51,7 +51,7 @@ export const useSubMenuState = injectSubMenuState
 </script>
 
 <script lang="ts" setup>
-import { ref, shallowRef, useId, watch } from 'vue'
+import { nextTick, ref, shallowRef, useId, watch } from 'vue'
 
 import Popover from '../../popover/popover.vue'
 import { useDelayedHover } from '../lib/use-delayed-hover'
@@ -117,12 +117,12 @@ function registerOpenSub(closeFn: () => void): () => void {
 
 // ─── Focus Management ───
 function focusFirstItem() {
-	setTimeout(() => {
+	nextTick(() => {
 		document
 			.getElementById(`${id}-dropdown`)
 			?.querySelector<HTMLElement>('[data-menu-item]:not([data-disabled])')
 			?.focus()
-	}, 16)
+	})
 }
 function focusParentItem() {
 	document.getElementById(`${id}-target`)?.focus()

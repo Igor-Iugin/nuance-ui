@@ -6,7 +6,9 @@
 			"Bash(pnpm lint:ts)",
 			"Bash(rtk ls *)",
 			"Bash(rtk read *)",
-			"Bash(rtk grep *)"
+			"Bash(rtk grep *)",
+			"Bash(rtk git diff *)",
+			"Bash(rtk git stat *)"
 		]
 	}
 }

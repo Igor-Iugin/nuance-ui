@@ -3,6 +3,9 @@ import type { AnyString, NuanceColor } from '@nui/types'
 
 
 export interface MenuSelectableItemProps {
+	icon?: string
+	description?: string
+
 	/** ARIA role determining checkbox or radio semantics */
 	role: 'menuitemcheckbox' | 'menuitemradio'
 
@@ -36,6 +39,8 @@ import { useSubMenuState } from './submenu/menu-sub.vue'
 
 
 const {
+	icon,
+	description,
 	role,
 	checked,
 	indicator,
@@ -53,13 +58,9 @@ const { icons } = useConfig()
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
-interface Vars {
+const style = useVarsResolver<{
 	root: '--menu-item-color'
-}
-
-// ponytail: no light-variant hover resolver exists in this repo, so only the
-// text color var is set and `--menu-item-hover` is left to the CSS default.
-const style = useVarsResolver<Vars>(theme => ({
+}>(theme => ({
 	root: {
 		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
 	},
@@ -71,7 +72,9 @@ const renderIndicator = computed(() => ctx.alignItemsLabels.value !== 'none' || 
 function onClick() {
 	if (disabled)
 		return
+
 	emit('select')
+
 	if (closeMenuOnClick)
 		ctx.closeDropdownImmediately()
 }
@@ -92,10 +95,8 @@ const onKeyDown = createItemKeydownHandler({
 		:role
 		:aria-checked='checked'
 		data-menu-item
-		:data-checked='checked || undefined'
-		:data-disabled='disabled || undefined'
+		:mod='{ checked, disabled }'
 		:tabindex='ctx.menuItemTabIndex.value'
-		data-nuance-stop-propagation
 		:style='style.root'
 		:class='[css.item, ctx.classes.value?.item]'
 		@mousedown.prevent
@@ -103,23 +104,33 @@ const onKeyDown = createItemKeydownHandler({
 		@keydown='onKeyDown'
 	>
 		<div
-			v-if='renderIndicator'
+			v-if='$slots.leftSection || icon'
 			:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
 			:data-checked='checked || undefined'
 		>
-			<Icon v-if='checked' :name='indicatorIcon' />
-		</div>
-
-		<div :class='[css.itemLabel, ctx.classes.value?.itemLabel]' data-menu-item-label>
-			<slot />
+			<slot name='leftSection'>
+				<Icon v-if='icon' :name='icon' />
+			</slot>
 		</div>
 
 		<div
-			v-if='$slots.rightSection'
+			:class='[css.itemLabel, ctx.classes.value?.itemLabel]'
+			data-menu-item-label
+		>
+			<span>
+				<slot />
+			</span>
+			<span :class='css.itemDescription'>
+				{{ description }}
+			</span>
+		</div>
+
+		<div
+			v-if='renderIndicator'
 			:class='[css.itemSection, ctx.classes.value?.itemSection]'
 			data-position='right'
 		>
-			<slot name='rightSection' />
+			<Icon v-if='checked' :name='indicatorIcon' />
 		</div>
 	</UnstyledButton>
 </template>

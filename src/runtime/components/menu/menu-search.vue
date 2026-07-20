@@ -16,8 +16,6 @@ export interface MenuSearchProps {
 	classes?: Classes<'wrapper' | 'input'>
 }
 
-// ─── Active Descendant Helpers ───
-
 const ITEM_SELECTOR = '[data-menu-item]:not([data-disabled])'
 
 function getDropdown(input: HTMLElement): HTMLElement | null {
@@ -59,7 +57,11 @@ import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
 
 
-const { placeholder, clearSearchOnClose = true, classes } = defineProps<MenuSearchProps>()
+const {
+	placeholder,
+	clearSearchOnClose = true,
+	classes,
+} = defineProps<MenuSearchProps>()
 
 const value = defineModel<string>({ default: '' })
 
@@ -69,9 +71,6 @@ const inputRef = useTemplateRef<{ $el: HTMLInputElement | null }>('input')
 const unregister = ctx.registerSearch()
 onScopeDispose(unregister)
 
-// ponytail: the native `<div popover>` has no exit-transition callback, so the
-// React `clearSearchOnClose` (which relied on `onExitTransitionEnd`) becomes a
-// simple watch on the open state.
 watch(() => ctx.opened.value, opened => {
 	if (!opened && clearSearchOnClose)
 		value.value = ''

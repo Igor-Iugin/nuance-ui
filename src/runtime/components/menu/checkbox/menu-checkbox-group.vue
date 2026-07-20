@@ -1,10 +1,12 @@
 <script lang="ts">
+import type { ModelRef } from 'vue'
+
 import { createInjectionState } from '@vueuse/core'
 
 
 export interface MenuCheckboxGroupState {
 	/** Currently selected values */
-	value: string[]
+	value: ModelRef<string[]>
 	/** Adds or removes the value from the selection */
 	onChange: (value: string, checked: boolean) => void
 }
@@ -19,28 +21,17 @@ export { provideCheckboxGroup }
 export const useMenuCheckboxGroupState = useCheckboxGroup
 </script>
 
-
 <script lang="ts" setup>
-import { reactive } from 'vue'
-
-
-defineSlots<{
-	/** MenuCheckbox items */
-	default?: () => any
-}>()
-
 const model = defineModel<string[]>({ default: () => [] })
 
-provideCheckboxGroup(reactive({
-	get value() {
-		return model.value
-	},
+provideCheckboxGroup({
+	value: model,
 	onChange(value: string, checked: boolean) {
 		model.value = checked
 			? [...model.value, value]
 			: model.value.filter(v => v !== value)
 	},
-}))
+})
 </script>
 
 <template>

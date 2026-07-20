@@ -3,6 +3,9 @@ import type { AnyString, NuanceColor } from '@nui/types'
 
 
 export interface MenuItemProps {
+	icon?: string
+	description?: string
+
 	/** Color from theme */
 	color?: NuanceColor | AnyString
 
@@ -11,6 +14,8 @@ export interface MenuItemProps {
 
 	/** Disables the item */
 	disabled?: boolean
+
+	active?: boolean
 }
 </script>
 
@@ -25,13 +30,18 @@ import { useMenuState } from './menu.vue'
 import { useSubMenuState } from './submenu/menu-sub.vue'
 
 
-const { color, closeMenuOnClick, disabled } = defineProps<MenuItemProps>()
+const {
+	icon,
+	description,
+	color,
+	closeMenuOnClick,
+	disabled,
+	active,
+} = defineProps<MenuItemProps>()
 
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
-// ponytail: no light-variant hover resolver exists in this repo, so only the
-// text color var is set and `--menu-item-hover` is left to the CSS default.
 const style = useVarsResolver<{
 	root: '--menu-item-color'
 }>(theme => ({
@@ -43,9 +53,11 @@ const style = useVarsResolver<{
 function onClick() {
 	if (disabled)
 		return
+
 	const close = typeof closeMenuOnClick === 'boolean'
 		? closeMenuOnClick
 		: ctx.closeOnItemClick.value
+
 	if (close)
 		ctx.closeDropdownImmediately()
 }
@@ -65,9 +77,9 @@ const onKeyDown = createItemKeydownHandler({
 	<UnstyledButton
 		role='menuitem'
 		data-menu-item
-		:data-disabled='disabled || undefined'
+		:mod='{ active, disabled }'
+		:disabled
 		:tabindex='ctx.menuItemTabIndex.value'
-		data-nuance-stop-propagation
 		:style='style.root'
 		:class='[css.item, ctx.classes.value?.item]'
 		@mousedown.prevent
@@ -77,7 +89,6 @@ const onKeyDown = createItemKeydownHandler({
 		<div
 			v-if='ctx.alignItemsLabels.value === "all"'
 			:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
-			data-placeholder
 		/>
 
 		<div
@@ -85,14 +96,21 @@ const onKeyDown = createItemKeydownHandler({
 			:class='[css.itemSection, ctx.classes.value?.itemSection]'
 			data-position='left'
 		>
-			<slot name='leftSection' />
+			<slot name='leftSection'>
+				<Icon v-if='icon' :name='icon' />
+			</slot>
 		</div>
 
 		<div
 			:class='[css.itemLabel, ctx.classes.value?.itemLabel]'
 			data-menu-item-label
 		>
-			<slot />
+			<span>
+				<slot />
+			</span>
+			<span :class='css.itemDescription'>
+				{{ description }}
+			</span>
 		</div>
 
 		<div

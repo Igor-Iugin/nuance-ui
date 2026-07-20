@@ -18,11 +18,6 @@ defineSlots<{
 }>()
 
 const opened = ref(false)
-
-// ponytail: the ui-kit popover positions against a real target element, not free
-// cursor coordinates. Instead of introducing a floating-ui virtual reference, a
-// zero-size anchor is placed at the pointer position and the menu is anchored to
-// it. This keeps the whole thing on the existing native-popover Menu.
 const anchor = reactive({ x: 0, y: 0 })
 
 function onContextMenu(event: MouseEvent) {

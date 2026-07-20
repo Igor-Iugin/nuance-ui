@@ -32,7 +32,9 @@ const { icons } = useConfig()
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
-const style = useVarsResolver<{ root: '--menu-item-color' }>(theme => ({
+const style = useVarsResolver<{
+	root: '--menu-item-color'
+}>(theme => ({
 	root: {
 		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
 	},
@@ -73,12 +75,10 @@ const onKeyDown = createItemKeydownHandler({
 			role='menuitem'
 			data-menu-item
 			data-sub-menu-item
+			:mod='{ disabled, expanded: sub?.opened.value }'
 			aria-haspopup='menu'
 			:aria-expanded='sub?.opened.value'
-			:data-disabled='disabled || undefined'
-			:data-expanded='sub?.opened.value ? true : undefined'
 			:tabindex='ctx.menuItemTabIndex.value'
-			data-nuance-stop-propagation
 			:style='style.root'
 			:class='[css.item, ctx.classes.value?.item]'
 			@mousedown.prevent
@@ -90,7 +90,6 @@ const onKeyDown = createItemKeydownHandler({
 			<div
 				v-if='ctx.alignItemsLabels.value === "all"'
 				:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
-				data-placeholder
 			/>
 
 			<div
