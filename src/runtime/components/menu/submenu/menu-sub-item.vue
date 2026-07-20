@@ -27,12 +27,12 @@ export interface MenuSubItemSlots {
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 
-import UnstyledButton from '../button/unstyled-button.vue'
-import PopoverTarget from '../popover/popover-target.vue'
-import { useSubMenuState } from './lib/context.js'
-import { createItemKeydownHandler } from './lib/use-item-keydown.js'
+import UnstyledButton from '../../button/unstyled-button.vue'
+import PopoverTarget from '../../popover/popover-target.vue'
+import { createItemKeydownHandler } from '../lib/use-item-keydown'
+import { useMenuState } from '../menu.vue'
+import { useSubMenuState } from './menu-sub.vue'
 import css from './menu.module.css'
-import { useMenuState } from './menu.vue'
 
 
 interface MenuSubItemVars {

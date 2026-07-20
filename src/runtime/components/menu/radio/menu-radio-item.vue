@@ -27,8 +27,8 @@ export interface MenuRadioItemSlots {
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { useMenuRadioGroupState } from './lib/selectable-context.js'
-import MenuSelectableItem from './menu-selectable-item.vue'
+import MenuSelectableItem from '../menu-selectable-item.vue'
+import { useMenuRadioGroupState } from './menu-radio-group.vue'
 
 
 const { value, color, closeMenuOnClick, disabled } = defineProps<MenuRadioItemProps>()

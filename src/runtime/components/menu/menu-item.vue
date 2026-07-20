@@ -28,8 +28,8 @@ import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 
 import UnstyledButton from '../button/unstyled-button.vue'
-import { useSubMenuState } from './lib/context.js'
-import { createItemKeydownHandler } from './lib/use-item-keydown.js'
+import { useSubMenuState } from './lib/context'
+import { createItemKeydownHandler } from './lib/use-item-keydown'
 import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
 

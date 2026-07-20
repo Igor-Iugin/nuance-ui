@@ -21,18 +21,6 @@ export interface MenuSelectableItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-
-export interface MenuSelectableItemSlots {
-	/** Item label */
-	default?: () => any
-	/** Trailing content */
-	rightSection?: () => any
-}
-
-export interface MenuSelectableItemEmits {
-	/** Emitted when the item is activated */
-	select: []
-}
 </script>
 
 <script lang="ts" setup>
@@ -41,17 +29,25 @@ import { getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
 
 import UnstyledButton from '../button/unstyled-button.vue'
-import { useSubMenuState } from './lib/context.js'
-import { createItemKeydownHandler } from './lib/use-item-keydown.js'
+import { createItemKeydownHandler } from './lib/use-item-keydown'
 import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
+import { useSubMenuState } from './submenu/menu-sub.vue'
 
 
-const { role, checked, indicator, color, closeMenuOnClick, disabled } = defineProps<MenuSelectableItemProps>()
+const {
+	role,
+	checked,
+	indicator,
+	color,
+	closeMenuOnClick,
+	disabled,
+} = defineProps<MenuSelectableItemProps>()
 
-const emit = defineEmits<MenuSelectableItemEmits>()
-
-defineSlots<MenuSelectableItemSlots>()
+const emit = defineEmits<{
+	/** Emitted when the item is activated */
+	select: []
+}>()
 
 const { icons } = useConfig()
 const ctx = useMenuState()

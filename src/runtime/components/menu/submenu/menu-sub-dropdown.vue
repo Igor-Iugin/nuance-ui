@@ -2,11 +2,11 @@
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
-import PopoverDropdown from '../popover/popover-dropdown.vue'
-import { useSubMenuState } from './lib/context.js'
-import { useTypeAhead } from './lib/use-type-ahead'
+import PopoverDropdown from '../../popover/popover-dropdown.vue'
+import { useTypeAhead } from '../lib/use-type-ahead'
+import { useMenuState } from '../menu.vue'
+import { useSubMenuState } from './menu-sub.vue'
 import css from './menu.module.css'
-import { useMenuState } from './menu.vue'
 
 
 const dropdown = useTemplateRef('dropdown')

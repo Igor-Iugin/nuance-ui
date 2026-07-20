@@ -1,14 +1,12 @@
-<script lang="ts">
+<script lang="ts" setup>
 import type { DividerProps } from '../divider.vue'
 
-
-export interface MenuDividerProps extends DividerProps {}
-</script>
-
-<script lang="ts" setup>
 import Divider from '../divider.vue'
 import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
+
+
+export interface MenuDividerProps extends DividerProps {}
 
 
 defineProps<MenuDividerProps>()

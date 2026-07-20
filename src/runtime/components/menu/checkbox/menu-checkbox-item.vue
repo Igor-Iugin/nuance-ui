@@ -18,25 +18,23 @@ export interface MenuCheckboxItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-
-export interface MenuCheckboxItemSlots {
-	/** Item label */
-	default?: () => any
-	/** Trailing content */
-	rightSection?: () => any
-}
 </script>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { useMenuCheckboxGroupState } from './lib/selectable-context.js'
-import MenuSelectableItem from './menu-selectable-item.vue'
+import { useMenuCheckboxGroupState } from '../lib/selectable-context'
+import MenuSelectableItem from '../menu-selectable-item.vue'
 
 
 const { value, color, closeMenuOnClick, disabled } = defineProps<MenuCheckboxItemProps>()
 
-defineSlots<MenuCheckboxItemSlots>()
+defineSlots<{
+	/** Item label */
+	default?: () => any
+	/** Trailing content */
+	rightSection?: () => any
+}>()
 
 // ponytail: the group is optional. When present it owns the checked state via
 // its value array; otherwise the item toggles its own `v-model:checked`.

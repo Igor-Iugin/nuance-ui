@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import PopoverTarget from '../popover/popover-target.vue'
-import { useSubMenuState } from './lib/context.js'
+import PopoverTarget from '../../popover/popover-target.vue'
+import { useSubMenuState } from './menu-sub.vue'
 
 
 // Thin wrapper around PopoverTarget that opens/closes the submenu on hover.

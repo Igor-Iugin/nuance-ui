@@ -8,11 +8,11 @@ import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
 
 
-const dropdown = useTemplateRef('dropdown')
+const dropdown = useTemplateRef<HTMLElement>('dropdown')
 
 const ctx = useMenuState()
 
-const getDropdown = () => (unrefElement(dropdown) as HTMLElement | null) ?? null
+const getDropdown = () => unrefElement(dropdown) ?? null
 
 const typeAhead = useTypeAhead({
 	enabled: () => !ctx.hasSearch.value,

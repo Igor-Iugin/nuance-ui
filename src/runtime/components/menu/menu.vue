@@ -4,7 +4,7 @@ import type { ModelRef, Ref, ToRefs } from 'vue'
 import { createStrictInjection } from '@nui/composables'
 import { ref, toRefs } from 'vue'
 
-import type { Classes } from '../../types/styling.js'
+import type { Classes } from '../../types/styling'
 import type { PopoverEmits, PopoverProps } from '../popover'
 
 
