@@ -12,15 +12,6 @@ export interface MenuSubItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-
-export interface MenuSubItemSlots {
-	/** Item label */
-	default?: () => any
-	/** Leading content */
-	leftSection?: () => any
-	/** Trailing content, replaces the chevron */
-	rightSection?: () => any
-}
 </script>
 
 <script lang="ts" setup>
@@ -30,24 +21,18 @@ import { getThemeColor } from '@nui/utils'
 import UnstyledButton from '../../button/unstyled-button.vue'
 import PopoverTarget from '../../popover/popover-target.vue'
 import { createItemKeydownHandler } from '../lib/use-item-keydown'
+import css from '../menu.module.css'
 import { useMenuState } from '../menu.vue'
 import { useSubMenuState } from './menu-sub.vue'
-import css from './menu.module.css'
 
-
-interface MenuSubItemVars {
-	root: '--menu-item-color'
-}
 
 const { color, closeMenuOnClick, disabled } = defineProps<MenuSubItemProps>()
-
-defineSlots<MenuSubItemSlots>()
 
 const { icons } = useConfig()
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
-const style = useVarsResolver<MenuSubItemVars>(theme => ({
+const style = useVarsResolver<{ root: '--menu-item-color' }>(theme => ({
 	root: {
 		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
 	},
@@ -56,6 +41,7 @@ const style = useVarsResolver<MenuSubItemVars>(theme => ({
 function onClick() {
 	if (disabled)
 		return
+
 	const close = typeof closeMenuOnClick === 'boolean'
 		? closeMenuOnClick
 		: ctx.closeOnItemClick.value
@@ -64,17 +50,17 @@ function onClick() {
 }
 
 const onKeyDown = createItemKeydownHandler({
-	loop: ctx.loop.value,
+	loop: ctx.loop,
 	onKeyDown(event) {
 		if (event.key === 'ArrowRight') {
 			event.preventDefault()
-			sub.open()
-			sub.focusFirstItem()
+			sub?.open()
+			sub?.focusFirstItem()
 		}
-		else if (event.key === 'ArrowLeft' && sub.parentContext) {
+		else if (event.key === 'ArrowLeft' && sub?.parentContext) {
 			event.preventDefault()
-			sub.parentContext.close()
-			sub.parentContext.focusParentItem()
+			sub?.parentContext.close()
+			sub?.parentContext.focusParentItem()
 		}
 	},
 })
@@ -83,22 +69,22 @@ const onKeyDown = createItemKeydownHandler({
 <template>
 	<PopoverTarget disable>
 		<UnstyledButton
-			:id='`${sub.id}-target`'
+			:id='`${sub?.id}-target`'
 			role='menuitem'
 			data-menu-item
 			data-sub-menu-item
 			aria-haspopup='menu'
-			:aria-expanded='sub.opened.value'
+			:aria-expanded='sub?.opened.value'
 			:data-disabled='disabled || undefined'
-			:data-expanded='sub.opened.value ? true : undefined'
+			:data-expanded='sub?.opened.value ? true : undefined'
 			:tabindex='ctx.menuItemTabIndex.value'
 			data-nuance-stop-propagation
 			:style='style.root'
 			:class='[css.item, ctx.classes.value?.item]'
 			@mousedown.prevent
 			@click='onClick'
-			@mouseenter='sub.open()'
-			@mouseleave='sub.close()'
+			@mouseenter='sub?.open()'
+			@mouseleave='sub?.close()'
 			@keydown='onKeyDown'
 		>
 			<div

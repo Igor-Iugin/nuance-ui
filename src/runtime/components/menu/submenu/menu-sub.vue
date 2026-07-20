@@ -18,7 +18,7 @@ export interface MenuSubProps {
 
 import type { Ref, ShallowRef } from 'vue'
 
-import { createStrictInjection } from '@nui/composables'
+import { createInjectionState } from '@vueuse/core'
 
 
 export interface SubMenuState {
@@ -33,7 +33,7 @@ export interface SubMenuState {
 	/** Focus the target that opens this submenu */
 	focusParentItem: () => void
 	/** Parent submenu state, if this submenu is nested */
-	parentContext: SubMenuState | null
+	parentContext: SubMenuState | undefined
 	/** Register a child submenu close handler, closing any previously open sibling */
 	registerOpenSub: (closeFn: () => void) => () => void
 	/** Base id used to build target/dropdown element ids */
@@ -42,20 +42,19 @@ export interface SubMenuState {
 	targetRef: ShallowRef<HTMLElement | null>
 }
 
-const [provideSubMenuState, injectSubMenuState] = createStrictInjection(
+const [provideSubMenuState, injectSubMenuState] = createInjectionState(
 	(state: SubMenuState) => state,
-	{ injectionKey: Symbol('nuance-sub-menu'), name: 'MenuSub' },
+	{ injectionKey: Symbol('nuance-sub-menu') },
 )
-
 
 export const useSubMenuState = injectSubMenuState
 </script>
 
 <script lang="ts" setup>
-import { useTimeoutFn } from '@vueuse/core'
 import { ref, shallowRef, useId, watch } from 'vue'
 
 import Popover from '../../popover/popover.vue'
+import { useDelayedHover } from '../lib/use-delayed-hover'
 import { useMenuState } from '../menu.vue'
 
 
@@ -82,26 +81,10 @@ function close() {
 	opened.value = false
 }
 
-// ─── Delayed Hover ───
 const {
-	start: scheduleOpen,
-	stop: cancelOpen,
-} = useTimeoutFn(open, () => openDelay, { immediate: false })
-const {
-	start: scheduleClose,
-	stop: cancelClose,
-} = useTimeoutFn(close, () => closeDelay, { immediate: false })
-
-function openWithDelay() {
-	cancelClose()
-	cancelOpen()
-	scheduleOpen()
-}
-function closeWithDelay() {
-	cancelOpen()
-	cancelClose()
-	scheduleClose()
-}
+	open: openWithDelay,
+	close: closeWithDelay,
+} = useDelayedHover({ open, close, openDelay, closeDelay })
 
 // ─── Sibling Registration ───
 // Registering with the parent menu/submenu closes any previously open sibling

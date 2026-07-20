@@ -77,7 +77,7 @@ function onClick() {
 }
 
 const onKeyDown = createItemKeydownHandler({
-	loop: ctx.loop.value,
+	loop: ctx.loop,
 	onKeyDown(event) {
 		if (event.key === 'ArrowLeft' && sub) {
 			sub.close()

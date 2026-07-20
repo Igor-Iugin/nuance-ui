@@ -4,9 +4,9 @@ import { useTemplateRef } from 'vue'
 
 import PopoverDropdown from '../../popover/popover-dropdown.vue'
 import { useTypeAhead } from '../lib/use-type-ahead'
+import css from '../menu.module.css'
 import { useMenuState } from '../menu.vue'
 import { useSubMenuState } from './menu-sub.vue'
-import css from './menu.module.css'
 
 
 const dropdown = useTemplateRef('dropdown')

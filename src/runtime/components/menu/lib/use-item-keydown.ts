@@ -1,12 +1,11 @@
+import type { MaybeRefOrGetter } from 'vue'
+
+import { toValue } from 'vue'
+
+
 const ITEM_SELECTOR = '[data-menu-item]:not([data-disabled])'
 const DROPDOWN_SELECTOR = '[data-menu-dropdown]'
 
-interface ScopedKeydownOptions {
-	/** If set, focus wraps from last item to first and vice versa */
-	loop: boolean
-	/** Extra handler invoked before scoped navigation runs */
-	onKeyDown?: (event: KeyboardEvent) => void
-}
 
 function getSiblings(current: HTMLElement): HTMLElement[] {
 	const dropdown = current.closest(DROPDOWN_SELECTOR)
@@ -21,7 +20,15 @@ function getSiblings(current: HTMLElement): HTMLElement[] {
  * Vertical roving-focus keydown handler scoped to the nearest menu dropdown.
  * Moves focus between `[data-menu-item]` siblings with Arrow/Home/End keys.
  */
-export function createItemKeydownHandler({ loop, onKeyDown }: ScopedKeydownOptions) {
+export function createItemKeydownHandler({
+	loop,
+	onKeyDown,
+}: {
+	/** If set, focus wraps from last item to first and vice versa */
+	loop: MaybeRefOrGetter<boolean>
+	/** Extra handler invoked before scoped navigation runs */
+	onKeyDown?: (event: KeyboardEvent) => void
+}) {
 	return function handleKeyDown(event: KeyboardEvent) {
 		onKeyDown?.(event)
 		if (event.defaultPrevented)
@@ -37,10 +44,14 @@ export function createItemKeydownHandler({ loop, onKeyDown }: ScopedKeydownOptio
 
 		switch (event.key) {
 			case 'ArrowDown':
-				next = items[index + 1] ?? (loop ? items[0] : undefined)
+				next = items[index + 1] ?? (toValue(loop)
+					? items[0]
+					: undefined)
 				break
 			case 'ArrowUp':
-				next = items[index - 1] ?? (loop ? items[items.length - 1] : undefined)
+				next = items[index - 1] ?? (toValue(loop)
+					? items[items.length - 1]
+					: undefined)
 				break
 			case 'Home':
 				next = items[0]

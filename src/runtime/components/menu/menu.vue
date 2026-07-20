@@ -2,7 +2,7 @@
 import type { ModelRef, Ref, ToRefs } from 'vue'
 
 import { createStrictInjection } from '@nui/composables'
-import { ref, toRefs } from 'vue'
+import { ref, toRef } from 'vue'
 
 import type { Classes } from '../../types/styling'
 import type { PopoverEmits, PopoverProps } from '../popover'
@@ -132,9 +132,8 @@ export const useMenuState = Inject
 </script>
 
 <script lang="ts" setup>
-import { useTimeoutFn } from '@vueuse/core'
-
 import Popover from '../popover/popover.vue'
+import { useDelayedHover } from './lib/use-delayed-hover'
 
 
 const {
@@ -181,38 +180,22 @@ function open() {
 }
 const toggle = () => opened.value ? close() : open()
 
-// ─── Delayed Hover ───
 const {
-	start: scheduleOpen,
-	stop: cancelOpen,
-} = useTimeoutFn(open, () => openDelay, { immediate: false })
-const {
-	start: scheduleClose,
-	stop: cancelClose,
-} = useTimeoutFn(close, () => closeDelay, { immediate: false })
+	open: openWithDelay,
+	close: closeWithDelay,
+} = useDelayedHover({ open, close, openDelay, closeDelay })
 
-const openDropdown = trigger === 'click'
-	? open
-	: () => {
-		cancelClose()
-		cancelOpen()
-		scheduleOpen()
-	}
-
-const closeDropdown = trigger === 'click'
-	? close
-	: () => {
-		cancelOpen()
-		cancelClose()
-		scheduleClose()
-	}
+const openDropdown = trigger === 'click' ? open : openWithDelay
+const closeDropdown = trigger === 'click' ? close : closeWithDelay
 
 // ─── Sub Menu ───
 const activeSubClose = ref<(() => void) | null>(null)
-function registerOpenSub(closeFn: () => void): () => void {
+function registerOpenSub(closeFn: () => void) {
 	if (activeSubClose.value && activeSubClose.value !== closeFn)
 		activeSubClose.value()
+
 	activeSubClose.value = closeFn
+
 	return () => {
 		if (activeSubClose.value === closeFn)
 			activeSubClose.value = null
@@ -235,24 +218,21 @@ function getItemIndex(node: HTMLButtonElement): number | null {
 	const dropdown = node.closest('[data-menu-dropdown]')
 	if (!dropdown)
 		return null
-	const items = Array.from(dropdown.querySelectorAll<HTMLButtonElement>('[data-menu-item]'))
-	const idx = items.indexOf(node)
+
+	const buttons = dropdown.querySelectorAll<HTMLButtonElement>('[data-menu-item]')
+	const idx = Array.from(buttons).indexOf(node)
 	return idx === -1 ? null : idx
 }
 
-const state = toRefs({
-	closeOnItemClick,
-	loop,
-	trigger,
-	menuItemTabIndex,
-	withInitialFocusPlaceholder,
-	alignItemsLabels,
-	classes,
-	checkIcon,
-})
-
 Provide({
-	...state,
+	closeOnItemClick: toRef(() => closeOnItemClick),
+	loop: toRef(() => loop),
+	trigger: toRef(() => trigger),
+	menuItemTabIndex: toRef(() => menuItemTabIndex),
+	withInitialFocusPlaceholder: toRef(() => withInitialFocusPlaceholder),
+	alignItemsLabels: toRef(() => alignItemsLabels),
+	classes: toRef(() => classes),
+	checkIcon: toRef(() => checkIcon),
 	toggleDropdown: toggle,
 	closeDropdownImmediately: close,
 	closeDropdown,

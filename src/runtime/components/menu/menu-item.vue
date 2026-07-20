@@ -12,15 +12,6 @@ export interface MenuItemProps {
 	/** Disables the item */
 	disabled?: boolean
 }
-
-export interface MenuItemSlots {
-	/** Item label */
-	default?: () => any
-	/** Leading content */
-	leftSection?: () => any
-	/** Trailing content */
-	rightSection?: () => any
-}
 </script>
 
 <script lang="ts" setup>
@@ -28,26 +19,22 @@ import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 
 import UnstyledButton from '../button/unstyled-button.vue'
-import { useSubMenuState } from './lib/context'
 import { createItemKeydownHandler } from './lib/use-item-keydown'
 import css from './menu.module.css'
 import { useMenuState } from './menu.vue'
+import { useSubMenuState } from './submenu/menu-sub.vue'
 
-
-interface MenuItemVars {
-	root: '--menu-item-color'
-}
 
 const { color, closeMenuOnClick, disabled } = defineProps<MenuItemProps>()
-
-defineSlots<MenuItemSlots>()
 
 const ctx = useMenuState()
 const sub = useSubMenuState()
 
 // ponytail: no light-variant hover resolver exists in this repo, so only the
 // text color var is set and `--menu-item-hover` is left to the CSS default.
-const style = useVarsResolver<MenuItemVars>(theme => ({
+const style = useVarsResolver<{
+	root: '--menu-item-color'
+}>(theme => ({
 	root: {
 		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
 	},
@@ -64,7 +51,7 @@ function onClick() {
 }
 
 const onKeyDown = createItemKeydownHandler({
-	loop: ctx.loop.value,
+	loop: ctx.loop,
 	onKeyDown(event) {
 		if (event.key === 'ArrowLeft' && sub) {
 			sub.close()
@@ -101,7 +88,10 @@ const onKeyDown = createItemKeydownHandler({
 			<slot name='leftSection' />
 		</div>
 
-		<div :class='[css.itemLabel, ctx.classes.value?.itemLabel]' data-menu-item-label>
+		<div
+			:class='[css.itemLabel, ctx.classes.value?.itemLabel]'
+			data-menu-item-label
+		>
 			<slot />
 		</div>
 

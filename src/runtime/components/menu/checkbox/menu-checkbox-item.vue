@@ -23,8 +23,8 @@ export interface MenuCheckboxItemProps {
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { useMenuCheckboxGroupState } from '../lib/selectable-context'
 import MenuSelectableItem from '../menu-selectable-item.vue'
+import { useMenuCheckboxGroupState } from './menu-checkbox-group.vue'
 
 
 const { value, color, closeMenuOnClick, disabled } = defineProps<MenuCheckboxItemProps>()
