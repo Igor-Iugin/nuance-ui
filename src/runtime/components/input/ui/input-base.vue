@@ -100,6 +100,7 @@ const style = computed(() => ({
 	--input-padding-inline-end: var(--input-padding);
 	--input-placeholder-color: var(--color-placeholder);
 	--input-color: var(--color-text);
+	--input-bg-hover: var(--input-bg);
 
 	--input-left-section-width: calc(var(--input-height) - rem(2px));
 	--input-right-section-width: calc(var(--input-height) - rem(2px));
@@ -170,6 +171,20 @@ const style = computed(() => ({
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
+		&[data-variant='soft']:not(&[data-error]) {
+			--input-bd: transparent;
+			--input-bg: var(--color-gray-1);
+			--input-bg-hover: var(--color-gray-2);
+			--input-bd-focus: var(--color-gray-2);
+		}
+
+		&[data-variant='ghost']:not(&[data-error]) {
+			--input-bd: transparent;
+			--input-bg: transparent;
+			--input-bg-hover: var(--color-gray-1);
+			--input-bd-focus: transparent;
+		}
+
 		&[data-variant='unstyled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: transparent;
@@ -193,6 +208,20 @@ const style = computed(() => ({
 			--input-bd-focus: var(--color-primary-filled);
 		}
 
+		&[data-variant='soft']:not(&[data-error]) {
+			--input-bd: transparent;
+			--input-bg: var(--color-dark-6);
+			--input-bg-hover: var(--color-dark-5);
+			--input-bd-focus: transparent;
+		}
+
+		&[data-variant='ghost']:not(&[data-error]) {
+			--input-bd: transparent;
+			--input-bg: transparent;
+			--input-bg-hover: var(--color-dark-6);
+			--input-bd-focus: transparent;
+		}
+
 		&[data-variant='unstyled']:not(&[data-error]) {
 			--input-bd: transparent;
 			--input-bg: transparent;
@@ -206,6 +235,12 @@ const style = computed(() => ({
 		--input-section-color: var(--color-error);
 
 		--input-bd: var(--color-error);
+
+		&[data-variant='ghost'],
+		&[data-variant='soft'] {
+			--input-bg: alpha(var(--color-error), .2);
+			--input-bd: transparent;
+		}
 	}
 
 	@mixin where-rtl {
@@ -251,9 +286,15 @@ const style = computed(() => ({
 		--input-overflow: hidden;
 	}
 
+	&:hover {
+		background-color: var(--input-bg-hover);
+	}
+
 	&:focus,
 	&:focus-within {
 		--input-bd: var(--input-bd-focus);
+
+		background-color: var(--input-bg-hover);
 
 		outline: none;
 
