@@ -1,64 +1,45 @@
-<script lang="ts">
-import type { AnyString, NuanceColor } from '@nui/types'
-
-
-export interface MenuRadioItemProps {
-	/** Value used to identify the item inside a `MenuRadioGroup` */
-	value: string
-
-	/** Color from theme */
-	color?: NuanceColor | AnyString
-
-	/** Overrides the menu-level `closeOnItemClick` for this item */
-	closeMenuOnClick?: boolean
-
-	/** Disables the item */
-	disabled?: boolean
-}
-</script>
-
 <script lang="ts" setup>
 import { computed } from 'vue'
+
+import type { MenuSelectableItemProps } from '../menu-selectable-item.vue'
 
 import MenuSelectableItem from '../menu-selectable-item.vue'
 import { useMenuRadioGroupState } from './menu-radio-group.vue'
 
 
+export interface MenuRadioItemProps extends Omit<MenuSelectableItemProps, 'checked'> {
+	/** Value used to identify the item inside a `MenuRadioGroup` */
+	value: string
+}
+
 const {
 	value,
-	color,
-	closeMenuOnClick,
-	disabled,
+	role = 'menuitemradio',
+	...rest
 } = defineProps<MenuRadioItemProps>()
 
 const group = useMenuRadioGroupState()
 const localChecked = defineModel<boolean>('checked', { default: false })
 
-const checked = computed(() =>
-	group ? group.value.value === value : localChecked.value,
-)
-
-function onSelect() {
-	if (group)
-		group.onChange(value)
-	else
-		localChecked.value = true
-}
+const checked = computed(() => group ? group.value.value === value : localChecked.value)
 </script>
 
 <template>
 	<MenuSelectableItem
-		role='menuitemradio'
+		v-bind='rest'
+		:role
 		:checked
-		:color
-		:close-menu-on-click='closeMenuOnClick'
-		:disabled
-		@select='onSelect'
+		static-r-section
+		@select='group ? group.onChange(value) : (localChecked = true)'
 	>
-		<slot />
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
 
 		<template v-if='$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
+
+		<slot />
 	</MenuSelectableItem>
 </template>

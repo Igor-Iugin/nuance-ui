@@ -1,44 +1,26 @@
-<script lang="ts">
-import type { AnyString, NuanceColor } from '@nui/types'
-
-
-export interface MenuSubItemProps {
-	/** Color from theme */
-	color?: NuanceColor | AnyString
-
-	/** Overrides the menu-level `closeOnItemClick` for this item */
-	closeMenuOnClick?: boolean
-
-	/** Disables the item */
-	disabled?: boolean
-}
-</script>
-
 <script lang="ts" setup>
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { getThemeColor } from '@nui/utils'
+import { useConfig } from '@nui/composables'
 
-import UnstyledButton from '../../button/unstyled-button.vue'
+import type { MenuBaseItemProps } from '../menu-base-item.vue'
+
 import PopoverTarget from '../../popover/popover-target.vue'
 import { createItemKeydownHandler } from '../lib/use-item-keydown'
+import MenuBaseItem from '../menu-base-item.vue'
 import css from '../menu.module.css'
 import { useMenuState } from '../menu.vue'
 import { useSubMenuState } from './menu-sub.vue'
 
 
-const { color, closeMenuOnClick, disabled } = defineProps<MenuSubItemProps>()
+export interface MenuSubItemProps extends MenuBaseItemProps {
+	/** Overrides the menu-level `closeOnItemClick` for this item */
+	closeMenuOnClick?: boolean
+}
+
+const { mod, closeMenuOnClick, disabled, ...rest } = defineProps<MenuSubItemProps>()
 
 const { icons } = useConfig()
 const ctx = useMenuState()
 const sub = useSubMenuState()
-
-const style = useVarsResolver<{
-	root: '--menu-item-color'
-}>(theme => ({
-	root: {
-		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
-	},
-}))
 
 function onClick() {
 	if (disabled)
@@ -70,48 +52,31 @@ const onKeyDown = createItemKeydownHandler({
 
 <template>
 	<PopoverTarget manual>
-		<UnstyledButton
+		<MenuBaseItem
 			:id='`${sub?.id}-target`'
 			role='menuitem'
-			data-menu-item
 			data-sub-menu-item
-			:mod='{ disabled, expanded: sub?.opened.value }'
 			aria-haspopup='menu'
+			v-bind='rest'
+			:disabled
 			:aria-expanded='sub?.opened.value'
-			:tabindex='ctx.menuItemTabIndex.value'
-			:style='style.root'
-			:class='[css.item, ctx.classes.value?.item]'
-			@mousedown.prevent
+			:mod='[{ expanded: sub?.opened.value }, mod]'
 			@click='onClick'
 			@mouseenter='sub?.open()'
 			@mouseleave='sub?.close()'
 			@keydown='onKeyDown'
 		>
-			<div
-				v-if='ctx.alignItemsLabels.value === "all"'
-				:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
-			/>
-
-			<div
-				v-if='$slots.leftSection'
-				:class='[css.itemSection, ctx.classes.value?.itemSection]'
-				data-position='left'
-			>
+			<template v-if='$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
-			</div>
+			</template>
 
-			<div :class='[css.itemLabel, ctx.classes.value?.itemLabel]' data-menu-item-label>
-				<slot />
-			</div>
-
-			<div
-				:class='[css.itemSection, ctx.classes.value?.itemSection]'
-				data-position='right'
-			>
+			<template #rightSection>
 				<slot name='rightSection'>
 					<Icon :name='icons.chevronDown' :class='[css.chevron, ctx.classes.value?.chevron]' />
 				</slot>
-			</div>
-		</UnstyledButton>
+			</template>
+
+			<slot />
+		</MenuBaseItem>
 	</PopoverTarget>
 </template>

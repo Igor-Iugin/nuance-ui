@@ -1,34 +1,24 @@
 <script lang="ts" setup>
-import type { AnyString, NuanceColor } from '@nui/types'
-
 import { computed } from 'vue'
+
+import type { MenuSelectableItemProps } from '../menu-selectable-item.vue'
 
 import MenuSelectableItem from '../menu-selectable-item.vue'
 import { useMenuCheckboxGroupState } from './menu-checkbox-group.vue'
 
 
-export interface MenuCheckboxItemProps {
+export interface MenuCheckboxItemProps extends Omit<MenuSelectableItemProps, 'checked'> {
 	/**
 	 * Value used to identify the item inside a `MenuCheckboxGroup`.
 	 * Required when the item participates in a group.
 	 */
 	value?: string
-
-	/** Color from theme */
-	color?: NuanceColor | AnyString
-
-	/** Overrides the menu-level `closeOnItemClick` for this item */
-	closeMenuOnClick?: boolean
-
-	/** Disables the item */
-	disabled?: boolean
 }
 
 const {
 	value,
-	color,
-	closeMenuOnClick,
-	disabled,
+	role = 'menuitemcheckbox',
+	...rest
 } = defineProps<MenuCheckboxItemProps>()
 
 const group = useMenuCheckboxGroupState()
@@ -50,17 +40,20 @@ function onSelect() {
 
 <template>
 	<MenuSelectableItem
-		role='menuitemcheckbox'
+		v-bind='rest'
+		static-r-section
+		:role
 		:checked
-		:color
-		:close-menu-on-click='closeMenuOnClick'
-		:disabled
 		@select='onSelect'
 	>
-		<slot />
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
 
 		<template v-if='$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
+
+		<slot />
 	</MenuSelectableItem>
 </template>

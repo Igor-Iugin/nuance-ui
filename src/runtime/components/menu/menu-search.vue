@@ -136,9 +136,8 @@ function onKeyDown(event: KeyboardEvent) {
 		ref='input'
 		v-model='value'
 		type='search'
+		autofocus
 		:placeholder
-		data-autofocus
-		data-nuance-stop-propagation
 		:classes='{
 			wrapper: classes?.wrapper,
 			input: [css.search, ctx.classes.value?.search, classes?.input],

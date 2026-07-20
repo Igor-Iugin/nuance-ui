@@ -1,13 +1,18 @@
-<script lang="ts">
-import type { AnyString, NuanceColor } from '@nui/types'
+<script lang="ts" setup>
+import { useConfig } from '@nui/composables'
+import { computed } from 'vue'
+
+import type { MenuBaseItemProps } from './menu-base-item.vue'
+
+import { createItemKeydownHandler } from './lib/use-item-keydown'
+import MenuBaseItem from './menu-base-item.vue'
+import { useMenuState } from './menu.vue'
+import { useSubMenuState } from './submenu/menu-sub.vue'
 
 
-export interface MenuSelectableItemProps {
-	icon?: string
-	description?: string
-
+export interface MenuSelectableItemProps extends Omit<MenuBaseItemProps, 'trailingIcon'> {
 	/** ARIA role determining checkbox or radio semantics */
-	role: 'menuitemcheckbox' | 'menuitemradio'
+	role?: 'menuitemcheckbox' | 'menuitemradio'
 
 	/** Selected state */
 	checked: boolean
@@ -15,38 +20,18 @@ export interface MenuSelectableItemProps {
 	/** Indicator icon rendered when checked */
 	indicator?: string
 
-	/** Color from theme */
-	color?: NuanceColor | AnyString
-
 	/** Overrides the menu-level `closeOnItemClick` for this item */
 	closeMenuOnClick?: boolean
-
-	/** Disables the item */
-	disabled?: boolean
 }
-</script>
-
-<script lang="ts" setup>
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { getThemeColor } from '@nui/utils'
-import { computed } from 'vue'
-
-import UnstyledButton from '../button/unstyled-button.vue'
-import { createItemKeydownHandler } from './lib/use-item-keydown'
-import css from './menu.module.css'
-import { useMenuState } from './menu.vue'
-import { useSubMenuState } from './submenu/menu-sub.vue'
-
 
 const {
-	icon,
-	description,
+	mod,
 	role,
 	checked,
 	indicator,
-	color,
 	closeMenuOnClick,
 	disabled,
+	...rest
 } = defineProps<MenuSelectableItemProps>()
 
 const emit = defineEmits<{
@@ -57,14 +42,6 @@ const emit = defineEmits<{
 const { icons } = useConfig()
 const ctx = useMenuState()
 const sub = useSubMenuState()
-
-const style = useVarsResolver<{
-	root: '--menu-item-color'
-}>(theme => ({
-	root: {
-		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
-	},
-}))
 
 const indicatorIcon = computed(() => indicator ?? ctx.checkIcon.value ?? icons.check)
 const renderIndicator = computed(() => ctx.alignItemsLabels.value !== 'none' || checked)
@@ -91,46 +68,24 @@ const onKeyDown = createItemKeydownHandler({
 </script>
 
 <template>
-	<UnstyledButton
+	<MenuBaseItem
+		v-bind='rest'
 		:role
 		:aria-checked='checked'
-		data-menu-item
-		:mod='{ checked, disabled }'
-		:tabindex='ctx.menuItemTabIndex.value'
-		:style='style.root'
-		:class='[css.item, ctx.classes.value?.item]'
-		@mousedown.prevent
+		:mod='[{ checked }, mod]'
 		@click='onClick'
 		@keydown='onKeyDown'
 	>
-		<div
-			v-if='$slots.leftSection || icon'
-			:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
-			:data-checked='checked || undefined'
-		>
-			<slot name='leftSection'>
-				<Icon v-if='icon' :name='icon' />
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
+
+		<template v-if='renderIndicator' #rightSection>
+			<slot name='rightSection'>
+				<Icon v-if='checked' :name='indicatorIcon' />
 			</slot>
-		</div>
+		</template>
 
-		<div
-			:class='[css.itemLabel, ctx.classes.value?.itemLabel]'
-			data-menu-item-label
-		>
-			<span>
-				<slot />
-			</span>
-			<span :class='css.itemDescription'>
-				{{ description }}
-			</span>
-		</div>
-
-		<div
-			v-if='renderIndicator'
-			:class='[css.itemSection, ctx.classes.value?.itemSection]'
-			data-position='right'
-		>
-			<Icon v-if='checked' :name='indicatorIcon' />
-		</div>
-	</UnstyledButton>
+		<slot />
+	</MenuBaseItem>
 </template>

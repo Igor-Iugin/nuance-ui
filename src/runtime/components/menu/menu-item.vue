@@ -1,54 +1,25 @@
-<script lang="ts">
-import type { AnyString, NuanceColor } from '@nui/types'
-
-
-export interface MenuItemProps {
-	icon?: string
-	description?: string
-
-	/** Color from theme */
-	color?: NuanceColor | AnyString
-
-	/** Overrides the menu-level `closeOnItemClick` for this item */
-	closeMenuOnClick?: boolean
-
-	/** Disables the item */
-	disabled?: boolean
-
-	active?: boolean
-}
-</script>
-
 <script lang="ts" setup>
-import { useVarsResolver } from '@nui/composables'
-import { getThemeColor } from '@nui/utils'
+import type { MenuBaseItemProps } from './menu-base-item.vue'
 
-import UnstyledButton from '../button/unstyled-button.vue'
 import { createItemKeydownHandler } from './lib/use-item-keydown'
-import css from './menu.module.css'
+import MenuBaseItem from './menu-base-item.vue'
 import { useMenuState } from './menu.vue'
 import { useSubMenuState } from './submenu/menu-sub.vue'
 
 
+export interface MenuItemProps extends MenuBaseItemProps {
+	/** Overrides the menu-level `closeOnItemClick` for this item */
+	closeMenuOnClick?: boolean
+}
+
 const {
-	icon,
-	description,
-	color,
-	closeMenuOnClick,
 	disabled,
-	active,
+	closeMenuOnClick,
+	...rest
 } = defineProps<MenuItemProps>()
 
 const ctx = useMenuState()
 const sub = useSubMenuState()
-
-const style = useVarsResolver<{
-	root: '--menu-item-color'
-}>(theme => ({
-	root: {
-		'--menu-item-color': color ? getThemeColor(color, theme) : undefined,
-	},
-}))
 
 function onClick() {
 	if (disabled)
@@ -74,51 +45,21 @@ const onKeyDown = createItemKeydownHandler({
 </script>
 
 <template>
-	<UnstyledButton
+	<MenuBaseItem
 		role='menuitem'
-		data-menu-item
-		:mod='{ active, disabled }'
 		:disabled
-		:tabindex='ctx.menuItemTabIndex.value'
-		:style='style.root'
-		:class='[css.item, ctx.classes.value?.item]'
-		@mousedown.prevent
+		v-bind='rest'
 		@click='onClick'
 		@keydown='onKeyDown'
 	>
-		<div
-			v-if='ctx.alignItemsLabels.value === "all"'
-			:class='[css.itemIndicator, ctx.classes.value?.itemIndicator]'
-		/>
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
 
-		<div
-			v-if='$slots.leftSection'
-			:class='[css.itemSection, ctx.classes.value?.itemSection]'
-			data-position='left'
-		>
-			<slot name='leftSection'>
-				<Icon v-if='icon' :name='icon' />
-			</slot>
-		</div>
-
-		<div
-			:class='[css.itemLabel, ctx.classes.value?.itemLabel]'
-			data-menu-item-label
-		>
-			<span>
-				<slot />
-			</span>
-			<span :class='css.itemDescription'>
-				{{ description }}
-			</span>
-		</div>
-
-		<div
-			v-if='$slots.rightSection'
-			:class='[css.itemSection, ctx.classes.value?.itemSection]'
-			data-position='right'
-		>
+		<template v-if='$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
-		</div>
-	</UnstyledButton>
+		</template>
+
+		<slot />
+	</MenuBaseItem>
 </template>
