@@ -1,4 +1,6 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
+import type { Classes } from '@nui/types'
+
 import { useConfig } from '@nui/composables'
 import { computed, nextTick, ref, watch } from 'vue'
 
@@ -52,7 +54,11 @@ export interface SelectProps<
 
 	/** Input autocomplete attribute */
 	autoComplete?: string
+
+	classes?: Classes<'root' | 'section' | 'input'>
 }
+
+defineOptions({ inheritAttrs: false })
 
 const {
 	options: data,
@@ -156,7 +162,10 @@ function onSubmit(val: string) {
 			onSubmit(val)
 		}'
 	>
-		<ComboboxTarget :target-type='searchable ? "input" : "button"' :auto-complete>
+		<ComboboxTarget
+			:target-type='searchable ? "input" : "button"'
+			:auto-complete
+		>
 			<component
 				:is='searchable ? TextInput : ButtonInput'
 				:id='store.listId'
@@ -165,7 +174,7 @@ function onSubmit(val: string) {
 				:disabled
 				:right-section-p-e
 				:readonly='readonly || !searchable'
-				:class='$style.input'
+				:class='[$style.input, $attrs?.class]'
 				@focus='focused = true'
 				@blur='focused = false'
 				@click.prevent.stop='() => searchable ? store.openDropdown() : store.toggleDropdown()'

@@ -31,6 +31,8 @@ export interface ComboboxProps extends PopoverProps {
 	readOnly?: boolean
 }
 
+defineOptions({ inheritAttrs: false })
+
 const {
 	loop = true,
 	readOnly = false,
@@ -41,6 +43,8 @@ const {
 } = defineProps<ComboboxProps>()
 
 const emit = defineEmits<ComboboxRootEmits>()
+
+
 const opened = defineModel<boolean>('open', { default: false })
 
 const store = _store ?? useCombobox({
