@@ -4,11 +4,11 @@ import type { Classes } from '@nui/types'
 import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { BoxProps } from '../../box/box.vue'
+import type { BoxProps } from '../../box'
 import type { WrapperContext } from '../lib/input-wrapper.context'
 
+import { extractStyleProps } from '../../box'
 import Box from '../../box/box.vue'
-import { extractStyleProps } from '../../box/lib.ts'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 

@@ -4,11 +4,11 @@ import type { Classes } from '@nui/types'
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
-import type { StyleProps } from '../box/types.ts'
+import type { StyleProps } from '../box'
 import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
-import { extractStyleProps } from '../box/lib.ts'
+import { extractStyleProps } from '../box'
 import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
