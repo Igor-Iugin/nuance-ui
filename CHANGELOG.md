@@ -1,6 +1,37 @@
 # Changelog
 
 
+## v0.4.2
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.1...v0.4.2)
+
+### 🚀 Enhancements
+
+- Made base Menu component ([78cdab4](https://github.com/Igor-Iugin/nuance-ui/commit/78cdab4))
+- Made menu components ([e5db8e0](https://github.com/Igor-Iugin/nuance-ui/commit/e5db8e0))
+- **Menu:** Styled menu options and icons ([c81034b](https://github.com/Igor-Iugin/nuance-ui/commit/c81034b))
+- **Input:** Added `soft` & `ghost` variants ([99a9c72](https://github.com/Igor-Iugin/nuance-ui/commit/99a9c72))
+
+### 🩹 Fixes
+
+- **Menu:** State passing ([45c8346](https://github.com/Igor-Iugin/nuance-ui/commit/45c8346))
+- **Menu:** Fix target click ([27c3b1e](https://github.com/Igor-Iugin/nuance-ui/commit/27c3b1e))
+
+### 💅 Refactors
+
+- **Menu:** Move context in their providers, group components ([00bfa32](https://github.com/Igor-Iugin/nuance-ui/commit/00bfa32))
+- **Menu:** Fixup and optimize logic ([8c47855](https://github.com/Igor-Iugin/nuance-ui/commit/8c47855))
+
+### 🏡 Chore
+
+- **ai:** Setup skills ([702ce99](https://github.com/Igor-Iugin/nuance-ui/commit/702ce99))
+- **ai:** Update config ([58ea6d8](https://github.com/Igor-Iugin/nuance-ui/commit/58ea6d8))
+- Upgrade nuxt ([98af77b](https://github.com/Igor-Iugin/nuance-ui/commit/98af77b))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.1
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.3.5...v0.4.1)
