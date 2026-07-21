@@ -1,7 +1,7 @@
 <script setup lang='ts' generic='Value extends string = string, Ext extends ComboboxItemExt = object'>
 import { useField } from 'vee-validate'
 
-import type { ComboboxItemExt } from '../components/combobox'
+import type { ComboboxItemExt, ComboboxRootEmits } from '../components/combobox'
 import type { SelectProps } from '../components/select.vue'
 import type { FieldBaseProps } from './types'
 
@@ -25,6 +25,8 @@ const {
 	...props
 } = defineProps<SelectFieldProps<Value, Ext>>()
 
+defineEmits<ComboboxRootEmits>()
+
 const {
 	value,
 	errorMessage,
@@ -46,6 +48,11 @@ const {
 		:error='meta.touched ? errorMessage : undefined'
 		@update:model-value='handleChange($event, !!errorMessage)'
 		@blur='handleBlur($event, validateOn === "blur")'
+		@clear='$emit("clear")'
+		@select='ix => $emit("select", ix)'
+		@close='e => $emit("close", e)'
+		@open='e => $emit("open", e)'
+		@submit='(value, item) => $emit("submit", value, item)'
 	>
 		<template v-if='$slots.leftSection' #leftSection>
 			<slot name='leftSection' />
