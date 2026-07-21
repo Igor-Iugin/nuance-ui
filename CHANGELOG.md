@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.4.3
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.2...v0.4.3)
+
+### 🚀 Enhancements
+
+- **Input:** Separate label-size from input size ([0f53c22](https://github.com/Igor-Iugin/nuance-ui/commit/0f53c22))
+
+### 🩹 Fixes
+
+- Input props and classes passing ([25bfc90](https://github.com/Igor-Iugin/nuance-ui/commit/25bfc90))
+- **style:** Improve light-color contrast ([0b8ea89](https://github.com/Igor-Iugin/nuance-ui/commit/0b8ea89))
+
+### 🏡 Chore
+
+- Update ([922082d](https://github.com/Igor-Iugin/nuance-ui/commit/922082d))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.2
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.1...v0.4.2)
