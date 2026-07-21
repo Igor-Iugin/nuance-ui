@@ -1,4 +1,6 @@
 <script lang='ts' setup>
+import type { AnyString, NuanceSize } from '@nui/types'
+
 import { getFontSize } from '@nui/utils'
 import { computed, reactive, toRefs, useId } from 'vue'
 
@@ -18,6 +20,9 @@ export interface InputWrapperProps extends WrapperContext {
 	/** Label displayed above the input */
 	label?: string
 
+	/** Label font size @default 'sm' */
+	labelSize?: NuanceSize | AnyString
+
 	/** Marks the field as required */
 	required?: boolean
 }
@@ -25,6 +30,7 @@ export interface InputWrapperProps extends WrapperContext {
 const props = withDefaults(defineProps<InputWrapperProps>(), {
 	variant: 'default',
 	size: 'sm',
+	labelSize: 'sm',
 	radius: 'sm',
 })
 
@@ -44,7 +50,7 @@ const style = computed(() => ({
 			:data-v-hidden='(!label && !$slots.label) || null'
 			:for='uid'
 			:class='$style.label'
-			:size
+			:size='labelSize'
 			:required
 		>
 			<slot name='label'>
