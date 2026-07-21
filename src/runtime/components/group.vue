@@ -24,7 +24,7 @@ export interface GroupProps extends BoxProps {
 	/** Controls `align-items` CSS property @default 'center' */
 	align?: CSSProperties['alignItems']
 
-	/** Controls `flex-wrap` CSS property @default 'wrap' */
+	/** Controls `flex-wrap` CSS property @default 'nowrap' */
 	wrap?: CSSProperties['flexWrap']
 
 	/** Key of `theme.spacing` or any valid CSS value for `gap`, numbers are converted to rem @default 'md' */
@@ -55,7 +55,12 @@ const style = useVarsResolver<GroupVars>(() => ({
 </script>
 
 <template>
-	<Box v-bind='props' :style='style.root' :class='$style.root' :mod='[{ grow }, mod]'>
+	<Box
+		v-bind='props'
+		:style='style.root'
+		:class='$style.root'
+		:mod='[{ grow }, mod]'
+	>
 		<slot />
 	</Box>
 </template>
@@ -64,7 +69,7 @@ const style = useVarsResolver<GroupVars>(() => ({
 .root {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: var(--group-wrap, wrap);
+	flex-wrap: var(--group-wrap, nowrap);
 	gap: var(--group-gap, var(--spacing-md));
 	align-items: var(--group-align, center);
 	justify-content: var(--group-justify, flex-start);
