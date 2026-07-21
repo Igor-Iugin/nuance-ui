@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.4
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.3...v0.4.4)
+
+### 🩹 Fixes
+
+- 🚑️  Fix imports ([90ca27e](https://github.com/Igor-Iugin/nuance-ui/commit/90ca27e))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.3
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.2...v0.4.3)
