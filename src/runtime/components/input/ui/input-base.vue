@@ -4,20 +4,22 @@ import type { Classes } from '@nui/types'
 import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
+import type { BoxProps } from '../../box/box.vue'
 import type { WrapperContext } from '../lib/input-wrapper.context'
 
 import Box from '../../box/box.vue'
+import { extractStyleProps } from '../../box/lib.ts'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
-export interface BaseInputProps extends Omit<WrapperContext, 'id'> {
+export interface BaseInputProps extends Omit<WrapperContext, 'id'>, BoxProps {
 	/** Styles API */
 	classes?: Classes<'root' | 'section'>
 
 	error?: boolean
 }
 
-const { classes, ...props } = defineProps<BaseInputProps>()
+const props = defineProps<BaseInputProps>()
 
 defineSlots<{
 	leftSection: []
@@ -25,7 +27,9 @@ defineSlots<{
 	rightSection: []
 }>()
 
-const api = computed(() => useInputWrapperState() ?? props)
+const { styles, rest } = extractStyleProps(props)
+
+const api = computed(() => useInputWrapperState() ?? rest)
 
 const style = computed(() => ({
 	'--input-height': getSize(api.value.size, 'input-height'),
@@ -40,14 +44,16 @@ const style = computed(() => ({
 
 <template>
 	<Box
+		:is='rest.is'
 		:style
+		v-bind='styles'
 		:class='[$style.root, classes?.root]'
 		:mod='[{
 			"with-left-section": !!$slots.leftSection,
 			"with-right-section": !!$slots.rightSection,
 			"variant": api.variant,
 			"error": !!api?.error || props.error,
-		}]'
+		}, rest.mod]'
 	>
 		<span
 			v-if='$slots.leftSection'

@@ -4,14 +4,16 @@ import type { Classes } from '@nui/types'
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
+import type { StyleProps } from '../box/types.ts'
 import type { InputBaseProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
+import { extractStyleProps } from '../box/lib.ts'
 import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface TextInputProps extends InputWrapperProps, InputBaseProps {
+export interface TextInputProps extends InputWrapperProps, InputBaseProps, StyleProps {
 	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
 	multiline?: boolean
 
@@ -19,14 +21,21 @@ export interface TextInputProps extends InputWrapperProps, InputBaseProps {
 	withAria?: boolean
 
 	/** Styles API */
-	classes?: Classes<'wrapper' | 'input'>
+	classes?: Classes<'root' | 'input' | 'section'>
 
 	/** Icon displayed in the left section */
 	icon?: string
 }
 
-const { classes, icon, ...props } = defineProps<TextInputProps>()
+const {
+	classes,
+	icon,
+	...props
+} = defineProps<TextInputProps>()
+
 const value = defineModel<string>({ default: '' })
+
+const { styles, rest } = extractStyleProps(props)
 
 const ref = useTemplateRef<HTMLElement>('input')
 defineExpose({
@@ -38,10 +47,13 @@ defineExpose({
 
 <template>
 	<InputWrapper
-		v-bind='props'
-		:class='[$attrs.class, classes?.wrapper]'
+		v-bind='rest'
+		:class='[$attrs.class, classes?.root]'
 	>
-		<BaseInput>
+		<BaseInput
+			v-bind='styles'
+			:classes='{ root: classes?.input, section: classes?.section }'
+		>
 			<template v-if='!!$slots.leftSection || icon' #leftSection>
 				<slot name='leftSection'>
 					<Icon v-if='icon' :name='icon' />
