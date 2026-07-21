@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.7
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.6...v0.4.7)
+
+### 🩹 Fixes
+
+- **Select:** Passes classes to select input ([75d2a92](https://github.com/Igor-Iugin/nuance-ui/commit/75d2a92))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.6
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.5...v0.4.6)
