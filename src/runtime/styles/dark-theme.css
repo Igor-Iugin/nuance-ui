@@ -26,7 +26,7 @@
 		--color-dark-filled: var(--color-dark-8);
 		--color-dark-filled-hover: var(--color-dark-9);
 		--color-dark-light: alpha(var(--color-dark-6), 0.15);
-		--color-dark-light-hover: alpha(var(--color-dark-6), 0.2);
+		--color-dark-light-hover: alpha(var(--color-dark-6), 0.3);
 		--color-dark-light-color: var(--color-dark-0);
 		--color-dark-outline: var(--color-dark-4);
 		--color-dark-outline-hover: alpha(var(--color-dark-4), 0.05);
@@ -35,7 +35,7 @@
 		--color-gray-filled: var(--color-gray-8);
 		--color-gray-filled-hover: var(--color-gray-9);
 		--color-gray-light: alpha(var(--color-gray-6), 0.15);
-		--color-gray-light-hover: alpha(var(--color-gray-6), 0.2);
+		--color-gray-light-hover: alpha(var(--color-gray-6), 0.3);
 		--color-gray-light-color: var(--color-gray-0);
 		--color-gray-outline: var(--color-gray-4);
 		--color-gray-outline-hover: alpha(var(--color-gray-4), 0.05);
@@ -44,7 +44,7 @@
 		--color-red-filled: var(--color-red-8);
 		--color-red-filled-hover: var(--color-red-9);
 		--color-red-light: alpha(var(--color-red-8), 0.15);
-		--color-red-light-hover: alpha(var(--color-red-8), 0.2);
+		--color-red-light-hover: alpha(var(--color-red-8), 0.3);
 		--color-red-light-color: var(--color-red-0);
 		--color-red-outline: var(--color-red-4);
 		--color-red-outline-hover: alpha(var(--color-red-4), 0.05);
@@ -53,7 +53,7 @@
 		--color-pink-filled: var(--color-pink-8);
 		--color-pink-filled-hover: var(--color-pink-9);
 		--color-pink-light: alpha(var(--color-pink-8), 0.15);
-		--color-pink-light-hover: alpha(var(--color-pink-8), 0.2);
+		--color-pink-light-hover: alpha(var(--color-pink-8), 0.3);
 		--color-pink-light-color: var(--color-pink-0);
 		--color-pink-outline: var(--color-pink-4);
 		--color-pink-outline-hover: alpha(var(--color-pink-4), 0.05);
@@ -62,7 +62,7 @@
 		--color-grape-filled: var(--color-grape-8);
 		--color-grape-filled-hover: var(--color-grape-9);
 		--color-grape-light: alpha(var(--color-grape-8), 0.15);
-		--color-grape-light-hover: alpha(var(--color-grape-8), 0.2);
+		--color-grape-light-hover: alpha(var(--color-grape-8), 0.3);
 		--color-grape-light-color: var(--color-grape-0);
 		--color-grape-outline: var(--color-grape-4);
 		--color-grape-outline-hover: alpha(var(--color-grape-4), 0.05);
@@ -71,7 +71,7 @@
 		--color-violet-filled: var(--color-violet-8);
 		--color-violet-filled-hover: var(--color-violet-9);
 		--color-violet-light: alpha(var(--color-violet-8), 0.15);
-		--color-violet-light-hover: alpha(var(--color-violet-8), 0.2);
+		--color-violet-light-hover: alpha(var(--color-violet-8), 0.3);
 		--color-violet-light-color: var(--color-violet-0);
 		--color-violet-outline: var(--color-violet-4);
 		--color-violet-outline-hover: alpha(var(--color-violet-4), 0.05);
@@ -80,7 +80,7 @@
 		--color-indigo-filled: var(--color-indigo-8);
 		--color-indigo-filled-hover: var(--color-indigo-9);
 		--color-indigo-light: alpha(var(--color-indigo-8), 0.15);
-		--color-indigo-light-hover: alpha(var(--color-indigo-8), 0.2);
+		--color-indigo-light-hover: alpha(var(--color-indigo-8), 0.3);
 		--color-indigo-light-color: var(--color-indigo-0);
 		--color-indigo-outline: var(--color-indigo-4);
 		--color-indigo-outline-hover: alpha(var(--color-indigo-4), 0.05);
@@ -89,7 +89,7 @@
 		--color-blue-filled: var(--color-blue-8);
 		--color-blue-filled-hover: var(--color-blue-9);
 		--color-blue-light: alpha(var(--color-blue-8), 0.15);
-		--color-blue-light-hover: alpha(var(--color-blue-8), 0.2);
+		--color-blue-light-hover: alpha(var(--color-blue-8), 0.3);
 		--color-blue-light-color: var(--color-blue-0);
 		--color-blue-outline: var(--color-blue-4);
 		--color-blue-outline-hover: alpha(var(--color-blue-4), 0.05);
@@ -98,7 +98,7 @@
 		--color-cyan-filled: var(--color-cyan-8);
 		--color-cyan-filled-hover: var(--color-cyan-9);
 		--color-cyan-light: alpha(var(--color-cyan-8), 0.15);
-		--color-cyan-light-hover: alpha(var(--color-cyan-8), 0.2);
+		--color-cyan-light-hover: alpha(var(--color-cyan-8), 0.3);
 		--color-cyan-light-color: var(--color-cyan-0);
 		--color-cyan-outline: var(--color-cyan-4);
 		--color-cyan-outline-hover: alpha(var(--color-cyan-4), 0.05);
@@ -107,7 +107,7 @@
 		--color-teal-filled: var(--color-teal-8);
 		--color-teal-filled-hover: var(--color-teal-9);
 		--color-teal-light: alpha(var(--color-teal-8), 0.15);
-		--color-teal-light-hover: alpha(var(--color-teal-8), 0.2);
+		--color-teal-light-hover: alpha(var(--color-teal-8), 0.3);
 		--color-teal-light-color: var(--color-teal-0);
 		--color-teal-outline: var(--color-teal-4);
 		--color-teal-outline-hover: alpha(var(--color-teal-4), 0.05);
@@ -116,7 +116,7 @@
 		--color-green-filled: var(--color-green-8);
 		--color-green-filled-hover: var(--color-green-9);
 		--color-green-light: alpha(var(--color-green-8), 0.15);
-		--color-green-light-hover: alpha(var(--color-green-8), 0.2);
+		--color-green-light-hover: alpha(var(--color-green-8), 0.3);
 		--color-green-light-color: var(--color-green-0);
 		--color-green-outline: var(--color-green-4);
 		--color-green-outline-hover: alpha(var(--color-green-4), 0.05);
@@ -125,7 +125,7 @@
 		--color-lime-filled: var(--color-lime-8);
 		--color-lime-filled-hover: var(--color-lime-9);
 		--color-lime-light: alpha(var(--color-lime-8), 0.15);
-		--color-lime-light-hover: alpha(var(--color-lime-8), 0.2);
+		--color-lime-light-hover: alpha(var(--color-lime-8), 0.3);
 		--color-lime-light-color: var(--color-lime-0);
 		--color-lime-outline: var(--color-lime-4);
 		--color-lime-outline-hover: alpha(var(--color-lime-4), 0.05);
@@ -134,7 +134,7 @@
 		--color-yellow-filled: var(--color-yellow-8);
 		--color-yellow-filled-hover: var(--color-yellow-9);
 		--color-yellow-light: alpha(var(--color-yellow-8), 0.15);
-		--color-yellow-light-hover: alpha(var(--color-yellow-8), 0.2);
+		--color-yellow-light-hover: alpha(var(--color-yellow-8), 0.3);
 		--color-yellow-light-color: var(--color-yellow-0);
 		--color-yellow-outline: var(--color-yellow-4);
 		--color-yellow-outline-hover: alpha(var(--color-yellow-4), 0.05);
@@ -143,7 +143,7 @@
 		--color-orange-filled: var(--color-orange-8);
 		--color-orange-filled-hover: var(--color-orange-9);
 		--color-orange-light: alpha(var(--color-orange-8), 0.15);
-		--color-orange-light-hover: alpha(var(--color-orange-8), 0.2);
+		--color-orange-light-hover: alpha(var(--color-orange-8), 0.3);
 		--color-orange-light-color: var(--color-orange-0);
 		--color-orange-outline: var(--color-orange-4);
 		--color-orange-outline-hover: alpha(var(--color-orange-4), 0.05);
