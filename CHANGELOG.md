@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.4...v0.4.5)
+
+### 🩹 Fixes
+
+- Passed emits from select to select-field ([7b99554](https://github.com/Igor-Iugin/nuance-ui/commit/7b99554))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.3...v0.4.4)
