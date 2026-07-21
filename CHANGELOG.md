@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.6
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.5...v0.4.6)
+
+### 🚀 Enhancements
+
+- Default flex prop setted to nowrap ([80e41cf](https://github.com/Igor-Iugin/nuance-ui/commit/80e41cf))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.5
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.4...v0.4.5)
