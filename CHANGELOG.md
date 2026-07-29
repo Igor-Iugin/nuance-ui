@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.8
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.7...v0.4.8)
+
+### 🩹 Fixes
+
+- Monospace font-family var name ([677a89a](https://github.com/Igor-Iugin/nuance-ui/commit/677a89a))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.7
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.6...v0.4.7)
