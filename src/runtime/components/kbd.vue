@@ -55,7 +55,7 @@ const style = useVarsResolver<KbdVars>(() => ({
 	border-bottom-width: 3px;
 	border-radius: var(--radius-sm);
 
-	font-family: var(--font-family-monospace);
+	font-family: var(--font-family-mono);
 	font-size: var(--kbd-fz);
 	font-weight: var(--font-weight-bold);
 	line-height: var(--line-height);

@@ -57,7 +57,7 @@ export interface StyleProps {
 	/** CSS opacity */
 	opacity?: CSSProperties['opacity']
 	/** Font family */
-	ff?: 'text' | 'heading' | 'monospace' | AnyString
+	ff?: 'text' | 'heading' | 'mono' | AnyString
 	/** Font size token */
 	fz?: NuanceFontSize | number | AnyString
 	/** Font weight */
