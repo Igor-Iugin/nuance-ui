@@ -8,6 +8,7 @@
 	--heading-text-wrap: wrap;
 
 	--font-size-xs: .5rem;
+	--font-size-2sm: .625rem;
 	--font-size-sm: .75rem;
 	--font-size-md: .875rem;
 	--font-size-lg: 1rem;
@@ -34,6 +35,7 @@
 
 	--spacing-2xs: 0.25rem;
 	--spacing-xs: 0.5rem;
+	--spacing-2sm: 0.625rem;
 	--spacing-sm: 0.75rem;
 	--spacing-md: 1rem;
 	--spacing-lg: 1.25rem;

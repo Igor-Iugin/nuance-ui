@@ -3,7 +3,8 @@ import { rem } from './rem'
 
 
 const SIZE_TOKENS = new Set(['xs', 'sm', 'md', 'lg', 'xl'])
-const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2xl'])
+const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2sm', '2xl'])
+const FONT_SIZE_TOKENS = new Set([...SIZE_TOKENS, '2sm'])
 
 export type SizeValue = string | number | undefined | null
 
@@ -67,7 +68,7 @@ export function getRadius(value: SizeValue): string | undefined {
 }
 
 /** Resolves a font-size token via the `--font-size-*` CSS variables. */
-export const getFontSize = (value: SizeValue) => getSize(value, 'font-size', SIZE_TOKENS)
+export const getFontSize = (value: SizeValue) => getSize(value, 'font-size', FONT_SIZE_TOKENS)
 
 /** Resolves a line-height token via the `--line-height-*` CSS variables. */
 export const getLineHeight = (value: SizeValue) => getSize(value, 'line-height', SIZE_TOKENS, false)

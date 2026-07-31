@@ -4,9 +4,9 @@ import type { AnyString } from '.'
 export type NuanceSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type NuanceBreakpoint = NuanceSize | 'base'
-export type NuanceFontSize = NuanceSize
+export type NuanceFontSize = NuanceSize | '2sm'
 export type NuanceRadius = NuanceSize | 'full' | number
-export type NuanceSpacing = NuanceSize | '2xs' | '2xl' | number
+export type NuanceSpacing = NuanceSize | '2xs' | '2sm' | '2xl' | number
 export type NuanceShadow = NuanceSize
 export type NuanceLineHeight = NuanceSize
 
