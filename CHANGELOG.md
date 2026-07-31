@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.4.9
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.8...v0.4.9)
+
+### 🩹 Fixes
+
+- Now size prop correct passed in checkbox ([5fda075](https://github.com/Igor-Iugin/nuance-ui/commit/5fda075))
+- Correct passing classes into search ([c610955](https://github.com/Igor-Iugin/nuance-ui/commit/c610955))
+
+### 📦 Build
+
+- Upgrade all packages ([8ebac30](https://github.com/Igor-Iugin/nuance-ui/commit/8ebac30))
+
+### 🏡 Chore
+
+- **ai:** Remove skills ([5bcbe7c](https://github.com/Igor-Iugin/nuance-ui/commit/5bcbe7c))
+- **ai:** Added graphify ([c038f77](https://github.com/Igor-Iugin/nuance-ui/commit/c038f77))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.8
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.7...v0.4.8)
