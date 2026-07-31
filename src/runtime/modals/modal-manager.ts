@@ -25,6 +25,7 @@ export interface ModalState<
 
 const GLOBAL_KEY = '__nui_modal_manager__'
 
+// eslint-disable-next-line no-shadow-restricted-names
 declare const globalThis: Record<string, unknown>
 
 /**

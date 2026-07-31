@@ -1,14 +1,36 @@
 {
-	"permissions": {
-		"allow": [
-			"WebSearch",
-			"Bash(pnpm lint)",
-			"Bash(pnpm lint:ts)",
-			"Bash(rtk ls *)",
-			"Bash(rtk read *)",
-			"Bash(rtk grep *)",
-			"Bash(rtk git diff *)",
-			"Bash(rtk git stat *)"
-		]
-	}
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:ts)",
+      "Bash(rtk ls *)",
+      "Bash(rtk read *)",
+      "Bash(rtk grep *)",
+      "Bash(rtk git diff *)",
+      "Bash(rtk git stat *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/igor/Documents/nuance-ui/.uv-tools/bin/graphify hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/igor/Documents/nuance-ui/.uv-tools/bin/graphify hook-guard read"
+          }
+        ]
+      }
+    ]
+  }
 }

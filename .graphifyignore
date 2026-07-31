@@ -1,0 +1,60 @@
+# IDE и инструменты разработки
+.uv-tools/
+.vscode/
+.git/
+
+# AI
+.claude/
+.agents/
+.scratch
+docs/agents/
+docs/adr/
+graphify-out/
+.superpowers
+
+*.webp
+*.webm
+*.wav
+*.ogg
+*.png
+*.jpg
+*.svg
+
+# Артефакты сборки и кэш
+node_modules/
+.nuxt/
+src-tauri/target/
+src-tauri/gen/
+dist
+.output
+
+# Статические ресурсы без архитектурной ценности
+public/
+src-tauri/icons/
+
+# Служебные json
+skills-lock.json
+
+# Конфиги и документация (не код проекта)
+README.md
+CLAUDE.md
+CONTEXT.md
+
+.github/
+.editorconfig
+.gitignore
+.stylelintcache
+eslint.config.ts
+stylelint.config.mjs
+
+pnpm-lock.json
+pnpm-workspace.yaml
+tsconfig.json
+shell.nix
+.env*
+vitest.*
+
+playground/.nuxt
+playground/node_modules
+playground/.nuxtrc
+playground/pnpm-lock.yaml

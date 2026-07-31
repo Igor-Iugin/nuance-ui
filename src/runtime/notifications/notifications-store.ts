@@ -7,6 +7,7 @@ import { createId } from './lib'
 
 const GLOBAL_KEY = '__nui_notifications_store__'
 
+// eslint-disable-next-line no-shadow-restricted-names
 declare const globalThis: Record<string, unknown>
 
 /**
