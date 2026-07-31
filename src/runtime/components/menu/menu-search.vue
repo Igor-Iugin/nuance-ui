@@ -13,7 +13,7 @@ export interface MenuSearchProps {
 	clearSearchOnClose?: boolean
 
 	/** Styles API */
-	classes?: Classes<'wrapper' | 'input'>
+	classes?: Classes<'wrapper' | 'section' | 'input'>
 }
 
 const ITEM_SELECTOR = '[data-menu-item]:not([data-disabled])'
@@ -139,7 +139,8 @@ function onKeyDown(event: KeyboardEvent) {
 		autofocus
 		:placeholder
 		:classes='{
-			wrapper: classes?.wrapper,
+			root: classes?.wrapper,
+			section: classes?.section,
 			input: [css.search, ctx.classes.value?.search, classes?.input],
 		}'
 		@keydown='onKeyDown'
