@@ -100,7 +100,7 @@ const style = useVarsResolver<CheckboxVars>(theme => {
 
 	return {
 		root: {
-			'--checkbox-size': getSize(size, 'checkbox-size'),
+			'--checkbox-size': getSize(size.value, 'checkbox-size'),
 			'--checkbox-radius': radius === undefined ? undefined : getRadius(radius),
 			'--checkbox-color': variant === 'outline' ? outlineColor : getThemeColor(color, theme),
 			'--checkbox-icon-color': iconColor ? getThemeColor(iconColor, theme) : undefined,

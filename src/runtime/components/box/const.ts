@@ -1,3 +1,4 @@
+import type { SizeValue } from '@nui/utils'
 import type { CSSProperties } from 'vue'
 
 import {
@@ -23,7 +24,7 @@ const size = (v: unknown) => isNumberLike(v) ? rem(v) : v as string
 
 export const STYLE_MAP: Partial<Record<
 	keyof StyleProps,
-	[keyof CSSProperties, (v: unknown) => string | undefined]
+	[keyof CSSProperties, (v: SizeValue) => string | undefined]
 >> = {
 	m: ['margin', getSpacing],
 	mt: ['marginTop', getSpacing],

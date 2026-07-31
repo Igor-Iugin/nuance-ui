@@ -5,6 +5,8 @@ import { rem } from './rem'
 const SIZE_TOKENS = new Set(['xs', 'sm', 'md', 'lg', 'xl'])
 const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2xl'])
 
+export type SizeValue = string | number | undefined | null
+
 /**
  * Resolves a size token to a CSS value.
  *
@@ -13,7 +15,7 @@ const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2xl'])
  * `false`). Everything else is returned as-is.
  */
 export function getSize(
-	size: unknown,
+	size: SizeValue,
 	prefix = 'size',
 	tokens: Set<string> = SIZE_TOKENS,
 	convertToRem = true,
@@ -35,7 +37,7 @@ export function getSize(
  *
  * Supports negative tokens: `-sm` resolves to `calc(var(--spacing-sm) * -1)`.
  */
-export function getSpacing(value: unknown): string | undefined {
+export function getSpacing(value: SizeValue): string | undefined {
 	if (value === undefined)
 		return undefined
 
@@ -54,7 +56,7 @@ export function getSpacing(value: unknown): string | undefined {
  * `undefined` falls back to `--radius-default`, and `'full'` produces the
  * special `100%` value used for pill-shaped elements.
  */
-export function getRadius(value: unknown): string | undefined {
+export function getRadius(value: SizeValue): string | undefined {
 	if (value === undefined)
 		return 'var(--radius-default)'
 
@@ -65,17 +67,17 @@ export function getRadius(value: unknown): string | undefined {
 }
 
 /** Resolves a font-size token via the `--font-size-*` CSS variables. */
-export const getFontSize = (value: unknown) => getSize(value, 'font-size', SIZE_TOKENS)
+export const getFontSize = (value: SizeValue) => getSize(value, 'font-size', SIZE_TOKENS)
 
 /** Resolves a line-height token via the `--line-height-*` CSS variables. */
-export const getLineHeight = (value: unknown) => getSize(value, 'line-height', SIZE_TOKENS, false)
+export const getLineHeight = (value: SizeValue) => getSize(value, 'line-height', SIZE_TOKENS, false)
 
 /**
  * Resolves a shadow token via the `--shadow-*` CSS variables.
  *
  * Falsy input returns `undefined` so the caller can omit the style entirely.
  */
-export function getShadow(value: unknown): string | undefined {
+export function getShadow(value: SizeValue): string | undefined {
 	if (!value)
 		return undefined
 
