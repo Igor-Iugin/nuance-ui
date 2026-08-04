@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.4.10
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.9...v0.4.10)
+
+### 🚀 Enhancements
+
+- Added 10px size element ([cb27f99](https://github.com/Igor-Iugin/nuance-ui/commit/cb27f99))
+- Added prop passing ([cd7e8fa](https://github.com/Igor-Iugin/nuance-ui/commit/cd7e8fa))
+- **new:** Indicator component ([96fc342](https://github.com/Igor-Iugin/nuance-ui/commit/96fc342))
+
+### 🩹 Fixes
+
+- Build error ([c274182](https://github.com/Igor-Iugin/nuance-ui/commit/c274182))
+- Extends type error ([56faaa0](https://github.com/Igor-Iugin/nuance-ui/commit/56faaa0))
+- Now SelectField inherit Select default props ([e1c178a](https://github.com/Igor-Iugin/nuance-ui/commit/e1c178a))
+
+### 🏡 Chore
+
+- Config update ([30cee5e](https://github.com/Igor-Iugin/nuance-ui/commit/30cee5e))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.9
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.8...v0.4.9)
