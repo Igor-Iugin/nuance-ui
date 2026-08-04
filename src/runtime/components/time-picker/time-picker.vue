@@ -4,7 +4,7 @@ import type { Classes } from '@nui/types'
 import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
-import type { InputBaseProps } from '../input'
+import type { InputStateProps } from '../input'
 import type { InputWrapperProps } from '../input/ui/input-wrapper.vue'
 import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from './types'
 
@@ -46,7 +46,7 @@ interface FieldPlaceholder {
 	seconds?: string
 }
 
-export interface TimePickerProps extends InputWrapperProps, InputBaseProps {
+export interface TimePickerProps extends InputWrapperProps, InputStateProps {
 	/** Determines whether the clear button should be displayed @default `false` */
 	clearable?: boolean
 

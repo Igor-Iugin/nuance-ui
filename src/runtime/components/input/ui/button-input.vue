@@ -4,8 +4,7 @@ import type { Classes } from '@nui/types'
 import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
-import type { InputBaseProps } from '../types'
-import type { BaseInputProps } from './input-base.vue'
+import type { InputSectionProps, InputStateProps } from '../types'
 import type { InputWrapperProps } from './input-wrapper.vue'
 
 import UnstyledButton from '../../button/unstyled-button.vue'
@@ -14,7 +13,7 @@ import InputWrapper from './input-wrapper.vue'
 
 
 export interface ButtonInputProps
-	extends InputWrapperProps, Omit<BaseInputProps, 'error'>, InputBaseProps {
+	extends InputWrapperProps, InputSectionProps, InputStateProps {
 	/**
 	 * If set, the input can have multiple lines, for example when `component="textarea"`
 	 *  @default `false`
@@ -30,7 +29,14 @@ export interface ButtonInputProps
 
 defineOptions({ inheritAttrs: false })
 
-const { classes, ...props } = defineProps<ButtonInputProps>()
+const {
+	classes,
+	icon,
+	prefix,
+	trailingIcon,
+	postfix,
+	...props
+} = defineProps<ButtonInputProps>()
 const model = defineModel<unknown>()
 
 const ref = useTemplateRef<HTMLElement>('button')
@@ -43,7 +49,14 @@ defineExpose({
 
 <template>
 	<InputWrapper v-bind='props' :class='classes?.root'>
-		<InputBase :class='$style.base' :classes='{ section: classes?.section }'>
+		<InputBase
+			:icon
+			:prefix
+			:trailing-icon='trailingIcon'
+			:postfix
+			:class='$style.base'
+			:classes='{ section: classes?.section }'
+		>
 			<template v-if='!!$slots.leftSection' #leftSection>
 				<slot name='leftSection' />
 			</template>

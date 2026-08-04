@@ -17,9 +17,12 @@ export interface TabsTabProps {
 
 	/** Icon displayed before the label */
 	icon?: string
+
+	/** Icon displayed after the label */
+	trailingIcon?: string
 }
 
-const { value, mod, icon } = defineProps<TabsTabProps>()
+const { value, mod, icon, trailingIcon } = defineProps<TabsTabProps>()
 const ctx = useTabsState()
 
 const active = computed(() => value === ctx?.active.value)
@@ -42,7 +45,11 @@ const active = computed(() => value === ctx?.active.value)
 		:aria-controls='ctx?.getPanelId(value)'
 		@click='ctx?.onUpdate(value)'
 	>
-		<span v-if='$slots.leftSection || icon' :class='css.tabSection' data-position='left'>
+		<span
+			v-if='$slots.leftSection || icon'
+			:class='css.tabSection'
+			data-position='left'
+		>
 			<slot name='leftSection'>
 				<Icon v-if='icon' :name='icon' />
 			</slot>
@@ -50,8 +57,14 @@ const active = computed(() => value === ctx?.active.value)
 		<span v-if='$slots.default' :class='css.tabLabel'>
 			<slot />
 		</span>
-		<span v-if='$slots.rightSection' :class='css.tabSection' data-position='right'>
-			<slot name='rightSection' />
+		<span
+			v-if='$slots.rightSection || trailingIcon'
+			:class='css.tabSection'
+			data-position='right'
+		>
+			<slot name='rightSection'>
+				<Icon v-if='trailingIcon' :name='trailingIcon' />
+			</slot>
 		</span>
 	</UnstyledButton>
 </template>

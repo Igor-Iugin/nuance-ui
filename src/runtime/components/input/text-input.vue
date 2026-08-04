@@ -5,7 +5,7 @@ import { unrefElement } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
 import type { StyleProps } from '../box'
-import type { InputBaseProps } from './types'
+import type { InputSectionProps, InputStateProps } from './types'
 import type { InputWrapperProps } from './ui/input-wrapper.vue'
 
 import { extractStyleProps } from '../box'
@@ -13,23 +13,30 @@ import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface TextInputProps extends InputWrapperProps, InputBaseProps, StyleProps {
-	/** If set, the input can have multiple lines, for example when `component="textarea"` @default `false` */
+export interface TextInputProps extends
+	InputWrapperProps, InputStateProps, InputSectionProps, StyleProps {
+	/**
+	 * If set, the input can have multiple lines, for example when `is="textarea"`
+	 * @default `false`
+	 */
 	multiline?: boolean
 
-	/** If set, `aria-` and other accessibility attributes are added to the input @default `true` */
+	/**
+	 * If set, `aria-` and other accessibility attributes are added to the input
+	 * @default `true`
+	 */
 	withAria?: boolean
 
 	/** Styles API */
 	classes?: Classes<'root' | 'input' | 'section'>
-
-	/** Icon displayed in the left section */
-	icon?: string
 }
 
 const {
 	classes,
 	icon,
+	prefix,
+	trailingIcon,
+	postfix,
 	...props
 } = defineProps<TextInputProps>()
 
@@ -52,12 +59,14 @@ defineExpose({
 	>
 		<BaseInput
 			v-bind='styles'
+			:icon
+			:prefix
+			:trailing-icon
+			:postfix
 			:classes='{ root: classes?.input, section: classes?.section }'
 		>
-			<template v-if='!!$slots.leftSection || icon' #leftSection>
-				<slot name='leftSection'>
-					<Icon v-if='icon' :name='icon' />
-				</slot>
+			<template v-if='!!$slots.leftSection' #leftSection>
+				<slot name='leftSection' />
 			</template>
 
 			<template #default='{ id, css }'>

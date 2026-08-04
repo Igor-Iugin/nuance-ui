@@ -22,9 +22,6 @@ export interface InputWrapperProps extends WrapperContext {
 
 	/** Label font size @default 'sm' */
 	labelSize?: NuanceSize | AnyString
-
-	/** Marks the field as required */
-	required?: boolean
 }
 
 const props = withDefaults(defineProps<InputWrapperProps>(), {

@@ -62,6 +62,9 @@ export interface BadgeProps extends BoxProps {
 	/** Icon displayed before the label */
 	icon?: string
 
+	/** Icon displayed after the label */
+	trailingIcon?: string
+
 	/** Visual variant */
 	variant?: BadgeVariant
 
@@ -80,6 +83,7 @@ const {
 	fullWidth = false,
 	circle,
 	icon,
+	trailingIcon,
 	fw,
 	dotted,
 	gradient,
@@ -129,14 +133,18 @@ const style = useVarsResolver<BadgeVars>(theme => {
 				circle,
 				dotted,
 				"with-left-section": !!$slots.leftSection || !!icon,
-				"with-right-section": !!$slots.rightSection,
+				"with-right-section": !!$slots.rightSection || !!trailingIcon,
 			},
 			mod,
 		]'
 	>
 		<span v-if='dotted && !circle' :class='$style.dot' />
 
-		<span v-else-if='$slots.leftSection || !!icon' :class='$style.section' data-position='left'>
+		<span
+			v-else-if='$slots.leftSection || !!icon'
+			:class='$style.section'
+			data-position='left'
+		>
 			<slot name='leftSection'>
 				<Icon v-if='!!icon' :name='icon' />
 			</slot>
@@ -146,8 +154,14 @@ const style = useVarsResolver<BadgeVars>(theme => {
 			<slot />
 		</span>
 
-		<span v-if='$slots.rightSection' :class='$style.section' data-position='right'>
-			<slot name='rightSection' />
+		<span
+			v-if='$slots.rightSection || !!trailingIcon'
+			:class='$style.section'
+			data-position='right'
+		>
+			<slot name='rightSection'>
+				<Icon v-if='!!trailingIcon' :name='trailingIcon' />
+			</slot>
 		</span>
 	</Box>
 </template>

@@ -71,6 +71,9 @@ export interface ButtonProps extends BoxProps {
 	/** Icon displayed before the label */
 	icon?: string
 
+	/** Icon displayed before the label */
+	trailingIcon?: string
+
 	/** Extra attributes forwarded to the left section element */
 	leftSectionProps?: HTMLAttributes
 
@@ -115,6 +118,7 @@ const {
 	rightSectionPE = 'all',
 	mod,
 	icon,
+	trailingIcon,
 	loading,
 	classes,
 	rightSectionProps,
@@ -171,7 +175,7 @@ const style = useVarsResolver<ButtonVars>(theme => {
 		v-bind='extractStyleProps(props).styles'
 		:mod='[mod, {
 			"with-left-section": !!$slots?.leftSection || !!icon,
-			"with-right-section": !!$slots?.rightSection,
+			"with-right-section": !!$slots?.rightSection || !!trailingIcon,
 			loading,
 			active,
 			"variant": resolvedVariant,
@@ -204,13 +208,15 @@ const style = useVarsResolver<ButtonVars>(theme => {
 			</span>
 
 			<span
-				v-if='$slots.rightSection'
+				v-if='$slots.rightSection || trailingIcon'
 				data-position='right'
 				:class='[css.section, classes?.section]'
 				v-bind='rightSectionProps'
 				:style='style.rightSection'
 			>
-				<slot name='rightSection' />
+				<slot name='rightSection'>
+					<Icon v-if='trailingIcon' :name='trailingIcon' />
+				</slot>
 			</span>
 		</span>
 	</Box>

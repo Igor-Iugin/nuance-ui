@@ -4,14 +4,15 @@ import { clamp } from '@vueuse/core'
 import { shallowRef } from 'vue'
 
 import type { InputWrapperProps } from './index'
-import type { InputBaseProps } from './types'
+import type { InputSectionProps, InputStateProps } from './types'
 
 import UnstyledButton from '../button/unstyled-button.vue'
 import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
 
 
-export interface NumberInputProps extends InputBaseProps, Omit<InputWrapperProps, 'multiline' | 'resize' | 'id'> {
+export interface NumberInputProps extends
+	InputStateProps, InputSectionProps, Omit<InputWrapperProps, 'multiline' | 'resize' | 'id'> {
 	/** Minimum possible value */
 	min?: number
 
@@ -23,9 +24,6 @@ export interface NumberInputProps extends InputBaseProps, Omit<InputWrapperProps
 
 	/** Determines whether the up/down controls should be hidden, `false` by default */
 	hideControls?: boolean
-
-	/** Icon displayed in the left section */
-	icon?: string
 }
 
 const {
@@ -34,7 +32,10 @@ const {
 	step = 1,
 	hideControls,
 	icon,
+	prefix,
 	rightSectionPE = 'all',
+	trailingIcon,
+	postfix,
 	...rest
 } = defineProps<NumberInputProps>()
 
@@ -68,11 +69,14 @@ function handleBlur() {
 
 <template>
 	<InputWrapper v-bind='rest' :class='$style.root' :right-section-p-e>
-		<BaseInput>
-			<template v-if='!!$slots.leftSection || icon' #leftSection>
-				<slot name='leftSection'>
-					<Icon v-if='icon' :name='icon' />
-				</slot>
+		<BaseInput
+			:icon
+			:prefix
+			:trailing-icon='trailingIcon'
+			:postfix
+		>
+			<template v-if='!!$slots.leftSection' #leftSection>
+				<slot name='leftSection' />
 			</template>
 
 			<template #default='{ id, css }'>
@@ -90,7 +94,10 @@ function handleBlur() {
 				>
 			</template>
 
-			<template v-if='!!$slots.rightSection || !hideControls' #rightSection>
+			<template
+				v-if='!!$slots.rightSection || (!hideControls && !trailingIcon && !postfix)'
+				#rightSection
+			>
 				<slot name='rightSection'>
 					<div :class='$style.controls'>
 						<UnstyledButton

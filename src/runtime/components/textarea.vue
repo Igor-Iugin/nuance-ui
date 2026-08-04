@@ -2,16 +2,13 @@
 import { useTextareaAutosize } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
 
-import type { InputBaseProps, InputWrapperProps } from './input'
+import type { InputSectionProps, InputStateProps, InputWrapperProps } from './input'
 
 import InputBase from './input/ui/input-base.vue'
 import InputWrapper from './input/ui/input-wrapper.vue'
 
 
-export interface TextareaProps extends InputWrapperProps, InputBaseProps {
-	/** Icon displayed in the left section */
-	icon?: string
-
+export interface TextareaProps extends InputWrapperProps, InputStateProps, InputSectionProps {
 	/** If set, enables textarea height growing with its content @default false */
 	autosize?: boolean
 }
@@ -46,11 +43,9 @@ defineExpose({
 		:class='$attrs?.class'
 		:resize='autosize ? undefined : resize'
 	>
-		<InputBase :classes='{ root: $style.test }'>
-			<template v-if='!!$slots.leftSection || icon' #leftSection>
-				<slot name='leftSection'>
-					<Icon v-if='icon' :name='icon' />
-				</slot>
+		<InputBase :icon :classes='{ root: $style.test }'>
+			<template v-if='!!$slots.leftSection' #leftSection>
+				<slot name='leftSection' />
 			</template>
 
 			<template #default='{ id, css }'>

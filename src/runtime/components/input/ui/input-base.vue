@@ -6,17 +6,26 @@ import { computed } from 'vue'
 
 import type { BoxProps } from '../../box'
 import type { WrapperContext } from '../lib/input-wrapper.context'
+import type { InputMultilineProps, InputPresentationProps, InputSectionProps } from '../types'
 
 import { extractStyleProps } from '../../box'
 import Box from '../../box/box.vue'
 import { useInputWrapperState } from '../lib/input-wrapper.context'
 
 
-export interface BaseInputProps extends Omit<WrapperContext, 'id'>, BoxProps {
+export interface BaseInputProps extends
+	InputPresentationProps, InputMultilineProps, InputSectionProps, BoxProps {
 	/** Styles API */
 	classes?: Classes<'root' | 'section'>
 
+	/** Renders the input in its error state */
 	error?: boolean
+
+	/** `pointer-events` value for the left section */
+	leftSectionPE?: WrapperContext['leftSectionPE']
+
+	/** `pointer-events` value for the right section */
+	rightSectionPE?: WrapperContext['rightSectionPE']
 }
 
 const props = defineProps<BaseInputProps>()
@@ -49,28 +58,34 @@ const style = computed(() => ({
 		v-bind='styles'
 		:class='[$style.root, classes?.root]'
 		:mod='[{
-			"with-left-section": !!$slots.leftSection,
-			"with-right-section": !!$slots.rightSection,
+			"with-left-section": !!$slots.leftSection || !!icon || !!prefix,
+			"with-right-section": !!$slots.rightSection || !!trailingIcon || !!postfix,
 			"variant": api.variant,
 			"error": !!api?.error || props.error,
 		}, rest.mod]'
 	>
 		<span
-			v-if='$slots.leftSection'
+			v-if='$slots.leftSection || icon || prefix'
 			:class='[$style.section, classes?.section]'
 			data-position='left'
 		>
-			<slot name='leftSection' />
+			<slot name='leftSection'>
+				<Icon v-if='icon' :name='icon' />
+				<span v-else-if='prefix' :class='$style.affix'>{{ prefix }}</span>
+			</slot>
 		</span>
 
 		<slot :id='api.id' :css='$style.input' />
 
 		<span
-			v-if='$slots.rightSection'
+			v-if='$slots.rightSection || trailingIcon || postfix'
 			:class='[$style.section, classes?.section]'
 			data-position='right'
 		>
-			<slot name='rightSection' />
+			<slot name='rightSection'>
+				<Icon v-if='trailingIcon' :name='trailingIcon' />
+				<span v-else-if='postfix' :class='$style.affix'>{{ postfix }}</span>
+			</slot>
 		</span>
 	</Box>
 </template>
@@ -350,10 +365,10 @@ const style = computed(() => ({
 
 	position: absolute;
 	z-index: 1;
-	top: var(--section-y);
-	bottom: var(--section-y);
 	inset-inline-start: var(--section-start);
 	inset-inline-end: var(--section-end);
+	top: var(--section-y);
+	bottom: var(--section-y);
 
 	display: flex;
 	align-items: center;
@@ -378,5 +393,18 @@ const style = computed(() => ({
 		--section-size: var(--input-left-section-size);
 		--section-border-radius: var(--left-section-border-radius);
 	}
+}
+
+.affix {
+	overflow: hidden;
+
+	max-width: 100%;
+	padding-inline: rem(2px);
+
+	font-size: calc(var(--input-fz) - rem(2px));
+	line-height: 1;
+	color: var(--color-dimmed);
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 </style>
