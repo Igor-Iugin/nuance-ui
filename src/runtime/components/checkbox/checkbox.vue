@@ -52,6 +52,8 @@ export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 		| 'inner'
 		| 'input'
 		| 'icon'
+		| 'body'
+		| 'wrapper'
 	>
 }
 
@@ -130,6 +132,7 @@ const style = useVarsResolver<CheckboxVars>(theme => {
 		:class='[$style.root, classes?.root]'
 		:style='style.root'
 		:size
+		:classes='{ wrapper: classes?.wrapper, body: classes?.body }'
 	>
 		<Box
 			:class='$style.inner'
