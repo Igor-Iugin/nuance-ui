@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
+import type { AnyString, Classes, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, parseThemeColor } from '@nui/utils'
@@ -46,6 +46,13 @@ export interface CheckboxProps extends Omit<InlineInputProps, 'id'> {
 
 	/** Visual variant */
 	variant?: CheckboxVariant
+
+	classes?: Classes<
+		| 'root'
+		| 'inner'
+		| 'input'
+		| 'icon'
+	>
 }
 
 const {
@@ -57,10 +64,16 @@ const {
 	iconColor,
 	value,
 	disabled: _disabled,
+	classes,
 	...rest
 } = defineProps<CheckboxProps>()
 
+const emit = defineEmits<{
+	change: [value: boolean]
+}>()
+
 const modelValue = defineModel<boolean | 'indeterminate'>()
+
 const ctx = useCheckboxGroupState()
 const { icons } = useConfig()
 
@@ -75,6 +88,7 @@ const checked = computed({
 		if (ctx && value !== undefined)
 			return ctx.update(value)
 
+		emit('change', check)
 		modelValue.value = check
 	},
 })
@@ -113,30 +127,37 @@ const style = useVarsResolver<CheckboxVars>(theme => {
 	<InputInline
 		v-bind='rest'
 		:id='uuid'
-		:class='$style.root'
+		:class='[$style.root, classes?.root]'
 		:style='style.root'
 		:size
 	>
-		<Box :class='$style.inner' :mod='{ "label-position": rest?.labelPosition }'>
+		<Box
+			:class='$style.inner'
+			:mod='{ "label-position": rest?.labelPosition }'
+		>
 			<input
 				:id='uuid'
 				v-model='checked'
 				type='checkbox'
-				:class='$style.input'
+				:class='[$style.input, classes?.input]'
 				:disabled
 			>
 
 			<slot
 				name='icon'
 				:indeterminate='modelValue === "indeterminate"'
-				:class='$style.icon'
+				:class='[$style.icon, classes?.icon]'
 			>
 				<Icon
 					v-if='modelValue !== "indeterminate"'
 					:name='icons.check'
-					:class='$style.icon'
+					:class='[$style.icon, classes?.icon]'
 				/>
-				<Icon v-else :name='icons.minus' :class='$style.icon' />
+				<Icon
+					v-else
+					:name='icons.minus'
+					:class='[$style.icon, classes?.icon]'
+				/>
 			</slot>
 		</Box>
 	</InputInline>
