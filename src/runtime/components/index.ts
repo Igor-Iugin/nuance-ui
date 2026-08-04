@@ -25,6 +25,7 @@ export * from './files'
 export type * from './floating-indicator.vue'
 export type * from './group.vue'
 
+export type * from './indicator.vue'
 export * from './input'
 export type * from './kbd.vue'
 export * from './link'
@@ -33,9 +34,8 @@ export * from './modal'
 export * from './nav-link'
 export type * from './notification.vue'
 export type * from './paper.vue'
-export * from './popover'
 
-export type * from './indicator.vue/index.js'
+export * from './popover'
 
 export * from './progress'
 export * from './roving-focus'
