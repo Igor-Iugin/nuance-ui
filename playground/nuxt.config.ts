@@ -3,12 +3,11 @@ export default defineNuxtConfig({
 	vite: {
 		optimizeDeps: {
 			include: [
-				'@vue/devtools-core',
-				'@vue/devtools-kit',
 				'@vueuse/core',
 				'@formkit/tempo',
 				'es-toolkit',
 			],
 		},
 	},
+	compatibilityDate: '2026-08-04',
 })
