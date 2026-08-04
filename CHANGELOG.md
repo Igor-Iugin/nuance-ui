@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.11
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.10...v0.4.11)
+
+### 🩹 Fixes
+
+- Added wrapper & body classes to checkbox ([6829813](https://github.com/Igor-Iugin/nuance-ui/commit/6829813))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.10
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.9...v0.4.10)
