@@ -25,7 +25,13 @@ const value = defineModel<number>({ required: true })
 </script>
 
 <template>
-	<ProgressRoot :size :radius :orientation :transition-duration :mod>
+	<ProgressRoot
+		:size
+		:radius
+		:orientation
+		:transition-duration
+		:mod
+	>
 		<ProgressSection
 			v-model='value'
 			:striped

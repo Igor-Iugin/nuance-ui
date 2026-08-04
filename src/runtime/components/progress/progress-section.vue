@@ -1,10 +1,11 @@
 <script setup lang='ts'>
-import type { BoxProps } from '@nui/components'
 import type { NuanceColor } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getThemeColor } from '@nui/utils'
 import { computed } from 'vue'
+
+import type { BoxMod } from '../box'
 
 import Box from '../box/box.vue'
 import css from './progress.module.css'
@@ -14,7 +15,9 @@ export interface ProgressSectionVars {
 	root: '--progress-section-size' | '--progress-section-color'
 }
 
-export interface ProgressSectionProps extends BoxProps {
+export interface ProgressSectionProps {
+	mod?: BoxMod
+
 	/** Determines whether `aria-*` props should be added to the root element @default `true` */
 	withAria?: boolean
 
@@ -34,7 +37,6 @@ const {
 	striped,
 	color,
 	mod,
-	is,
 	...rest
 } = defineProps<ProgressSectionProps>()
 
@@ -61,7 +63,6 @@ const style = useVarsResolver<ProgressSectionVars>(theme => ({
 
 <template>
 	<Box
-		:is
 		v-bind='{ ...rest, ...ariaAttributes }'
 		:style='style.root'
 		:class='css.section'

@@ -4,8 +4,6 @@ import type { Component } from 'vue'
 
 import { useTheme } from '@nui/composables'
 import {
-
-
 	getMod,
 	getThemeColor,
 	isFalsy,
@@ -17,6 +15,8 @@ import type { StyleProps } from './types'
 import { STYLE_MAP } from './const'
 
 
+export type BoxMod = Mod | Mod[] | BoxMod[] | null
+
 export interface BoxProps extends StyleProps {
 	/**
 	 * Rendered element or component
@@ -25,7 +25,7 @@ export interface BoxProps extends StyleProps {
 	is?: keyof HTMLElementTagNameMap | Component
 
 	/** Element modifiers transformed into `data-` attributes, falsy values are removed */
-	mod?: Mod | Mod[] | Mod[][] | null
+	mod?: BoxMod
 }
 
 const props = defineProps<BoxProps>()

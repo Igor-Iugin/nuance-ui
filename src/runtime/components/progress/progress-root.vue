@@ -1,15 +1,16 @@
 <script setup lang='ts'>
-import type { BoxProps } from '@nui/components'
 import type { AnyString, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { getRadius, getSize } from '@nui/utils'
 import { computed } from 'vue'
 
+import type { BoxMod, StyleProps } from '../box'
+
 import Box from '../box/box.vue'
 import css from './progress.module.css'
 
 
-export interface ProgressRootProps extends BoxProps {
+export interface ProgressRootProps extends StyleProps {
 	/** Component size @default `'md'` */
 	size?: NuanceSize | AnyString
 
@@ -21,6 +22,8 @@ export interface ProgressRootProps extends BoxProps {
 
 	/** Orientation @default `'horizontal'` */
 	orientation?: 'horizontal' | 'vertical'
+
+	mod?: BoxMod
 }
 
 const {
@@ -29,7 +32,6 @@ const {
 	size,
 	radius,
 	transitionDuration,
-	is,
 	...rest
 } = defineProps<ProgressRootProps>()
 
@@ -43,7 +45,6 @@ const style = computed(() => ({
 
 <template>
 	<Box
-		:is
 		v-bind='rest'
 		:style
 		:class='css.root'
