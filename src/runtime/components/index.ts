@@ -6,8 +6,8 @@ export * from './avatar'
 export type * from './background-image.vue'
 export type * from './badge.vue'
 export * from './box'
-
 export type * from './breadcrumbs.vue'
+
 export * from './button'
 export * from './calendar'
 export * from './card'
@@ -17,13 +17,14 @@ export type * from './collapse.vue'
 export * from './combobox'
 export type * from './container.vue'
 export type * from './date-time-picker.vue'
-
 export * from './dialog'
 export type * from './divider.vue'
+
 export * from './drawer'
 export * from './files'
-
 export type * from './floating-indicator.vue'
+export type * from './group.vue'
+
 export * from './input'
 export type * from './kbd.vue'
 export * from './link'
@@ -32,8 +33,9 @@ export * from './modal'
 export * from './nav-link'
 export type * from './notification.vue'
 export type * from './paper.vue'
-
 export * from './popover'
+
+export type * from './indicator.vue/index.js'
 
 export * from './progress'
 export * from './roving-focus'

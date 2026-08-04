@@ -11,7 +11,8 @@ import Select from '../components/select.vue'
 export interface SelectFieldProps<
 	Value extends string = string,
 	Ext extends ComboboxItemExt = object,
-> extends Omit<SelectProps<Value, Ext>, 'error'>, Omit<FieldBaseProps<string | string[] | null>, 'validateOn'> {
+> extends Omit<SelectProps<Value, Ext>, 'error'>,
+	Omit<FieldBaseProps<string | string[] | null>, 'validateOn'> {
 	/** When to trigger validation @default `'blur'` */
 	validateOn?: 'blur' | 'submit' | 'change'
 }
@@ -22,17 +23,20 @@ const {
 	validateOn = 'blur',
 	initialValue,
 	controlled = true,
+	rightSectionPE = 'none',
+	autoComplete = 'off',
+	withCheckIcon = true,
 	...props
 } = defineProps<SelectFieldProps<Value, Ext>>()
 
 defineEmits<ComboboxRootEmits>()
 
 const {
+	meta,
 	value,
 	errorMessage,
 	handleBlur,
 	handleChange,
-	meta,
 } = useField(() => name, rules, {
 	validateOnValueUpdate: false,
 	validateOnMount: false,
@@ -46,6 +50,9 @@ const {
 		v-bind='props'
 		v-model='value'
 		:error='meta.touched ? errorMessage : undefined'
+		:right-section-p-e
+		:auto-complete
+		:with-check-icon
 		@update:model-value='handleChange($event, !!errorMessage)'
 		@blur='handleBlur($event, validateOn === "blur")'
 		@clear='$emit("clear")'

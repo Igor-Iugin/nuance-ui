@@ -83,6 +83,16 @@ const onSubmit = handleSubmit(values => {
 				]'
 			/>
 
+			<NSelect
+				name='role'
+				label='Role'
+				:options='[
+					{ value: "admin", label: "Admin" },
+					{ value: "editor", label: "Editor" },
+					{ value: "viewer", label: "Viewer" },
+				]'
+			/>
+
 			<NDateField
 				name='date'
 				label='Date'
