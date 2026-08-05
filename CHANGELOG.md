@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.12
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.11...v0.4.12)
+
+### 🚀 Enhancements
+
+- Added trailingIcon to componets & prefix/postfix for inputs ([00d4237](https://github.com/Igor-Iugin/nuance-ui/commit/00d4237))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.11
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.10...v0.4.11)
