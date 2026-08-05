@@ -1,6 +1,7 @@
 import type { AnyString, NuanceRadius, NuanceSize } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
+
 export type InputVariant = 'default' | 'filled' | 'soft' | 'ghost' | 'unstyled'
 
 /** Visual presentation shared by the wrapper and the input control */

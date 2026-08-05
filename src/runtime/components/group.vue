@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { AnyString, NuanceSpacing } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { getSpacing, useVarsResolver } from '#imports'
+import { useVarsResolver } from '@nui/composables'
+import { getSpacing } from '@nui/utils'
 
-import type { NuanceSpacing } from '../types'
 import type { BoxProps } from './box/box.vue'
 
 import Box from './box/box.vue'
@@ -28,7 +29,7 @@ export interface GroupProps extends BoxProps {
 	wrap?: CSSProperties['flexWrap']
 
 	/** Key of `theme.spacing` or any valid CSS value for `gap`, numbers are converted to rem @default 'md' */
-	gap?: NuanceSpacing
+	gap?: NuanceSpacing | AnyString
 
 	/** Determines whether each child element should have `flex-grow: 1` style @default false */
 	grow?: boolean

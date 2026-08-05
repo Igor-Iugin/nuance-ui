@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { AnyString, NuanceSpacing } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
-import { getSpacing, useVarsResolver } from '#imports'
+import { useVarsResolver } from '@nui/composables'
+import { getSpacing } from '@nui/utils'
 
-import type { NuanceSpacing } from '../types'
 import type { BoxProps } from './box/box.vue'
 
 import Box from './box/box.vue'
@@ -15,7 +16,7 @@ interface StackVars {
 
 export interface StackProps extends BoxProps {
 	/** Key of `theme.spacing` or any valid CSS value to set `gap` property, numbers are converted to rem @default 'md' */
-	gap?: NuanceSpacing
+	gap?: NuanceSpacing | AnyString
 
 	/** Controls `align-items` CSS property @default 'stretch' */
 	align?: CSSProperties['alignItems']
