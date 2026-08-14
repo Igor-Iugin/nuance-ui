@@ -74,7 +74,7 @@ const emit = defineEmits<{
 	change: [value: boolean]
 }>()
 
-const modelValue = defineModel<boolean | 'indeterminate'>()
+const modelValue = defineModel<boolean | 'indeterminate'>({ default: false })
 
 const ctx = useCheckboxGroupState()
 const { icons } = useConfig()
