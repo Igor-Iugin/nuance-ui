@@ -1,11 +1,11 @@
 <script lang="ts">
-import type { Classes } from '@nui/types'
+import type { AnyString, Classes } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getRadius, getSize, getThemeColor, rem } from '@nui/utils'
 import { computed } from 'vue'
 
-import type { NuanceColor, NuanceRadius } from '../types/theme.ts'
+import type { NuanceColor, NuanceRadius, NuanceSize } from '../types/theme.ts'
 import type { BoxProps } from './box/box.vue'
 
 
@@ -32,7 +32,7 @@ export interface IndicatorCssVars {
 		| IndicatorPosVars
 }
 
-export interface IndicatorProps extends BoxProps {
+export interface IndicatorProps extends Omit<BoxProps, 'inset' | 'display'> {
 	/** Label displayed inside the indicator, for example, notification count */
 	label?: string | number
 
@@ -48,6 +48,10 @@ export interface IndicatorProps extends BoxProps {
 	 */
 	offset?: number | { x: number, y: number }
 
+
+	/** When `true`, keep the chip inside the component for rounded elements. */
+	inset?: boolean
+
 	/**
 	 * Changes container display from block to inline-block, use when wrapping elements with fixed width
 	 * @default false
@@ -58,11 +62,11 @@ export interface IndicatorProps extends BoxProps {
 	 * Indicator width and height
 	 * @default 10
 	 */
-	size?: number | string
+	size?: number | NuanceSize | AnyString
 
 	/**
 	 * Key of `theme.radius` or any valid CSS value to set `border-radius`
-	 * @default 100
+	 * @default `'full'`
 	 */
 	radius?: NuanceRadius
 
@@ -86,9 +90,6 @@ export interface IndicatorProps extends BoxProps {
 
 	/** Indicator z-index @default 1 */
 	zIndex?: string | number
-
-	/** If set, adjusts text color based on background color */
-	autoContrast?: boolean
 
 	/** Maximum value to display. If label is a number greater than this value, it will be displayed as `{maxValue}+` */
 	maxValue?: number
@@ -157,7 +158,6 @@ function getPositionVariables(
 </script>
 
 <script setup lang='ts'>
-import css from './avatar.module.css'
 import Box from './box/box.vue'
 
 
@@ -168,6 +168,7 @@ const {
 	position = 'top-end',
 	offset = 0,
 	showZero = true,
+	inset = false,
 	size,
 	classes,
 	c,
@@ -193,7 +194,7 @@ const style = useVarsResolver<IndicatorCssVars>(theme => ({
 	root: {
 		'--indicator-color': color ? getThemeColor(color, theme) : undefined,
 		'--indicator-text-color': c ? getThemeColor(c, theme) : undefined,
-		'--indicator-size': getSize(size),
+		'--indicator-size': getSize(size, 'indicator-size'),
 		'--indicator-radius': radius === undefined ? undefined : getRadius(radius),
 		'--indicator-z-index': zIndex?.toString(),
 		...getPositionVariables(position, offset),
@@ -204,7 +205,7 @@ const style = useVarsResolver<IndicatorCssVars>(theme => ({
 <template>
 	<Box
 		v-bind='rest'
-		:class='[css.root, classes?.root]'
+		:class='[$style.root, classes?.root]'
 		:mod='[{ inline }, mod]'
 		:style='style.root'
 	>
@@ -215,6 +216,7 @@ const style = useVarsResolver<IndicatorCssVars>(theme => ({
 				"with-label": !!label || $slots?.label,
 				"with-border": withBorder,
 				processing,
+				inset,
 			}'
 		>
 			<slot name='label' :label='formattedLabel'>
@@ -227,7 +229,13 @@ const style = useVarsResolver<IndicatorCssVars>(theme => ({
 
 <style module>
 .root {
-	--indicator-size: 10px;
+	--indicator-size-xs: rem(6px);
+	--indicator-size-sm: rem(7px);
+	--indicator-size-md: rem(8px);
+	--indicator-size-lg: rem(9px);
+	--indicator-size-xl: rem(10px);
+
+	--indicator-size: var(--indicator-size-md);
 	--indicator-color: var(--color-primary-filled);
 
 	position: relative;
@@ -280,6 +288,11 @@ const style = useVarsResolver<IndicatorCssVars>(theme => ({
 
 	&:where([data-with-border]) {
 		border: 2px solid var(--color-body);
+	}
+
+	&:where([data-inset]) {
+		--indicator-translate-x: 0;
+		--indicator-translate-y: 0;
 	}
 
 	&[data-processing] {
