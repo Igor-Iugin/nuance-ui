@@ -12,7 +12,7 @@ import type {
 
 type AvatarVariant = 'filled' | 'light' | 'gradient' | 'outline' | 'default'
 
-type AvatarClasses = 'root' | 'placeholder' | 'image'
+type AvatarClasses = 'root' | 'fallback' | 'image'
 
 interface AvatarVars {
 	root:
@@ -36,10 +36,10 @@ export interface AvatarProps extends BoxProps {
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient
 
-	/** Image URL. When the image fails to load or is `null`, a placeholder is shown instead. */
+	/** Image URL. When the image fails to load or is `null`, a fallback is shown instead. */
 	src?: string | null
 
-	/** Image `alt` attribute. Also used as `title` for the placeholder. */
+	/** Image `alt` attribute. Also used as `title` for the fallback. */
 	alt?: string
 
 	/** Name of the user. Used to render initials and to generate a color when `color="initials"`. */
@@ -49,7 +49,7 @@ export interface AvatarProps extends BoxProps {
 	allowedInitialsColors?: NuanceColor[]
 
 	/** Icon rendered when no `src` and no `name` are provided. Defaults to the configured `person` icon. */
-	placeholder?: string
+	fallback?: string
 
 	/** Visual variant */
 	variant?: AvatarVariant
@@ -74,7 +74,7 @@ import { getInitialsColor } from './lib/get-initials-color'
 const {
 	name,
 	radius,
-	placeholder,
+	fallback,
 	color,
 	variant,
 	allowedInitialsColors,
@@ -90,7 +90,7 @@ const initials = computed(() => name && getInitials(name))
 const ctx = useAvatarGroupState()
 
 const { icons, variantResolver } = useConfig()
-const resolvedPlaceholder = computed(() => placeholder ?? icons.person)
+const resolvedFallback = computed(() => fallback ?? icons.person)
 
 const style = useVarsResolver<AvatarVars>(theme => {
 	const _color = color === 'initials' && typeof name === 'string'
@@ -125,11 +125,11 @@ const style = useVarsResolver<AvatarVars>(theme => {
 	>
 		<span
 			v-if='!src'
-			:class='[css.placeholder, classes?.placeholder]'
+			:class='[css.fallback, classes?.fallback]'
 			:title='alt'
 		>
 			<slot>
-				<Icon v-if='!src && !name' :name='resolvedPlaceholder' />
+				<Icon v-if='!src && !name' :name='resolvedFallback' />
 				{{ initials }}
 			</slot>
 		</span>
