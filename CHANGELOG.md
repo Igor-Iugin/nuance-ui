@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.14
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.13...v0.4.14)
+
+### 🩹 Fixes
+
+- **ScrollArea:** Added default height: 100% ([9c2a483](https://github.com/Igor-Iugin/nuance-ui/commit/9c2a483))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.13
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.12...v0.4.13)
