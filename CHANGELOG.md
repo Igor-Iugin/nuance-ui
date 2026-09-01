@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.4.13
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.12...v0.4.13)
+
+### 🚀 Enhancements
+
+- **Checkbox:** Added default `false` value ([2006b37](https://github.com/Igor-Iugin/nuance-ui/commit/2006b37))
+- **Avatar:** Reword sizes ([b8011e2](https://github.com/Igor-Iugin/nuance-ui/commit/b8011e2))
+- **Indicator:** Added inset prop ([9b0c71a](https://github.com/Igor-Iugin/nuance-ui/commit/9b0c71a))
+- **new:** Profile component ([add0d05](https://github.com/Igor-Iugin/nuance-ui/commit/add0d05))
+- **new:** Tooltip: Added interactive prop, new useInteraction composable ([58ef56f](https://github.com/Igor-Iugin/nuance-ui/commit/58ef56f))
+- **new:** DataList component ([8a7b2f6](https://github.com/Igor-Iugin/nuance-ui/commit/8a7b2f6))
+
+### 🩹 Fixes
+
+- Allow pass string in gap props ([75a15b1](https://github.com/Igor-Iugin/nuance-ui/commit/75a15b1))
+
+### 🏡 Chore
+
+- **ai:** Update project rules ([56e234b](https://github.com/Igor-Iugin/nuance-ui/commit/56e234b))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.12
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.11...v0.4.12)
