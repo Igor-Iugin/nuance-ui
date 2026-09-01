@@ -309,8 +309,12 @@ defineExpose({
 
 	overflow: hidden;
 
-	&:where([data-autosize]) .content {
-		min-width: min-content;
+	height: 100%;
+
+	&:where([data-autosize]) {
+		.content {
+			min-width: min-content;
+		}
 	}
 }
 
