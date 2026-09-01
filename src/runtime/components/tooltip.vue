@@ -42,6 +42,12 @@ export interface TooltipProps {
 	/** Determines whether the tooltip has an arrow @default `false` */
 	withArrow?: boolean
 
+	/**
+	 * Keeps the tooltip open while the pointer moves over it, required if the tooltip contains interactive content
+	 * @default `false`
+	 */
+	interactive?: boolean
+
 	/** Arrow size in px @default `4` */
 	arrowSize?: number
 
@@ -78,10 +84,10 @@ export interface TooltipProps {
 </script>
 
 <script setup lang='ts'>
-import { useConfig, useVarsResolver } from '@nui/composables'
+import { useConfig, useInteraction, useVarsResolver } from '@nui/composables'
 import { getRadius } from '@nui/utils'
-import { unrefElement, useElementHover } from '@vueuse/core'
-import { computed, ref, watch } from 'vue'
+import { unrefElement } from '@vueuse/core'
+import { ref, watch } from 'vue'
 
 import { usePopover } from './popover/lib/use-popover'
 import Renderless from './renderless/renderless.vue'
@@ -100,6 +106,7 @@ const {
 	closeDelay = 0,
 	events = { hover: true, focus: false },
 	withArrow,
+	interactive,
 	arrowSize = 8,
 	arrowOffset = 5,
 	arrowRadius = 0,
@@ -121,20 +128,27 @@ const store = usePopover({
 	arrowPosition,
 	arrowRadius,
 	arrowSize,
-	offset: typeof offset === 'number' ? offset + (withArrow ? arrowSize / 2 : 0) : offset,
+	offset: typeof offset === 'number'
+		? offset + (withArrow ? arrowSize / 2 : 0)
+		: offset,
 	width: 'max-content',
 	withArrow,
 })
 
-const target = computed(() => unrefElement(store.targetRef))
-const hovered = useElementHover(target, { delayEnter: openDelay, delayLeave: closeDelay })
+const hovered = useInteraction({
+	reference: store.targetRef,
+	floating: store.dropdownRef,
+	placement: store.placement,
+	openDelay: () => openDelay,
+	closeDelay: () => closeDelay,
+	interactive: () => !!interactive,
+	disabled: () => !!disabled || !events.hover,
+})
+
 const focused = ref(false)
 
 watch([hovered, focused], ([isHovered, isFocused]) => {
-	const hovered = !!events.hover && isHovered
-	const focused = !!events.focus && isFocused
-
-	opened.value = !disabled && (hovered || focused)
+	opened.value = !disabled && (isHovered || (!!events.focus && isFocused))
 })
 
 // ─── Styles ───
@@ -160,11 +174,12 @@ const style = useVarsResolver<TooltipVars>(theme => {
 		<slot />
 	</Renderless>
 
-	<div
+	<Box
 		:ref='(el: any) => (store.dropdownRef.value = unrefElement(el))'
 		popover='manual'
 		:style='{ ...store.floatingStyles.value, ...style.root }'
 		:class='$style.tooltip'
+		:mod='{ interactive: interactive && !disabled && opened }'
 	>
 		<NTransition
 			name='fade'
@@ -204,7 +219,7 @@ const style = useVarsResolver<TooltipVars>(theme => {
 				/>
 			</div>
 		</NTransition>
-	</div>
+	</Box>
 </template>
 
 <style module>
@@ -218,6 +233,10 @@ const style = useVarsResolver<TooltipVars>(theme => {
 	border: none;
 
 	background: transparent;
+
+	&[data-interactive] {
+		pointer-events: auto;
+	}
 }
 
 .body {

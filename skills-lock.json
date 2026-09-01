@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "floating-ui-vue-skilld": {
+      "source": "skilld-dev/vue-ecosystem-skills",
+      "sourceType": "github",
+      "skillPath": "skills/floating-ui-vue-skilld/SKILL.md",
+      "computedHash": "ddc03d617abf1cb02b0707928f0cf3ffdf66f2c5264bffb02c1757b2b582f61a"
+    },
     "nuxt": {
       "source": "antfu/skills",
       "sourceType": "github",

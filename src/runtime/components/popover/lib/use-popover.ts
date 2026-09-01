@@ -25,6 +25,9 @@ export interface PopoverOptions {
 export interface UsePopoverReturn {
 	arrowStyles: Readonly<Ref<CSSProperties>>
 	floatingStyles: Readonly<Ref<CSSProperties>>
+
+	/** Placement resolved by floating-ui after `flip` / `shift` */
+	placement: Readonly<Ref<Placement>>
 	arrowRef: ShallowRef<HTMLElement | null>
 	targetRef: ShallowRef<HTMLElement | null>
 	dropdownRef: ShallowRef<HTMLElement | null>
@@ -62,7 +65,7 @@ export function usePopover(options: PopoverOptions): UsePopoverReturn {
 		arrow({ element: arrowRef.value, padding: options.arrowOffset }),
 	])
 
-	const { middlewareData, floatingStyles } = useFloating(targetRef, dropdownRef, {
+	const { middlewareData, floatingStyles, placement: resolvedPlacement } = useFloating(targetRef, dropdownRef, {
 		strategy,
 		placement,
 		middleware,
@@ -80,6 +83,7 @@ export function usePopover(options: PopoverOptions): UsePopoverReturn {
 	return {
 		arrowStyles,
 		floatingStyles,
+		placement: resolvedPlacement,
 		arrowRef,
 		targetRef,
 		dropdownRef,

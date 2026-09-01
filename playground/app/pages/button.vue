@@ -7,6 +7,7 @@
 			label='Текст'
 			content='Подпись на карте'
 			footer='Test: work mode'
+			interactive
 		>
 			<NButton>
 				Test
