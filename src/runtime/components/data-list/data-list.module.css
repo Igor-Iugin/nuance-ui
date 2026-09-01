@@ -1,0 +1,63 @@
+.root {
+	--dl-fz: var(--font-size-sm);
+	--dl-lh: var(--line-height-sm);
+	--dl-gap: var(--spacing-sm);
+	--dl-label-width: rem(120px);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--dl-gap);
+	font-size: var(--dl-fz);
+	line-height: var(--dl-lh);
+	margin: 0;
+	padding: 0;
+
+	&:where([data-with-divider]) {
+		gap: 0;
+	}
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	gap: var(--spacing-xs);
+
+}
+
+.root:where([data-orientation='vertical']) {
+	&>.item {
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.label {
+		min-width: 100%;
+	}
+}
+
+.label {
+	display: flex;
+	gap: var(--spacing-2xs);
+	align-items: center;
+
+	transition: color 150ms ease;
+
+	color: var(--color-dimmed);
+	font-size: var(--dl-fz);
+	line-height: var(--dl-lh);
+	min-width: var(--dl-label-width);
+	margin: 0;
+}
+
+.value {
+	font-size: var(--dl-fz);
+	line-height: var(--dl-lh);
+	margin: 0;
+}
+
+.root:where([data-with-divider])>.item:where(:not(:first-of-type)) {
+	border-top: rem(1px) solid var(--color-default-border);
+	padding-top: var(--dl-gap);
+	margin-top: var(--dl-gap);
+}

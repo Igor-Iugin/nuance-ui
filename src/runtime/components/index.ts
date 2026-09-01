@@ -16,15 +16,16 @@ export * from './chip'
 export type * from './collapse.vue'
 export * from './combobox'
 export type * from './container.vue'
+export * from './data-list'
 export type * from './date-time-picker.vue'
 export * from './dialog'
-export type * from './divider.vue'
 
+export type * from './divider.vue'
 export * from './drawer'
 export * from './files'
 export type * from './floating-indicator.vue'
-export type * from './group.vue'
 
+export type * from './group.vue'
 export type * from './indicator.vue'
 export * from './input'
 export type * from './kbd.vue'
@@ -33,30 +34,31 @@ export * from './loader'
 export * from './modal'
 export * from './nav-link'
 export type * from './notification.vue'
+
 export type * from './paper.vue'
 
 export * from './popover'
-
 export * from './progress'
 export * from './roving-focus'
+
 export type * from './segmented-control.vue'
 
 export type * from './select.vue'
 
 export * from './switch'
-
 export * from './table'
 export * from './tabs'
-export type * from './text.vue'
 
+export type * from './text.vue'
 export type * from './textarea.vue'
+
 export * from './time-picker'
 
 export type * from './timeline.vue'
-
 export type * from './title.vue'
 export type * from './tooltip.vue'
-export * from './transition'
 
+export * from './transition'
 export * from './tree'
+
 export * from './visually-hidden'

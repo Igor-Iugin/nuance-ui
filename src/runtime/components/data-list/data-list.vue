@@ -1,0 +1,72 @@
+<script lang='ts'>
+import type { BoxProps } from '../box/box.vue'
+
+
+interface DataListVars {
+	root: '--dl-fz' | '--dl-lh' | '--dl-gap' | '--dl-label-width'
+}
+
+export interface DataListProps extends Omit<BoxProps, 'is'> {
+	/** Controls `font-size` and `line-height` @default 'sm' */
+	size?: NuanceSize
+
+	/** Key of `theme.spacing` or any valid CSS value to set gap between items @default 'sm' */
+	gap?: NuanceSpacing
+
+	/** Controls arrangement of label and value within each item. `horizontal` renders label and value side by side, `vertical` stacks label on top of value @default 'horizontal' */
+	orientation?: 'horizontal' | 'vertical'
+
+	/** Adds border between items @default false */
+	withDivider?: boolean
+
+	/** Controls min-width of the label (dt) element, any valid CSS value @default '120px' */
+	labelWidth?: CSSProperties['minWidth']
+}
+</script>
+
+<script lang="ts" setup>
+import type { NuanceSize, NuanceSpacing } from '@nui/types'
+import type { CSSProperties } from 'vue'
+
+import { useVarsResolver } from '@nui/composables'
+import { getFontSize, getLineHeight, getSpacing } from '@nui/utils'
+
+import Box from '../box/box.vue'
+import css from './data-list.module.css'
+
+
+const {
+	mod,
+	orientation = 'horizontal',
+	withDivider,
+	gap,
+	size,
+	labelWidth,
+	...props
+} = defineProps<DataListProps>()
+
+const style = useVarsResolver<DataListVars>(() => ({
+	root: {
+		'--dl-fz': getFontSize(size),
+		'--dl-lh': getLineHeight(size),
+		'--dl-gap': getSpacing(gap),
+		'--dl-label-width': labelWidth !== undefined
+			? typeof labelWidth === 'number'
+				? `${labelWidth}px`
+				: labelWidth
+			: undefined,
+	},
+}))
+</script>
+
+<template>
+	<Box
+		is='dl'
+		v-bind='props'
+		:style='style.root'
+		:class='css.root'
+		:mod='[{ orientation, "with-divider": withDivider }, mod]'
+	>
+		<slot />
+	</Box>
+</template>
