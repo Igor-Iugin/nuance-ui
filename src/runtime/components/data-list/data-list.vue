@@ -1,4 +1,7 @@
 <script lang='ts'>
+// eslint-disable-next-line import/no-duplicates
+import { createStrictInjection } from '@nui/composables'
+
 import type { BoxProps } from '../box/box.vue'
 
 
@@ -21,15 +24,34 @@ export interface DataListProps extends Omit<BoxProps, 'is'> {
 
 	/** Controls min-width of the label (dt) element, any valid CSS value @default '120px' */
 	labelWidth?: CSSProperties['minWidth']
+
+	classes?: Classes<
+		| 'root'
+		| 'item'
+		| 'label'
+		| 'value'
+	>
 }
+
+const [useProvide, useState] = createStrictInjection(
+	(s: Pick<DataListProps, 'classes'>) => s,
+	{
+		name: 'DataListState',
+		injectionKey: Symbol('data-list'),
+	},
+)
+
+export const useDataListState = useState
 </script>
 
 <script lang="ts" setup>
-import type { NuanceSize, NuanceSpacing } from '@nui/types'
+import type { Classes, NuanceSize, NuanceSpacing } from '@nui/types'
 import type { CSSProperties } from 'vue'
 
+// eslint-disable-next-line import/no-duplicates
 import { useVarsResolver } from '@nui/composables'
 import { getFontSize, getLineHeight, getSpacing } from '@nui/utils'
+import { toRefs } from 'vue'
 
 import Box from '../box/box.vue'
 import css from './data-list.module.css'
@@ -42,6 +64,7 @@ const {
 	gap,
 	size,
 	labelWidth,
+	classes,
 	...props
 } = defineProps<DataListProps>()
 
@@ -57,6 +80,9 @@ const style = useVarsResolver<DataListVars>(() => ({
 			: undefined,
 	},
 }))
+
+const state = toRefs({ classes })
+useProvide(state)
 </script>
 
 <template>
@@ -64,7 +90,7 @@ const style = useVarsResolver<DataListVars>(() => ({
 		is='dl'
 		v-bind='props'
 		:style='style.root'
-		:class='css.root'
+		:class='[css.root, classes?.root]'
 		:mod='[{ orientation, "with-divider": withDivider }, mod]'
 	>
 		<slot />

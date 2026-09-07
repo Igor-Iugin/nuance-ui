@@ -9,6 +9,7 @@ import type { BoxProps } from '../box/box.vue'
 
 import Box from '../box/box.vue'
 import css from './data-list.module.css'
+import { useDataListState } from './data-list.vue'
 
 
 export interface DataListItemLabelProps extends Omit<BoxProps, 'is'> {
@@ -21,10 +22,12 @@ export interface DataListItemLabelProps extends Omit<BoxProps, 'is'> {
 const { icon, color, ...props } = defineProps<DataListItemLabelProps>()
 
 const Icon = resolveComponent('Icon') as Component
+
+const st = useDataListState()
 </script>
 
 <template>
-	<Box v-bind='props' is='dt' :class='css.label'>
+	<Box v-bind='props' is='dt' :class='[css.label, st.classes?.label]'>
 		<Box :is='Icon' v-if='icon' :name='icon' :c='color' />
 		<slot />
 	</Box>
