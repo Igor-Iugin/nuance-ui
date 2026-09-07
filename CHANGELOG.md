@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.16
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.15...v0.4.16)
+
+### 🩹 Fixes
+
+- **DataList:** Fix passing classes pros ([4e50165](https://github.com/Igor-Iugin/nuance-ui/commit/4e50165))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.15
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.14...v0.4.15)
