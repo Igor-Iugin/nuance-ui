@@ -1,5 +1,5 @@
 .root {
-	--dl-fz: var(--font-size-sm);
+	--dl-fz: var(--font-size-md);
 	--dl-lh: var(--line-height-sm);
 	--dl-gap: var(--spacing-sm);
 	--dl-label-width: rem(120px);

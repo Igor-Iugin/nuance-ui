@@ -27,7 +27,7 @@ const st = useDataListState()
 </script>
 
 <template>
-	<Box v-bind='props' is='dt' :class='[css.label, st.classes?.label]'>
+	<Box v-bind='props' is='dt' :class='[css.label, st.classes.value?.label]'>
 		<Box :is='Icon' v-if='icon' :name='icon' :c='color' />
 		<slot />
 	</Box>

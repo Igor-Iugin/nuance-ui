@@ -13,7 +13,7 @@ export interface DataListProps extends Omit<BoxProps, 'is'> {
 	/** Controls `font-size` and `line-height` @default 'sm' */
 	size?: NuanceSize
 
-	/** Key of `theme.spacing` or any valid CSS value to set gap between items @default 'sm' */
+	/** Key of `theme.spacing` or any valid CSS value to set gap between items @default 'md' */
 	gap?: NuanceSpacing
 
 	/** Controls arrangement of label and value within each item. `horizontal` renders label and value side by side, `vertical` stacks label on top of value @default 'horizontal' */
@@ -34,7 +34,7 @@ export interface DataListProps extends Omit<BoxProps, 'is'> {
 }
 
 const [useProvide, useState] = createStrictInjection(
-	(s: Pick<DataListProps, 'classes'>) => s,
+	(s: { classes: ComputedRef<DataListProps['classes']> }) => s,
 	{
 		name: 'DataListState',
 		injectionKey: Symbol('data-list'),
@@ -46,12 +46,12 @@ export const useDataListState = useState
 
 <script lang="ts" setup>
 import type { Classes, NuanceSize, NuanceSpacing } from '@nui/types'
-import type { CSSProperties } from 'vue'
+import type { ComputedRef, CSSProperties } from 'vue'
 
 // eslint-disable-next-line import/no-duplicates
 import { useVarsResolver } from '@nui/composables'
 import { getFontSize, getLineHeight, getSpacing } from '@nui/utils'
-import { toRefs } from 'vue'
+import { computed } from 'vue'
 
 import Box from '../box/box.vue'
 import css from './data-list.module.css'
@@ -81,8 +81,7 @@ const style = useVarsResolver<DataListVars>(() => ({
 	},
 }))
 
-const state = toRefs({ classes: () => classes })
-useProvide(state)
+useProvide({ classes: computed(() => classes) })
 </script>
 
 <template>

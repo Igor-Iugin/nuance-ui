@@ -80,6 +80,9 @@ useHead({
 			<NNavLink to='/collapsible'>
 				Collapsible
 			</NNavLink>
+			<NNavLink to='/data-list'>
+				Data List
+			</NNavLink>
 			<NNavLink to='/timeline'>
 				Timeline
 			</NNavLink>
