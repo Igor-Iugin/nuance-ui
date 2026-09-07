@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.17
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.16...v0.4.17)
+
+### 🩹 Fixes
+
+- **DataList:** Fix passing classes prop ([3d3b1ba](https://github.com/Igor-Iugin/nuance-ui/commit/3d3b1ba))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.16
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.15...v0.4.16)
