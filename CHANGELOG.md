@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.15
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.14...v0.4.15)
+
+### 🚀 Enhancements
+
+- **DataList:** Added classes prop ([08d8e74](https://github.com/Igor-Iugin/nuance-ui/commit/08d8e74))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.14
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.13...v0.4.14)
