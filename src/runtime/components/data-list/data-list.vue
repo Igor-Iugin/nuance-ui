@@ -81,7 +81,7 @@ const style = useVarsResolver<DataListVars>(() => ({
 	},
 }))
 
-const state = toRefs({ classes })
+const state = toRefs({ classes: () => classes })
 useProvide(state)
 </script>
 
