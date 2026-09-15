@@ -22,18 +22,25 @@ type ProfileLinkProps = Pick<LinkProps, 'to' | 'target'>
 export interface ProfileProps extends BoxProps, ProfileLinkProps {
 	title?: string
 	description?: string | null
+	icon?: string
+
 	/** Avatar props, or a shorthand `src` string */
 	avatar?: AvatarProps['src'] | AvatarProps
+
 	/** Component size @default `'md'` */
 	size?: NuanceSize
+
 	/** Indicator rendered on top of the avatar */
 	indicator?: boolean | Omit<IndicatorProps, 'inline' | 'disabled'>
+
 	/**
 	 * Layout direction
 	 * @default 'horizontal'
 	 */
 	orientation?: 'horizontal' | 'vertical'
+
 	onClick?: (event: MouseEvent) => void
+
 	classes?: Classes<
 		| 'root'
 		| 'avatar'
@@ -57,6 +64,7 @@ const {
 	target,
 	onClick,
 	mod,
+	icon,
 	...rest
 } = defineProps<ProfileProps>()
 
@@ -96,7 +104,9 @@ const avatarProps = computed(() => (typeof avatar === 'string'
 				:name='title'
 				:size
 				v-bind='avatarProps'
-			/>
+			>
+				<Icon v-if='icon' :name='icon' />
+			</Avatar>
 		</Indicator>
 
 		<div :class='[$style.wrapper, classes?.wrapper]'>
