@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { AnyString, NuanceGradient, NuanceSize } from '@nui/types'
+import type { AnyString, Classes, NuanceGradient, NuanceSize } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
 import { getFontSize, getGradient, getLineHeight, getThemeColor } from '@nui/utils'
@@ -13,7 +13,7 @@ import Box from './box/box.vue'
 type TitleOrder = 1 | 2 | 3 | 4 | 5 | 6
 type TextTruncate = 'end' | 'start' | boolean
 
-export type TextVariant = 'text' | 'gradient'
+export type TextVariant = 'text' | 'gradient' | 'group'
 
 interface TextVars {
 	root:
@@ -47,6 +47,11 @@ export interface TextProps extends BoxProps {
 
 	/** Visual variant */
 	variant?: TextVariant
+
+	/** Icon before text */
+	icon?: string
+
+	classes?: Classes<'root' | 'icon'>
 }
 
 const {
@@ -64,6 +69,8 @@ const {
 	lh,
 	c,
 	size,
+	icon,
+	classes,
 	...rest
 } = defineProps<TextProps>()
 
@@ -89,7 +96,14 @@ const style = useVarsResolver<TextVars>(theme => ({
 </script>
 
 <template>
-	<Box :is v-bind='rest' :mod='_mod' :class='$style.root' :style='style.root'>
+	<Box
+		:is
+		v-bind='rest'
+		:mod='_mod'
+		:class='[$style.root, classes?.root]'
+		:style='style.root'
+	>
+		<Icon v-if='icon' :class='classes?.icon' size='1.3em' :name='icon' />
 		<slot />
 	</Box>
 </template>
@@ -139,6 +153,20 @@ const style = useVarsResolver<TextVars>(theme => ({
 		-webkit-background-clip: text;
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
+	}
+
+	&:where([data-variant='group']) {
+		--text-fw: 700;
+		--text-color: var(--color-dimmed);
+
+		display: flex;
+		gap: var(--spacing-xs);
+		align-items: center;
+
+		margin: var(--spacing-2xs) 0;
+
+		text-transform: uppercase;
+		letter-spacing: .1em;
 	}
 
 	&:where([data-line-clamp]) {

@@ -18,8 +18,8 @@ const { is = 'nav', ...rest } = defineProps<BoxProps>()
 	position: fixed;
 
 	z-index: 1;
-	top: var(--app-shell-header-offset, 0rem);
 	inset-inline-start: 0;
+	top: var(--app-shell-header-offset, 0rem);
 	transform: var(--app-shell-navbar-transform);
 
 	display: flex;
