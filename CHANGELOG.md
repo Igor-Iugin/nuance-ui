@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.4.21
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.20...v0.4.21)
+
+### 🚀 Enhancements
+
+- **Avatar:** Added icon prop ([7f3088e](https://github.com/Igor-Iugin/nuance-ui/commit/7f3088e))
+- **ui-kit:** Added parse methods for hex colors ([ccbbcc4](https://github.com/Igor-Iugin/nuance-ui/commit/ccbbcc4))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.20
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.19...v0.4.20)
