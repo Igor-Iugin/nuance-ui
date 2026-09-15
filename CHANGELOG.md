@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.18
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.17...v0.4.18)
+
+### 🎨 Styles
+
+- **Profile:** Corrected size styles ([f042ed0](https://github.com/Igor-Iugin/nuance-ui/commit/f042ed0))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.17
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.16...v0.4.17)
