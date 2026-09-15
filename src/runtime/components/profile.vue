@@ -158,8 +158,11 @@ const avatarProps = computed(() => (typeof avatar === 'string'
 		grid-area: actions;
 	}
 
+	.name {
+		font-weight: 600;
+	}
 
-	&[data-size='xs'] {
+	&:where([data-size='xs']) {
 		column-gap: var(--spacing-xs);
 
 		.wrapper {
@@ -173,27 +176,30 @@ const avatarProps = computed(() => (typeof avatar === 'string'
 		}
 	}
 
-	&[data-size='sm'] {
+	&:where([data-size='sm']) {
 		column-gap: var(--spacing-xs);
 
-		.name,
-		.data {
-			font-size: var(--font-size-xs);
-		}
-	}
-
-	&[data-size='md'],
-	&[data-size='lg'] {
 		.name {
 			font-size: var(--font-size-sm);
 		}
 
 		.data {
-			font-size: var(--font-size-xs);
+			font-size: var(--font-size-2sm);
 		}
 	}
 
-	&[data-size='xl'] {
+	&:where([data-size='md']),
+	&:where([data-size='lg']) {
+		.name {
+			font-size: var(--font-size-sm);
+		}
+
+		.data {
+			font-size: var(--font-size-2sm);
+		}
+	}
+
+	&:where([data-size='xl']) {
 
 		.name,
 		.data {
