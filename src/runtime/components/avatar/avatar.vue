@@ -31,7 +31,7 @@ export interface AvatarProps extends BoxProps {
 	size?: NuanceSize | AnyString
 
 	/** Color from theme. Pass `'initials'` to derive the color from the user's name. */
-	color?: NuanceColor | 'initials'
+	color?: NuanceColor | AnyString | 'initials'
 
 	/** Gradient configuration (used with `variant="gradient"`) */
 	gradient?: NuanceGradient

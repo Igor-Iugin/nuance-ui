@@ -39,130 +39,179 @@ export function createVariantColorResolver({
 }: VariantColorResolverOptions): VariantColorResolverResult {
 	const parsed = parseThemeColor({ color, theme })
 
-	if (variant === 'filled') {
-		const text = 'var(--color-white)'
+	// ─── Arbitrary CSS colors (hex/named), no theme shade to build var() from ───
+	if (!parsed.isThemeColor && parsed.shade === undefined) {
+		const custom = parsed.value
 
-		if (parsed.shade === undefined) {
+		switch (variant) {
+			case 'filled':
+				return {
+					background: custom,
+					hover: `color-mix(in srgb, ${custom} 85%, black)`,
+					text: 'var(--color-white)',
+					border: '1px solid transparent',
+				}
+
+			case 'light':
+				return {
+					background: `color-mix(in srgb, ${custom} 10%, transparent)`,
+					hover: `color-mix(in srgb, ${custom} 12%, transparent)`,
+					text: custom,
+					border: '1px solid transparent',
+				}
+
+			case 'subtle':
+				return {
+					background: 'transparent',
+					hover: `color-mix(in srgb, ${custom} 12%, transparent)`,
+					text: custom,
+					border: '1px solid transparent',
+				}
+
+			case 'outline':
+				return {
+					background: 'transparent',
+					hover: `color-mix(in srgb, ${custom} 5%, transparent)`,
+					text: custom,
+					border: `1px solid ${custom}`,
+				}
+
+			case 'light-outline':
+				return {
+					background: `color-mix(in srgb, ${custom} 10%, transparent)`,
+					hover: `color-mix(in srgb, ${custom} 5%, transparent)`,
+					text: custom,
+					border: `1px solid ${custom}`,
+				}
+		}
+	}
+
+	// ─── Theme colors ───
+	switch (variant) {
+		case 'filled': {
+			const text = 'var(--color-white)'
+
+			if (parsed.shade === undefined) {
+				return {
+					background: `var(--color-${color}-filled)`,
+					hover: `var(--color-${color}-filled-hover)`,
+					text,
+					border: '1px solid transparent',
+				}
+			}
+
 			return {
-				background: `var(--color-${color}-filled)`,
-				hover: `var(--color-${color}-filled-hover)`,
+				background: `var(--color-${parsed.color}-${parsed.shade})`,
+				hover: `var(--color-${parsed.color}-${parsed.shade === 9 ? 8 : parsed.shade + 1})`,
 				text,
 				border: '1px solid transparent',
 			}
 		}
 
-		return {
-			background: `var(--color-${parsed.color}-${parsed.shade})`,
-			hover: `var(--color-${parsed.color}-${parsed.shade === 9 ? 8 : parsed.shade + 1})`,
-			text,
-			border: '1px solid transparent',
-		}
-	}
+		case 'light': {
+			if (parsed.shade === undefined) {
+				return {
+					background: `var(--color-${color}-light)`,
+					hover: `var(--color-${color}-light-hover)`,
+					text: `var(--color-${color}-light-color)`,
+					border: '1px solid transparent',
+				}
+			}
 
-	if (variant === 'light') {
-		if (parsed.shade === undefined) {
 			return {
-				background: `var(--color-${color}-light)`,
-				hover: `var(--color-${color}-light-hover)`,
-				text: `var(--color-${color}-light-color)`,
+				background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
+				hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
+				text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
 				border: '1px solid transparent',
 			}
 		}
 
-		return {
-			background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
-			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
-			text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
-			border: '1px solid transparent',
-		}
-	}
+		case 'outline': {
+			if (parsed.shade === undefined) {
+				return {
+					background: 'transparent',
+					hover: `var(--color-${color}-outline-hover)`,
+					text: `var(--color-${color}-outline, var(--color-${color}-outline-text))`,
+					border: `1px solid var(--color-${color}-outline)`,
+				}
+			}
 
-	if (variant === 'outline') {
-		if (parsed.shade === undefined) {
 			return {
 				background: 'transparent',
-				hover: `var(--color-${color}-outline-hover)`,
-				text: `var(--color-${color}-outline, var(--color-${color}-outline-text))`,
-				border: `1px solid var(--color-${color}-outline)`,
+				hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .05)`,
+				text: `var(--color-${parsed.color}-${parsed.shade})`,
+				border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
 			}
 		}
 
-		return {
-			background: 'transparent',
-			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .05)`,
-			text: `var(--color-${parsed.color}-${parsed.shade})`,
-			border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
-		}
-	}
+		case 'light-outline': {
+			if (parsed.shade === undefined) {
+				return {
+					background: `var(--color-${color}-light)`,
+					hover: `var(--color-${color}-light-hover)`,
+					text: `var(--color-${color}-light-color)`,
+					border: `1px solid var(--color-${color}-outline)`,
+				}
+			}
 
-	if (variant === 'light-outline') {
-		if (parsed.shade === undefined) {
 			return {
-				background: `var(--color-${color}-light)`,
-				hover: `var(--color-${color}-light-hover)`,
-				text: `var(--color-${color}-light-color)`,
-				border: `1px solid var(--color-${color}-outline)`,
+				background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
+				hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
+				text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
+				border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
 			}
 		}
 
-		return {
-			background: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .1)`,
-			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), .12)`,
-			text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
-			border: `1px solid var(--color-${parsed.color}-${parsed.shade})`,
-		}
-	}
+		case 'subtle': {
+			if (parsed.shade === undefined) {
+				return {
+					background: 'transparent',
+					hover: `var(--color-${color}-light-hover)`,
+					text: `var(--color-${color}-light-color)`,
+					border: '1px solid transparent',
+				}
+			}
 
-	if (variant === 'subtle') {
-		if (parsed.shade === undefined) {
 			return {
 				background: 'transparent',
-				hover: `var(--color-${color}-light-hover)`,
-				text: `var(--color-${color}-light-color)`,
+				hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), 0.12)`,
+				text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
 				border: '1px solid transparent',
 			}
 		}
 
-		return {
-			background: 'transparent',
-			hover: `color-mix(var(--color-${parsed.color}-${parsed.shade}), 0.12)`,
-			text: `var(--color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
-			border: '1px solid transparent',
+		case 'gradient':
+			return {
+				background: getGradient(gradient, theme),
+				hover: getGradient({
+					from: gradient?.to || DEFAULT_GRADIENT.to,
+					to: gradient?.from || DEFAULT_GRADIENT.from,
+					deg: gradient?.deg,
+				}, theme),
+				text: 'var(--color-white)',
+				border: 'none',
+			}
+
+		case 'gradient-outline': {
+			const { color } = parseThemeColor({ color: gradient?.from || DEFAULT_GRADIENT.from, theme })
+
+			return {
+				background: getGradientOutline(gradient, theme),
+				hover: getThemeColor(gradient?.to || DEFAULT_GRADIENT.to, theme),
+				text: getThemeColor(`${color}.4`, theme),
+				border: '3px solid transparent',
+			}
 		}
+
+		case 'default':
+			return {
+				background: 'var(--color-default)',
+				hover: 'var(--color-default-hover)',
+				text: 'var(--color-default-color)',
+				border: '1px solid var(--color-default-border)',
+			}
+
+		default:
+			return {} as VariantColorResolverResult
 	}
-
-	if (variant === 'gradient') {
-		return {
-			background: getGradient(gradient, theme),
-			hover: getGradient({
-				from: gradient?.to || DEFAULT_GRADIENT.to,
-				to: gradient?.from || DEFAULT_GRADIENT.from,
-				deg: gradient?.deg,
-			}, theme),
-			text: 'var(--color-white)',
-			border: 'none',
-		}
-	}
-
-	if (variant === 'gradient-outline') {
-		const { color } = parseThemeColor({ color: gradient?.from || DEFAULT_GRADIENT.from, theme })
-
-		return {
-			background: getGradientOutline(gradient, theme),
-			hover: getThemeColor(gradient?.to || DEFAULT_GRADIENT.to, theme),
-			text: getThemeColor(`${color}.4`, theme),
-			border: '3px solid transparent',
-		}
-	}
-
-	if (variant === 'default') {
-		return {
-			background: 'var(--color-default)',
-			hover: 'var(--color-default-hover)',
-			text: 'var(--color-default-color)',
-			border: '1px solid var(--color-default-border)',
-		}
-	}
-
-	return {} as VariantColorResolverResult
 }
