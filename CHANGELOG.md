@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.20
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.19...v0.4.20)
+
+### 🚀 Enhancements
+
+- **Text:** Added group variant & icon prop ([8fe9eca](https://github.com/Igor-Iugin/nuance-ui/commit/8fe9eca))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.19
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.18...v0.4.19)
