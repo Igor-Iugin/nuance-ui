@@ -121,7 +121,7 @@
 .panel {
 	flex-grow: var(--tabs-panel-grow);
 
-	&[data-active='false'] {
+	&:not([data-active]) {
 		display: none;
 	}
 }
@@ -166,7 +166,7 @@
 	text-align: center;
 }
 
-/*************************************** default variant ***************************************/
+/* default variant */
 .list[data-variant='default'] {
 	position: relative;
 
@@ -208,7 +208,7 @@
 	}
 }
 
-/*************************************** outline variant ***************************************/
+/* outline variant */
 .list[data-variant='outline'] {
 	position: relative;
 
@@ -329,7 +329,7 @@
 	}
 }
 
-/*************************************** pills variant ***************************************/
+/* pills variant */
 .tab[data-variant='pills'] {
 	border-radius: var(--tabs-radius);
 	background-color: var(--tab-bg);

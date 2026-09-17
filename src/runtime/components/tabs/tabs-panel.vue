@@ -28,6 +28,8 @@ const ctx = useTabsState()
 		role='tabpanel'
 		:aria-labelledby='ctx?.getTabId(value)'
 	>
-		<slot />
+		<slot
+			v-if='ctx?.keepMounted.value !== false || ctx?.active.value === value'
+		/>
 	</Box>
 </template>
