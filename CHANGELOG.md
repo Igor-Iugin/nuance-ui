@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.23
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.22...v0.4.23)
+
+### 🚀 Enhancements
+
+- **Profile:** Update profile styles ([ba5b195](https://github.com/Igor-Iugin/nuance-ui/commit/ba5b195))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.22
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.21...v0.4.22)
