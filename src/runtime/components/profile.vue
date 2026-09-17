@@ -24,6 +24,8 @@ export interface ProfileProps extends BoxProps, ProfileLinkProps {
 	description?: string | null
 	icon?: string
 
+	withoutAvatar?: boolean
+
 	/** Avatar props, or a shorthand `src` string */
 	avatar?: AvatarProps['src'] | AvatarProps
 
@@ -65,6 +67,7 @@ const {
 	onClick,
 	mod,
 	icon,
+	withoutAvatar,
 	...rest
 } = defineProps<ProfileProps>()
 
@@ -91,22 +94,25 @@ const avatarProps = computed(() => (typeof avatar === 'string'
 		@keydown.enter='!to ? onClick?.($event) : undefined'
 	>
 		<Indicator
+			v-if='!withoutAvatar'
 			:size
 			:disabled='typeof indicator === "object" ? false : !indicator'
 			inset
 			v-bind='typeof indicator === "object" ? indicator : {}'
 			:class='[$style.avatar, classes?.avatar]'
 		>
-			<Avatar
-				radius='full'
-				variant='filled'
-				color='initials'
-				:name='title'
-				:size
-				v-bind='avatarProps'
-			>
-				<Icon v-if='icon' :name='icon' />
-			</Avatar>
+			<slot name='avatar'>
+				<Avatar
+					radius='full'
+					variant='filled'
+					color='initials'
+					:name='title'
+					:size
+					v-bind='avatarProps'
+				>
+					<Icon v-if='icon' :name='icon' />
+				</Avatar>
+			</slot>
 		</Indicator>
 
 		<div :class='[$style.wrapper, classes?.wrapper]'>
@@ -128,25 +134,22 @@ const avatarProps = computed(() => (typeof avatar === 'string'
 
 <style module>
 .root {
-	display: grid;
-	grid-template-areas: 'avatar wrapper';
-	grid-template-columns: auto 1fr;
+	display: flex;
 	column-gap: var(--spacing-sm);
 	align-items: center;
 
 	&[data-with-actions] {
-		grid-template-areas: 'avatar wrapper actions';
-		grid-template-columns: auto 1fr auto;
+		.wrapper {
+			flex: 1;
+		}
 	}
 
 	&[data-orientation='vertical'] {
-		grid-template-areas:
-			'avatar'
-			'wrapper';
-		grid-template-columns: 1fr;
+		flex-direction: column;
 		justify-items: start;
 
 		&[data-with-actions] {
+			display: grid;
 			grid-template-areas:
 				'avatar actions'
 				'wrapper wrapper';
