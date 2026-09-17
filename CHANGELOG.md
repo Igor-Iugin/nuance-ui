@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.4.22
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.21...v0.4.22)
+
+### 🚀 Enhancements
+
+- **styles:** Update color scheme for light variants ([35bc096](https://github.com/Igor-Iugin/nuance-ui/commit/35bc096))
+
+### 🩹 Fixes
+
+- **Tabs:** Fix hide selector ([b1759b3](https://github.com/Igor-Iugin/nuance-ui/commit/b1759b3))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.21
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.20...v0.4.21)
