@@ -18,7 +18,7 @@ ${base}
 
 	--color-primary-filled: var(--color-${name}-filled);
 	--color-primary-filled-hover: var(--color-${name}-filled-hover);
-	--color-primary-light: alpha(var(--color-${name}-light), .15);
+	--color-primary-light: var(--color-${name}-light);
 	--color-primary-light-hover: var(--color-${name}-light-hover);
 	--color-primary-light-color: var(--color-${name}-light-color);
 	--color-primary-outline: var(--color-${name}-outline);
@@ -34,17 +34,17 @@ function derivedTokens(scheme: 'light' | 'dark'): string {
 	if (scheme === 'light') {
 		return `\t\t--color-primary-filled: var(--color-primary-6);
 		--color-primary-filled-hover: var(--color-primary-7);
-		--color-primary-light: alpha(var(--color-primary-6), .1);
-		--color-primary-light-hover: alpha(var(--color-primary-6), .12);
-		--color-primary-light-color: var(--color-primary-6);
+		--color-primary-light: var(--color-primary-1);
+		--color-primary-light-hover: var(--color-primary-2);
+		--color-primary-light-color: var(--color-primary-9);
 		--color-primary-outline: var(--color-primary-6);
 		--color-primary-outline-hover: alpha(var(--color-primary-6), .05);`
 	}
 
 	return `\t\t--color-primary-filled: var(--color-primary-8);
 		--color-primary-filled-hover: var(--color-primary-9);
-		--color-primary-light: alpha(var(--color-primary-8), .15);
-		--color-primary-light-hover: alpha(var(--color-primary-8), .2);
+		--color-primary-light: alpha(var(--color-primary-6), .3);
+		--color-primary-light-hover: alpha(var(--color-primary-8), .5);
 		--color-primary-light-color: var(--color-primary-0);
 		--color-primary-outline: var(--color-primary-4);
 		--color-primary-outline-hover: alpha(var(--color-primary-4), .05);`
