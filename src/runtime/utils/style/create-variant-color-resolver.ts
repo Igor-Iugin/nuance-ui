@@ -7,7 +7,7 @@ import { DEFAULT_GRADIENT } from '../const'
 
 export interface VariantColorResolverOptions {
 	color: NuanceColor | AnyString | undefined
-	variant: 'filled' | 'light' | 'outline' | 'light-outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline'
+	variant: 'filled' | 'light' | 'outline' | 'light-outline' | 'subtle' | 'default' | 'gradient' | 'gradient-outline' | 'clear'
 	gradient?: NuanceGradient
 	theme: NuanceTheme
 }
