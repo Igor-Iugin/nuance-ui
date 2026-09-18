@@ -6,6 +6,18 @@ const sizes: NuanceSize[] = ['xs', 'sm', 'md', 'lg', 'xl']
 </script>
 
 <template>
+	<NEmpty
+		title='No notifications'
+		description="You're all caught up. New notifications will appear here"
+		:actions='[
+			{
+				icon: "i-lucide-refresh-cw",
+				label: "Refresh",
+				onClick: () => console.log("clicked"),
+			},
+		]'
+	/>
+
 	<NGroup align='center' gap='md'>
 		<NAvatar
 			v-for='size in sizes'

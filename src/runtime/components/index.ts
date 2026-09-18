@@ -19,9 +19,10 @@ export type * from './container.vue'
 export * from './data-list'
 export type * from './date-time-picker.vue'
 export * from './dialog'
-
 export type * from './divider.vue'
+
 export * from './drawer'
+export type * from './empty.vue'
 export * from './files'
 export type * from './floating-indicator.vue'
 
