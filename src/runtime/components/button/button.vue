@@ -41,6 +41,8 @@ interface ButtonVars {
 }
 
 export interface ButtonProps extends BoxProps {
+	label?: string
+
 	/** Color from theme */
 	color?: NuanceColor
 
@@ -97,6 +99,8 @@ export interface ButtonProps extends BoxProps {
 
 	/** Styles API */
 	classes?: Classes<ButtonClasses>
+
+	onClick?: ((event: MouseEvent) => void) | Array<((event: MouseEvent) => void)>
 }
 </script>
 
@@ -126,6 +130,7 @@ const {
 	activeMode = 'pressed',
 	activeVariant,
 	activeColor = 'primary',
+	label,
 	...props
 } = defineProps<ButtonProps>()
 
@@ -204,7 +209,9 @@ const style = useVarsResolver<ButtonVars>(theme => {
 			</span>
 
 			<span :class='[css.label, classes?.label]'>
-				<slot />
+				<slot>
+					{{ label }}
+				</slot>
 			</span>
 
 			<span
