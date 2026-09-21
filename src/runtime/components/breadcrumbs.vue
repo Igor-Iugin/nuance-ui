@@ -51,7 +51,7 @@ export interface BreadcrumbsProps extends BoxProps {
 
 	/**
 	 * Component size
-	 * @default `'compact-sm'`
+	 * @default `'sm'`
 	 */
 	size?: ButtonProps['size']
 }
@@ -63,7 +63,7 @@ const {
 	separator: _separator,
 	color = 'primary',
 	variant = 'subtle',
-	size = 'compact-sm',
+	size = 'sm',
 	items,
 	...rest
 } = defineProps<BreadcrumbsProps>()
@@ -94,7 +94,7 @@ const breadcrumbs = computed(() => unref(items) ?? [])
 		:class='$style.root'
 		aria-label='breadcrumb'
 	>
-		<template v-for='(item, ix) in breadcrumbs' :key='item.to'>
+		<template v-for='(item, ix) in breadcrumbs' :key='item.to?.toString()'>
 			<li :class='$style.breadcrumb' role='presentation' aria-hidden='true'>
 				<slot
 					:name='item.slot ?? "item"'
