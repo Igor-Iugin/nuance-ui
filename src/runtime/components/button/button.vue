@@ -131,6 +131,7 @@ const {
 	activeVariant,
 	activeColor = 'primary',
 	label,
+	onClick,
 	...props
 } = defineProps<ButtonProps>()
 
@@ -190,6 +191,7 @@ const style = useVarsResolver<ButtonVars>(theme => {
 		:disabled='loading'
 		:aria-pressed='activeMode === "pressed" ? active : undefined'
 		:aria-current='active && activeMode === "current" ? "page" : undefined'
+		@click='onClick'
 	>
 		<Transition name='fade-down'>
 			<Loader v-show='loading' :class='css.loader' :color :size />
