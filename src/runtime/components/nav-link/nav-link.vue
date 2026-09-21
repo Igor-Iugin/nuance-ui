@@ -1,207 +1,108 @@
 <script setup lang='ts'>
-import type { NuanceColor, NuanceSpacing } from '@nui/types'
-import type { NuxtLinkProps } from 'nuxt/app'
-
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { getSize } from '@nui/utils'
-
-import type { BoxProps } from '../box/box.vue'
+import type { LinkButtonProps } from '../link/link-button.vue'
 
 import Box from '../box/box.vue'
-import UnstyledButton from '../button/unstyled-button.vue'
-import { pickLinkProps } from '../link'
+import LinkButton from '../link/link-button.vue'
 
 
-export type NavLinkVariant = 'filled' | 'light' | 'subtle'
+export type NavLinkVariant = 'filled' | 'light' | 'subtle' | 'outline'
 
-export interface NavLinkVars {
-	root: '--nl-bg' | '--nl-hover' | '--nl-color' | '--nl-spacing'
-}
-
-export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+export interface NavLinkProps extends Omit<LinkButtonProps, 'active' | 'label' | 'variant'> {
 	/** Link description displayed below the label */
 	description?: string
 
 	/** Active state */
 	active?: boolean
 
-	/** Color from theme */
-	color?: NuanceColor
-
-	/** Spacing token */
-	spacing?: NuanceSpacing
+	/** Disables the component */
+	disabled?: boolean
 
 	/** Prevents label and description from wrapping */
 	noWrap?: boolean
 
-	/** Disables the component */
-	disabled?: boolean
-
-	/** Icon displayed before the label */
-	icon?: string
-
-	/** Visual variant */
+	/** Visual variant applied when active @default 'filled' */
 	variant?: NavLinkVariant
 }
 
-const props = defineProps<NavLinkProps>()
-
 const {
-	link,
-	rest: {
-		active,
-		disabled,
-		mod,
-		variant = 'filled',
-		color,
-		noWrap,
-		description,
-		spacing,
-		icon,
-	},
-} = pickLinkProps(props)
-
-const { variantResolver } = useConfig()
-const style = useVarsResolver<NavLinkVars>(theme => {
-	const { background, hover, text	} = variantResolver({ variant, color, theme })
-	return {
-		root: {
-			'--nl-bg': variant ? background : undefined,
-			'--nl-hover': variant ? hover : undefined,
-			'--nl-color': variant ? text : undefined,
-			'--nl-spacing': getSize(spacing, 'nl-spacing'),
-		},
-	}
-})
+	active,
+	noWrap,
+	description,
+	mod,
+	variant = 'filled',
+	color,
+	size = 'sm',
+	radius = 'xs',
+	...rest
+} = defineProps<NavLinkProps>()
 </script>
 
 <template>
-	<NuxtLink v-slot='{ href, navigate, isActive, ...linkProps }' v-bind='link' custom>
-		<UnstyledButton
-			is='a'
-			:href
-			:style='style.root'
-			:class='$style.root'
-			:mod='[{ active: active || isActive, disabled }, mod]'
-			:aria-current="isActive ? 'page' : undefined"
-			:rel='("rel" in linkProps) ? linkProps?.rel : undefined'
-			:target='("target" in linkProps) ? linkProps?.target : undefined'
-			@click='navigate'
-		>
-			<span
-				v-if='$slots.leftSection || icon'
-				:class='$style.section'
-				data-position='left'
-			>
-				<slot name='leftSection'>
-					<Icon v-if='icon' :name='icon' />
-				</slot>
-			</span>
+	<LinkButton
+		v-bind='rest'
+		:size
+		:radius
+		variant='subtle'
+		:active-variant='variant'
+		:active-color='color'
+		:active
+		active-mode='current'
+		:classes='{ root: $style.root, label: $style.label }'
+		:mod='[{ "no-wrap": noWrap }, mod]'
+	>
+		<template v-if='$slots.leftSection' #leftSection>
+			<slot name='leftSection' />
+		</template>
 
-			<Box :class='$style.body' :mod='{ "no-wrap": noWrap }'>
-				<span :class='$style.label'>
-					<slot />
-				</span>
-				<Box :class='$style.description' :mod='{ active }'>
-					<slot name='description'>
-						{{ description }}
-					</slot>
-				</Box>
-			</Box>
+		<span :class='$style.title'>
+			<slot />
+		</span>
+		<Box :class='$style.description'>
+			<slot name='description'>
+				{{ description }}
+			</slot>
+		</Box>
 
-			<span
-				v-if='$slots.rightSection'
-				:class='$style.section'
-				data-position='right'
-			>
-				<slot name='rightSection' />
-			</span>
-		</UnstyledButton>
-	</NuxtLink>
+		<template v-if='$slots.rightSection' #rightSection>
+			<slot name='rightSection' />
+		</template>
+	</LinkButton>
 </template>
 
 <style module>
 .root {
-	--nl-spacing-xs: .25rem;
-	--nl-spacing-sm: .5rem;
-	--nl-spacing-md: .75rem;
-	--nl-spacing-lg: 1rem;
-	--nl-spacing-xl: 1.25rem;
-
-	--nl-bg: var(--color-primary-light);
-	--nl-hover: var(--color-primary-light-hover);
-	--nl-color: var(--color-primary-light-color);
-	--nl-spacing: var(--nl-spacing-xs);
-
-	user-select: none;
-
-	display: flex;
-	gap: var(--nl-spacing);
-	align-items: center;
-
 	width: 100%;
-	padding: .25rem var(--spacing-sm);
-	border-radius: var(--radius-default);
 
-	&:where([data-disabled]) {
-		pointer-events: none;
-
-		opacity: 0.4;
+	&:where([data-active]) .description {
+		--description-opacity: 0.9;
 	}
 
-	&:hover {
-		@mixin where-light {
-			background-color: var(--color-gray-0);
-		}
-
-		@mixin where-dark {
-			background-color: var(--color-dark-6);
-		}
-	}
-
-	&:where([data-active]) {
-		color: var(--nl-color);
-
-		background-color: var(--nl-bg);
-
-		.description {
-			--description-opacity: 0.9;
-			--description-color: var(--nl-color);
-		}
-
-		&:hover {
-			background-color: var(--nl-hover);
-		}
-	}
-}
-
-.section {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	transition: transform 150ms ease;
-
-	&>svg {
-		display: block;
-	}
-
-	&:where([data-rotate]) {
-		transform: rotate(90deg);
+	&:where(&[data-variant='outline']) {
+		border: 2px solid transparent;
+		border-left: var(--button-bd);
+		border-left-width: rem(2px);
 	}
 }
 
 .label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+
 	font-size: var(--font-size-md);
+
+	text-align: left;
+	text-decoration: none;
+	white-space: normal;
 }
 
-.body {
+.title {
 	overflow: hidden;
-	flex: 1;
 
 	text-overflow: ellipsis;
 
-	&:where([data-no-wrap]) {
+	:where([data-no-wrap]) & {
 		white-space: nowrap;
 	}
 }
@@ -209,7 +110,7 @@ const style = useVarsResolver<NavLinkVars>(theme => {
 .description {
 	overflow: hidden;
 
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-2sm);
 	color: var(--description-color, var(--color-dimmed));
 	text-overflow: ellipsis;
 

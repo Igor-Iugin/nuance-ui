@@ -15,12 +15,13 @@ const { link, rest } = pickLinkProps(props)
 </script>
 
 <template>
-	<NuxtLink v-slot='{ href, navigate, ...linkProps }' v-bind='link' custom>
+	<NuxtLink v-slot='{ href, navigate, isActive, ...linkProps }' v-bind='link' custom>
 		<Button
 			v-bind='{
 				...rest,
 				is: rest?.is || "a",
 				href,
+				active: rest.activeMode === "current" ? (rest.active || isActive) : rest.active,
 				rel: ("rel" in linkProps ? linkProps.rel : undefined),
 				target: ("target" in linkProps ? linkProps.target : undefined),
 			}'

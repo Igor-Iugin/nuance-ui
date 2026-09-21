@@ -17,7 +17,11 @@ useHead({
 		:date-config='{ locale: "ru-RU" }'
 	>
 		<NAppShellNavbar :class='$style.navbar'>
-			<NNavLink to='/button'>
+			<NNavLink
+				to='/button'
+				variant='outline'
+				description='test'
+			>
 				Button
 			</NNavLink>
 			<NNavLink to='/menu'>
