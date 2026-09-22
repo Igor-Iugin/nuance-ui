@@ -7,6 +7,7 @@ import type {
 	NuanceGradient,
 	NuanceRadius,
 	NuanceSize,
+	NuanceSpacing,
 } from '@nui/types'
 
 
@@ -51,6 +52,9 @@ export interface AvatarProps extends BoxProps {
 	/** Icon */
 	icon?: string
 
+	/** Icon size @default 100% */
+	iconSize?: NuanceSpacing | AnyString
+
 	/** Icon rendered when no `src` and no `name` are provided. Defaults to the configured `person` icon. */
 	fallback?: string
 
@@ -64,7 +68,7 @@ export interface AvatarProps extends BoxProps {
 
 <script setup lang='ts'>
 import { useConfig, useVarsResolver } from '@nui/composables'
-import { getRadius, getSize } from '@nui/utils'
+import { getRadius, getSize, getSpacing } from '@nui/utils'
 import { computed } from 'vue'
 
 import Box from '../box/box.vue'
@@ -111,6 +115,7 @@ const style = useVarsResolver<AvatarVars>(theme => {
 	return {
 		root: {
 			'--avatar-size': getSize(size, 'avatar-size'),
+			'--avatar-icon-size': getSpacing(size),
 			'--avatar-radius': radius === undefined ? undefined : getRadius(radius),
 			'--avatar-bg': color || variant ? background : undefined,
 			'--avatar-color': color || variant ? text : undefined,
@@ -133,8 +138,8 @@ const style = useVarsResolver<AvatarVars>(theme => {
 			:title='alt'
 		>
 			<slot>
-				<Icon v-if='icon' :name='icon' />
-				<Icon v-else-if='!src && !name && !icon' :name='resolvedFallback' />
+				<Icon v-if='icon' data-slot='icon' :name='icon' />
+				<Icon v-else-if='!src && !name && !icon' data-slot='fallback' :name='resolvedFallback' />
 				<template v-else>
 					{{ initials }}
 				</template>

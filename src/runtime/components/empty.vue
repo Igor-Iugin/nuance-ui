@@ -19,7 +19,7 @@ interface EmptyVars {
 	root: '--empty-padding'	| '--empty-radius' | '--empty-avatar-size'
 }
 
-export interface EmptyProps extends BoxProps {
+export interface EmptyProps extends BoxProps, Pick<AvatarProps, 'iconSize'> {
 	title?: string
 	description?: string
 	avatar?: AvatarProps
@@ -62,6 +62,7 @@ const {
 	variant = 'clear',
 	mod,
 	icon,
+	iconSize,
 	title,
 	description,
 	actions,
@@ -95,16 +96,22 @@ const style = useVarsResolver<EmptyVars>(() => ({
 		<header class='slot-empty' :class='[$style.header, classes?.header]'>
 			<slot name='header'>
 				<slot name='leading'>
-					<Avatar v-if='!!avatar || icon' v-bind='avatar' :class='$style.avatar' :icon>
+					<Avatar
+						v-if='!!avatar || icon'
+						v-bind='avatar'
+						:class='$style.avatar'
+						:icon
+						:icon-size
+					>
 						<Loader v-if='loading' :type='loaderType' />
 					</Avatar>
 				</slot>
 
-				<h2 class='slot-empty' :class='[$style.title, classes?.title]'>
+				<NTitle class='slot-empty' :class='[$style.title, classes?.title]'>
 					<slot name='title'>
 						{{ title }}
 					</slot>
-				</h2>
+				</NTitle>
 
 				<div class='slot-empty' :class='[$style.description, classes?.description]'>
 					<slot name='description'>
@@ -214,6 +221,7 @@ const style = useVarsResolver<EmptyVars>(() => ({
 }
 
 .description {
+	font-size: var(--font-size-sm);
 	color: var(--color-dimmed);
 	text-align: center;
 	text-wrap: balance;

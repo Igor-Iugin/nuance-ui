@@ -15,6 +15,8 @@
 	--avatar-size-lg: rem(36px);
 	--avatar-size-xl: rem(40px);
 
+	--avatar-icon-size: 100%;
+
 	--avatar-size: var(--avatar-size-md);
 	--avatar-radius: 1000px;
 	--avatar-bg: var(--color-gray-light);
@@ -62,8 +64,20 @@
 	border: var(--avatar-bd);
 	color: var(--avatar-color);
 
-	&>[data-avatar-fallback-icon] {
-		width: 70%;
-		height: 70%;
+	&>[data-slot] {
+		width: var(--avatar-icon-size);
+		height: var(--avatar-icon-size);
+	}
+
+	&>[data-slot='fallback'] {
+		--avatar-icon-size: 70%;
+	}
+
+	&>[data-slot='icon'] {
+		color: var(--color-dimmed);
+	}
+
+	&:has(>[data-slot='icon']) {
+		--avatar-bg: transparent;
 	}
 }

@@ -7,6 +7,7 @@ const sizes: NuanceSize[] = ['xs', 'sm', 'md', 'lg', 'xl']
 
 <template>
 	<NEmpty
+		icon='lucide:cpu'
 		title='No notifications'
 		description="You're all caught up. New notifications will appear here"
 		:actions='[
