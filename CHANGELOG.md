@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v0.4.24
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.23...v0.4.24)
+
+### 🚀 Enhancements
+
+- **Avatar:** Added icon prop ([9992350](https://github.com/Igor-Iugin/nuance-ui/commit/9992350))
+- **Button:** Added `label` & `onClick` props ([161f970](https://github.com/Igor-Iugin/nuance-ui/commit/161f970))
+- **utils:** Added `clear` variant for unstyled variant ([d904d4e](https://github.com/Igor-Iugin/nuance-ui/commit/d904d4e))
+- **new:** Empty component ([1dd7896](https://github.com/Igor-Iugin/nuance-ui/commit/1dd7896))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.23
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.22...v0.4.23)
