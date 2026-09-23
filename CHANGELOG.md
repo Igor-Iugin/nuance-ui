@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.4.26
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.25...v0.4.26)
+
+### 🚀 Enhancements
+
+- 🔥  Removed useActiveLink ([75b6064](https://github.com/Igor-Iugin/nuance-ui/commit/75b6064))
+
+### 🩹 Fixes
+
+- **Breadcrumbs:** Size prop ([220fdff](https://github.com/Igor-Iugin/nuance-ui/commit/220fdff))
+- **Button:** Passed onClick handler to button ([8f96301](https://github.com/Igor-Iugin/nuance-ui/commit/8f96301))
+
+### 💅 Refactors
+
+- **NavLink:** Recreated based on LinkButton ([520bf4e](https://github.com/Igor-Iugin/nuance-ui/commit/520bf4e))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.25
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.24...v0.4.25)
