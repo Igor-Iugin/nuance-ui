@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.25
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.24...v0.4.25)
+
+### 🚀 Enhancements
+
+- **Avatar:** Added iconSize prop ([bfcdaff](https://github.com/Igor-Iugin/nuance-ui/commit/bfcdaff))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.24
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.23...v0.4.24)
