@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 import type { TextInputProps } from './index'
 
-import ActionIcon from '../action-icon/action-icon.vue'
+import Button from '../button/button.vue'
 import TextInput from './text-input.vue'
 
 
@@ -21,9 +21,9 @@ const { icons } = useConfig()
 	>
 		<template #rightSection>
 			<slot name='rightSection'>
-				<ActionIcon variant='subtle' @click='password = !password'>
+				<Button square variant='subtle' color='gray' @click='password = !password'>
 					<Icon :name='password ? icons.passwordShow : icons.passwordHide' />
-				</ActionIcon>
+				</Button>
 			</slot>
 		</template>
 

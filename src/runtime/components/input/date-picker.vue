@@ -10,8 +10,8 @@ import type { CalendarProps } from '../calendar/calendar.vue'
 import type { PopoverEmits } from '../popover'
 import type { ButtonInputProps } from './ui/button-input.vue'
 
-import ActionIcon from '../action-icon/action-icon.vue'
 import Badge from '../badge.vue'
+import Button from '../button/button.vue'
 import Calendar from '../calendar/calendar.vue'
 import PopoverDropdown from '../popover/popover-dropdown.vue'
 import PopoverTarget from '../popover/popover-target.vue'
@@ -119,7 +119,8 @@ const visible = computed(() => {
 						{{ date }}
 
 						<template #rightSection>
-							<ActionIcon
+							<Button
+								square
 								:icon='icons.close'
 								variant='subtle'
 								color='gray'

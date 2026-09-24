@@ -11,7 +11,7 @@ import type { ButtonInputProps } from './input/ui/button-input.vue'
 import type { PopoverEmits } from './popover'
 import type { TimePickerProps } from './time-picker/time-picker.vue'
 
-import ActionIcon from './action-icon/action-icon.vue'
+import Button from './button/button.vue'
 import Calendar from './calendar/calendar.vue'
 import ButtonInput from './input/ui/button-input.vue'
 import PopoverDropdown from './popover/popover-dropdown.vue'
@@ -132,7 +132,8 @@ const isClearable = computed(() => clearable && !props.disabled && !props.readon
 					#rightSection
 				>
 					<slot name='rightSection'>
-						<ActionIcon
+						<Button
+							square
 							:icon='icons.close'
 							variant='subtle'
 							color='gray'

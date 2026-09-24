@@ -8,7 +8,7 @@ import type { InputStateProps } from '../input'
 import type { InputWrapperProps } from '../input/ui/input-wrapper.vue'
 import type { TimePickerAmPmLabels, TimePickerFormat, TimePickerPasteSplit } from './types'
 
-import ActionIcon from '../action-icon/action-icon.vue'
+import Button from '../button/button.vue'
 import InputBase from '../input/ui/input-base.vue'
 import InputWrapper from '../input/ui/input-wrapper.vue'
 import SpinInput from '../input/ui/spin-input.vue'
@@ -234,7 +234,8 @@ const isClearable = computed(() => clearable && !readonly && !disabled && (
 				#rightSection
 			>
 				<slot name='rightSection'>
-					<ActionIcon
+					<Button
+						square
 						:icon='icons.close'
 						variant='subtle'
 						color='gray'

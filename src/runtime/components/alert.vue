@@ -7,8 +7,8 @@ import { useId } from 'vue'
 
 import type { BoxProps } from './box/box.vue'
 
-import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box/box.vue'
+import Button from './button/button.vue'
 
 
 export type AlertClasses
@@ -136,8 +136,9 @@ const style = useVarsResolver<AlertVars>(theme => {
 			</Box>
 		</div>
 
-		<ActionIcon
+		<Button
 			v-if='withCloseButton'
+			square
 			:class='[$style.closeButton, classes?.closeButton]'
 			variant='subtle'
 			:icon='icons.close'

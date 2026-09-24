@@ -5,7 +5,6 @@ import { computed, watch } from 'vue'
 
 import type { TreeItem } from '../types'
 
-import ActionIcon from '../../action-icon/action-icon.vue'
 import Button from '../../button/button.vue'
 import Loader from '../../loader/loader.vue'
 import RovingFocusItem from '../../roving-focus/roving-focus-item.vue'
@@ -101,11 +100,12 @@ const { handleClick, handleKeyDown } = useTreeItemHandlers(path, isFolder, expan
 				{{ name ?? path }}
 
 				<template v-if='isFolder' #rightSection>
-					<ActionIcon
+					<Button
+						square
 						:icon='icons.chevronDown'
 						size='sm'
 						:color='ctx.color'
-						:classes='{ root: $style.chevron, icon: $style["chevron-icon"] }'
+						:classes='{ root: $style.chevron, section: $style["chevron-icon"] }'
 						:mod='{ expanded }'
 						variant='subtle'
 						@click.stop='ctx.toggle("expand", path)'
