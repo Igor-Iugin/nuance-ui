@@ -2,17 +2,18 @@
 import { useConfig } from '@nui/composables'
 import { computed } from 'vue'
 
-import type { ActionIconProps } from '../../action-icon'
+import type { ButtonProps } from '../../button'
 
-import ActionIcon from '../../action-icon/action-icon.vue'
+import Button from '../../button/button.vue'
 import { useDialogState } from '../lib'
 
 
 const {
 	variant = 'subtle',
 	icon,
+	square: _square,
 	...props
-} = defineProps<ActionIconProps>()
+} = defineProps<ButtonProps>()
 const close = useDialogState()
 
 const { icons } = useConfig()
@@ -20,7 +21,8 @@ const resolvedIcon = computed(() => icon ?? icons.close)
 </script>
 
 <template>
-	<ActionIcon
+	<Button
+		square
 		:icon='resolvedIcon'
 		:variant
 		tabindex='0'
@@ -28,5 +30,5 @@ const resolvedIcon = computed(() => icon ?? icons.close)
 		@click='close'
 	>
 		<slot />
-	</ActionIcon>
+	</Button>
 </template>

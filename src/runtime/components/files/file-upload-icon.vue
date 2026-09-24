@@ -6,12 +6,12 @@ import { useConfig } from '@nui/composables'
 import { useFileDialog } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
-import type { ActionIconProps } from '../action-icon/action-icon.vue'
+import type { ButtonProps } from '../button'
 
-import ActionIcon from '../action-icon/action-icon.vue'
+import Button from '../button/button.vue'
 
 
-export interface FileUploadIconProps<M extends boolean> extends ActionIconProps, UseFileDialogOptions {
+export interface FileUploadIconProps<M extends boolean> extends ButtonProps, UseFileDialogOptions {
 	/**
 	 * Allows selecting multiple files
 	 * @default false
@@ -45,6 +45,8 @@ const {
 	reset: _reset,
 	directory,
 	icon: _icon,
+	square: _square,
+	onClick: _onClick,
 	...props
 } = defineProps<FileUploadIconProps<Multiple>>()
 
@@ -89,5 +91,5 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<ActionIcon :icon='icon' v-bind='props' @click='open' />
+	<Button square :icon='icon' v-bind='props' @click='() => open()' />
 </template>

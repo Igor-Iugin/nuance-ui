@@ -1,10 +1,10 @@
 <script lang='ts' setup>
-import type { ActionIconProps } from '../action-icon'
+import type { ButtonProps } from '../button'
 
 import DialogCloseButton from '../dialog/ui/dialog-close-button.vue'
 
 
-const props = defineProps<ActionIconProps>()
+const props = defineProps<ButtonProps>()
 </script>
 
 <template>

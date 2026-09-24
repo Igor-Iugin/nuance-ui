@@ -4,12 +4,10 @@ import type { HTMLAttributes } from 'vue'
 import { getRadius, getThemeColor, useVarsResolver } from '#imports'
 
 import type { Classes, NuanceColor, NuanceRadius, StringOrVNode } from '../types'
-import type { ActionIconProps } from './action-icon/action-icon.vue'
 import type { BoxProps } from './box/box.vue'
 import type { ButtonProps } from './button/button.vue'
 import type { LoaderProps } from './loader'
 
-import ActionIcon from './action-icon/action-icon.vue'
 import Box from './box/box.vue'
 import Button from './button/button.vue'
 import Loader from './loader/loader.vue'
@@ -82,7 +80,7 @@ export interface NotificationProps extends BoxProps {
 	withCloseButton?: boolean
 
 	/** Props passed down to the close button */
-	closeButtonProps?: ActionIconProps
+	closeButtonProps?: ButtonProps
 
 	/** Props passed down to the `Loader` component */
 	loaderProps?: LoaderProps & HTMLAttributes
@@ -211,10 +209,12 @@ const style = useVarsResolver<NotificationVars>(theme => ({
 			</Box>
 		</div>
 
-		<ActionIcon
+		<Button
 			v-if='withCloseButton'
+			square
 			icon='lucide:x'
 			variant='subtle'
+			color='gray'
 			:class='[$style.closeButton, classes?.closeButton]'
 			v-bind='closeButtonProps'
 			@click='$emit("close")'
