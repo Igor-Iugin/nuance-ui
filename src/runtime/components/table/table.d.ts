@@ -1,4 +1,4 @@
-import type { Cell, Header, RowData } from '@tanstack/vue-table'
+import type { Cell, Header, Row, RowData } from '@tanstack/vue-table'
 
 
 declare module '@tanstack/table-core' {
@@ -12,14 +12,14 @@ declare module '@tanstack/table-core' {
 			td?: string | Record<string, string> | ((cell: Cell<TData, TValue>) => string | Record<string, string>)
 		}
 		colspan?: {
-			td?: string | ((cell: Cell<TData, TValue>) => string)
+			td?: number | ((cell: Cell<TData, TValue>) => number)
 		}
 		rowspan?: {
-			td?: string | ((cell: Cell<TData, TValue>) => string)
+			td?: number | ((cell: Cell<TData, TValue>) => number)
 		}
 	}
 
-	interface TableMeta<TData> {
+	interface TableMeta<TData extends RowData> {
 		class?: {
 			tr?: string | ((row: Row<TData>) => string)
 		}

@@ -92,6 +92,7 @@ const {
 	...rest
 } = defineProps<AccordionProps<Multiple>>()
 
+// @ts-expect-error
 const value = defineModel<AccordionValue<Multiple>>({
 	default: p => (p.multiple ? [] : null) as AccordionValue<Multiple>,
 })
@@ -106,11 +107,13 @@ function isItemActive(itemValue: string): boolean {
 
 function toggleItem(itemValue: string) {
 	if (Array.isArray(value.value)) {
+		// @ts-expect-error
 		value.value = (value.value.includes(itemValue)
 			? value.value.filter(v => v !== itemValue)
 			: [...value.value, itemValue]) as AccordionValue<Multiple>
 	}
 	else {
+		// @ts-expect-error
 		value.value = (value.value === itemValue ? null : itemValue) as AccordionValue<Multiple>
 	}
 }

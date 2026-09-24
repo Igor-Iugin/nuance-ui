@@ -53,8 +53,8 @@ const props = withDefaults(defineProps<CalendarProps<T>>(), {
 
 defineEmits<CalendarEmits<T>>()
 
-const date = defineModel<DateInput>('date', { default: new Date() })
-const level = defineModel<CalendarLevel>('level', { default: ({ minLevel }) => minLevel })
+const date = defineModel<DateInput>('date', { default: () => new Date() })
+const level = defineModel<CalendarLevel>('level', { default: ({ minLevel }) => minLevel as CalendarLevel })
 const select = defineModel<DateSelection<T>>('value')
 
 const [calendars, nav] = useCalendarNavigation({
@@ -74,7 +74,7 @@ const [calendars, nav] = useCalendarNavigation({
 <template>
 	<CalendarRoot
 		v-slot='{ config }'
-		v-model:date='date'
+		v-model:date='date as any'
 		v-model:select='select'
 		v-bind='props'
 		:class='$style.content'

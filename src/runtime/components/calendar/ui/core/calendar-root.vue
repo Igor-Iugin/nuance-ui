@@ -87,6 +87,7 @@ const weekdays = computed(() => {
 })
 
 const select = defineModel<DateSelection<T>>('select', {
+	// @ts-expect-error
 	default: ({ mode }) => {
 		switch (mode) {
 			case 'single':
@@ -119,6 +120,7 @@ useProvideCalendarState({
 })
 
 useCalendarSelection({
+	// @ts-expect-error
 	value: select,
 	mode: props.mode,
 	config,

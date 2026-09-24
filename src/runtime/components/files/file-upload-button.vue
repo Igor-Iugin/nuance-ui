@@ -91,7 +91,7 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<Button v-bind='props' @click='open'>
+	<Button v-bind='props' @click='open()'>
 		<template #leftSection>
 			<slot name='leftSection'>
 				<Icon :name='icon' />

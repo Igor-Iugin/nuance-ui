@@ -36,11 +36,17 @@ const {
 	...rest
 } = defineProps<SwitchGroupProps>()
 
-const value = defineModel<string[]>({ default: [] })
+const value = defineModel<string[]>({ default: () => [] })
 
 const id = useId()
 
-useProvideSwitchGroup({ value, size, disabled, readOnly, maxSelectedValues })
+useProvideSwitchGroup({
+	value,
+	size,
+	disabled,
+	readOnly,
+	maxSelectedValues,
+})
 </script>
 
 <template>

@@ -88,6 +88,7 @@
 		"@nuxt/test-utils": "^4.0.0",
 		"@nuxtjs/color-mode": "^4.0.0",
 		"@nuxtjs/stylelint-module": "^5.2.1",
+		"@tanstack/table-core": "8.21.3",
 		"@types/node": "latest",
 		"@vee-validate/nuxt": "^4.15.1",
 		"@vitejs/plugin-vue": "^6.0.7",

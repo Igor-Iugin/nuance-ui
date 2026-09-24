@@ -250,7 +250,8 @@ defineExpose({
 						:rowspan='header.rowSpan > 1 ? header.rowSpan : undefined'
 						:class='[
 							$style.th,
-							props.classes?.th, resolveValue(header.column.columnDef.meta?.class?.th, header),
+							props.classes?.th,
+							resolveValue(header.column.columnDef.meta?.class?.th, header),
 						]'
 						:style='[
 							{ width: header.getSize() !== 150 ? `${header.getSize()}px` : undefined },
@@ -284,7 +285,10 @@ defineExpose({
 							}'
 							:role="onSelect ? 'button' : undefined"
 							:tabindex='onSelect ? 0 : undefined'
-							:class='[$style.tr, props.classes?.tr, resolveValue(table.options.meta?.class?.tr, row)]'
+							:class='[
+								$style.tr, props.classes?.tr,
+								resolveValue(table.options.meta?.class?.tr, row),
+							]'
 							:style='resolveValue(table.options.meta?.style?.tr, row)'
 							@click='onRowSelect($event, row)'
 							@pointerenter='onRowHover($event, row)'
@@ -351,7 +355,11 @@ defineExpose({
 						:mod='{ pinned: header.column.getIsPinned() }'
 						:colspan='header.colSpan > 1 ? header.colSpan : undefined'
 						:rowspan='header.rowSpan > 1 ? header.rowSpan : undefined'
-						:class='[$style.th, props.classes?.th, resolveValue(header.column.columnDef.meta?.class?.th, header)]'
+						:class='[
+							$style.th,
+							props.classes?.th,
+							resolveValue(header.column.columnDef.meta?.class?.th, header),
+						]'
 						:style='resolveValue(header.column.columnDef.meta?.style?.th, header)'
 					>
 						<slot :name='`${header.id}-footer`' v-bind='header.getContext()'>
@@ -431,8 +439,8 @@ defineExpose({
 	&[data-sticky] {
 		position: sticky;
 		z-index: 1;
-		top: 0;
 		inset-inline: 0rem;
+		top: 0;
 
 		background-color: alpha(var(--color-body), .75);
 		backdrop-filter: blur(8px);
@@ -481,8 +489,8 @@ defineExpose({
 	&[data-sticky] {
 		position: sticky;
 		z-index: 1;
-		bottom: 0;
 		inset-inline: 0rem;
+		bottom: 0;
 
 		background-color: var(--color-body);
 		backdrop-filter: blur(8px);

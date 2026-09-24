@@ -38,11 +38,17 @@ const {
 	readOnly,
 	...rest
 } = defineProps<CheckboxGroupProps>()
-const value = defineModel<string[]>({ default: [] })
+const value = defineModel<string[]>({ default: () => [] })
 
 const id = useId()
 
-useProvideCheckboxGroup({ value, size, maxSelectedValues, disabled,	readOnly })
+useProvideCheckboxGroup({
+	value,
+	size,
+	maxSelectedValues,
+	disabled,
+	readOnly,
+})
 </script>
 
 <template>

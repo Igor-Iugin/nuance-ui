@@ -1,24 +1,5 @@
 import type { AnyString, Classes, NuanceColor } from '@nui/types'
-import type { RowData, TableMeta } from '@tanstack/table-core'
-import type {
-	CellContext,
-	ColumnDef,
-	ColumnFiltersOptions,
-	ColumnPinningOptions,
-	ColumnSizingOptions,
-	CoreOptions,
-	ExpandedOptions,
-	FacetedOptions,
-	GlobalFilterOptions,
-	GroupingOptions,
-	HeaderContext,
-	PaginationOptions,
-	Row,
-	RowPinningOptions,
-	RowSelectionOptions,
-	SortingOptions,
-	VisibilityOptions,
-} from '@tanstack/vue-table'
+import type { CellContext, ColumnDef,	ColumnFiltersOptions,	ColumnPinningOptions,	ColumnSizingOptions,	CoreOptions,	ExpandedOptions,	FacetedOptions,	GlobalFilterOptions,	GroupingOptions,	HeaderContext,	PaginationOptions,	Row,	RowData,	RowPinningOptions,	RowSelectionOptions,	SortingOptions,	TableMeta,	VisibilityOptions } from '@tanstack/vue-table'
 import type { VirtualizerOptions } from '@tanstack/vue-virtual'
 import type { CSSProperties, TableHTMLAttributes, WatchOptions } from 'vue'
 

@@ -65,8 +65,10 @@ const { icons } = useConfig()
 const resolvedIconResolver: TreeIconResolver = iconResolver ?? (() => ({ icon: icons.file }))
 
 const active = defineModel<TreeModels['active']>('active', { default: null })
-const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
-const expanded = defineModel<TreeModels['expanded']>('expanded', { default: [] })
+
+const selected = defineModel<TreeModels['selected']>('selected', { default: () => [] })
+
+const expanded = defineModel<TreeModels['expanded']>('expanded', { default: () => [] })
 
 const style = useVarsResolver<TreeRootVars>(() => ({
 	root: {

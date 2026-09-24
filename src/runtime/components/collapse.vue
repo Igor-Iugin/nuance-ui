@@ -77,8 +77,9 @@ const {
 } = defineProps<CollapseProps>()
 
 defineSlots<CollapseSlots>()
-
-const opened = defineModel<boolean>('open', { default: p => p.defaultOpen })
+const opened = defineModel<boolean>('open', {
+	default: p => p.defaultOpen as boolean,
+})
 
 const contentId = useId()
 

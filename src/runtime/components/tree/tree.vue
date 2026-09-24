@@ -23,8 +23,8 @@ const {
 defineEmits<TreeEmits>()
 
 const active = defineModel<TreeModels['active']>('active', { default: null })
-const selected = defineModel<TreeModels['selected']>('selected', { default: [] })
-const expanded = defineModel<TreeModels['expanded']>('expanded', { default: [] })
+const selected = defineModel<TreeModels['selected']>('selected', { default: () => [] })
+const expanded = defineModel<TreeModels['expanded']>('expanded', { default: () => [] })
 
 const { data: state, execute } = loadBranch('/')
 const root = computed(() => filterTreeItems(state.value, filter))

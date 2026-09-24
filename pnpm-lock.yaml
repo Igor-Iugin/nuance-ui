@@ -69,6 +69,9 @@ importers:
       '@nuxtjs/stylelint-module':
         specifier: ^5.2.1
         version: 5.2.1(magicast@0.5.4)(postcss@8.5.19)(rolldown@1.2.1)(rollup@4.62.2)(stylelint@17.14.0(supports-color@10.2.2)(typescript@6.0.3))(supports-color@10.2.2)(vite@8.2.0(@types/node@26.6.2)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.19))(terser@5.49.0)(yaml@2.9.0))(webpack@5.108.4(cssnano@8.0.2(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.33.0)(postcss@8.5.19))
+      '@tanstack/table-core':
+        specifier: 8.21.3
+        version: 8.21.3
       '@types/node':
         specifier: latest
         version: 26.6.2
