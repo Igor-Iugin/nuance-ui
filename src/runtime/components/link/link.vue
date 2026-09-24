@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NuxtLinkProps } from '#app'
+import type { NuxtLinkProps } from 'nuxt/app'
 
 import { NuxtLink } from '#components'
 
@@ -63,7 +63,9 @@ const { link, rest: { underline, ...rest } } = pickLinkProps(props)
 	text-decoration: underline;
 
 	&:where([data-variant='gradient']) {
-		&, &:hover {
+
+		&,
+		&:hover {
 			text-decoration: none;
 		}
 	}

@@ -9,9 +9,8 @@ import type {
 	NuanceSpacing,
 	TransformVars,
 } from '@nui/types'
+import type { NuxtLinkProps } from 'nuxt/app'
 import type { CSSProperties, HTMLAttributes } from 'vue'
-
-import type { NuxtLinkProps } from '#app'
 
 import type { BoxProps } from '../box/box.vue'
 
