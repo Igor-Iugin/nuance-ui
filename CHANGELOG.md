@@ -1,6 +1,43 @@
 # Changelog
 
 
+## v0.5.0
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.27...v0.5.0)
+
+### 🚀 Enhancements
+
+- **utils:** Added BUTTON_SIZE_TOKENS with compact and input rows ([f64d9f4](https://github.com/Igor-Iugin/nuance-ui/commit/f64d9f4))
+- **button:** Added input size row, square/block modes and addon section styles ([59337b5](https://github.com/Igor-Iugin/nuance-ui/commit/59337b5))
+- **button:** Added ButtonSection addon component ([79701fa](https://github.com/Igor-Iugin/nuance-ui/commit/79701fa))
+- **button:** Added ButtonBase element resolver ([0378555](https://github.com/Igor-Iugin/nuance-ui/commit/0378555))
+- **button:** Added square, block, iconSize, disabled and link support ([e7ea11f](https://github.com/Igor-Iugin/nuance-ui/commit/e7ea11f))
+- **NavLink:** Fix styles ([bce873e](https://github.com/Igor-Iugin/nuance-ui/commit/bce873e))
+
+### 🩹 Fixes
+
+- Fixed all ts errors ([6edf8b1](https://github.com/Igor-Iugin/nuance-ui/commit/6edf8b1))
+- **Button:** Addon sizes now stripped to css vars ([5430155](https://github.com/Igor-Iugin/nuance-ui/commit/5430155))
+
+### 💅 Refactors
+
+- **components:** Migrated ActionIcon call sites to Button square ([cf56bce](https://github.com/Igor-Iugin/nuance-ui/commit/cf56bce))
+- **components:** Replaced ActionIconProps with ButtonProps ([b5ea8e7](https://github.com/Igor-Iugin/nuance-ui/commit/b5ea8e7))
+- **button:** ⚠️  Removed ActionIcon, LinkButton and NavIconLink ([e298439](https://github.com/Igor-Iugin/nuance-ui/commit/e298439))
+
+### 🏡 Chore
+
+- **build:** Added `@nuxt/image` ([c01168a](https://github.com/Igor-Iugin/nuance-ui/commit/c01168a))
+- **playground:** Merged action-icon page into button page ([e9cde69](https://github.com/Igor-Iugin/nuance-ui/commit/e9cde69))
+
+#### ⚠️ Breaking Changes
+
+- **button:** ⚠️  Removed ActionIcon, LinkButton and NavIconLink ([e298439](https://github.com/Igor-Iugin/nuance-ui/commit/e298439))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.4.27
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.26...v0.4.27)
