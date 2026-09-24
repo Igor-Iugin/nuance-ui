@@ -1,3 +1,4 @@
+export type * from './button-base.vue'
 export type * from './button-group.vue'
 export type * from './button-section.vue'
 export type * from './button.vue'
