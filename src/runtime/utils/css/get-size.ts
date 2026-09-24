@@ -3,8 +3,9 @@ import { rem } from './rem'
 
 
 const SIZE_TOKENS = new Set(['xs', 'sm', 'md', 'lg', 'xl'])
+const TITLE_TOKENS = new Set(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
 const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2sm', '2xl'])
-const FONT_SIZE_TOKENS = new Set([...SIZE_TOKENS, '2sm'])
+const FONT_SIZE_TOKENS = new Set([...SIZE_TOKENS, ...TITLE_TOKENS, '2sm'])
 
 export type SizeValue = string | number | undefined | null
 
