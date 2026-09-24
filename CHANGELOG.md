@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.5.1
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.0...v0.5.1)
+
+### 🩹 Fixes
+
+- **Button:** Replace `#app` -> `nuxt/app` ([3337b99](https://github.com/Igor-Iugin/nuance-ui/commit/3337b99))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.27...v0.5.0)
