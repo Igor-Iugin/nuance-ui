@@ -12,8 +12,6 @@ import type {
 import type { NuxtLinkProps } from 'nuxt/app'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
-import type { BoxProps } from '../box/box.vue'
-
 
 export type ButtonClasses = 'root' | 'inner' | 'label' | 'section' | 'icon'
 
@@ -43,7 +41,9 @@ interface ButtonVars {
 	rightSection: '--section-pointer-events'
 }
 
-export interface ButtonProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
+export interface ButtonProps
+	extends Omit<ButtonBaseProps, 'rel' | 'href' | 'target' | 'navigate'>,
+	Omit<NuxtLinkProps, 'href' | 'custom'> {
 	label?: string
 
 	/** Color from theme */
@@ -125,7 +125,8 @@ import { BUTTON_SIZE_TOKENS, getBaseSize, getFontSize, getRadius, getSize, getSp
 import { createReusableTemplate } from '@vueuse/core'
 import { computed } from 'vue'
 
-import { extractStyleProps } from '../box'
+import type { ButtonBaseProps } from './button-base.vue'
+
 import { pickLinkProps } from '../link/lib'
 import Loader from '../loader/loader.vue'
 import ButtonBase from './button-base.vue'
@@ -226,7 +227,7 @@ const sectionStyle = useVarsResolver<Omit<ButtonVars, 'root'>>(() => ({
 			:rel
 			:target
 			:disabled='disabled || loading'
-			v-bind='extractStyleProps(rest).styles'
+			v-bind='rest'
 			:mod='[{
 				"with-left-section": !!$slots.leftSection || !!icon,
 				"with-right-section": !!$slots.rightSection || !!trailingIcon,

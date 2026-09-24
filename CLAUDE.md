@@ -30,4 +30,5 @@ Single-context layout — `CONTEXT.md` + `docs/adr/` at the repo root. See `docs
 
 - All imports must be relative
 - If you try to find component from `playground` in `runtime`, remove prefix `N` from component name
+- replace imports from `#app` -> `nuxt/app`
 
