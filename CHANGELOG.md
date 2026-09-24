@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.4.27
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.26...v0.4.27)
+
+### 🚀 Enhancements
+
+- **ai:** Removed Graphify ([504283b](https://github.com/Igor-Iugin/nuance-ui/commit/504283b))
+
+### 🩹 Fixes
+
+- **utils:** Added title tokens to getSize ([a05b99f](https://github.com/Igor-Iugin/nuance-ui/commit/a05b99f))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.4.26
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.4.25...v0.4.26)
