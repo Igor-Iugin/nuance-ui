@@ -2,7 +2,7 @@
 import type { AnyString, NuanceColor, NuanceGradient, NuanceRadius, NuanceSize } from '@nui/types'
 
 import { useConfig, useVarsResolver } from '@nui/composables'
-import { BUTTON_SIZE_TOKENS, getFontSize, getRadius, getSize } from '@nui/utils'
+import { BUTTON_SIZE_TOKENS, getBaseSize, getFontSize, getRadius, getSize } from '@nui/utils'
 
 import type { BoxProps } from '../box/box.vue'
 import type { ButtonVariant } from './button.vue'
@@ -59,11 +59,15 @@ const style = useVarsResolver<ButtonSectionVars>(theme => {
 		gradient,
 	})
 
+	// Addon only defines plain and `input-*` heights, and plain paddings/font sizes
+	const baseSize = getBaseSize(size)
+	const heightSize = typeof size === 'string' && size.startsWith('input-') ? size : baseSize
+
 	return {
 		root: {
-			'--addon-height': getSize(size, 'addon-height', BUTTON_SIZE_TOKENS),
-			'--addon-padding-x': getSize(size, 'addon-padding-x', BUTTON_SIZE_TOKENS),
-			'--addon-fz': getFontSize(size),
+			'--addon-height': getSize(heightSize, 'addon-height', BUTTON_SIZE_TOKENS),
+			'--addon-padding-x': getSize(baseSize, 'addon-padding-x', BUTTON_SIZE_TOKENS),
+			'--addon-fz': getFontSize(baseSize),
 			'--addon-radius': radius === undefined ? undefined : getRadius(radius),
 			'--addon-bg': background,
 			'--addon-color': text,

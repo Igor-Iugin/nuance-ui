@@ -7,6 +7,7 @@ import type {
 	NuanceRadius,
 	NuanceSize,
 	NuanceSpacing,
+	TransformVars,
 } from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
@@ -15,7 +16,7 @@ import type { NuxtLinkProps } from '#app'
 import type { BoxProps } from '../box/box.vue'
 
 
-export type ButtonClasses = 'root' | 'inner' | 'label' | 'section'
+export type ButtonClasses = 'root' | 'inner' | 'label' | 'section' | 'icon'
 
 export type ButtonVariant
 	= 'filled'
@@ -120,10 +121,10 @@ export interface ButtonProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'cus
 </script>
 
 <script lang='ts' setup>
-import { useConfig, useVarsResolver } from '@nui/composables'
-import { BUTTON_SIZE_TOKENS, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { useConfig, useTheme, useVarsResolver } from '@nui/composables'
+import { BUTTON_SIZE_TOKENS, getBaseSize, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
 import { createReusableTemplate } from '@vueuse/core'
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
 import { extractStyleProps } from '../box'
 import { pickLinkProps } from '../link/lib'
@@ -158,12 +159,16 @@ const {
 
 const { variantResolver, activeVariants } = useConfig()
 
-const resolvedVariant = computed<ButtonVariant>(() => active
-	? (activeVariant ?? activeVariants[variant] as ButtonVariant)
-	: variant)
+/** `isActive` comes from `NuxtLink` and only counts in `current` mode */
+function isActiveState(isActive = false) {
+	return activeMode === 'current' ? (active || isActive) : !!active
+}
 
-const slots = useSlots()
-const isSquare = computed(() => square ?? (!label && !slots.default))
+function resolvedVariant(isActive = false): ButtonVariant {
+	return isActiveState(isActive)
+		? (activeVariant ?? activeVariants[variant] as ButtonVariant)
+		: variant
+}
 
 const [DefineTemplate, ButtonTemplate] = createReusableTemplate<{
 	href?: string | null
@@ -178,37 +183,39 @@ const [DefineTemplate, ButtonTemplate] = createReusableTemplate<{
 const { link, rest } = pickLinkProps(props)
 const isLink = computed(() => !!link.to)
 
-const style = useVarsResolver<ButtonVars>(theme => {
+const theme = useTheme()
+
+function rootStyle(isActive = false): TransformVars<ButtonVars>['root'] {
 	const { background, border, hover, text } = variantResolver({
-		theme,
-		variant: resolvedVariant.value,
-		color: active ? activeColor : props.color,
+		theme: theme.value,
+		variant: resolvedVariant(isActive),
+		color: isActiveState(isActive) ? activeColor : props.color,
 		gradient: props.gradient,
 	})
 
 	return {
-		root: {
-			'--button-justify': props.justify,
-			'--button-height': getSize(props.size, 'button-height', BUTTON_SIZE_TOKENS),
-			'--button-padding-x': getSize(props.size, 'button-padding-x', BUTTON_SIZE_TOKENS),
-			'--button-fz': getFontSize(props.size?.replace(/^(compact|input)-/, '')),
-			'--button-bg': background,
-			'--button-hover': hover,
-			'--button-color': text,
-			'--button-bd': border,
-			'--button-radius': getRadius(props.radius),
-			'--button-spacing': getSpacing(props.spacing),
-			'--button-icon-size': getSize(iconSize),
-		},
-		leftSection: {
-			'--section-pointer-events': leftSectionPE,
-		},
-		rightSection: {
-			'--section-pointer-events': rightSectionPE,
-		},
+		'--button-justify': props.justify,
+		'--button-height': getSize(props.size, 'button-height', BUTTON_SIZE_TOKENS),
+		'--button-padding-x': getSize(props.size, 'button-padding-x', BUTTON_SIZE_TOKENS),
+		'--button-fz': getFontSize(getBaseSize(props.size)),
+		'--button-bg': background,
+		'--button-hover': hover,
+		'--button-color': text,
+		'--button-bd': border,
+		'--button-radius': getRadius(props.radius),
+		'--button-spacing': getSpacing(props.spacing),
+		'--button-icon-size': getSize(iconSize),
 	}
-})
+}
 
+const sectionStyle = useVarsResolver<Omit<ButtonVars, 'root'>>(() => ({
+	leftSection: {
+		'--section-pointer-events': leftSectionPE,
+	},
+	rightSection: {
+		'--section-pointer-events': rightSectionPE,
+	},
+}))
 </script>
 
 <template>
@@ -221,20 +228,20 @@ const style = useVarsResolver<ButtonVars>(theme => {
 			:target
 			:disabled='disabled || loading'
 			v-bind='extractStyleProps(rest).styles'
-			:mod='[mod, {
+			:mod='[{
 				"with-left-section": !!$slots.leftSection || !!icon,
 				"with-right-section": !!$slots.rightSection || !!trailingIcon,
 				loading,
 				disabled,
-				"square": isSquare,
+				"square": square ?? (!label && !$slots.default),
 				block,
-				"active": activeMode === "current" ? (active || isActive) : active,
-				"variant": resolvedVariant,
-			}]'
-			:style='style.root'
+				"active": isActiveState(isActive),
+				"variant": resolvedVariant(isActive),
+			}, mod]'
+			:style='rootStyle(isActive)'
 			:class='[css.root, classes?.root]'
 			:aria-pressed='activeMode === "pressed" ? active : undefined'
-			:aria-current='(activeMode === "current" && (active || isActive)) ? "page" : undefined'
+			:aria-current='activeMode === "current" && isActiveState(isActive) ? "page" : undefined'
 			:on-click='onClick'
 		>
 			<Transition name='fade-down'>
@@ -252,10 +259,14 @@ const style = useVarsResolver<ButtonVars>(theme => {
 					:class='[css.section, classes?.section]'
 					data-position='left'
 					v-bind='leftSectionProps'
-					:style='style.leftSection'
+					:style='sectionStyle.leftSection'
 				>
 					<slot name='leftSection'>
-						<Icon v-if='icon' :name='icon' />
+						<Icon
+							v-if='icon'
+							:name='icon'
+							:class='[css.icon, classes?.icon]'
+						/>
 					</slot>
 				</span>
 
@@ -270,10 +281,14 @@ const style = useVarsResolver<ButtonVars>(theme => {
 					data-position='right'
 					:class='[css.section, classes?.section]'
 					v-bind='rightSectionProps'
-					:style='style.rightSection'
+					:style='sectionStyle.rightSection'
 				>
 					<slot name='rightSection'>
-						<Icon v-if='trailingIcon' :name='trailingIcon' />
+						<Icon
+							v-if='trailingIcon'
+							:name='trailingIcon'
+							:class='[css.icon, classes?.icon]'
+						/>
 					</slot>
 				</span>
 			</span>

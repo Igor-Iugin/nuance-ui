@@ -1,7 +1,29 @@
 <script setup lang='ts'>
-const variants = ['default', 'filled', 'light', 'outline', 'subtle', 'gradient', 'gradient-outline'] as const
-const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
-const inputSizes = ['input-xs', 'input-sm', 'input-md', 'input-lg', 'input-xl'] as const
+const variants = [
+	'default',
+	'filled',
+	'light',
+	'outline',
+	'subtle',
+	'gradient',
+	'gradient-outline',
+] as const
+
+const sizes = [
+	'xs',
+	'sm',
+	'md',
+	'lg',
+	'xl',
+] as const
+
+const inputSizes = [
+	'input-xs',
+	'input-sm',
+	'input-md',
+	'input-lg',
+	'input-xl',
+] as const
 </script>
 
 <template>
@@ -164,6 +186,7 @@ const inputSizes = ['input-xs', 'input-sm', 'input-md', 'input-lg', 'input-xl'] 
 	flex-direction: column;
 	gap: 2rem;
 	align-items: flex-start;
+
 	padding: 1rem;
 }
 
@@ -172,6 +195,7 @@ const inputSizes = ['input-xs', 'input-sm', 'input-md', 'input-lg', 'input-xl'] 
 	flex-wrap: wrap;
 	gap: 1rem;
 	align-items: center;
+
 	margin-bottom: 0.75rem;
 }
 

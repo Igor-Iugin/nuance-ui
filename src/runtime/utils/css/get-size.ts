@@ -18,6 +18,11 @@ export const BUTTON_SIZE_TOKENS: Set<string> = new Set([
 
 export type SizeValue = string | number | undefined | null
 
+/** Strips the `compact-`/`input-` prefix from a button size token */
+export function getBaseSize<T extends SizeValue>(size: T): T {
+	return (typeof size === 'string' ? size.replace(/^(?:compact|input)-/, '') : size) as T
+}
+
 /**
  * Resolves a size token to a CSS value.
  *

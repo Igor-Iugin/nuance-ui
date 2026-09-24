@@ -72,6 +72,7 @@
 	border: var(--button-bd, rem(1px) solid transparent);
 	border-radius: var(--button-radius);
 	transition: background-color 200ms ease-in, color 200ms ease-in;
+	text-decoration: none;
 
 	&:where([data-with-left-section]) {
 		padding-inline-start: 0;
@@ -161,10 +162,6 @@
 		& .label {
 			flex: none;
 		}
-
-		& .section {
-			width: auto;
-		}
 	}
 
 	&:where([data-block]) {
@@ -215,11 +212,12 @@
 	justify-content: center;
 	width: var(--button-section-size);
 	height: 100%;
+}
 
-	& > :where(svg) {
-		width: var(--button-icon-size);
-		height: var(--button-icon-size);
-	}
+.icon {
+	display: block;
+	width: var(--button-icon-size);
+	height: var(--button-icon-size);
 }
 
 .loader {
