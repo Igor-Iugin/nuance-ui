@@ -29,10 +29,12 @@ const {
 	noWrap,
 	description,
 	mod,
-	variant = 'filled',
+	variant = 'default',
+	activeVariant,
 	color,
+	activeColor,
 	size = 'sm',
-	radius = 'xs',
+	radius,
 	...rest
 } = defineProps<NavLinkProps>()
 </script>
@@ -42,10 +44,11 @@ const {
 		v-bind='rest'
 		:size
 		:radius
-		variant='subtle'
-		:active-variant='variant'
-		:active-color='color'
 		:active
+		:variant
+		:active-variant
+		:color
+		:active-color
 		active-mode='current'
 		:classes='{ root: $style.root, label: $style.label }'
 		:mod='[{ "no-wrap": noWrap }, mod]'
@@ -54,9 +57,8 @@ const {
 			<slot name='leftSection' />
 		</template>
 
-		<span :class='$style.title'>
-			<slot />
-		</span>
+		<slot />
+
 		<Box :class='$style.description'>
 			<slot name='description'>
 				{{ description }}
@@ -73,18 +75,19 @@ const {
 .root {
 	width: 100%;
 
+	height: calc(var(--button-height) + .25rem);
+
 	&:where([data-active]) .description {
-		--description-opacity: 0.9;
+		--description-opacity: 0.8;
 	}
 
-	&:where(&[data-variant='outline']) {
-		border: 2px solid transparent;
-		border-left: var(--button-bd);
-		border-left-width: rem(2px);
+	&:where([data-variant='filled']) {
+		--description-color: var(--color-body);
 	}
 }
 
 .label {
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -92,15 +95,12 @@ const {
 
 	font-size: var(--font-size-md);
 
-	text-align: left;
-	text-decoration: none;
-	white-space: normal;
-}
+	font-weight: 600;
 
-.title {
-	overflow: hidden;
+	text-align: left;
 
 	text-overflow: ellipsis;
+	white-space: normal;
 
 	:where([data-no-wrap]) & {
 		white-space: nowrap;
@@ -109,6 +109,8 @@ const {
 
 .description {
 	overflow: hidden;
+
+	margin-top: .2em;
 
 	font-size: var(--font-size-2sm);
 	color: var(--description-color, var(--color-dimmed));
