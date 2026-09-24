@@ -11,6 +11,12 @@
 	--button-height-compact-lg: rem(34px);
 	--button-height-compact-xl: rem(40px);
 
+	--button-height-input-xs: rem(30px);
+	--button-height-input-sm: rem(36px);
+	--button-height-input-md: rem(42px);
+	--button-height-input-lg: rem(50px);
+	--button-height-input-xl: rem(60px);
+
 	--button-padding-x-xs: rem(14px);
 	--button-padding-x-sm: rem(18px);
 	--button-padding-x-md: rem(22px);
@@ -23,6 +29,12 @@
 	--button-padding-x-compact-lg: rem(12px);
 	--button-padding-x-compact-xl: rem(14px);
 
+	--button-padding-x-input-xs: rem(8px);
+	--button-padding-x-input-sm: rem(10px);
+	--button-padding-x-input-md: rem(12px);
+	--button-padding-x-input-lg: rem(16px);
+	--button-padding-x-input-xl: rem(20px);
+
 	--button-height: var(--button-height-sm);
 	--button-padding-x: var(--button-padding-x-sm);
 	--button-color: var(--color-white);
@@ -32,6 +44,7 @@
 	--button-hover: var(--color-primary-filled-hover);
 	--button-spacing: 0;
 	--button-justify: center;
+	--button-icon-size: 70%;
 
 	--button-section-size: calc(var(--button-height) - .25rem);
 
@@ -73,7 +86,7 @@
 		background-clip: padding-box, border-box;
 	}
 
-	&:where(:disabled:not([data-loading])) {
+	&:where(:disabled:not([data-loading]), [data-disabled]:not([data-loading])) {
 		cursor: not-allowed;
 
 		transform: none;
@@ -130,7 +143,7 @@
 		}
 	}
 
-	&:hover:where(:not([data-loading], :disabled)) {
+	&:hover:where(:not([data-loading], :disabled, [data-disabled])) {
 		color: var(--button-color);
 
 		background: var(--button-hover);
@@ -138,6 +151,25 @@
 		&:where([data-variant='gradient-outline']) {
 			color: white;
 		}
+	}
+
+	&:where([data-square]) {
+		width: var(--button-height);
+		min-width: var(--button-height);
+		padding-inline: 0;
+
+		& .label {
+			flex: none;
+		}
+
+		& .section {
+			width: auto;
+		}
+	}
+
+	&:where([data-block]) {
+		display: block;
+		width: 100%;
 	}
 }
 
@@ -183,6 +215,11 @@
 	justify-content: center;
 	width: var(--button-section-size);
 	height: 100%;
+
+	& > :where(svg) {
+		width: var(--button-icon-size);
+		height: var(--button-icon-size);
+	}
 }
 
 .loader {
@@ -242,4 +279,47 @@
 			}
 		}
 	}
+}
+
+/* ─── ADDON SECTION ─── */
+.addon {
+	--addon-height-xs: rem(26px);
+	--addon-height-sm: rem(30px);
+	--addon-height-md: rem(36px);
+	--addon-height-lg: rem(42px);
+	--addon-height-xl: rem(50px);
+
+	--addon-height-input-xs: rem(30px);
+	--addon-height-input-sm: rem(36px);
+	--addon-height-input-md: rem(42px);
+	--addon-height-input-lg: rem(50px);
+	--addon-height-input-xl: rem(60px);
+
+	--addon-padding-x-xs: rem(6px);
+	--addon-padding-x-sm: rem(8px);
+	--addon-padding-x-md: rem(10px);
+	--addon-padding-x-lg: rem(12px);
+	--addon-padding-x-xl: rem(16px);
+
+	--addon-height: var(--addon-height-sm);
+	--addon-padding-x: var(--addon-padding-x-sm);
+	--addon-color: var(--color-white);
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	width: auto;
+	height: var(--addon-height);
+	padding-inline: var(--addon-padding-x);
+
+	font-size: var(--addon-fz, var(--font-size-md));
+	font-weight: 600;
+	line-height: 1;
+	color: var(--addon-color);
+	vertical-align: middle;
+
+	background: var(--addon-bg, var(--color-primary-filled));
+	border: var(--addon-bd, rem(1px) solid transparent);
+	border-radius: var(--addon-radius, var(--radius-default));
 }
