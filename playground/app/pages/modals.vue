@@ -104,7 +104,8 @@ const innerOpen = ref(false)
 
 <template>
 	<div :style='{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)", maxWidth: "400px" }'>
-		<NActionIcon
+		<NButton
+			square
 			@click='openHistoryBox({ data: historyData })'
 		/>
 

@@ -122,6 +122,7 @@ export interface ButtonProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'cus
 <script lang='ts' setup>
 import { useConfig, useVarsResolver } from '@nui/composables'
 import { BUTTON_SIZE_TOKENS, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { createReusableTemplate } from '@vueuse/core'
 import { computed, useSlots } from 'vue'
 
 import { extractStyleProps } from '../box'
@@ -162,10 +163,15 @@ const resolvedVariant = computed<ButtonVariant>(() => active
 	: variant)
 
 const slots = useSlots()
-
-// ─── SHAPE ───
-
 const isSquare = computed(() => square ?? (!label && !slots.default))
+
+const [DefineTemplate, ButtonTemplate] = createReusableTemplate<{
+	href?: string | null
+	navigate?: (event: MouseEvent) => void
+	rel?: string | null
+	target?: string | null
+	isActive?: boolean
+}>()
 
 // ─── LINK ───
 
@@ -202,26 +208,22 @@ const style = useVarsResolver<ButtonVars>(theme => {
 		},
 	}
 })
+
 </script>
 
 <template>
-	<NuxtLink
-		v-if='isLink'
-		v-slot='{ href, navigate, isActive, ...linkProps }'
-		v-bind='link'
-		custom
-	>
+	<DefineTemplate v-slot='{ href, navigate, rel, target, isActive }'>
 		<ButtonBase
 			:is
 			:href
 			:navigate
-			:rel='"rel" in linkProps ? linkProps.rel : undefined'
-			:target='"target" in linkProps ? linkProps.target : undefined'
-			:disabled
+			:rel
+			:target
+			:disabled='disabled || loading'
 			v-bind='extractStyleProps(rest).styles'
 			:mod='[mod, {
-				"with-left-section": !!$slots?.leftSection || !!icon,
-				"with-right-section": !!$slots?.rightSection || !!trailingIcon,
+				"with-left-section": !!$slots.leftSection || !!icon,
+				"with-right-section": !!$slots.rightSection || !!trailingIcon,
 				loading,
 				disabled,
 				"square": isSquare,
@@ -236,7 +238,12 @@ const style = useVarsResolver<ButtonVars>(theme => {
 			:on-click='onClick'
 		>
 			<Transition name='fade-down'>
-				<Loader v-show='loading' :class='css.loader' :color='props.color' :size='props.size' />
+				<Loader
+					v-show='loading'
+					:class='css.loader'
+					:color='props.color'
+					:size='props.size'
+				/>
 			</Transition>
 
 			<span :class='[css.inner, classes?.inner]'>
@@ -271,63 +278,22 @@ const style = useVarsResolver<ButtonVars>(theme => {
 				</span>
 			</span>
 		</ButtonBase>
+	</DefineTemplate>
+
+	<NuxtLink
+		v-if='isLink'
+		v-slot='{ href, navigate, isActive, ...linkProps }'
+		v-bind='link'
+		custom
+	>
+		<ButtonTemplate
+			:href
+			:navigate
+			:is-active
+			:rel='"rel" in linkProps ? linkProps.rel : undefined'
+			:target='"target" in linkProps ? linkProps.target : undefined'
+		/>
 	</NuxtLink>
 
-	<ButtonBase
-		:is
-		v-else
-		:disabled='disabled || loading'
-		v-bind='extractStyleProps(rest).styles'
-		:mod='[mod, {
-			"with-left-section": !!$slots?.leftSection || !!icon,
-			"with-right-section": !!$slots?.rightSection || !!trailingIcon,
-			loading,
-			disabled,
-			"square": isSquare,
-			block,
-			active,
-			"variant": resolvedVariant,
-		}]'
-		:style='style.root'
-		:class='[css.root, classes?.root]'
-		:aria-pressed='activeMode === "pressed" ? active : undefined'
-		:aria-current='active && activeMode === "current" ? "page" : undefined'
-		:on-click='onClick'
-	>
-		<Transition name='fade-down'>
-			<Loader v-show='loading' :class='css.loader' :color='props.color' :size='props.size' />
-		</Transition>
-
-		<span :class='[css.inner, classes?.inner]'>
-			<span
-				v-if='$slots.leftSection || icon'
-				:class='[css.section, classes?.section]'
-				data-position='left'
-				v-bind='leftSectionProps'
-				:style='style.leftSection'
-			>
-				<slot name='leftSection'>
-					<Icon v-if='icon' :name='icon' />
-				</slot>
-			</span>
-
-			<span :class='[css.label, classes?.label]'>
-				<slot>
-					{{ label }}
-				</slot>
-			</span>
-
-			<span
-				v-if='$slots.rightSection || trailingIcon'
-				data-position='right'
-				:class='[css.section, classes?.section]'
-				v-bind='rightSectionProps'
-				:style='style.rightSection'
-			>
-				<slot name='rightSection'>
-					<Icon v-if='trailingIcon' :name='trailingIcon' />
-				</slot>
-			</span>
-		</span>
-	</ButtonBase>
+	<ButtonTemplate v-else />
 </template>

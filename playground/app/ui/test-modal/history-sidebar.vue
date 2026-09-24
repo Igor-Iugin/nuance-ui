@@ -28,16 +28,18 @@ const { opened } = useModal('map-history')
 			<NModalTitle order='3' fz='1rem' fw='600'>
 				История
 			</NModalTitle>
-			<NActionIconGroup>
-				<NActionIcon
+			<NButtonGroup>
+				<NButton
+					square
 					icon='lucide:undo-2'
 					size='sm'
 				/>
-				<NActionIcon
+				<NButton
+					square
 					icon='lucide:redo-2'
 					size='sm'
 				/>
-			</NActionIconGroup>
+			</NButtonGroup>
 			<NModalCloseButton />
 		</NModalHeader>
 

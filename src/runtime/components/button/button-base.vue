@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { computed } from 'vue'
+
 import type { BoxProps } from '../box/box.vue'
 
 import Box from '../box/box.vue'
@@ -38,12 +40,8 @@ const {
 	...props
 } = defineProps<ButtonBaseProps>()
 
-// ─── ELEMENT ───
-
-const element = is ?? (href ? 'a' : 'button')
-const isAnchor = element === 'a'
-
-// ─── CLICK ───
+const element = computed(() => is ?? (href ? 'a' : 'button'))
+const isAnchor = computed(() => element.value === 'a')
 
 function handleClick(event: MouseEvent) {
 	if (disabled) {

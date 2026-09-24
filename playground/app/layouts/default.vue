@@ -36,9 +36,6 @@ useHead({
 			<NNavLink to='/inputs'>
 				Inputs
 			</NNavLink>
-			<NNavLink to='/action-icon'>
-				Action Icon
-			</NNavLink>
 			<NNavLink to='/alert'>
 				Alert
 			</NNavLink>
