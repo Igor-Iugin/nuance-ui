@@ -7,6 +7,15 @@ const TITLE_TOKENS = new Set(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
 const SPACING_TOKENS = new Set([...SIZE_TOKENS, '2xs', '2sm', '2xl'])
 const FONT_SIZE_TOKENS = new Set([...SIZE_TOKENS, ...TITLE_TOKENS, '2sm'])
 
+const BUTTON_SIZE_SUFFIXES = ['xs', 'sm', 'md', 'lg', 'xl'] as const
+
+/** Size tokens accepted by `Button`: plain, `compact-*` and `input-*` rows. */
+export const BUTTON_SIZE_TOKENS: Set<string> = new Set([
+	...BUTTON_SIZE_SUFFIXES,
+	...BUTTON_SIZE_SUFFIXES.map(size => `compact-${size}`),
+	...BUTTON_SIZE_SUFFIXES.map(size => `input-${size}`),
+])
+
 export type SizeValue = string | number | undefined | null
 
 /**
