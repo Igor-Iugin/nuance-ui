@@ -10,6 +10,8 @@ import type {
 } from '@nui/types'
 import type { CSSProperties, HTMLAttributes } from 'vue'
 
+import type { NuxtLinkProps } from '#app'
+
 import type { BoxProps } from '../box/box.vue'
 
 
@@ -36,18 +38,19 @@ interface ButtonVars {
 		| '--button-color'
 		| '--button-bd'
 		| '--button-spacing'
+		| '--button-icon-size'
 	leftSection: '--section-pointer-events'
 	rightSection: '--section-pointer-events'
 }
 
-export interface ButtonProps extends BoxProps {
+export interface ButtonProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'custom'> {
 	label?: string
 
 	/** Color from theme */
 	color?: NuanceColor
 
 	/** Component size @default 'sm' */
-	size?: NuanceSize | `compact-${NuanceSize}`
+	size?: NuanceSize | `compact-${NuanceSize}` | `input-${NuanceSize}` | AnyString
 
 	/** Spacing token */
 	spacing?: NuanceSpacing | AnyString
@@ -97,6 +100,18 @@ export interface ButtonProps extends BoxProps {
 	/** Color applied when `active` @default 'primary' */
 	activeColor?: NuanceColor
 
+	/** Renders the button as a square — width equals height, horizontal padding removed */
+	square?: boolean
+
+	/** Stretches the button to the full width of its container */
+	block?: boolean
+
+	/** Icon size — `%` stays relative to the button, other values resolve via size tokens @default '70%' */
+	iconSize?: number | string
+
+	/** Disables the component */
+	disabled?: boolean
+
 	/** Styles API */
 	classes?: Classes<ButtonClasses>
 
@@ -106,24 +121,29 @@ export interface ButtonProps extends BoxProps {
 
 <script lang='ts' setup>
 import { useConfig, useVarsResolver } from '@nui/composables'
-import { getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
-import { computed } from 'vue'
+import { BUTTON_SIZE_TOKENS, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
+import { computed, useSlots } from 'vue'
 
 import { extractStyleProps } from '../box'
-import Box from '../box/box.vue'
+import { pickLinkProps } from '../link/lib'
 import Loader from '../loader/loader.vue'
+import ButtonBase from './button-base.vue'
 import css from './button.module.css'
 
 
 const {
-	is = 'button',
+	is,
 	variant = 'default',
 	leftSectionPE = 'none',
 	rightSectionPE = 'all',
 	mod,
 	icon,
+	iconSize,
 	trailingIcon,
 	loading,
+	disabled,
+	square,
+	block,
 	classes,
 	rightSectionProps,
 	active,
@@ -141,6 +161,17 @@ const resolvedVariant = computed<ButtonVariant>(() => active
 	? (activeVariant ?? activeVariants[variant] as ButtonVariant)
 	: variant)
 
+const slots = useSlots()
+
+// ─── SHAPE ───
+
+const isSquare = computed(() => square ?? (!label && !slots.default))
+
+// ─── LINK ───
+
+const { link, rest } = pickLinkProps(props)
+const isLink = computed(() => !!link.to)
+
 const style = useVarsResolver<ButtonVars>(theme => {
 	const { background, border, hover, text } = variantResolver({
 		theme,
@@ -152,17 +183,16 @@ const style = useVarsResolver<ButtonVars>(theme => {
 	return {
 		root: {
 			'--button-justify': props.justify,
-			'--button-height': getSize(props.size, 'button-height'),
-			'--button-padding-x': getSize(props.size, 'button-padding-x'),
-			'--button-fz': props.size?.includes('compact')
-				? getFontSize(props.size.replace('compact-', ''))
-				: getFontSize(props.size),
+			'--button-height': getSize(props.size, 'button-height', BUTTON_SIZE_TOKENS),
+			'--button-padding-x': getSize(props.size, 'button-padding-x', BUTTON_SIZE_TOKENS),
+			'--button-fz': getFontSize(props.size?.replace(/^(compact|input)-/, '')),
 			'--button-bg': background,
 			'--button-hover': hover,
 			'--button-color': text,
 			'--button-bd': border,
 			'--button-radius': getRadius(props.radius),
 			'--button-spacing': getSpacing(props.spacing),
+			'--button-icon-size': getSize(iconSize),
 		},
 		leftSection: {
 			'--section-pointer-events': leftSectionPE,
@@ -175,26 +205,97 @@ const style = useVarsResolver<ButtonVars>(theme => {
 </script>
 
 <template>
-	<Box
+	<NuxtLink
+		v-if='isLink'
+		v-slot='{ href, navigate, isActive, ...linkProps }'
+		v-bind='link'
+		custom
+	>
+		<ButtonBase
+			:is
+			:href
+			:navigate
+			:rel='"rel" in linkProps ? linkProps.rel : undefined'
+			:target='"target" in linkProps ? linkProps.target : undefined'
+			:disabled
+			v-bind='extractStyleProps(rest).styles'
+			:mod='[mod, {
+				"with-left-section": !!$slots?.leftSection || !!icon,
+				"with-right-section": !!$slots?.rightSection || !!trailingIcon,
+				loading,
+				disabled,
+				"square": isSquare,
+				block,
+				"active": activeMode === "current" ? (active || isActive) : active,
+				"variant": resolvedVariant,
+			}]'
+			:style='style.root'
+			:class='[css.root, classes?.root]'
+			:aria-pressed='activeMode === "pressed" ? active : undefined'
+			:aria-current='(activeMode === "current" && (active || isActive)) ? "page" : undefined'
+			:on-click='onClick'
+		>
+			<Transition name='fade-down'>
+				<Loader v-show='loading' :class='css.loader' :color='props.color' :size='props.size' />
+			</Transition>
+
+			<span :class='[css.inner, classes?.inner]'>
+				<span
+					v-if='$slots.leftSection || icon'
+					:class='[css.section, classes?.section]'
+					data-position='left'
+					v-bind='leftSectionProps'
+					:style='style.leftSection'
+				>
+					<slot name='leftSection'>
+						<Icon v-if='icon' :name='icon' />
+					</slot>
+				</span>
+
+				<span :class='[css.label, classes?.label]'>
+					<slot>
+						{{ label }}
+					</slot>
+				</span>
+
+				<span
+					v-if='$slots.rightSection || trailingIcon'
+					data-position='right'
+					:class='[css.section, classes?.section]'
+					v-bind='rightSectionProps'
+					:style='style.rightSection'
+				>
+					<slot name='rightSection'>
+						<Icon v-if='trailingIcon' :name='trailingIcon' />
+					</slot>
+				</span>
+			</span>
+		</ButtonBase>
+	</NuxtLink>
+
+	<ButtonBase
 		:is
-		type='button'
-		v-bind='extractStyleProps(props).styles'
+		v-else
+		:disabled='disabled || loading'
+		v-bind='extractStyleProps(rest).styles'
 		:mod='[mod, {
 			"with-left-section": !!$slots?.leftSection || !!icon,
 			"with-right-section": !!$slots?.rightSection || !!trailingIcon,
 			loading,
+			disabled,
+			"square": isSquare,
+			block,
 			active,
 			"variant": resolvedVariant,
 		}]'
 		:style='style.root'
 		:class='[css.root, classes?.root]'
-		:disabled='loading'
 		:aria-pressed='activeMode === "pressed" ? active : undefined'
 		:aria-current='active && activeMode === "current" ? "page" : undefined'
-		@click='onClick'
+		:on-click='onClick'
 	>
 		<Transition name='fade-down'>
-			<Loader v-show='loading' :class='css.loader' :color :size />
+			<Loader v-show='loading' :class='css.loader' :color='props.color' :size='props.size' />
 		</Transition>
 
 		<span :class='[css.inner, classes?.inner]'>
@@ -228,5 +329,5 @@ const style = useVarsResolver<ButtonVars>(theme => {
 				</slot>
 			</span>
 		</span>
-	</Box>
+	</ButtonBase>
 </template>

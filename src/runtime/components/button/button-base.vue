@@ -6,7 +6,7 @@ import Box from '../box/box.vue'
 
 export interface ButtonBaseProps extends BoxProps {
 	/** Resolved link href — renders an `a` element when set and `is` is not overridden */
-	href?: string
+	href?: string | null
 
 	/** Link target attribute */
 	target?: string | null
@@ -66,7 +66,7 @@ function handleClick(event: MouseEvent) {
 	<Box
 		:is='element'
 		v-bind='props'
-		:href='isAnchor ? href : undefined'
+		:href='isAnchor ? href ?? undefined : undefined'
 		:target='isAnchor ? target ?? undefined : undefined'
 		:rel='isAnchor ? rel ?? undefined : undefined'
 		:type='isAnchor ? undefined : type'
