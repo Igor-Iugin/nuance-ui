@@ -1,4 +1,4 @@
-/** Variant an ActionIcon switches to when `active`, keyed by its base variant. */
+/** Variant a Button switches to when `active`, keyed by its base variant. */
 export const DEFAULT_ACTIVE_VARIANTS = {
 	'default': 'filled',
 	'light': 'filled',

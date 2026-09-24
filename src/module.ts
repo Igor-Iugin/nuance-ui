@@ -48,7 +48,7 @@ export interface ModuleOptions {
 	/** Icon registry overrides */
 	icons?: Partial<NuanceIcons>
 
-	/** Variant an ActionIcon switches to when `active`, keyed by its base variant */
+	/** Variant a Button switches to when `active`, keyed by its base variant */
 	activeVariants?: Partial<ActiveVariantsMap>
 }
 

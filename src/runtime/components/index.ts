@@ -1,5 +1,4 @@
 export * from './accordion'
-export * from './action-icon'
 export * from './app-shell'
 
 export * from './avatar'

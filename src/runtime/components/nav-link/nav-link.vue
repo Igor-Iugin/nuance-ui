@@ -1,13 +1,13 @@
 <script setup lang='ts'>
-import type { LinkButtonProps } from '../link/link-button.vue'
+import type { ButtonProps } from '../button'
 
 import Box from '../box/box.vue'
-import LinkButton from '../link/link-button.vue'
+import Button from '../button/button.vue'
 
 
 export type NavLinkVariant = 'filled' | 'light' | 'subtle' | 'outline'
 
-export interface NavLinkProps extends Omit<LinkButtonProps, 'active' | 'label' | 'variant'> {
+export interface NavLinkProps extends Omit<ButtonProps, 'active' | 'label' | 'variant'> {
 	/** Link description displayed below the label */
 	description?: string
 
@@ -38,7 +38,7 @@ const {
 </script>
 
 <template>
-	<LinkButton
+	<Button
 		v-bind='rest'
 		:size
 		:radius
@@ -66,7 +66,7 @@ const {
 		<template v-if='$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
-	</LinkButton>
+	</Button>
 </template>
 
 <style module>
