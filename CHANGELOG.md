@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.5.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.4...v0.5.5)
+
+### 🩹 Fixes
+
+- **NavLink:** Pass attrs in button ([6f435e9](https://github.com/Igor-Iugin/nuance-ui/commit/6f435e9))
+- **NavLink:** Fixed active prop ([f2a4576](https://github.com/Igor-Iugin/nuance-ui/commit/f2a4576))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.3...v0.5.4)
