@@ -27,8 +27,8 @@ export interface NavLinkProps extends BoxProps, Omit<NuxtLinkProps, 'href' | 'cu
 	/** Link description displayed below the label */
 	description?: string
 
-	/** Active state */
-	active?: boolean
+	/** Active state, overrides route matching */
+	active?: boolean | null
 
 	/** Color from theme @default 'primary' */
 	color?: NuanceColor
@@ -90,7 +90,7 @@ defineOptions({ inheritAttrs: false })
 const {
 	label,
 	description,
-	active,
+	active = null,
 	color,
 	variant = 'filled',
 	radius,
@@ -184,11 +184,11 @@ function handleKeydown(event: KeyboardEvent) {
 			:class='[$style.root, classes?.root]'
 			:mod='[{
 				disabled,
-				"active": active !== undefined ? active : isActive,
+				"active": active ?? isActive,
 				"expanded": withChildren && opened,
 				"no-wrap": noWrap,
 			}, mod]'
-			:aria-current='(active !== undefined ? active : isActive)
+			:aria-current='(active ?? isActive)
 				? "page"
 				: undefined'
 			:aria-expanded='withChildren ? opened : undefined'
