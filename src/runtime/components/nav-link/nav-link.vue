@@ -182,11 +182,13 @@ function handleKeydown(event: KeyboardEvent) {
 			:class='[$style.root, classes?.root]'
 			:mod='[{
 				disabled,
-				"active": active || isActive,
+				"active": active !== undefined ? active : isActive,
 				"expanded": withChildren && opened,
 				"no-wrap": noWrap,
 			}, mod]'
-			:aria-current='active || isActive ? "page" : undefined'
+			:aria-current='(active !== undefined ? active : isActive)
+				? "page"
+				: undefined'
 			:aria-expanded='withChildren ? opened : undefined'
 			:aria-disabled='disabled ? "true" : undefined'
 			@click='handleClick($event, navigate)'
