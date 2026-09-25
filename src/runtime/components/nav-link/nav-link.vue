@@ -85,6 +85,8 @@ import Collapse from '../collapse.vue'
 import { pickLinkProps } from '../link/lib'
 
 
+defineOptions({ inheritAttrs: false })
+
 const {
 	label,
 	description,
@@ -173,7 +175,7 @@ function handleKeydown(event: KeyboardEvent) {
 		custom
 	>
 		<UnstyledButton
-			v-bind='rest'
+			v-bind='{ ...rest, ...$attrs }'
 			is='a'
 			:href
 			:rel='"rel" in linkProps ? linkProps.rel : undefined'
