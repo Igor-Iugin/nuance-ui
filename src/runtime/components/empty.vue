@@ -2,7 +2,7 @@
 import type { AnyString, Classes, NuanceRadius, NuanceSize, NuanceSpacing } from '@nui/types'
 
 import { useVarsResolver } from '@nui/composables'
-import { getRadius, getSize, getSpacing } from '@nui/utils'
+import { getFontSize, getLineHeight, getRadius, getSize, getSpacing } from '@nui/utils'
 
 import type { AvatarProps } from './avatar/avatar.vue'
 import type { BoxProps } from './box/box.vue'
@@ -73,6 +73,8 @@ const {
 	padding,
 	radius,
 	bdrs,
+	fz,
+	lh,
 	...rest
 } = defineProps<EmptyProps>()
 
@@ -81,6 +83,8 @@ const style = useVarsResolver<EmptyVars>(() => ({
 		'--empty-padding': getSpacing(padding),
 		'--empty-radius': radius || bdrs ? getRadius(radius || bdrs) : undefined,
 		'--empty-avatar-size': getSize(size, 'empty-avatar-size'),
+		'--empty-fz': getFontSize(fz),
+		'--empty-lh': getLineHeight(fz || lh),
 	},
 }))
 </script>
@@ -107,7 +111,7 @@ const style = useVarsResolver<EmptyVars>(() => ({
 					</Avatar>
 				</slot>
 
-				<NTitle class='slot-empty' :class='[$style.title, classes?.title]'>
+				<NTitle class='slot-empty' order='3' :class='[$style.title, classes?.title]'>
 					<slot name='title'>
 						{{ title }}
 					</slot>
@@ -152,6 +156,8 @@ const style = useVarsResolver<EmptyVars>(() => ({
 	--empty-padding: var(--spacing-sm);
 	--empty-bd: transparent;
 	--empty-bg: transparent;
+	--empty-fz: var(--font-size-h3);
+	--empty-lh: var(--line-height-h3);
 
 	position: relative;
 
@@ -216,7 +222,9 @@ const style = useVarsResolver<EmptyVars>(() => ({
 }
 
 .title {
+	font-size: var(--empty-fz);
 	font-weight: 600;
+	line-height: var(--empty-lh);
 	text-wrap: pretty;
 }
 
