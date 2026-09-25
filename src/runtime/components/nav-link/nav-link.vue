@@ -228,7 +228,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 			<Box
 				is='span'
-				v-if='!!$slots.leftSection || !!trailingIcon || withChildren'
+				v-if='!!$slots.rightSection || !!trailingIcon || withChildren'
 				:class='[$style.section, classes?.section]'
 				:mod='{
 					position: "right",
