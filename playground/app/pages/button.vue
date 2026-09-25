@@ -1,4 +1,7 @@
 <script setup lang='ts'>
+import PopoverDropdown from '@nui/components/popover/popover-dropdown.vue'
+
+
 const variants = [
 	'default',
 	'filled',
@@ -94,9 +97,16 @@ const inputSizes = [
 				<NButton active>
 					Active
 				</NButton>
-				<NButton icon='lucide:box' trailing-icon='lucide:chevron-down'>
-					Sections
-				</NButton>
+				<NPopover>
+					<NPopoverTarget>
+						<NButton icon='lucide:box' trailing-icon='lucide:chevron-down'>
+							Sections
+						</NButton>
+					</NPopoverTarget>
+					<PopoverDropdown>
+						Section list...
+					</PopoverDropdown>
+				</NPopover>
 			</div>
 		</section>
 

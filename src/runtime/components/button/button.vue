@@ -122,12 +122,11 @@ export interface ButtonProps
 <script lang='ts' setup>
 import { useConfig, useTheme, useVarsResolver } from '@nui/composables'
 import { BUTTON_SIZE_TOKENS, getBaseSize, getFontSize, getRadius, getSize, getSpacing } from '@nui/utils'
-import { createReusableTemplate } from '@vueuse/core'
-import { computed } from 'vue'
 
 import type { ButtonBaseProps } from './button-base.vue'
 
 import { pickLinkProps } from '../link/lib'
+import LinkProvider from '../link/link-provider.vue'
 import Loader from '../loader/loader.vue'
 import ButtonBase from './button-base.vue'
 import css from './button.module.css'
@@ -170,18 +169,7 @@ function resolvedVariant(isActive = false): ButtonVariant {
 		: variant
 }
 
-const [DefineTemplate, ButtonTemplate] = createReusableTemplate<{
-	href?: string | null
-	navigate?: (event: MouseEvent) => void
-	rel?: string | null
-	target?: string | null
-	isActive?: boolean
-}>()
-
-// ─── LINK ───
-
 const { link, rest } = pickLinkProps(props)
-const isLink = computed(() => !!link.to)
 
 const theme = useTheme()
 
@@ -219,15 +207,15 @@ const sectionStyle = useVarsResolver<Omit<ButtonVars, 'root'>>(() => ({
 </script>
 
 <template>
-	<DefineTemplate v-slot='{ href, navigate, rel, target, isActive }'>
+	<LinkProvider v-slot='{ href, navigate, rel, target, isActive }' :link>
 		<ButtonBase
 			:is
+			v-bind='rest'
 			:href
 			:navigate
 			:rel
 			:target
 			:disabled='disabled || loading'
-			v-bind='rest'
 			:mod='[{
 				"with-left-section": !!$slots.leftSection || !!icon,
 				"with-right-section": !!$slots.rightSection || !!trailingIcon,
@@ -293,22 +281,5 @@ const sectionStyle = useVarsResolver<Omit<ButtonVars, 'root'>>(() => ({
 				</span>
 			</span>
 		</ButtonBase>
-	</DefineTemplate>
-
-	<NuxtLink
-		v-if='isLink'
-		v-slot='{ href, navigate, isActive, ...linkProps }'
-		v-bind='link'
-		custom
-	>
-		<ButtonTemplate
-			:href
-			:navigate
-			:is-active
-			:rel='"rel" in linkProps ? linkProps.rel : undefined'
-			:target='"target" in linkProps ? linkProps.target : undefined'
-		/>
-	</NuxtLink>
-
-	<ButtonTemplate v-else />
+	</LinkProvider>
 </template>

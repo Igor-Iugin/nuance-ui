@@ -115,7 +115,7 @@ useHead({
 }
 
 .navbar {
-	gap: var(--spacing-xs);
+	gap: var(--spacing-2xs);
 
 	padding: var(--spacing-sm) var(--spacing-xs);
 }
