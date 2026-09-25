@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.5.6
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.5...v0.5.6)
+
+### 🚀 Enhancements
+
+- **Empty:** Smaller size of title ([be6e548](https://github.com/Igor-Iugin/nuance-ui/commit/be6e548))
+
+### 🩹 Fixes
+
+- **Text:** Line height sizing ([68ffe74](https://github.com/Igor-Iugin/nuance-ui/commit/68ffe74))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.5
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.4...v0.5.5)
