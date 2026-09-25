@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.5.4
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.3...v0.5.4)
+
+### 🩹 Fixes
+
+- **NavLink:** Set priority to `active` prop ([7f14bec](https://github.com/Igor-Iugin/nuance-ui/commit/7f14bec))
+- **NavLink:** RightSection slot name is now correct ([69a61dd](https://github.com/Igor-Iugin/nuance-ui/commit/69a61dd))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.3
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.2...v0.5.3)
