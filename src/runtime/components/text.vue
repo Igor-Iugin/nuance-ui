@@ -87,7 +87,7 @@ const style = useVarsResolver<TextVars>(theme => ({
 		'--text-fz': getFontSize(fz || size),
 		'--text-ff': ff ? `var(--font-family-${ff === 'text' ? '' : ff})` : undefined,
 		'--text-fw': fw?.toString(),
-		'--text-lh': getLineHeight(lh || size),
+		'--text-lh': getLineHeight(fz || lh || size),
 		'--text-gradient': variant === 'gradient' ? getGradient(gradient, theme) : undefined,
 		'--text-line-clamp': lineClamp?.toString(),
 		'--text-color': c ? getThemeColor(c, theme) : undefined,

@@ -86,7 +86,7 @@ export function getRadius(value: SizeValue): string | undefined {
 export const getFontSize = (value: SizeValue) => getSize(value, 'font-size', FONT_SIZE_TOKENS)
 
 /** Resolves a line-height token via the `--line-height-*` CSS variables. */
-export const getLineHeight = (value: SizeValue) => getSize(value, 'line-height', SIZE_TOKENS, false)
+export const getLineHeight = (value: SizeValue) => getSize(value, 'line-height', FONT_SIZE_TOKENS, false)
 
 /**
  * Resolves a shadow token via the `--shadow-*` CSS variables.
