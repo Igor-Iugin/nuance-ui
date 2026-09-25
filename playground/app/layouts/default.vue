@@ -19,7 +19,6 @@ useHead({
 		<NAppShellNavbar :class='$style.navbar'>
 			<NNavLink
 				to='/button'
-				variant='outline'
 				description='test'
 			>
 				Button
