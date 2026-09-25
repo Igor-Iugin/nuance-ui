@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.5.7
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.6...v0.5.7)
+
+### 🩹 Fixes
+
+- **Button:** Fixed passing `$attrs` props ([e14f98e](https://github.com/Igor-Iugin/nuance-ui/commit/e14f98e))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.6
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.5...v0.5.6)
