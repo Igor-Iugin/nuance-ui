@@ -41,9 +41,15 @@ interface ButtonVars {
 	rightSection: '--section-pointer-events'
 }
 
-export interface ButtonProps
-	extends Omit<ButtonBaseProps, 'rel' | 'href' | 'target' | 'navigate'>,
-	Omit<NuxtLinkProps, 'href' | 'custom'> {
+export type ButtonLinkProps = Omit<
+	ButtonBaseProps,
+	| 'rel'
+	| 'href'
+	| 'target'
+	| 'navigate'
+> & Omit<NuxtLinkProps, 'href' | 'custom'>
+
+export interface ButtonProps extends ButtonLinkProps {
 	label?: string
 
 	/** Color from theme */

@@ -91,16 +91,14 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<Button v-bind='props' @click='open()'>
+	<Button v-bind='props' :icon @click='open()'>
 		<template #leftSection>
-			<slot name='leftSection'>
-				<Icon :name='icon' />
-			</slot>
+			<slot name='leftSection' />
 		</template>
 		<template v-if='!!$slots.rightSection' #rightSection>
 			<slot name='rightSection' />
 		</template>
 
-		<slot>Загрузить файл</slot>
+		<slot />
 	</Button>
 </template>
