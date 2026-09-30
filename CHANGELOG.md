@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.6.0
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.7...v0.6.0)
+
+### 🚀 Enhancements
+
+- **new:** Dropzone & DropzoneFiles components ([d898c64](https://github.com/Igor-Iugin/nuance-ui/commit/d898c64))
+- **Dropzone:** Opotimize slot declaration ([6dd8978](https://github.com/Igor-Iugin/nuance-ui/commit/6dd8978))
+- **Dropzone:** Added validation for droped & dragged files ([8cb25ba](https://github.com/Igor-Iugin/nuance-ui/commit/8cb25ba))
+
+### 🩹 Fixes
+
+- **Dropzone:** Fix slot declaration ([3fbfe8a](https://github.com/Igor-Iugin/nuance-ui/commit/3fbfe8a))
+- **Button:** Fix square prop & default slot read ([4a5caa1](https://github.com/Igor-Iugin/nuance-ui/commit/4a5caa1))
+- **Dropzone:** Added styles for component, separate dropzone & file-list ([23aa83b](https://github.com/Igor-Iugin/nuance-ui/commit/23aa83b))
+
+### 🏡 Chore
+
+- **ai:** Updated skills ([7f045a0](https://github.com/Igor-Iugin/nuance-ui/commit/7f045a0))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.5.7
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.6...v0.5.7)
