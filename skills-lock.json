@@ -5,13 +5,13 @@
       "source": "skilld-dev/vue-ecosystem-skills",
       "sourceType": "github",
       "skillPath": "skills/floating-ui-vue-skilld/SKILL.md",
-      "computedHash": "ddc03d617abf1cb02b0707928f0cf3ffdf66f2c5264bffb02c1757b2b582f61a"
+      "computedHash": "716d1020c8203486b5cfeb46bb519df6ea7f6a03e3d955281dee6d7cbc9c41f0"
     },
     "nuxt": {
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/nuxt/SKILL.md",
-      "computedHash": "96dbdbfc06bf7045aeb9a463b972d5c0b5679d6dadf196d8ef6b98dc6defed2d"
+      "computedHash": "03fc229d7c6a300b2ded6d9f984b45d8a554c2c991199c54760893e627c91371"
     },
     "typescript-advanced-types": {
       "source": "wshobson/agents",
@@ -23,31 +23,13 @@
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/vitest/SKILL.md",
-      "computedHash": "943d436114c677802426741980146c07560bf375297666b03062444f4b98a785"
+      "computedHash": "21af2b13d47d31f3094b61c0f41abc8d6a7eed0df3c9a4029ea671f6978b7209"
     },
     "vue": {
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/vue/SKILL.md",
-      "computedHash": "9c241141e07e836e4f0537c63e8f929fba3767c2997250be38e699f19b75e3f2"
-    },
-    "vue-best-practices": {
-      "source": "antfu/skills",
-      "sourceType": "github",
-      "skillPath": "skills/vue-best-practices/SKILL.md",
-      "computedHash": "d7d22c8cb343583c3904692c4d1d7b50382945e433e4f6e053f4aabb9846cbc3"
-    },
-    "vue-testing-best-practices": {
-      "source": "antfu/skills",
-      "sourceType": "github",
-      "skillPath": "skills/vue-testing-best-practices/SKILL.md",
-      "computedHash": "18c7d8f42f350f927e37de055e34c97b8cfb9f79c12cf942f7f3d2a0821057b5"
-    },
-    "vueuse-functions": {
-      "source": "antfu/skills",
-      "sourceType": "github",
-      "skillPath": "skills/vueuse-functions/SKILL.md",
-      "computedHash": "5f32cd5f744671178284887c9ffc27a080e0e3316c0f7c3b22f4459c760daf49"
+      "computedHash": "29ad402cf2ff868b3b43160883fbc42e135223655a41d16092d0d205f2c1ed31"
     }
   }
 }
