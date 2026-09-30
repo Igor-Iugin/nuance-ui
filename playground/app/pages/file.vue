@@ -2,10 +2,9 @@
 import type { FileRejection } from '@nui/composables'
 
 
-const cFile = shallowRef<File | null>(null)
-const files = shallowRef<File[] | null>(null)
+const files = shallowRef<File | null>(null)
 
-const image = shallowRef<File | null>(null)
+const images = shallowRef<File[] | null>(null)
 const docs = shallowRef<File[] | null>(null)
 const rejections = shallowRef<FileRejection[]>([])
 
@@ -15,30 +14,22 @@ const formatRejection = ({ file, errors }: FileRejection) => `${file.name}: ${er
 <template>
 	<NTitle>Components for management files</NTitle>
 	<div :class='$style.buttons'>
-		<NFileUploadButton @change='f => cFile = f' />
-		<NFileUploadButton size='compact-sm' @change='f => cFile = f' />
+		<NFileUploadButton @change='f => files = f' />
+		<NFileUploadButton size='compact-sm' @change='f => files = f' />
 	</div>
-	<NText v-if='cFile'>
-		{{ cFile.name }}
+	<NText v-if='files'>
+		{{ files.name }}
 	</NText>
 
-	<hr>
-
-	<div :class='$style.buttons'>
-		<NFileUploadButton multiple @change='f => files = f' />
-		<NFileUploadButton size='compact-sm' multiple @change='f => files = f' />
-	</div>
-	<NText v-for='file in files' :key='file.name'>
-		{{ file.name }}
-	</NText>
-
-	<hr>
+	<NDivider my='xs' />
 
 	<NTitle order='3'>
-		Dropzone: single image up to 1MB
+		Dropzone: multiple images up to 1MB
 	</NTitle>
 	<NDropzone
-		v-model='image'
+		v-model='images'
+		multiple
+		layout='list'
 		accept='image/*'
 		:max-size='1024 ** 2'
 		label='Drop an image here or click to select'
@@ -46,7 +37,7 @@ const formatRejection = ({ file, errors }: FileRejection) => `${file.name}: ${er
 		@reject='r => rejections = r'
 	/>
 
-	<hr>
+	<NDivider my='xs' />
 
 	<NTitle order='3'>
 		Dropzone: up to 3 documents, custom status slots

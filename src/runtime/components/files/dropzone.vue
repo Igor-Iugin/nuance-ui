@@ -1,16 +1,32 @@
 <script lang='ts'>
-import type { FileError, FileRejection, FileUploadStatus } from '../../../composables/use-file-upload.ts'
-import type { Classes } from '../../../types/index.ts'
-import type { BoxProps } from '../../box/index.ts'
-import type { DropzoneFilesClasses, DropzoneFilesProps, DropzoneFilesSlots, DzOpenHandler, DzRemoveHandler } from './dropzone-files.vue'
+import type { FileError, FileRejection, FileUploadStatus } from '@nui/composables'
+import type { Classes } from '@nui/types'
 
-import Avatar from '../../avatar/avatar.vue'
+import type { BoxProps } from '../box/index.ts'
+import type {
+	DropzoneFilesClasses,
+	DropzoneFilesProps,
+	DropzoneFilesSlots,
+	DzOpenHandler,
+	DzRemoveHandler,
+} from './file-list.vue'
 
+import Avatar from '../avatar/avatar.vue'
+
+
+export interface DropzoneVars {
+	root:
+		| '--dropzone-fz'
+		| '--dropzone-file-fz'
+		| '--dropzone-file-px'
+		| '--dropzone-file-gap'
+		| '--dropzone-color'
+}
 
 export type DropzoneValue<M extends boolean> = M extends true ? File[] : File
 
 export interface DropzoneProps<M extends boolean = false>
-	extends BoxProps, DropzoneFilesProps {
+	extends BoxProps, DropzoneFilesProps<M> {
 	id?: string
 	/** Input name */
 	name?: string
@@ -32,7 +48,6 @@ export interface DropzoneProps<M extends boolean = false>
    * @default '*'
    */
 	accept?: string
-	multiple?: M & boolean
 	/** Maximum file size in bytes */
 	maxSize?: number
 	/** Maximum number of files per selection, exceeding it rejects the whole selection */
@@ -81,15 +96,15 @@ export interface DropzoneSlots<M extends boolean = false>
 </script>
 
 <script setup lang='ts' generic='M extends boolean = false'>
-import { useConfig, useFileUpload } from '@nui/composables'
+import { useConfig, useFileUpload, useVarsResolver } from '@nui/composables'
+import { getSize, getThemeColor } from '@nui/utils'
 import { createReusableTemplate, unrefElement } from '@vueuse/core'
 import { pick } from 'es-toolkit'
 import { computed, shallowRef, useTemplateRef, watch } from 'vue'
 
-import Box from '../../box/box.vue'
-import VisuallyHiddenInput from '../../visually-hidden/visually-hidden-input.vue'
-import DropzoneFiles from './dropzone-files.vue'
-import css from './dropzone.module.css'
+import Box from '../box/box.vue'
+import VisuallyHiddenInput from '../visually-hidden/visually-hidden-input.vue'
+import FileList from './file-list.vue'
 
 
 defineOptions({ inheritAttrs: false })
@@ -104,23 +119,24 @@ const {
 	interactive = true,
 	preview = true,
 	position: pos = 'outside',
-	multiple,
 	maxSize,
 	maxFiles,
 	validator,
 	reset,
 	classes,
-	icon: _icon,
+	icon: _icon = undefined,
 	label,
 	description,
 	// ---
+	multiple,
 	layout = 'grid',
 	color,
 	fileIcon,
-	fileImage,
+	fileImage = true,
 	fileDelete = true,
 	fileDeleteIcon,
 	format,
+	size = 'md',
 	...rest
 } = defineProps<DropzoneProps<M>>()
 
@@ -138,10 +154,20 @@ const modelValue = defineModel<DropzoneValue<M> | null>({
 
 const config = useConfig()
 
+const style = useVarsResolver<DropzoneVars>(theme => ({
+	root: {
+		'--dropzone-fz': getSize(size, 'dropzone-fz'),
+		'--dropzone-file-fz': getSize(size, 'dropzone-file-fz'),
+		'--dropzone-file-px': getSize(size, 'dropzone-file-px'),
+		'--dropzone-file-gap': getSize(size, 'dropzone-file-gap'),
+		'--dropzone-color': color ? getThemeColor(color, theme) : undefined,
+	},
+}))
+
 const [DefineFiles, ReuseFiles] = createReusableTemplate()
 
 const icon = computed(() => _icon ?? config.icons.upload)
-const position = computed(() => layout === 'grid' && multiple ? 'grid' : pos)
+const position = computed(() => layout === 'grid' ? 'inside' : pos)
 
 const rejections = shallowRef<FileRejection[]>([])
 
@@ -185,10 +211,14 @@ const { isOverDropZone, status, open } = useFileUpload(inputRef, dropzoneRef, {
 })
 
 const statusIcon = computed(() => ({
-	idle: icon.value as string,
+	idle: icon.value !== false ? icon.value : config.icons.upload,
 	accept: config.icons.check,
 	reject: config.icons.close,
 })[status.value])
+
+const noValue = computed(() => multiple
+	? !(modelValue.value as File[])?.length
+	: !modelValue.value)
 
 function remove(ix?: number) {
 	if (!modelValue.value)
@@ -222,9 +252,21 @@ defineExpose({
 </script>
 
 <template>
-	<Box v-bind='rest'>
+	<Box
+		v-bind='rest'
+		:class='$style.wrapper'
+		:style='style.root'
+		:mod='[{
+			status: !disabled && status,
+			position,
+			size,
+			highlight,
+			interactive,
+			disabled,
+		}]'
+	>
 		<DefineFiles>
-			<DropzoneFiles
+			<FileList
 				v-model='modelValue'
 				:classes='classes && pick(classes, [
 					"files",
@@ -241,6 +283,9 @@ defineExpose({
 				:file-icon
 				:file-image
 				:format
+				:layout
+				:multiple
+				:size
 				@remove='remove'
 			>
 				<template v-for='(_, slot) in $slots' #[slot]='scope'>
@@ -249,40 +294,38 @@ defineExpose({
 						v-bind='scope'
 					/>
 				</template>
-			</DropzoneFiles>
+			</FileList>
 		</DefineFiles>
 
-		<slot :open :remove :ui='css.root' :status :rejections>
+		<slot :open :remove :ui='$style.root' :status :rejections>
 			<Box
 				ref='zone'
-				:class='[css.root, classes?.root]'
+				:class='[$style.root, classes?.root]'
 				:aria-disabled='disabled || undefined'
-				:mod='{ dragging: isOverDropZone, status: !disabled && status }'
+				:mod='{ dragging: isOverDropZone }'
 				:tab-index='interactive && !disabled ? 0 : -1'
 				@click='interactive && !disabled && open()'
 				@keydown.space.prevent
 				@keydown.enter.space='interactive && !disabled && open()'
 			>
-				<ReuseFiles v-if='preview && position === "inside"' />
+				<ReuseFiles v-if='preview && !noValue && position === "inside"' />
 
 				<div
-					v-if='position === "inside" ? !preview || (
-						multiple ? (modelValue as File[])?.length : !modelValue
-					) : true'
-					:class='css.wrapper'
+					v-if='position === "inside" ? !preview || noValue : true'
+					:class='$style.inner'
 				>
-					<slot name='leading' :ui='css.avatar' :status>
+					<slot name='leading' :ui='$style.avatar' :status>
 						<Avatar
 							v-if='icon !== false'
-							:icon='statusIcon'
+							:fallback='statusIcon'
 							:size
-							:class='[css.avatar, classes?.avatar]'
+							:class='[$style.avatar, classes?.avatar]'
 						/>
 					</slot>
 
 					<div
 						v-if='label || !!$slots.label'
-						:class='[css.label, classes?.label]'
+						:class='[$style.label, classes?.label]'
 					>
 						<slot name='label' :status>
 							{{ label }}
@@ -290,7 +333,7 @@ defineExpose({
 					</div>
 					<div
 						v-if='description || !!$slots.description'
-						:class='[css.description, classes?.description]'
+						:class='[$style.description, classes?.description]'
 					>
 						<slot name='description' :status>
 							{{ description }}
@@ -299,7 +342,7 @@ defineExpose({
 
 					<div
 						v-if='!!$slots.actions'
-						:class='[css.actions, classes?.actions]'
+						:class='[$style.actions, classes?.actions]'
 					>
 						<slot
 							name='actions'
@@ -312,9 +355,8 @@ defineExpose({
 				</div>
 			</Box>
 
-			<ReuseFiles v-if='preview && position === "outside"' />
+			<ReuseFiles v-if='preview && !noValue && position === "outside"' />
 		</slot>
-
 
 		<VisuallyHiddenInput
 			:id
@@ -329,3 +371,132 @@ defineExpose({
 		/>
 	</Box>
 </template>
+
+<style module>
+.wrapper {
+	--dropzone-fz-xs: var(--font-size-sm);
+	--dropzone-fz-sm: var(--font-size-sm);
+	--dropzone-fz-md: var(--font-size-md);
+	--dropzone-fz-lg: var(--font-size-md);
+	--dropzone-fz-xl: var(--font-size-lg);
+
+	--dropzone-file-fz-xs: var(--font-size-sm);
+	--dropzone-file-fz-sm: var(--font-size-sm);
+	--dropzone-file-fz-md: var(--font-size-sm);
+	--dropzone-file-fz-lg: var(--font-size-md);
+	--dropzone-file-fz-xl: var(--font-size-md);
+
+	--dropzone-file-px-xs: rem(8px);
+	--dropzone-file-px-sm: rem(10px);
+	--dropzone-file-px-md: rem(10px);
+	--dropzone-file-px-lg: rem(12px);
+	--dropzone-file-px-xl: rem(12px);
+
+	--dropzone-file-gap-xs: rem(4px);
+	--dropzone-file-gap-sm: rem(6px);
+	--dropzone-file-gap-md: rem(6px);
+	--dropzone-file-gap-lg: rem(8px);
+	--dropzone-file-gap-xl: rem(8px);
+
+	--dropzone-fz: var(--dropzone-fz-md);
+	--dropzone-file-fz: var(--dropzone-file-fz-md);
+	--dropzone-file-px: var(--dropzone-file-px-md);
+	--dropzone-file-gap: var(--dropzone-file-gap-md);
+	--dropzone-color: var(--color-primary-filled);
+	--dropzone-bdrs: var(--radius-default);
+
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+
+	&:where([data-disabled]) {
+		cursor: not-allowed;
+
+		opacity: .75;
+	}
+}
+
+/* ─── ZONE ─── */
+
+.root {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	align-items: stretch;
+	justify-content: center;
+
+	width: 100%;
+	min-width: 0;
+	padding: var(--spacing-md);
+	border: rem(1px) dashed var(--color-default-border);
+	border-radius: var(--dropzone-bdrs);
+
+	font-size: var(--dropzone-fz);
+
+	background-color: var(--color-default);
+
+	transition: background-color 200ms ease-out;
+
+	&:focus-visible {
+		border-color: var(--dropzone-color);
+
+		outline: 3px solid alpha(var(--dropzone-color), 0.25);
+	}
+
+	&:where([data-dragging]) {
+		background-color: alpha(var(--color-default-hover), 0.25);
+	}
+
+	:where([data-highlight]) & {
+		border-color: var(--dropzone-color);
+	}
+
+	:where([data-interactive]:not([data-disabled])) & {
+		cursor: pointer;
+
+		@mixin hover {
+			background-color: alpha(var(--color-default-hover), 0.25);
+		}
+	}
+}
+
+.inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	padding: var(--spacing-sm) var(--spacing-md);
+
+	text-align: center;
+}
+
+.avatar {
+	flex-shrink: 0;
+}
+
+.label {
+	margin-top: var(--spacing-xs);
+
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.description {
+	margin-top: var(--spacing-2xs);
+
+	color: var(--color-dimmed);
+}
+
+.actions {
+	display: flex;
+	flex-shrink: 0;
+	flex-wrap: wrap;
+	gap: rem(6px);
+
+	margin-top: var(--spacing-md);
+}
+</style>

@@ -91,6 +91,7 @@ const {
 	mod,
 	src,
 	icon,
+	iconSize = '100%',
 	...rest
 } = defineProps<AvatarProps>()
 
@@ -115,7 +116,7 @@ const style = useVarsResolver<AvatarVars>(theme => {
 	return {
 		root: {
 			'--avatar-size': getSize(size, 'avatar-size'),
-			'--avatar-icon-size': getSpacing(size),
+			'--avatar-icon-size': getSpacing(iconSize ?? size),
 			'--avatar-radius': radius === undefined ? undefined : getRadius(radius),
 			'--avatar-bg': color || variant ? background : undefined,
 			'--avatar-color': color || variant ? text : undefined,
