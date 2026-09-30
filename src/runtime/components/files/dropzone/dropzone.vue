@@ -61,22 +61,22 @@ export interface DropzoneProps<M extends boolean = false>
 
 export interface DropzoneSlots<M extends boolean = false>
 	extends DropzoneFilesSlots<M> {
-	default: [
-		open: DzOpenHandler,
-		removeFile: DzRemoveHandler,
-		ui: string,
-		status: FileUploadStatus,
-		rejections: FileRejection[],
-	]
-	leading: [ui: string, status: FileUploadStatus]
-	label: [status: FileUploadStatus]
-	description: [status: FileUploadStatus]
-	actions: [
-		files: DropzoneValue<M> | undefined,
-		open: DzOpenHandler,
-		remove: DzRemoveHandler,
-		rejections: FileRejection[],
-	]
+	default: (props: {
+		open: DzOpenHandler
+		remove: DzRemoveHandler
+		ui: string
+		status: FileUploadStatus
+		rejections: FileRejection[]
+	}) => any
+	leading: (props: { ui: string, status: FileUploadStatus }) => any
+	label: (props: { status: FileUploadStatus }) => any
+	description: (props: { status: FileUploadStatus }) => any
+	actions: (props: {
+		files: DropzoneValue<M> | null | undefined
+		open: DzOpenHandler
+		remove: DzRemoveHandler
+		rejections: FileRejection[]
+	}) => any
 }
 </script>
 
@@ -118,11 +118,11 @@ const {
 	color,
 	fileIcon,
 	fileImage,
-	fileDelete,
+	fileDelete = true,
 	fileDeleteIcon,
 	format,
 	...rest
-} = defineProps<DropzoneProps>()
+} = defineProps<DropzoneProps<M>>()
 
 const emits = defineEmits<{
 	change: [event: Event]
@@ -132,7 +132,9 @@ const emits = defineEmits<{
 
 defineSlots<DropzoneSlots<M>>()
 
-const modelValue = defineModel<DropzoneValue<M> | null>()
+const modelValue = defineModel<DropzoneValue<M> | null>({
+	default: p => (p.multiple ? [] : null) as unknown as DropzoneValue<M>,
+})
 
 const config = useConfig()
 
@@ -183,7 +185,7 @@ const { isOverDropZone, status, open } = useFileUpload(inputRef, dropzoneRef, {
 })
 
 const statusIcon = computed(() => ({
-	idle: icon.value,
+	idle: icon.value as string,
 	accept: config.icons.check,
 	reject: config.icons.close,
 })[status.value])
@@ -261,7 +263,7 @@ defineExpose({
 				@keydown.space.prevent
 				@keydown.enter.space='interactive && !disabled && open()'
 			>
-				<ReuseFiles v-if='position === "inside"' />
+				<ReuseFiles v-if='preview && position === "inside"' />
 
 				<div
 					v-if='position === "inside" ? !preview || (
@@ -310,7 +312,7 @@ defineExpose({
 				</div>
 			</Box>
 
-			<ReuseFiles v-if='position === "outside"' />
+			<ReuseFiles v-if='preview && position === "outside"' />
 		</slot>
 
 

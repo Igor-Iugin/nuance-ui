@@ -17,75 +17,77 @@ useHead({
 		:date-config='{ locale: "ru-RU" }'
 	>
 		<NAppShellNavbar :class='$style.navbar'>
-			<NNavLink to='/button' description='test'>
-				Button
-			</NNavLink>
-			<NNavLink to='/menu'>
-				Menu
-			</NNavLink>
-			<NNavLink to='/badge'>
-				Badge
-			</NNavLink>
-			<NNavLink to='/file'>
-				Files
-			</NNavLink>
-			<NNavLink to='/inputs'>
-				Inputs
-			</NNavLink>
-			<NNavLink to='/alert'>
-				Alert
-			</NNavLink>
-			<NNavLink to='/dates'>
-				Dates
-			</NNavLink>
-			<NNavLink to='/avatar'>
-				Avatar
-			</NNavLink>
-			<NNavLink to='/breadcrumbs'>
-				Breadcrumbs
-			</NNavLink>
-			<NNavLink to='/tree'>
-				Tree
-			</NNavLink>
-			<NNavLink to='/table'>
-				Table
-			</NNavLink>
-			<NNavLink to='/progress'>
-				Progress
-			</NNavLink>
-			<NNavLink to='/checkbox'>
-				Checkbox
-			</NNavLink>
-			<NNavLink to='/form'>
-				Form
-			</NNavLink>
-			<NNavLink to='/modals'>
-				Modals
-			</NNavLink>
-			<NNavLink to='/segmented-control'>
-				Segmented control
-			</NNavLink>
-			<NNavLink to='/tabs'>
-				Tabs
-			</NNavLink>
-			<NNavLink to='/scroll-area'>
-				ScrollArea
-			</NNavLink>
-			<NNavLink to='/accordion'>
-				Accordion
-			</NNavLink>
-			<NNavLink to='/collapsible'>
-				Collapsible
-			</NNavLink>
-			<NNavLink to='/data-list'>
-				Data List
-			</NNavLink>
-			<NNavLink to='/timeline'>
-				Timeline
-			</NNavLink>
-			<NNavLink to='/notifications'>
-				Notifications
-			</NNavLink>
+			<NScrollArea auto-size>
+				<NNavLink to='/button' description='test'>
+					Button
+				</NNavLink>
+				<NNavLink to='/menu'>
+					Menu
+				</NNavLink>
+				<NNavLink to='/badge'>
+					Badge
+				</NNavLink>
+				<NNavLink to='/file'>
+					Files
+				</NNavLink>
+				<NNavLink to='/inputs'>
+					Inputs
+				</NNavLink>
+				<NNavLink to='/alert'>
+					Alert
+				</NNavLink>
+				<NNavLink to='/dates'>
+					Dates
+				</NNavLink>
+				<NNavLink to='/avatar'>
+					Avatar
+				</NNavLink>
+				<NNavLink to='/breadcrumbs'>
+					Breadcrumbs
+				</NNavLink>
+				<NNavLink to='/tree'>
+					Tree
+				</NNavLink>
+				<NNavLink to='/table'>
+					Table
+				</NNavLink>
+				<NNavLink to='/progress'>
+					Progress
+				</NNavLink>
+				<NNavLink to='/checkbox'>
+					Checkbox
+				</NNavLink>
+				<NNavLink to='/form'>
+					Form
+				</NNavLink>
+				<NNavLink to='/modals'>
+					Modals
+				</NNavLink>
+				<NNavLink to='/segmented-control'>
+					Segmented control
+				</NNavLink>
+				<NNavLink to='/tabs'>
+					Tabs
+				</NNavLink>
+				<NNavLink to='/scroll-area'>
+					ScrollArea
+				</NNavLink>
+				<NNavLink to='/accordion'>
+					Accordion
+				</NNavLink>
+				<NNavLink to='/collapsible'>
+					Collapsible
+				</NNavLink>
+				<NNavLink to='/data-list'>
+					Data List
+				</NNavLink>
+				<NNavLink to='/timeline'>
+					Timeline
+				</NNavLink>
+				<NNavLink to='/notifications'>
+					Notifications
+				</NNavLink>
+			</NScrollArea>
 		</NAppShellNavbar>
 
 		<NAppShellHeader :class='$style.header'>

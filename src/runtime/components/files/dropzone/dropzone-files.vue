@@ -54,31 +54,28 @@ export interface DropzoneFilesEmits {
 }
 
 export interface DropzoneFilesSlots<M extends boolean = false> {
-	'files': [ files: DropzoneValue<M>, remove: DzRemoveHandler ]
-	'files-top': [
-		files: DropzoneValue<M>,
-		open: DzOpenHandler,
-		remove: DzRemoveHandler,
-	]
-	'files-bottom': [
-		files: DropzoneValue<M>,
-		open: DzOpenHandler,
-		remove: DzRemoveHandler,
-	]
-	'file': [
-		file: File,
-		ix: number,
-		remove: DzRemoveHandler,
-	]
-	'file-leading': [ file: File, ix: number, ui: string ]
-	'file-name': [ file: File, ix: number ]
-	'file-size': [ file: File, ix: number ]
-	'file-trailing': [
-		file: File,
-		ix: number,
-		ui: string,
-		remove: DzRemoveHandler,
-	]
+	'files': (props: {
+		files: DropzoneValue<M> | null
+		remove: DzRemoveHandler
+	}) => any
+	'files-top': (props: {
+		files: DropzoneValue<M> | null
+		remove: DzRemoveHandler
+	}) => any
+	'files-bottom': (props: {
+		files: DropzoneValue<M> | null
+		remove: DzRemoveHandler
+	}) => any
+	'file': (props: { file: File, ix: number, remove: DzRemoveHandler }) => any
+	'file-leading': (props: { file: File, ix: number, ui?: string }) => any
+	'file-name': (props: { file: File, ix: number }) => any
+	'file-size': (props: { file: File, ix: number }) => any
+	'file-trailing': (props: {
+		file: File
+		ix: number
+		ui?: string
+		remove: DzRemoveHandler
+	}) => any
 }
 </script>
 
@@ -96,7 +93,9 @@ const emit = defineEmits<DropzoneFilesEmits>()
 defineSlots<DropzoneFilesSlots<M>>()
 
 const config = useConfig()
-const value = defineModel<DropzoneValue<M> | null>()
+const value = defineModel<DropzoneValue<M> | null>({
+	default: p => (p.multiple ? [] : null) as unknown as DropzoneValue<M>,
+})
 
 const remove = (ix?: number) => emit('remove', ix)
 
@@ -120,12 +119,12 @@ function formatter(bytes: number): string {
 </script>
 
 <template>
-	<slot name='files-top' />
+	<slot name='files-top' :files='value' :remove='remove' />
 
 	<div :class='css.files'>
 		<slot name='files' :files='value' :remove='remove'>
 			<div
-				v-for='(file, ix) in Array.isArray(value) ? value : [value]'
+				v-for='(file, ix) in [value ?? []].flat() as File[]'
 				:key='(file as File).name'
 				:class='css.file'
 			>
@@ -182,7 +181,7 @@ function formatter(bytes: number): string {
 		</slot>
 	</div>
 
-	<slot name='files-bottom' />
+	<slot name='files-bottom' :files='value' :remove='remove' />
 </template>
 
 <style module>
