@@ -123,6 +123,12 @@ export interface ButtonProps extends ButtonLinkProps {
 
 	onClick?: ((event: MouseEvent) => void) | Array<((event: MouseEvent) => void)>
 }
+
+export interface ButtonSlots {
+	default: []
+	leftSection: []
+	rightSection: []
+}
 </script>
 
 <script lang='ts' setup>
@@ -149,7 +155,7 @@ const {
 	trailingIcon,
 	loading,
 	disabled,
-	square,
+	square = undefined,
 	block,
 	classes,
 	rightSectionProps,
@@ -161,6 +167,8 @@ const {
 	onClick,
 	...props
 } = defineProps<ButtonProps>()
+
+defineSlots<ButtonSlots>()
 
 const { variantResolver, activeVariants } = useConfig()
 

@@ -6,7 +6,7 @@ import { useConfig } from '@nui/composables'
 import { useFileDialog } from '@vueuse/core'
 import { computed, toValue } from 'vue'
 
-import type { ButtonProps } from '../button'
+import type { ButtonProps, ButtonSlots } from '../button'
 
 import Button from '../button/button.vue'
 
@@ -48,6 +48,7 @@ const {
 	reset: _reset,
 	directory,
 	icon: _icon,
+	square = undefined,
 	...props
 } = defineProps<FileUploadButtonProps<Multiple>>()
 
@@ -56,8 +57,10 @@ const emit = defineEmits<{
 	cancel: []
 }>()
 
+defineSlots<ButtonSlots>()
+
 const { icons } = useConfig()
-const icon = computed(() => _icon ?? icons.plus)
+const icon = computed(() => _icon ?? icons.upload)
 
 const isMultiple = computed(() => {
 	const val = toValue(multiple)
@@ -91,14 +94,9 @@ defineExpose({ files, reset })
 </script>
 
 <template>
-	<Button v-bind='props' :icon @click='open()'>
-		<template #leftSection>
-			<slot name='leftSection' />
+	<Button v-bind='props' :square :icon @click='open()'>
+		<template v-for='(_, slot) in $slots' #[slot]='scope'>
+			<slot :name='slot as keyof ButtonSlots' v-bind='scope' />
 		</template>
-		<template v-if='!!$slots.rightSection' #rightSection>
-			<slot name='rightSection' />
-		</template>
-
-		<slot />
 	</Button>
 </template>
