@@ -1,7 +1,7 @@
 <script lang='ts'>
 import type { Classes } from '../../../types/index.ts'
 import type { BoxProps } from '../../box/index.ts'
-import type { DropzoneFilesClasses, DropzoneFilesEmits, DropzoneFilesProps, DropzoneFilesSlots, DzOpenHandler, DzRemoveHandler } from './dropzone-files.vue'
+import type { DropzoneFilesClasses, DropzoneFilesProps, DropzoneFilesSlots, DzOpenHandler, DzRemoveHandler } from './dropzone-files.vue'
 
 import Avatar from '../../avatar/avatar.vue'
 
@@ -72,7 +72,7 @@ export interface DropzoneSlots<M extends boolean = false>
 
 <script setup lang='ts' generic='M extends boolean = false'>
 import { useConfig, useFileUpload } from '@nui/composables'
-import { unrefElement } from '@vueuse/core'
+import { createReusableTemplate, unrefElement } from '@vueuse/core'
 import { pick } from 'es-toolkit'
 import { computed, useTemplateRef, watch } from 'vue'
 
@@ -111,13 +111,15 @@ const {
 	...rest
 } = defineProps<DropzoneProps>()
 
-const emits = defineEmits<{ change: [event: Event] } & DropzoneFilesEmits>()
+const emits = defineEmits<{ change: [event: Event] }>()
 
 defineSlots<DropzoneSlots<M>>()
 
 const modelValue = defineModel<DropzoneValue<M> | null>()
 
 const config = useConfig()
+
+const [DefineFiles, ReuseFiles] = createReusableTemplate()
 
 const icon = computed(() => _icon ?? config.icons.upload)
 const position = computed(() => layout === 'grid' && multiple ? 'grid' : pos)
@@ -177,13 +179,42 @@ watch(modelValue, value => {
 })
 
 defineExpose({
-	input: inputRef,
+	$el: inputRef,
 	dropzone: dropzoneRef,
 })
 </script>
 
 <template>
 	<Box v-bind='rest'>
+		<DefineFiles>
+			<DropzoneFiles
+				v-model='modelValue'
+				:classes='classes && pick(classes, [
+					"files",
+					"file",
+					"fileName",
+					"fileSize",
+					"fileWrapper",
+					"fileTrailingButton",
+					"fileLeadingAvatar",
+				])'
+				:color
+				:file-delete
+				:file-delete-icon
+				:file-icon
+				:file-image
+				:format
+				@remove='remove'
+			>
+				<template v-for='(_, slot) in $slots' #[slot]='scope'>
+					<slot
+						:name='slot as keyof DropzoneSlots<M>'
+						v-bind='scope'
+					/>
+				</template>
+			</DropzoneFiles>
+		</DefineFiles>
+
 		<slot :open='open' :remove='remove' :ui='css.root'>
 			<Box
 				ref='zone'
@@ -195,68 +226,7 @@ defineExpose({
 				@keydown.space.prevent
 				@keydown.enter.space='interactive && !disabled && open()'
 			>
-				<DropzoneFiles
-					v-if='position === "outside"'
-					v-model='modelValue'
-					:classes='classes && pick(classes, [
-						"files",
-						"file",
-						"fileName",
-						"fileSize",
-						"fileWrapper",
-						"fileTrailingButton",
-						"fileLeadingAvatar",
-					])'
-					:color
-					:file-delete
-					:file-delete-icon
-					:file-icon
-					:file-image
-					:format
-					@remove='ix => $emit("remove", ix)'
-				>
-					<template v-if='$slots["files-top"]' #files-top>
-						<slot
-							name='files-top'
-							:files='modelValue'
-							:open='open'
-							:remove='remove'
-						/>
-					</template>
-
-					<template #file='{ file, ix, remove }'>
-						<slot name='file' :file :ix :remove />
-					</template>
-
-					<template #files='{ files, remove }'>
-						<slot name='files' :files :remove />
-					</template>
-
-					<template #file-name='{ file, ix }'>
-						<slot name='file-name' :file :ix />
-					</template>
-
-					<template #file-leading='{ file, ix, ui }'>
-						<slot name='file-leading' :file :ix :ui />
-					</template>
-
-					<template #file-size='{ file, ix }'>
-						<slot name='file-size' :file :ix />
-					</template>
-
-					<template #file-trailing='{ file, ix, ui, remove }'>
-						<slot name='file-trailing' :file :ix :ui :remove />
-					</template>
-
-					<template v-if='!!$slots["files-bottom"]' #files-bottom>
-						<slot
-							name='files-bottom'
-							:files='modelValue'
-							:open='open'
-							:remove='remove'
-						/>
-					</template>
-				</DropzoneFiles>
+				<ReuseFiles v-if='position === "inside"' />
 
 				<div
 					v-if='position === "inside"
@@ -306,68 +276,7 @@ defineExpose({
 				</div>
 			</Box>
 
-			<DropzoneFiles
-				v-if='position === "outside"'
-				v-model='modelValue'
-				:classes='classes && pick(classes, [
-					"files",
-					"file",
-					"fileName",
-					"fileSize",
-					"fileWrapper",
-					"fileTrailingButton",
-					"fileLeadingAvatar",
-				])'
-				:color
-				:file-delete
-				:file-delete-icon
-				:file-icon
-				:file-image
-				:format
-				@remove='ix => $emit("remove", ix)'
-			>
-				<template v-if='$slots["files-top"]' #files-top>
-					<slot
-						name='files-top'
-						:files='modelValue'
-						:open='open'
-						:remove='remove'
-					/>
-				</template>
-
-				<template #file='{ file, ix, remove }'>
-					<slot name='file' :file :ix :remove />
-				</template>
-
-				<template #files='{ files, remove }'>
-					<slot name='files' :files :remove />
-				</template>
-
-				<template #file-name='{ file, ix }'>
-					<slot name='file-name' :file :ix />
-				</template>
-
-				<template #file-leading='{ file, ix, ui }'>
-					<slot name='file-leading' :file :ix :ui />
-				</template>
-
-				<template #file-size='{ file, ix }'>
-					<slot name='file-size' :file :ix />
-				</template>
-
-				<template #file-trailing='{ file, ix, ui, remove }'>
-					<slot name='file-trailing' :file :ix :ui :remove />
-				</template>
-
-				<template v-if='!!$slots["files-bottom"]' #files-bottom>
-					<slot
-						name='files-bottom'
-						:files='modelValue'
-						:open='open'
-						:remove='remove'
-					/>
-				</template>
-			</DropzoneFiles>
+			<ReuseFiles v-if='position === "outside"' />
 		</slot>
 
 
