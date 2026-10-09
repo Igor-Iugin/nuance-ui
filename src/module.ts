@@ -7,6 +7,7 @@ import {
 	defineNuxtModule,
 } from '@nuxt/kit'
 import { defu } from 'defu'
+import { createRequire } from 'node:module'
 
 import type { PrimaryColor } from './build/generate-primary-css'
 import type { NuanceGradient, NuanceIcons } from './runtime/types'
@@ -52,6 +53,8 @@ export interface ModuleOptions {
 	activeVariants?: Partial<ActiveVariantsMap>
 }
 
+const require = createRequire(import.meta.url)
+
 const defaultConfig = {
 	autoImport: true,
 	theme: 'light',
@@ -82,6 +85,9 @@ export default defineNuxtModule<ModuleOptions>({
 			defaults: {
 				class: '',
 			},
+		},
+		'@nuxt/image': {
+			version: '>=2.0.0',
 		},
 	},
 	// Default configuration options of the Nuxt module
@@ -130,9 +136,9 @@ export default defineNuxtModule<ModuleOptions>({
 		nuxt.options.postcss.plugins = nuxt.options.postcss.plugins || {}
 
 		nuxt.options.postcss.plugins = defu(nuxt.options.postcss.plugins, {
-			'postcss-import': {},
-			'postcss-preset-mantine': {},
-			'postcss-simple-vars': {
+			// Absolute paths: plugins are nuance-ui deps, unresolvable from the app root under pnpm
+			[require.resolve('postcss-preset-mantine')]: {},
+			[require.resolve('postcss-simple-vars')]: {
 				variables: {
 					'breakpoint-xs': '36em',
 					'breakpoint-sm': '48em',
@@ -141,7 +147,7 @@ export default defineNuxtModule<ModuleOptions>({
 					'breakpoint-xl': '88em',
 				},
 			},
-			'autoprefixer': {},
+			autoprefixer: {},
 		})
 
 

@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-	modules: ['../src/module', '@nuxt/image'],
+	modules: ['../src/module'],
 	vite: {
 		optimizeDeps: {
 			include: [
