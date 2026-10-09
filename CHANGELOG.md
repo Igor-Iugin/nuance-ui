@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.7.0
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.6.0...v0.7.0)
+
+### 📦 Build
+
+- Reorder dependencies ([302384a](https://github.com/Igor-Iugin/nuance-ui/commit/302384a))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.6.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.5.7...v0.6.0)
