@@ -252,6 +252,7 @@ const style = useVarsResolver<BadgeVars>(theme => {
 		display: flex;
 
 		width: var(--badge-height);
+		min-width: var(--badge-height);
 		padding-inline: 2px;
 	}
 }
