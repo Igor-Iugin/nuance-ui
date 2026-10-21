@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.7.1
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.0...v0.7.1)
+
+### 🩹 Fixes
+
+- **badge:** Fixed circle sized styles ([f74a170](https://github.com/Igor-Iugin/nuance-ui/commit/f74a170))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.7.0
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.6.0...v0.7.0)
