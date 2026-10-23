@@ -12,6 +12,7 @@ const {
 	variant = 'subtle',
 	icon,
 	square: _square,
+	color = 'gray',
 	...props
 } = defineProps<ButtonProps>()
 const close = useDialogState()
@@ -25,6 +26,7 @@ const resolvedIcon = computed(() => icon ?? icons.close)
 		square
 		:icon='resolvedIcon'
 		:variant
+		:color
 		tabindex='0'
 		v-bind='props'
 		@click='close'
