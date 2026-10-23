@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.7.2
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.1...v0.7.2)
+
+### 🚀 Enhancements
+
+- **dialog:** Set color close button to gray ([ee3c29b](https://github.com/Igor-Iugin/nuance-ui/commit/ee3c29b))
+
+### ❤️ Contributors
+
+- Igor Yugin <i.yugin@robo-ts.ru>
+
 ## v0.7.1
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.0...v0.7.1)
