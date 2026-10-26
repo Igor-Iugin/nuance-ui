@@ -1,15 +1,7 @@
-<script setup lang='ts'>
-import type { AnyString, NuanceColor, NuanceRadius, NuanceSize } from '@nui/types'
-
-import { useVarsResolver } from '@nui/composables'
-import { getFontSize, getRadius, getSize, getThemeColor } from '@nui/utils'
-import { useTemplateRefsList } from '@vueuse/core'
-import { computed, useId, useTemplateRef } from 'vue'
+<script lang='ts'>
+import type { AnyString, NuanceColor, NuanceFontSize, NuanceRadius, NuanceSize } from '@nui/types'
 
 import type { BoxProps } from './box/box.vue'
-
-import Box from './box/box.vue'
-import FloatingIndicator from './floating-indicator.vue'
 
 
 interface SegmentedControlVars {
@@ -25,7 +17,7 @@ interface SegmentedControlVars {
 
 export interface SegmentedControlItem {
 	value: string
-	label: string
+	label?: string
 	disabled?: boolean
 	icon?: string
 }
@@ -36,6 +28,9 @@ export interface SegmentedControlProps extends BoxProps {
 
 	/** Component size @default 'md' */
 	size?: NuanceSize | AnyString
+
+	/** @default 'lg' */
+	iconSize?: NuanceFontSize | AnyString
 
 	/** Border radius */
 	radius?: NuanceRadius
@@ -67,11 +62,23 @@ export interface SegmentedControlProps extends BoxProps {
 	 */
 	withItemsBorders?: boolean
 }
+</script>
+
+<script setup lang='ts'>
+import { useVarsResolver } from '@nui/composables'
+import { getFontSize, getRadius, getSize, getThemeColor } from '@nui/utils'
+import { useTemplateRefsList } from '@vueuse/core'
+import { computed, useId, useTemplateRef } from 'vue'
+
+import Box from './box/box.vue'
+import FloatingIndicator from './floating-indicator.vue'
+
 
 const {
 	mod,
 	data,
 	size,
+	iconSize,
 	radius,
 	color,
 	transitionDuration,
@@ -118,6 +125,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 		'--sc-transition-timing-function': transitionTimingFunction,
 		'--sc-padding': getSize(size, 'sc-padding'),
 		'--sc-font-size': getFontSize(size),
+		'--sc-icon-size': getFontSize(iconSize),
 	},
 }))
 </script>
@@ -176,10 +184,10 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 					"read-only": readOnly,
 				}'
 			>
-				<span :class='$style.innerLabel'>
-					<Icon v-if='item?.icon' :name='item.icon' />
-					{{ item.label }}
-				</span>
+				<NBox :class='$style.innerLabel'>
+					<Icon v-if='item?.icon' :name='item.icon' :class='$style.icon' />
+					<span v-if='item?.label'>{{ item?.label }}</span>
+				</NBox>
 			</Box>
 		</Box>
 	</Box>
@@ -199,6 +207,7 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	--sc-transition-duration: 200ms;
 	--sc-transition-timing-function: ease;
 	--sc-font-size: var(--font-size-md);
+	--sc-icon-size: var(--font-size-lg);
 
 	position: relative;
 
@@ -268,14 +277,16 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	user-select: none;
 
 	overflow: hidden;
-	display: block;
+	display: flex;
+	gap: var(--spacing-2xs);
+	align-items: center;
+	justify-content: center;
 
 	padding: var(--sc-padding);
 	border-radius: var(--sc-radius, var(--radius-md));
 
 	font-size: var(--sc-font-size);
 	font-weight: 500;
-	text-align: center;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
@@ -386,9 +397,9 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 		content: '';
 
 		position: absolute;
+		inset-inline-start: 0;
 		top: 0;
 		bottom: 0;
-		inset-inline-start: 0;
 
 		width: 1px;
 
@@ -399,9 +410,9 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 
 	&[data-orientation='vertical'] {
 		&::before {
+			inset-inline: 0;
 			top: 0;
 			bottom: auto;
-			inset-inline: 0;
 
 			width: auto;
 			height: 1px;
@@ -442,5 +453,9 @@ const style = useVarsResolver<SegmentedControlVars>(theme => ({
 	display: inline-flex;
 	gap: var(--spacing-2xs);
 	align-items: center;
+}
+
+.icon {
+	font-size: var(--sc-icon-size);
 }
 </style>
