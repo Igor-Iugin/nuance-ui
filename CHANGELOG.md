@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.7.4
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.3...v0.7.4)
+
+### 🚀 Enhancements
+
+- ✨  Radio components ([26086ff](https://github.com/Igor-Iugin/nuance-ui/commit/26086ff))
+- **radio:** Added form fields ([090b67c](https://github.com/Igor-Iugin/nuance-ui/commit/090b67c))
+- **radio:** Added icon prop ([03dc449](https://github.com/Igor-Iugin/nuance-ui/commit/03dc449))
+
+### 🩹 Fixes
+
+- **popover:** Fix closed state ([9927833](https://github.com/Igor-Iugin/nuance-ui/commit/9927833))
+- **input-inline:** Fixed label position ([78da567](https://github.com/Igor-Iugin/nuance-ui/commit/78da567))
+
+### 🏡 Chore
+
+- **ai:** Migrate to codex ([d2ca0c2](https://github.com/Igor-Iugin/nuance-ui/commit/d2ca0c2))
+- **ai:** Added matt skills ([964f9e6](https://github.com/Igor-Iugin/nuance-ui/commit/964f9e6))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.7.3
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.2...v0.7.3)
