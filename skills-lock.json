@@ -1,35 +1,41 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "floating-ui-vue-skilld": {
       "source": "skilld-dev/vue-ecosystem-skills",
       "sourceType": "github",
       "skillPath": "skills/floating-ui-vue-skilld/SKILL.md",
-      "computedHash": "716d1020c8203486b5cfeb46bb519df6ea7f6a03e3d955281dee6d7cbc9c41f0"
+      "computedHash": ""
+    },
+    "modern-web-guidance": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "skillPath": "skills/modern-web-guidance/SKILL.md",
+      "computedHash": "9e69ce00dc314b64f6664031b70295ea46c7de93ac682c624808df6e48e08b66"
     },
     "nuxt": {
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/nuxt/SKILL.md",
-      "computedHash": "03fc229d7c6a300b2ded6d9f984b45d8a554c2c991199c54760893e627c91371"
+      "computedHash": ""
     },
     "typescript-advanced-types": {
       "source": "wshobson/agents",
       "sourceType": "github",
       "skillPath": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
-      "computedHash": "8cbf2bf600f392d7260e476e3202932a876e2281cda3b15a8b6a5a43f383252d"
+      "computedHash": "34c5b3863fde1fc85981ac583ecaf0140471b374d0b7002ac5bc0bea2cf38b24"
     },
     "vitest": {
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/vitest/SKILL.md",
-      "computedHash": "21af2b13d47d31f3094b61c0f41abc8d6a7eed0df3c9a4029ea671f6978b7209"
+      "computedHash": ""
     },
     "vue": {
       "source": "antfu/skills",
       "sourceType": "github",
       "skillPath": "skills/vue/SKILL.md",
-      "computedHash": "29ad402cf2ff868b3b43160883fbc42e135223655a41d16092d0d205f2c1ed31"
+      "computedHash": ""
     }
   }
 }
