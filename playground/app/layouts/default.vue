@@ -57,6 +57,9 @@ useHead({
 				<NNavLink to='/checkbox'>
 					Checkbox
 				</NNavLink>
+				<NNavLink to='/radio'>
+					Radio
+				</NNavLink>
 				<NNavLink to='/form'>
 					Form
 				</NNavLink>

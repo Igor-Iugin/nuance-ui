@@ -39,6 +39,7 @@ export type * from './paper.vue'
 
 export * from './popover'
 export * from './progress'
+export * from './radio'
 export * from './roving-focus'
 
 export type * from './segmented-control.vue'
