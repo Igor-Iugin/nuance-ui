@@ -19,6 +19,8 @@ export interface RadioProps extends RadioControlProps {
 	error?: string
 	labelPosition?: InlineInputProps['labelPosition']
 	color?: NuanceColor
+	/** Custom icon name. */
+	icon?: string
 	iconColor?: NuanceColor
 	variant?: RadioVariant
 	classes?: Classes<
@@ -100,6 +102,7 @@ const messageId = computed(() => props.error || slots.error
 				:disabled
 				:size
 				:color='props.color'
+				:icon='props.icon'
 				:icon-color='props.iconColor'
 				:variant='props.variant'
 				:classes='{ root: props.classes?.indicator, icon: props.classes?.icon }'

@@ -19,6 +19,7 @@ export interface RadioIndicatorProps {
 	disabled?: boolean
 	size?: NuanceSize
 	color?: NuanceColor
+	icon?: string
 	iconColor?: NuanceColor
 	variant?: RadioVariant
 	classes?: Classes<'root' | 'icon'>
@@ -57,7 +58,8 @@ const style = useVarsResolver<RadioVars>(theme => {
 	>
 		<span :class='[$style.icon, props.classes?.icon]'>
 			<slot :checked :disabled>
-				<span :class='$style.dot' />
+				<Icon v-if='props.icon' :name='props.icon' :class='$style.glyph' />
+				<span v-else :class='$style.dot' />
 			</slot>
 		</span>
 	</Box>
@@ -135,9 +137,13 @@ const style = useVarsResolver<RadioVars>(theme => {
 	}
 }
 
-.dot {
+.dot,
+.glyph {
 	inline-size: 100%;
 	block-size: 100%;
+}
+
+.dot {
 	border-radius: 50%;
 
 	background: currentColor;

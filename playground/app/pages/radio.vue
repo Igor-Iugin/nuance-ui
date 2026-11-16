@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 const framework = ref<string | null>('vue')
 const plan = ref<string | null>('personal')
+const customIcon = ref<string | null>('check')
 const locked = ref(false)
 const disabled = ref(false)
 const submitted = ref('')
@@ -27,6 +28,18 @@ function onSubmit(event: Event) {
 					<NRadio value='angular' label='Angular' disabled />
 				</NGroup>
 			</NRadioGroup>
+
+			<NRadioGroup v-model='customIcon' label='Custom icons' name='custom-icon'>
+				<NGroup>
+					<NRadio value='check' label='Check' icon='lucide:check' />
+					<NRadio value='star' label='Star' icon='lucide:star' variant='outline' color='teal' />
+				</NGroup>
+			</NRadioGroup>
+			<NGroup>
+				<NRadioIndicator icon='lucide:check' checked />
+				<NRadioIndicator icon='lucide:star' checked variant='outline' color='teal' />
+				<NRadioIndicator icon='lucide:check' checked disabled />
+			</NGroup>
 
 			<NGroup>
 				<NCheckbox v-model='locked' label='Read only' />
@@ -61,7 +74,13 @@ function onSubmit(event: Event) {
 			</NGroup>
 			<NRadioGroup label='Sizes'>
 				<NGroup>
-					<NRadio v-for='size in (["xs", "sm", "md", "lg", "xl"] as const)' :key='size' :size :value='size' :label='size' />
+					<NRadio
+						v-for='size in (["xs", "sm", "md", "lg", "xl"] as const)'
+						:key='size'
+						:size
+						:value='size'
+						:label='size'
+					/>
 				</NGroup>
 			</NRadioGroup>
 			<NRadio error='Choose an available option' label='Error state' />
