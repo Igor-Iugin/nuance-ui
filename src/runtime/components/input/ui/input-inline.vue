@@ -135,7 +135,7 @@ const style = computed(() => ({
 	--label-fz: var(--font-size-md);
 
 	&[data-label-position='left'] {
-		--label-order: 0;
+		--label-order: -1;
 	}
 
 	&[data-label-position='right'] {
