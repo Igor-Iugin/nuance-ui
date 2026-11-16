@@ -63,6 +63,12 @@ const style = computed(() => ({
 
 	transition: opacity 0.2s, overlay 0.2s allow-discrete, display 0.2s allow-discrete;
 
+	&:not(:popover-open) {
+		pointer-events: none;
+
+		display: none;
+	}
+
 
 	&:popover-open {
 		opacity: 1;
