@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.7.5
+
+[compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.4...v0.7.5)
+
+### 🩹 Fixes
+
+- **number-input:** Simplify stepping and round decimal values ([73c55b3](https://github.com/Igor-Iugin/nuance-ui/commit/73c55b3))
+
+### ❤️ Contributors
+
+- Igor-Iugin <igoriugin@yandex.ru>
+
 ## v0.7.4
 
 [compare changes](https://github.com/Igor-Iugin/nuance-ui/compare/v0.7.3...v0.7.4)
