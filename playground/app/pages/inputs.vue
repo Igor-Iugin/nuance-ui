@@ -25,7 +25,7 @@ const otp = ref('1523')
 	<section :class='$style.root'>
 		<div :class='$style.flex'>
 			<NEmailInput label='Email input' />
-			<NNumberInput label='Number input' />
+			<NNumberInput label='Number input' :step='0.01' />
 			<NPasswordInput label='Password input' />
 			<NTextInput label='Text input' autocomplete='off' />
 		</div>

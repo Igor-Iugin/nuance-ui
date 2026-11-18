@@ -1,11 +1,11 @@
 <script setup lang='ts'>
-import { useConfig } from '@nui/composables'
-import { clamp } from '@vueuse/core'
+import { clamp, round } from 'es-toolkit'
 import { shallowRef } from 'vue'
 
 import type { InputWrapperProps } from './index'
 import type { InputSectionProps, InputStateProps } from './types'
 
+import { useConfig } from '../../composables'
 import UnstyledButton from '../button/unstyled-button.vue'
 import BaseInput from './ui/input-base.vue'
 import InputWrapper from './ui/input-wrapper.vue'
@@ -39,26 +39,34 @@ const {
 	...rest
 } = defineProps<NumberInputProps>()
 
-const focused = shallowRef<boolean>(false)
+const focused = shallowRef(false)
 const { icons } = useConfig()
 
 const value = defineModel<number>({ default: 0 })
 
+function decimalPlaces(number: number) {
+	const [coefficient = '', exponent = '0'] = String(number).split('e')
+	return Math.max(0, (coefficient.split('.')[1]?.length ?? 0) - Number(exponent))
+}
+
+function changeValue(direction: 1 | -1) {
+	if (rest.disabled || rest.readonly)
+		return
+
+	const current = Number.isFinite(value.value) ? value.value : 0
+	const precision = Math.max(decimalPlaces(current), decimalPlaces(step))
+	const next = current + direction * step
+	const normalized = Number.isSafeInteger(Math.round(next * 10 ** precision))
+		? round(next, precision)
+		: next
+	value.value = clamp(normalized, min, max)
+}
+
 function handleWheel(event: WheelEvent) {
-	if (!focused.value)
+	if (!focused.value || Math.abs(event.deltaY) <= Math.abs(event.deltaX))
 		return
 
-	// if on a trackpad, users can scroll in both X and Y at once, check the magnitude of the change
-	// if it's mostly in the X direction, then just return, the user probably doesn't mean to inc/dec
-	// this isn't perfect, events come in fast with small deltas and a part of the scroll may give a false indication
-	// especially if the user is scrolling near 45deg
-	if (Math.abs(event.deltaY) <= Math.abs(event.deltaX))
-		return
-
-	if (event.deltaY > 0)
-		value.value = clamp(value.value + step, min, max)
-	else if (event.deltaY < 0)
-		value.value = clamp(value.value - step, min, max)
+	changeValue(event.deltaY > 0 ? 1 : -1)
 }
 
 function handleBlur() {
@@ -91,6 +99,8 @@ function handleBlur() {
 					@focus='focused = true'
 					@blur='handleBlur()'
 					@wheel.prevent='handleWheel'
+					@keydown.up.prevent='changeValue(1)'
+					@keydown.down.prevent='changeValue(-1)'
 				>
 			</template>
 
@@ -102,15 +112,19 @@ function handleBlur() {
 					<div :class='$style.controls'>
 						<UnstyledButton
 							:class='$style.control'
-							:disabled='disabled || (typeof value === "number" && !Number.isNaN(max) && value >= max!)'
-							@click='value = clamp(value + step, min, max)'
+							:disabled='disabled
+								|| readonly
+								|| (typeof value === "number" && value >= max)'
+							@click='changeValue(1)'
 						>
 							<Icon :name='icons.chevronUp' />
 						</UnstyledButton>
 						<UnstyledButton
 							:class='$style.control'
-							:disabled='disabled || (typeof value === "number" && !Number.isNaN(min) && value <= min!)'
-							@click='value = clamp(value - step, min, max)'
+							:disabled='disabled
+								|| readonly
+								|| (typeof value === "number" && value <= min)'
+							@click='changeValue(-1)'
 						>
 							<Icon :name='icons.chevronDown' />
 						</UnstyledButton>
